@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="84df3e10-21cf-4624-9174-a04edf34df46" name="Changes" comment="implementação inicial do SDK">
+      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core-defaults/pom.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core-defaults/src/test/java/global/maplink/http/HttpAsyncEngineTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core-defaults/src/test/java/global/maplink/json/JsonMapperTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/src/main/java/global/maplink/MapLinkSDK.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/src/main/java/global/maplink/NoImplementationFoundException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/src/main/java/global/maplink/env/Environment.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/src/main/java/global/maplink/env/EnvironmentCatalog.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/src/main/java/global/maplink/http/HttpAsyncEngine.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/src/main/java/global/maplink/http/Response.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/src/main/java/global/maplink/http/request/GetRequest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/src/main/java/global/maplink/http/request/Request.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/src/main/java/global/maplink/json/JsonException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/src/main/java/global/maplink/json/JsonMapper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/src/test/java/global/maplink/MapLinkSDKTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/src/test/java/global/maplink/env/EnvironmentTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/src/test/java/global/maplink/http/HttpAsyncEngineTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/src/test/java/global/maplink/http/ResponseTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/src/test/java/global/maplink/http/request/GetRequestTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/src/test/java/global/maplink/json/JsonMapperTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/geocode/src/main/java/global/maplink/geocode/async/GeocodeAsyncAPI.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/geocode/src/main/java/global/maplink/geocode/async/GeocodeAsyncApiImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/geocode/src/main/java/global/maplink/geocode/common/Type.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/geocode/src/main/java/global/maplink/geocode/suggestions/SuggestionsRequest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/geocode/src/main/java/global/maplink/geocode/suggestions/SuggestionsResponse.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/geocode/src/main/java/global/maplink/geocode/sync/GeocodeSyncAPI.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/geocode/src/main/java/global/maplink/geocode/sync/GeocodeSyncApiImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/http-engine-java11-client/src/main/java/global/maplink/http/HttpAsyncEngineJava11Impl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/http-engine-java11-client/src/main/resources/META-INF/services/global.maplink.http.HttpAsyncEngine" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/http-engine-java11-client/src/test/java/global/maplink/http/HttpAsyncEngineJava11ImplTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/json-mapper-jackson/src/main/java/global/maplink/json/JacksonJsonMapperImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/json-mapper-jackson/src/main/resources/META-INF/services/global.maplink.json.JsonMapper" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/json-mapper-jackson/src/test/java/global/maplink/json/JacksonJsonMapperImplTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lombok.config" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Enum" />
+        <option value="Interface" />
+        <option value="Kotlin Class" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="jar://$USER_HOME$/.sdkman/candidates/java/11.0.12-open/lib/src.zip!/java.base/java/util/concurrent/CompletableFuture.java" root0="SKIP_INSPECTION" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectId" id="2BqTY8ktA4O8mzCTkyVEprcXSfG" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_ADD_EXTERNAL_FILES": "true",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "last_directory_selection": "/home/clecius/Development/MapLink/sdk/core/src/test/java/global/maplink/http",
+    "last_opened_file_path": "/home/clecius/Development/MapLink/sdk/core/src/test/resources"
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="CreateClassDialog.RecentsKey">
+      <recent name="global.maplink.http" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/core/src/test/resources" />
+      <recent name="$PROJECT_DIR$/json-mapper-jackson/src/main" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$" />
+      <recent name="$PROJECT_DIR$/core/src/main/java" />
+      <recent name="$PROJECT_DIR$/core/src/main" />
+    </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="global.maplink.json" />
+    </key>
+  </component>
+  <component name="RunManager" selected="JUnit.JacksonJsonMapperImplTest">
+    <configuration name="All in sdk-core" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="sdk-core" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="TEST_OBJECT" value="package" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="EnvironmentTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="sdk-core" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="global.maplink.env.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="global.maplink.env" />
+      <option name="MAIN_CLASS_NAME" value="global.maplink.env.EnvironmentTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="GetRequestTest" type="JUnit" factoryName="JUnit" nameIsGenerated="true">
+      <module name="sdk-core" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="global.maplink.http.request.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="global.maplink.http.request" />
+      <option name="MAIN_CLASS_NAME" value="global.maplink.http.request.GetRequestTest" />
+      <option name="METHOD_NAME" value="" />
+      <option name="TEST_OBJECT" value="class" />
+      <envs>
+        <env name="TESTE" value="123" />
+      </envs>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="HttpAsyncEngineJava11ImplTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="http-engine-java11-client" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="global.maplink.http.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="global.maplink.http" />
+      <option name="MAIN_CLASS_NAME" value="global.maplink.http.HttpAsyncEngineJava11ImplTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="JacksonJsonMapperImplTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="json-mapper-jackson" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="global.maplink.json.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="global.maplink.json" />
+      <option name="MAIN_CLASS_NAME" value="global.maplink.json.JacksonJsonMapperImplTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ResponseTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="sdk-core" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="global.maplink.http.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="global.maplink.http" />
+      <option name="MAIN_CLASS_NAME" value="global.maplink.http.ResponseTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <list>
+      <item itemvalue="JUnit.GetRequestTest" />
+      <item itemvalue="JUnit.All in sdk-core" />
+      <item itemvalue="JUnit.HttpAsyncEngineJava11ImplTest" />
+      <item itemvalue="JUnit.JacksonJsonMapperImplTest" />
+      <item itemvalue="JUnit.ResponseTest" />
+      <item itemvalue="JUnit.EnvironmentTest" />
+    </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="JUnit.JacksonJsonMapperImplTest" />
+        <item itemvalue="JUnit.HttpAsyncEngineJava11ImplTest" />
+        <item itemvalue="JUnit.EnvironmentTest" />
+        <item itemvalue="JUnit.ResponseTest" />
+        <item itemvalue="JUnit.All in sdk-core" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="84df3e10-21cf-4624-9174-a04edf34df46" name="Changes" comment="" />
+      <created>1657632660996</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1657632660996</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+    <MESSAGE value="implementação inicial do SDK" />
+    <option name="LAST_COMMIT_MESSAGE" value="implementação inicial do SDK" />
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/sdk$ResponseTest.ic" NAME="ResponseTest Coverage Results" MODIFIED="1658267492759" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>global.maplink.http.*</FILTER>
+    </SUITE>
+    <SUITE FILE_PATH="coverage/sdk$All_in_sdk.ic" NAME="All in sdk Coverage Results" MODIFIED="1658254231083" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
+    <SUITE FILE_PATH="coverage/sdk$All_in_sdk_core.ic" NAME="All in sdk-core Coverage Results" MODIFIED="1658260889343" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
+  </component>
+</project>
