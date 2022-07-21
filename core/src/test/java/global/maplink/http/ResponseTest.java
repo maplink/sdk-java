@@ -3,13 +3,9 @@ package global.maplink.http;
 import global.maplink.json.JsonMapper;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.Getter;
 import org.junit.jupiter.api.Test;
 
-import java.nio.charset.StandardCharsets;
 import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 
 import static java.nio.charset.StandardCharsets.UTF_8;
 import static java.util.stream.Collectors.joining;
