@@ -4,47 +4,24 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="84df3e10-21cf-4624-9174-a04edf34df46" name="Changes" comment="implementação inicial do SDK">
-      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/core-defaults/pom.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/core-defaults/src/test/java/global/maplink/http/HttpAsyncEngineTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/core-defaults/src/test/java/global/maplink/json/JsonMapperTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/core/src/main/java/global/maplink/MapLinkSDK.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/core/src/main/java/global/maplink/NoImplementationFoundException.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/core/src/main/java/global/maplink/env/Environment.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/core/src/main/java/global/maplink/env/EnvironmentCatalog.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/core/src/main/java/global/maplink/http/HttpAsyncEngine.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/core/src/main/java/global/maplink/http/Response.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/core/src/main/java/global/maplink/http/request/GetRequest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/core/src/main/java/global/maplink/http/request/Request.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/core/src/main/java/global/maplink/json/JsonException.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/core/src/main/java/global/maplink/json/JsonMapper.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/core/src/test/java/global/maplink/MapLinkSDKTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/core/src/test/java/global/maplink/env/EnvironmentTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/core/src/test/java/global/maplink/http/HttpAsyncEngineTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/core/src/test/java/global/maplink/http/ResponseTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/core/src/test/java/global/maplink/http/request/GetRequestTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/core/src/test/java/global/maplink/json/JsonMapperTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/geocode/src/main/java/global/maplink/geocode/async/GeocodeAsyncAPI.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/geocode/src/main/java/global/maplink/geocode/async/GeocodeAsyncApiImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/geocode/src/main/java/global/maplink/geocode/common/Type.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/geocode/src/main/java/global/maplink/geocode/suggestions/SuggestionsRequest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/geocode/src/main/java/global/maplink/geocode/suggestions/SuggestionsResponse.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/geocode/src/main/java/global/maplink/geocode/sync/GeocodeSyncAPI.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/geocode/src/main/java/global/maplink/geocode/sync/GeocodeSyncApiImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/http-engine-java11-client/src/main/java/global/maplink/http/HttpAsyncEngineJava11Impl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/http-engine-java11-client/src/main/resources/META-INF/services/global.maplink.http.HttpAsyncEngine" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/http-engine-java11-client/src/test/java/global/maplink/http/HttpAsyncEngineJava11ImplTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/json-mapper-jackson/src/main/java/global/maplink/json/JacksonJsonMapperImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/json-mapper-jackson/src/main/resources/META-INF/services/global.maplink.json.JsonMapper" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/json-mapper-jackson/src/test/java/global/maplink/json/JacksonJsonMapperImplTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lombok.config" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+    <list default="true" id="84df3e10-21cf-4624-9174-a04edf34df46" name="Changes" comment="mapeado retorno e adicionados testes">
+      <change afterPath="$PROJECT_DIR$/geocode/src/main/java/global/maplink/geocode/common/Address.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/geocode/src/main/java/global/maplink/geocode/common/GeoPoint.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/geocode/src/main/java/global/maplink/geocode/common/IBGECode.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/geocode/src/main/java/global/maplink/geocode/common/PointOfInterest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/geocode/src/main/java/global/maplink/geocode/common/State.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/geocode/src/main/java/global/maplink/geocode/suggestions/Suggestion.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/geocode/src/test/java/global/maplink/geocode/async/GeocodeAsyncApiTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/geocode/src/test/java/global/maplink/geocode/common/SampleFiles.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/geocode/src/test/java/global/maplink/geocode/suggestions/SuggestionsResponseTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/geocode/src/test/java/global/maplink/geocode/sync/GeocodeSyncApiTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/geocode/src/test/resources/geocode/json/sampleSuggestionsResponse.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/geocode/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/geocode/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/geocode/src/main/java/global/maplink/geocode/async/GeocodeAsyncAPI.java" beforeDir="false" afterPath="$PROJECT_DIR$/geocode/src/main/java/global/maplink/geocode/async/GeocodeAsyncAPI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/geocode/src/main/java/global/maplink/geocode/suggestions/SuggestionsRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/geocode/src/main/java/global/maplink/geocode/suggestions/SuggestionsRequest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/geocode/src/main/java/global/maplink/geocode/suggestions/SuggestionsResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/geocode/src/main/java/global/maplink/geocode/suggestions/SuggestionsResponse.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -54,9 +31,9 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Enum" />
         <option value="Interface" />
         <option value="Kotlin Class" />
+        <option value="Enum" />
         <option value="Class" />
       </list>
     </option>
@@ -85,7 +62,10 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "last_directory_selection": "/home/clecius/Development/MapLink/sdk/core/src/test/java/global/maplink/http",
-    "last_opened_file_path": "/home/clecius/Development/MapLink/sdk/core/src/test/resources"
+    "last_opened_file_path": "/home/clecius/Development/MapLink/geocoder-api",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2"
   }
 }]]></component>
   <component name="RecentsManager">
@@ -101,29 +81,25 @@
       <recent name="$PROJECT_DIR$/core/src/main/java" />
       <recent name="$PROJECT_DIR$/core/src/main" />
     </key>
+    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="global.maplink.geocode.common" />
+    </key>
     <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="global.maplink.geocode.async" />
       <recent name="global.maplink.json" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.JacksonJsonMapperImplTest">
-    <configuration name="All in sdk-core" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="sdk-core" />
-      <option name="PACKAGE_NAME" value="" />
-      <option name="TEST_OBJECT" value="package" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="EnvironmentTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="sdk-core" />
+  <component name="RunManager" selected="Maven.sdk [test]">
+    <configuration name="GeocodeSyncApiTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="sdk-geocode" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="global.maplink.env.*" />
+          <option name="PATTERN" value="global.maplink.geocode.sync.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="global.maplink.env" />
-      <option name="MAIN_CLASS_NAME" value="global.maplink.env.EnvironmentTest" />
+      <option name="PACKAGE_NAME" value="global.maplink.geocode.sync" />
+      <option name="MAIN_CLASS_NAME" value="global.maplink.geocode.sync.GeocodeSyncApiTest" />
       <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -178,36 +154,61 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="ResponseTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="sdk-core" />
+    <configuration name="SuggestionsResponseTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="sdk-geocode" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="global.maplink.http.*" />
+          <option name="PATTERN" value="global.maplink.geocode.suggestions.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="global.maplink.http" />
-      <option name="MAIN_CLASS_NAME" value="global.maplink.http.ResponseTest" />
+      <option name="PACKAGE_NAME" value="global.maplink.geocode.suggestions" />
+      <option name="MAIN_CLASS_NAME" value="global.maplink.geocode.suggestions.SuggestionsResponseTest" />
       <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="sdk [test]" type="MavenRunConfiguration" factoryName="Maven" temporary="true">
+      <MavenSettings>
+        <option name="myGeneralSettings" />
+        <option name="myRunnerSettings" />
+        <option name="myRunnerParameters">
+          <MavenRunnerParameters>
+            <option name="profiles">
+              <set />
+            </option>
+            <option name="goals">
+              <list>
+                <option value="test" />
+              </list>
+            </option>
+            <option name="pomFileName" value="pom.xml" />
+            <option name="profilesMap">
+              <map />
+            </option>
+            <option name="resolveToWorkspace" value="false" />
+            <option name="workingDirPath" value="$PROJECT_DIR$" />
+          </MavenRunnerParameters>
+        </option>
+      </MavenSettings>
+      <method v="2" />
+    </configuration>
     <list>
       <item itemvalue="JUnit.GetRequestTest" />
-      <item itemvalue="JUnit.All in sdk-core" />
+      <item itemvalue="JUnit.GeocodeSyncApiTest" />
+      <item itemvalue="JUnit.SuggestionsResponseTest" />
       <item itemvalue="JUnit.HttpAsyncEngineJava11ImplTest" />
       <item itemvalue="JUnit.JacksonJsonMapperImplTest" />
-      <item itemvalue="JUnit.ResponseTest" />
-      <item itemvalue="JUnit.EnvironmentTest" />
+      <item itemvalue="Maven.sdk [test]" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Maven.sdk [test]" />
+        <item itemvalue="JUnit.GeocodeSyncApiTest" />
+        <item itemvalue="JUnit.SuggestionsResponseTest" />
         <item itemvalue="JUnit.JacksonJsonMapperImplTest" />
         <item itemvalue="JUnit.HttpAsyncEngineJava11ImplTest" />
-        <item itemvalue="JUnit.EnvironmentTest" />
-        <item itemvalue="JUnit.ResponseTest" />
-        <item itemvalue="JUnit.All in sdk-core" />
       </list>
     </recent_temporary>
   </component>
@@ -236,13 +237,17 @@
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
     <MESSAGE value="implementação inicial do SDK" />
-    <option name="LAST_COMMIT_MESSAGE" value="implementação inicial do SDK" />
+    <MESSAGE value="mapeado retorno e adicionados testes" />
+    <option name="LAST_COMMIT_MESSAGE" value="mapeado retorno e adicionados testes" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/sdk$ResponseTest.ic" NAME="ResponseTest Coverage Results" MODIFIED="1658267492759" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
       <FILTER>global.maplink.http.*</FILTER>
     </SUITE>
     <SUITE FILE_PATH="coverage/sdk$All_in_sdk.ic" NAME="All in sdk Coverage Results" MODIFIED="1658254231083" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
+    <SUITE FILE_PATH="coverage/sdk$SuggestionsResponseTest.ic" NAME="SuggestionsResponseTest Coverage Results" MODIFIED="1658432217837" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>global.maplink.geocode.suggestions.*</FILTER>
+    </SUITE>
     <SUITE FILE_PATH="coverage/sdk$All_in_sdk_core.ic" NAME="All in sdk-core Coverage Results" MODIFIED="1658260889343" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
   </component>
 </project>

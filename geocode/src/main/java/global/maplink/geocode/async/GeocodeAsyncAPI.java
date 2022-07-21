@@ -6,15 +6,15 @@ import global.maplink.geocode.suggestions.SuggestionsRequest;
 import global.maplink.geocode.suggestions.SuggestionsResponse;
 
 import java.util.Optional;
-import java.util.concurrent.Future;
+import java.util.concurrent.CompletableFuture;
 
 public interface GeocodeAsyncAPI {
 
-    default Future<SuggestionsResponse> suggestions(String query) {
+    default CompletableFuture<SuggestionsResponse> suggestions(String query) {
         return suggestions(SuggestionsRequest.builder().query(query).build());
     }
 
-    Future<SuggestionsResponse> suggestions(SuggestionsRequest request);
+    CompletableFuture<SuggestionsResponse> suggestions(SuggestionsRequest request);
 
 
     static GeocodeAsyncAPI getInstance() {

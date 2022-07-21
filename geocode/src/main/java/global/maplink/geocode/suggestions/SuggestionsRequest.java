@@ -2,14 +2,10 @@ package global.maplink.geocode.suggestions;
 
 import global.maplink.geocode.common.Type;
 import lombok.Builder;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.ToString;
+import lombok.Data;
 
 @Builder
-@Getter
-@ToString
-@EqualsAndHashCode
+@Data
 public class SuggestionsRequest {
 
     private final String query;

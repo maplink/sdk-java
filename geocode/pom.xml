@@ -26,10 +26,17 @@
         </dependency>
 
         <dependency>
+            <groupId>global.maplink</groupId>
+            <artifactId>sdk-core-defaults</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter</artifactId>
             <scope>test</scope>
         </dependency>
+
         <dependency>
             <groupId>org.assertj</groupId>
             <artifactId>assertj-core</artifactId>
