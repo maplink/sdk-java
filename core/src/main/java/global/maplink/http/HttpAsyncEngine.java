@@ -5,6 +5,7 @@ import global.maplink.http.request.Request;
 
 import java.util.ServiceLoader;
 import java.util.concurrent.CompletableFuture;
+import java.util.stream.StreamSupport;
 
 public interface HttpAsyncEngine {
 
@@ -12,7 +13,8 @@ public interface HttpAsyncEngine {
 
 
     static HttpAsyncEngine loadDefault() {
-        return ServiceLoader.load(HttpAsyncEngine.class)
+        ServiceLoader<HttpAsyncEngine> load = ServiceLoader.load(HttpAsyncEngine.class);
+        return StreamSupport.stream(load.spliterator(), false)
                 .findFirst()
                 .orElseThrow(() -> new NoImplementationFoundException(HttpAsyncEngine.class));
     }

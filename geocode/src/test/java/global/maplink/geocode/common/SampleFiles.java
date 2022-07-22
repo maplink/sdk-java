@@ -9,7 +9,6 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 
 @RequiredArgsConstructor
-
 public enum SampleFiles {
 
     SUGGESTIONS_RESPONSE("geocode/json/sampleSuggestionsResponse.json");

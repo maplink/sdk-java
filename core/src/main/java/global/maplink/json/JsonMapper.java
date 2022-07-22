@@ -4,6 +4,7 @@ import global.maplink.NoImplementationFoundException;
 
 import java.util.List;
 import java.util.ServiceLoader;
+import java.util.stream.StreamSupport;
 
 import static java.nio.charset.StandardCharsets.UTF_8;
 
@@ -30,7 +31,8 @@ public interface JsonMapper {
 
 
     static JsonMapper loadDefault() {
-        return ServiceLoader.load(JsonMapper.class)
+        ServiceLoader<JsonMapper> load = ServiceLoader.load(JsonMapper.class);
+        return StreamSupport.stream(load.spliterator(), false)
                 .findFirst()
                 .orElseThrow(() -> new NoImplementationFoundException(JsonMapper.class));
     }
