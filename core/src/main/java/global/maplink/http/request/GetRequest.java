@@ -16,4 +16,9 @@ public class GetRequest extends Request {
     public GetRequest withHeader(String key, String value) {
         return (GetRequest) super.withHeader(key, value);
     }
+
+    @Override
+    public GetRequest withAuthorizationHeader(String value) {
+        return (GetRequest) super.withAuthorizationHeader(value);
+    }
 }

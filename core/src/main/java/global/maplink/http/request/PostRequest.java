@@ -23,5 +23,8 @@ public class PostRequest extends Request {
         return (PostRequest) super.withHeader(key, value);
     }
 
-
+    @Override
+    public PostRequest withAuthorizationHeader(String value) {
+        return (PostRequest) super.withAuthorizationHeader(value);
+    }
 }
