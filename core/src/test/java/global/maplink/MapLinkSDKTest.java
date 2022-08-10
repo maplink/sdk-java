@@ -11,7 +11,8 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 public class MapLinkSDKTest {
 
-    public static final String EMPTY_TOKEN = "EMPTY";
+    public static final String CLIENT_ID = "clientId";
+    public static final String CLIENT_SECRET = "secret";
 
     @BeforeEach
     public void cleanupConfig() {
@@ -27,7 +28,7 @@ public class MapLinkSDKTest {
     @Test
     public void mustCreateGlobalInstanceAfterConfiguration() {
         MapLinkSDK.configure()
-                .with(MapLinkCredentials.ofToken(EMPTY_TOKEN))
+                .with(MapLinkCredentials.ofKey(CLIENT_ID, CLIENT_SECRET))
                 .with(new MockJsonMapper())
                 .with(new MockHttpAsyncEngine())
                 .initialize();

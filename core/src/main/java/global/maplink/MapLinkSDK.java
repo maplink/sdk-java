@@ -4,12 +4,15 @@ import global.maplink.credentials.MapLinkCredentials;
 import global.maplink.env.Environment;
 import global.maplink.http.HttpAsyncEngine;
 import global.maplink.json.JsonMapper;
+import global.maplink.token.TokenProvider;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import lombok.val;
 
 import java.util.Optional;
 
+@SuppressWarnings("unused")
 @RequiredArgsConstructor(access = AccessLevel.PRIVATE)
 @Getter
 public class MapLinkSDK {
@@ -22,6 +25,8 @@ public class MapLinkSDK {
     private final HttpAsyncEngine http;
 
     private final JsonMapper jsonMapper;
+
+    private final TokenProvider tokenProvider;
 
     public static Configurator configure() {
         return new Configurator();
@@ -70,17 +75,19 @@ public class MapLinkSDK {
             return this;
         }
 
-        public MapLinkSDK initialize() {
+        public void initialize() {
             if (INSTANCE != null)
                 throw new IllegalStateException("MapLinkSDK already has been configured");
-
+            val http = engine.orElseGet(HttpAsyncEngine::loadDefault);
+            val jsonMapper = mapper.orElseGet(JsonMapper::loadDefault);
+            val env = environment.orElseGet(Environment::loadDefault);
             INSTANCE = new MapLinkSDK(
                     credentials.orElseGet(MapLinkCredentials::loadDefault),
                     environment.orElseGet(Environment::loadDefault),
-                    engine.orElseGet(HttpAsyncEngine::loadDefault),
-                    mapper.orElseGet(JsonMapper::loadDefault)
+                    http,
+                    jsonMapper,
+                    TokenProvider.create(http, env, jsonMapper, true)
             );
-            return INSTANCE;
         }
     }
 }

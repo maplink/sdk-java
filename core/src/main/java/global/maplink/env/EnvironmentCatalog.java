@@ -7,7 +7,7 @@ import lombok.RequiredArgsConstructor;
 @Getter
 public enum EnvironmentCatalog implements Environment {
     PRODUCTION("https://api.maplink.global"),
-    HOMOLOG("https://homolog.api.maplink.global");
+    HOMOLOG("https://pre-api.maplink.global");
 
     private final String host;
 

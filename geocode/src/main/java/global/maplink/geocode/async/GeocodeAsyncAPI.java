@@ -26,7 +26,9 @@ public interface GeocodeAsyncAPI {
         return new GeocodeAsyncApiImpl(
                 Optional.ofNullable(environment).orElse(sdk.getEnvironment()),
                 sdk.getHttp(),
-                sdk.getJsonMapper()
+                sdk.getJsonMapper(),
+                sdk.getTokenProvider(),
+                sdk.getCredentials()
         );
     }
 

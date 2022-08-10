@@ -6,7 +6,8 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static global.maplink.geocode.common.Defaults.DEFAULT_TOKEN;
+import static global.maplink.geocode.common.Defaults.DEFAULT_CLIENT_ID;
+import static global.maplink.geocode.common.Defaults.DEFAULT_SECRET;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class GeocodeAsyncApiTest {
@@ -15,7 +16,7 @@ public class GeocodeAsyncApiTest {
     public void initializeSDK() {
         MapLinkSDK
                 .configure()
-                .with(MapLinkCredentials.ofToken(DEFAULT_TOKEN))
+                .with(MapLinkCredentials.ofKey(DEFAULT_CLIENT_ID, DEFAULT_SECRET))
                 .initialize();
     }
 
