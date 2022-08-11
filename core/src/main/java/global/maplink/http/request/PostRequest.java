@@ -33,5 +33,4 @@ public class PostRequest extends Request {
         return (PostRequest) super.withAuthorizationHeader(value);
     }
 
-
 }

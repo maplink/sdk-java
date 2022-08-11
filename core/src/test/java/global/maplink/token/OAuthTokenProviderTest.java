@@ -11,10 +11,10 @@ import lombok.SneakyThrows;
 import lombok.val;
 import org.junit.jupiter.api.Test;
 
-import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
 
+import static global.maplink.helpers.MapHelpers.mapOf;
 import static java.time.Instant.now;
 import static java.util.concurrent.CompletableFuture.completedFuture;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -30,6 +30,9 @@ public class OAuthTokenProviderTest {
 
     private static final String CLIENT_ID = "clientId";
     private static final String CLIENT_SECRET = "secret";
+    public static final String RESPONSE_ACCESS_TOKEN = "access_token";
+    public static final String RESPONSE_EXPIRES_IN = "expires_in";
+    public static final String RESPONSE_ISSUED_AT = "issued_at";
 
 
     @Test
@@ -45,9 +48,9 @@ public class OAuthTokenProviderTest {
         val mapper = mock(JsonMapper.class);
         when(mapper.fromJson(MOCK_RESP, Map.class))
                 .thenReturn(mapOf(
-                        "access_token", resultToken.getToken(),
-                        "expires_in", String.valueOf(expiresIn),
-                        "issued_at", String.valueOf(createDate.toEpochMilli())
+                        RESPONSE_ACCESS_TOKEN, resultToken.getToken(),
+                        RESPONSE_EXPIRES_IN, String.valueOf(expiresIn),
+                        RESPONSE_ISSUED_AT, String.valueOf(createDate.toEpochMilli())
                 ));
 
         val oauthProvider = new OAuthTokenProvider(http, ENVIRONMENT, mapper);
@@ -78,13 +81,4 @@ public class OAuthTokenProviderTest {
         verify(http, times(1)).run(any(PostRequest.class));
     }
 
-
-    private Map<String, String> mapOf(String... values) {
-        assert values.length % 2 == 0;
-        val map = new HashMap<String, String>();
-        for (int i = 0; i < values.length; i += 2) {
-            map.put(values[i], values[i + 1]);
-        }
-        return map;
-    }
 }
