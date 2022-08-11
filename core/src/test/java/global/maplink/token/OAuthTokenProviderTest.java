@@ -3,10 +3,10 @@ package global.maplink.token;
 import global.maplink.credentials.InvalidCredentialsException;
 import global.maplink.env.Environment;
 import global.maplink.http.HttpAsyncEngine;
+import global.maplink.http.MediaType;
 import global.maplink.http.Response;
 import global.maplink.http.request.PostRequest;
 import global.maplink.json.JsonMapper;
-import global.maplink.token.OAuthTokenProvider.TokenRequestResponse;
 import lombok.SneakyThrows;
 import lombok.val;
 import org.junit.jupiter.api.Test;
@@ -40,15 +40,15 @@ public class OAuthTokenProviderTest {
         val resultToken = new MapLinkToken("teste", createDate.plusSeconds(expiresIn));
         val http = mock(HttpAsyncEngine.class);
         when(http.run(any(PostRequest.class)))
-                .thenReturn(completedFuture(new Response(200, "application/json", MOCK_RESP)));
+                .thenReturn(completedFuture(new Response(200, MediaType.Application.JSON, MOCK_RESP)));
 
         val mapper = mock(JsonMapper.class);
-        when(mapper.fromJson(MOCK_RESP, TokenRequestResponse.class))
-                .thenReturn(new TokenRequestResponse(mapOf(
+        when(mapper.fromJson(MOCK_RESP, Map.class))
+                .thenReturn(mapOf(
                         "access_token", resultToken.getToken(),
                         "expires_in", String.valueOf(expiresIn),
                         "issued_at", String.valueOf(createDate.toEpochMilli())
-                )));
+                ));
 
         val oauthProvider = new OAuthTokenProvider(http, ENVIRONMENT, mapper);
         val token = oauthProvider.getToken(CLIENT_ID, CLIENT_SECRET).get();
@@ -59,8 +59,7 @@ public class OAuthTokenProviderTest {
         assertThat(token.isAboutToExpireIn(expiresIn)).isTrue();
 
         verify(http, times(1)).run(any(PostRequest.class));
-        verify(mapper, times(1)).toJson(any());
-        verify(mapper, times(1)).fromJson(MOCK_RESP, TokenRequestResponse.class);
+        verify(mapper, times(1)).fromJson(MOCK_RESP, Map.class);
     }
 
     @Test
