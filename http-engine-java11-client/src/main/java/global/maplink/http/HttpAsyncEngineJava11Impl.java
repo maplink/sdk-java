@@ -14,16 +14,15 @@ import java.util.concurrent.CompletableFuture;
 
 public class HttpAsyncEngineJava11Impl implements HttpAsyncEngine {
 
+    public static final String HEADER_CONTENT_TYPE = "content-type";
+
     private final HttpClient client = HttpClient.newHttpClient();
 
     @Override
     public CompletableFuture<Response> run(Request request) {
-        if (request instanceof GetRequest) {
-            return runGet((GetRequest) request);
-        }
-        if (request instanceof PostRequest) {
-            return runPost((PostRequest) request);
-        }
+        if (request instanceof GetRequest) return runGet((GetRequest) request);
+        if (request instanceof PostRequest) return runPost((PostRequest) request);
+
         throw new UnsupportedOperationException(String.format("Tipo de requisição %s não é reconhecida", request.getClass().getName()));
     }
 
@@ -36,7 +35,7 @@ public class HttpAsyncEngineJava11Impl implements HttpAsyncEngine {
     private Response translateResponse(HttpResponse<byte[]> response) {
         return new Response(
                 response.statusCode(),
-                response.headers().firstValue("content-type").orElse("text/plain"),
+                response.headers().firstValue(HEADER_CONTENT_TYPE).orElse(MediaType.Text.PLAIN),
                 response.body()
         );
     }

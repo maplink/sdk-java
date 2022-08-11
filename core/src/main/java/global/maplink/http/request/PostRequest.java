@@ -13,6 +13,11 @@ public class PostRequest extends Request {
         this.body = body;
     }
 
+    public PostRequest(URL url, RequestBody body) {
+        this(url, body.getBytes());
+        this.withHeader("Content-Type", body.getContentType());
+    }
+
     @Override
     public PostRequest withQuery(String key, String value) {
         return (PostRequest) super.withQuery(key, value);
@@ -27,4 +32,5 @@ public class PostRequest extends Request {
     public PostRequest withAuthorizationHeader(String value) {
         return (PostRequest) super.withAuthorizationHeader(value);
     }
+
 }
