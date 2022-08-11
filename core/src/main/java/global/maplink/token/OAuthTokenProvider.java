@@ -5,6 +5,7 @@ import global.maplink.env.Environment;
 import global.maplink.http.HttpAsyncEngine;
 import global.maplink.http.request.PostRequest;
 import global.maplink.json.JsonMapper;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.val;
 
@@ -40,7 +41,7 @@ public class OAuthTokenProvider implements TokenProvider {
     }
 
     @RequiredArgsConstructor
-    @SuppressWarnings("unused")
+    @Getter
     static class TokenRequestBody {
         private final String clientId;
         private final String secret;

@@ -1,5 +1,6 @@
 package global.maplink.token;
 
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
@@ -10,6 +11,7 @@ import static java.time.Instant.now;
 
 @RequiredArgsConstructor
 @Getter
+@EqualsAndHashCode
 public class MapLinkToken {
 
     private final String token;
