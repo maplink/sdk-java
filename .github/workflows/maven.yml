@@ -22,8 +22,21 @@ jobs:
         java-version: '11'
         distribution: 'temurin'
         cache: maven
+
     - name: Build with Maven
-      run: mvn -B package --file pom.xml
-#    - name: jacoco-badge-generator
-#      uses: cicirello/jacoco-badge-generator@v2.7.0
+      run: mvn -B install
+
+    - name: Generate JaCoCo Badge
+      id: jacoco
+      uses: cicirello/jacoco-badge-generator@v2
+      with:
+        generate-branches-badge: true
+        jacoco-csv-file: jacoco-report/target/site/jacoco-aggregate/jacoco.csv
+
+    - name: Commit and push the badge (if it changed)
+      uses: EndBug/add-and-commit@v7
+      with:
+        default_author: github_actions
+        message: 'commit badge'
+        add: '*.svg'
 
