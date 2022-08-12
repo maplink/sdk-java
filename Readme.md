@@ -1,4 +1,4 @@
-JaCoCo Java Code Coverage Library
+MapLink SDK
 =================================
 ![Test Coverage](.github/badges/jacoco.svg)
 ![Test Coverage - Branches](.github/badges/branches.svg)

@@ -2,6 +2,8 @@ package global.maplink.geocode.async;
 
 import global.maplink.MapLinkSDK;
 import global.maplink.env.Environment;
+import global.maplink.geocode.common.Type;
+import global.maplink.geocode.geocode.GeocodeRequest;
 import global.maplink.geocode.suggestions.SuggestionsRequest;
 import global.maplink.geocode.suggestions.SuggestionsResponse;
 
@@ -14,7 +16,13 @@ public interface GeocodeAsyncAPI {
         return suggestions(SuggestionsRequest.builder().query(query).build());
     }
 
+    default CompletableFuture<SuggestionsResponse> suggestions(String query, Type type) {
+        return suggestions(SuggestionsRequest.builder().query(query).type(type).build());
+    }
+
     CompletableFuture<SuggestionsResponse> suggestions(SuggestionsRequest request);
+
+    CompletableFuture<SuggestionsResponse> geocode(GeocodeRequest request);
 
 
     static GeocodeAsyncAPI getInstance() {

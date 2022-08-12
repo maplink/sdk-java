@@ -10,5 +10,5 @@ public class SuggestionsRequest {
 
     private final String query;
 
-    private final Type type = null;
+    private Type type;
 }
