@@ -3,7 +3,7 @@ package global.maplink.token;
 import global.maplink.credentials.InvalidCredentialsException;
 import global.maplink.env.Environment;
 import global.maplink.http.HttpAsyncEngine;
-import global.maplink.http.request.PostRequest;
+import global.maplink.http.request.Request;
 import global.maplink.http.request.RequestBody;
 import global.maplink.json.JsonMapper;
 import lombok.RequiredArgsConstructor;
@@ -37,7 +37,7 @@ public class OAuthTokenProvider implements TokenProvider {
     @Override
     public CompletableFuture<MapLinkToken> getToken(String clientId, String secret) {
         return http.run(
-                new PostRequest(
+                Request.post(
                         environment.withService(TOKEN_PATH),
                         RequestBody.Form.of(
                                 PARAM_CLIENT_ID, clientId,

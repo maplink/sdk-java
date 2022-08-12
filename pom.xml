@@ -26,6 +26,7 @@
         <module>geocode</module>
         <module>json-mapper-jackson</module>
         <module>http-engine-java11-client</module>
+        <module>jacoco-report</module>
     </modules>
 
     <dependencyManagement>
@@ -39,6 +40,12 @@
             <dependency>
                 <groupId>global.maplink</groupId>
                 <artifactId>sdk-core-defaults</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>global.maplink</groupId>
+                <artifactId>sdk-geocode</artifactId>
                 <version>${project.version}</version>
             </dependency>
 

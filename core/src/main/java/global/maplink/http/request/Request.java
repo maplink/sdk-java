@@ -94,6 +94,8 @@ public abstract class Request {
     public static GetRequest get(URL url) {
         return new GetRequest(url);
     }
-
+    public static PostRequest post(URL url, RequestBody body) {
+        return new PostRequest(url, body);
+    }
 
 }

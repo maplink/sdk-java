@@ -9,6 +9,8 @@
     <file url="file://$PROJECT_DIR$/geocode/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/http-engine-java11-client/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/http-engine-java11-client/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/jacoco-report/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/jacoco-report/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/json-mapper-jackson/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/json-mapper-jackson/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main/java" charset="UTF-8" />
