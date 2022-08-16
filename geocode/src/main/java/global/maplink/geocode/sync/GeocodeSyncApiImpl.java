@@ -1,12 +1,13 @@
 package global.maplink.geocode.sync;
 
 import global.maplink.geocode.async.GeocodeAsyncAPI;
+import global.maplink.geocode.geocode.GeocodeRequest;
 import global.maplink.geocode.suggestions.SuggestionsRequest;
 import global.maplink.geocode.suggestions.SuggestionsResponse;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 
-import java.util.concurrent.ExecutionException;
+import static global.maplink.helpers.FutureHelper.await;
 
 @RequiredArgsConstructor(access = AccessLevel.PACKAGE)
 public class GeocodeSyncApiImpl implements GeocodeSyncAPI {
@@ -15,12 +16,12 @@ public class GeocodeSyncApiImpl implements GeocodeSyncAPI {
 
     @Override
     public SuggestionsResponse suggestions(SuggestionsRequest request) {
-        try {
-            return delegate.suggestions(request).get();
-        } catch (InterruptedException | ExecutionException e) {
-            throw new RuntimeException(e);
-        }
+        return await(delegate.suggestions(request));
     }
 
+    @Override
+    public SuggestionsResponse geocode(GeocodeRequest request) {
+        return await(delegate.geocode(request));
+    }
 
 }

@@ -3,6 +3,7 @@ package global.maplink.geocode.async;
 import global.maplink.MapLinkSDK;
 import global.maplink.credentials.InvalidCredentialsException;
 import global.maplink.credentials.MapLinkCredentials;
+import global.maplink.geocode.geocode.GeocodeRequest;
 import lombok.extern.slf4j.Slf4j;
 import lombok.val;
 import org.junit.jupiter.api.AfterEach;
@@ -14,6 +15,7 @@ import static global.maplink.env.EnvironmentCatalog.HOMOLOG;
 import static global.maplink.geocode.common.Defaults.DEFAULT_CLIENT_ID;
 import static global.maplink.geocode.common.Defaults.DEFAULT_SECRET;
 import static global.maplink.geocode.common.Type.ZIPCODE;
+import static global.maplink.geocode.geocode.GeocodeRequest.multi;
 import static global.maplink.geocode.utils.EnvCredentialsHelper.withEnvCredentials;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
@@ -62,6 +64,45 @@ public class GeocodeAsyncApiTest {
             val result = instance.suggestions("Rua Afonso Celso").get();
             assertThat(result.getResults()).isNotEmpty();
             assertThat(result.getFound()).isNotZero();
+        });
+    }
+
+    @Test
+    void mustReturnSuggestionsOnSingleGeocode() {
+        withEnvCredentials(credentials -> {
+            configureWith(credentials);
+            val instance = GeocodeAsyncAPI.getInstance();
+            val result = instance.geocode(
+                    GeocodeRequest.ofCity("sp", "São Paulo", "SP")
+            ).get();
+            assertThat(result.getResults()).hasSizeGreaterThan(1);
+            assertThat(result.getFound()).isGreaterThan(1);
+            assertThat(result.getById("sp")).isNotEmpty();
+        });
+    }
+
+    @Test
+    void mustReturnOneResultByRequestInMultiGeocode() {
+        withEnvCredentials(credentials -> {
+            configureWith(credentials);
+            val instance = GeocodeAsyncAPI.getInstance();
+            val result = instance.geocode(multi(
+                    GeocodeRequest.ofCity("sp", "São Paulo", "SP"),
+                    GeocodeRequest.ofCity("pr", "Paraná", "PR"),
+                    GeocodeRequest.of("addr")
+                            .state("SP")
+                            .city("São Paulo")
+                            .district("Jardim Paulista")
+                            .road("Alameda Campinas")
+                            .number(579)
+                            .build()
+
+            )).get();
+            assertThat(result.getResults()).hasSize(3);
+            assertThat(result.getFound()).isEqualTo(3);
+            assertThat(result.getById("sp")).isNotEmpty();
+            assertThat(result.getById("pr")).isNotEmpty();
+            assertThat(result.getById("addr")).isNotEmpty();
         });
     }
 

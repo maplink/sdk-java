@@ -3,6 +3,7 @@ package global.maplink.geocode.sync;
 import global.maplink.env.Environment;
 import global.maplink.geocode.async.GeocodeAsyncAPI;
 import global.maplink.geocode.common.Type;
+import global.maplink.geocode.geocode.GeocodeRequest;
 import global.maplink.geocode.suggestions.SuggestionsRequest;
 import global.maplink.geocode.suggestions.SuggestionsResponse;
 
@@ -17,6 +18,9 @@ public interface GeocodeSyncAPI {
     }
 
     SuggestionsResponse suggestions(SuggestionsRequest request);
+
+
+    SuggestionsResponse geocode(GeocodeRequest request);
 
 
     static GeocodeSyncAPI getInstance() {
