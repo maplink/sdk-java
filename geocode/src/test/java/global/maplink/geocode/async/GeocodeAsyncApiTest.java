@@ -10,6 +10,7 @@ import lombok.val;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 
+import java.math.BigDecimal;
 import java.util.concurrent.ExecutionException;
 
 import static global.maplink.env.EnvironmentCatalog.HOMOLOG;
@@ -119,8 +120,8 @@ public class GeocodeAsyncApiTest {
                     entry("pr", -25.494945, -49.3598374, 500),
                     Entry.builder()
                             .id("addr")
-                            .lat(-23.5666682)
-                            .lon(-46.6558011)
+                            .lat(BigDecimal.valueOf(-23.5666682))
+                            .lon(BigDecimal.valueOf(-46.6558011))
                             .build()
 
             ).get();
