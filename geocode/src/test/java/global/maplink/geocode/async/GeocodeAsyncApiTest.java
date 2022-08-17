@@ -3,8 +3,8 @@ package global.maplink.geocode.async;
 import global.maplink.MapLinkSDK;
 import global.maplink.credentials.InvalidCredentialsException;
 import global.maplink.credentials.MapLinkCredentials;
-import global.maplink.geocode.geocode.GeocodeRequest;
-import global.maplink.geocode.reverse.ReverseRequest.Entry;
+import global.maplink.geocode.schema.geocode.GeocodeRequest;
+import global.maplink.geocode.schema.reverse.ReverseRequest.Entry;
 import lombok.extern.slf4j.Slf4j;
 import lombok.val;
 import org.junit.jupiter.api.AfterEach;
@@ -16,9 +16,9 @@ import java.util.concurrent.ExecutionException;
 import static global.maplink.env.EnvironmentCatalog.HOMOLOG;
 import static global.maplink.geocode.common.Defaults.DEFAULT_CLIENT_ID;
 import static global.maplink.geocode.common.Defaults.DEFAULT_SECRET;
-import static global.maplink.geocode.geocode.GeocodeRequest.multi;
-import static global.maplink.geocode.reverse.ReverseRequest.entry;
 import static global.maplink.geocode.schema.Type.ZIPCODE;
+import static global.maplink.geocode.schema.geocode.GeocodeRequest.multi;
+import static global.maplink.geocode.schema.reverse.ReverseRequest.entry;
 import static global.maplink.geocode.utils.EnvCredentialsHelper.withEnvCredentials;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
@@ -108,19 +108,6 @@ public class GeocodeAsyncApiTest {
             assertThat(result.getById("addr")).isNotEmpty();
         });
     }
-
-    @Test
-    void mustFailInUnknownGeocodeRequestType() {
-        withEnvCredentials(credentials -> {
-            configureWith(credentials);
-            val instance = GeocodeAsyncAPI.getInstance();
-            val unknownRequest = new GeocodeRequest() {
-            };
-            assertThatThrownBy(() -> instance.geocode(unknownRequest).get())
-                    .isInstanceOf(IllegalArgumentException.class);
-        });
-    }
-
 
     @Test
     void mustReturnOneResultByRequestInReverse() {

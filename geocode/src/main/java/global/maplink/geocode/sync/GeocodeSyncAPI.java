@@ -2,11 +2,11 @@ package global.maplink.geocode.sync;
 
 import global.maplink.env.Environment;
 import global.maplink.geocode.async.GeocodeAsyncAPI;
-import global.maplink.geocode.geocode.GeocodeRequest;
-import global.maplink.geocode.reverse.ReverseRequest;
 import global.maplink.geocode.schema.Type;
+import global.maplink.geocode.schema.geocode.GeocodeRequest;
+import global.maplink.geocode.schema.reverse.ReverseRequest;
+import global.maplink.geocode.schema.suggestions.SuggestionsRequest;
 import global.maplink.geocode.schema.suggestions.SuggestionsResult;
-import global.maplink.geocode.suggestions.SuggestionsRequest;
 
 import static java.util.Arrays.asList;
 
