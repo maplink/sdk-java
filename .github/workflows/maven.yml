@@ -25,6 +25,9 @@ jobs:
 
     - name: Build with Maven
       run: mvn -B install
+      env:
+        MAPLINK_CLIENT_ID: ${{ secrets.MAPLINK_CLIENT_ID }}
+        MAPLINK_SECRET: ${{ secrets.MAPLINK_SECRET }}
 
     - name: Generate JaCoCo Badge
       id: jacoco
