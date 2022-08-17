@@ -2,14 +2,15 @@ package global.maplink.geocode.sync;
 
 import global.maplink.geocode.async.GeocodeAsyncAPI;
 import global.maplink.geocode.geocode.GeocodeRequest;
+import global.maplink.geocode.reverse.ReverseRequest;
 import global.maplink.geocode.suggestions.SuggestionsRequest;
 import global.maplink.geocode.suggestions.SuggestionsResponse;
-import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 
 import static global.maplink.helpers.FutureHelper.await;
+import static lombok.AccessLevel.PACKAGE;
 
-@RequiredArgsConstructor(access = AccessLevel.PACKAGE)
+@RequiredArgsConstructor(access = PACKAGE)
 public class GeocodeSyncApiImpl implements GeocodeSyncAPI {
 
     private final GeocodeAsyncAPI delegate;
@@ -24,4 +25,8 @@ public class GeocodeSyncApiImpl implements GeocodeSyncAPI {
         return await(delegate.geocode(request));
     }
 
+    @Override
+    public SuggestionsResponse reverse(ReverseRequest request) {
+        return await(delegate.reverse(request));
+    }
 }

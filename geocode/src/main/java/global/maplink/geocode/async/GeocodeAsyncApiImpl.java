@@ -4,6 +4,7 @@ import global.maplink.credentials.MapLinkCredentials;
 import global.maplink.env.Environment;
 import global.maplink.geocode.common.Type;
 import global.maplink.geocode.geocode.GeocodeRequest;
+import global.maplink.geocode.reverse.ReverseRequest;
 import global.maplink.geocode.suggestions.SuggestionsRequest;
 import global.maplink.geocode.suggestions.SuggestionsResponse;
 import global.maplink.http.HttpAsyncEngine;
@@ -12,7 +13,6 @@ import global.maplink.http.request.Request;
 import global.maplink.http.request.RequestBody;
 import global.maplink.json.JsonMapper;
 import global.maplink.token.TokenProvider;
-import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.val;
 
@@ -22,8 +22,9 @@ import java.util.concurrent.CompletableFuture;
 import static global.maplink.http.request.Request.get;
 import static global.maplink.http.request.Request.post;
 import static java.lang.String.format;
+import static lombok.AccessLevel.PACKAGE;
 
-@RequiredArgsConstructor(access = AccessLevel.PACKAGE)
+@RequiredArgsConstructor(access = PACKAGE)
 public class GeocodeAsyncApiImpl implements GeocodeAsyncAPI {
 
     private static final String SUGGESTIONS_PATH = "geocode/v1/suggestions";
@@ -31,6 +32,8 @@ public class GeocodeAsyncApiImpl implements GeocodeAsyncAPI {
     private static final String GEOCODE_PATH = "geocode/v1/geocode";
 
     private static final String MULTI_GEOCODE_PATH = "geocode/v1/multi-geocode";
+
+    private static final String REVERSE_GEOCODE_PATH = "geocode/v1/reverse";
 
     private final Environment environment;
 
@@ -59,6 +62,14 @@ public class GeocodeAsyncApiImpl implements GeocodeAsyncAPI {
         if (request instanceof GeocodeRequest.Multi) return multiGeocode((GeocodeRequest.Multi) request);
 
         throw new IllegalArgumentException(format("Invalid GeocodeRequest of [type: %s]: %s", request.getClass(), request));
+    }
+
+    @Override
+    public CompletableFuture<SuggestionsResponse> reverse(ReverseRequest request) {
+        return doRequest(post(
+                environment.withService(REVERSE_GEOCODE_PATH),
+                RequestBody.Json.of(request.getEntries(), mapper)
+        )).thenApply(this::parse);
     }
 
     private CompletableFuture<SuggestionsResponse> singleGeocode(GeocodeRequest.Single request) {

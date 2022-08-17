@@ -4,11 +4,14 @@ import global.maplink.MapLinkSDK;
 import global.maplink.env.Environment;
 import global.maplink.geocode.common.Type;
 import global.maplink.geocode.geocode.GeocodeRequest;
+import global.maplink.geocode.reverse.ReverseRequest;
 import global.maplink.geocode.suggestions.SuggestionsRequest;
 import global.maplink.geocode.suggestions.SuggestionsResponse;
 
 import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
+
+import static java.util.Arrays.asList;
 
 public interface GeocodeAsyncAPI {
 
@@ -23,6 +26,12 @@ public interface GeocodeAsyncAPI {
     CompletableFuture<SuggestionsResponse> suggestions(SuggestionsRequest request);
 
     CompletableFuture<SuggestionsResponse> geocode(GeocodeRequest request);
+
+    default CompletableFuture<SuggestionsResponse> reverse(ReverseRequest.Entry... request){
+        return reverse(ReverseRequest.builder().entries(asList(request)).build());
+    }
+
+    CompletableFuture<SuggestionsResponse> reverse(ReverseRequest request);
 
 
     static GeocodeAsyncAPI getInstance() {
