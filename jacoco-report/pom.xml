@@ -10,19 +10,23 @@
     <name>JaCoCo Coverage Aggregated Report</name>
     <dependencies>
         <dependency>
-            <groupId>global.maplink</groupId>
+            <groupId>${project.groupId}</groupId>
             <artifactId>sdk-core</artifactId>
         </dependency>
         <dependency>
-            <groupId>global.maplink</groupId>
+            <groupId>${project.groupId}</groupId>
             <artifactId>sdk-geocode</artifactId>
         </dependency>
         <dependency>
-            <groupId>global.maplink</groupId>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>geocode-schema</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
             <artifactId>http-engine-java11-client</artifactId>
         </dependency>
         <dependency>
-            <groupId>global.maplink</groupId>
+            <groupId>${project.groupId}</groupId>
             <artifactId>json-mapper-jackson</artifactId>
         </dependency>
     </dependencies>

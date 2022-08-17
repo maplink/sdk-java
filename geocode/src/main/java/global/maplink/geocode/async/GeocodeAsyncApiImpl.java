@@ -2,11 +2,11 @@ package global.maplink.geocode.async;
 
 import global.maplink.credentials.MapLinkCredentials;
 import global.maplink.env.Environment;
-import global.maplink.geocode.common.Type;
 import global.maplink.geocode.geocode.GeocodeRequest;
 import global.maplink.geocode.reverse.ReverseRequest;
+import global.maplink.geocode.schema.Type;
+import global.maplink.geocode.schema.suggestions.SuggestionsResult;
 import global.maplink.geocode.suggestions.SuggestionsRequest;
-import global.maplink.geocode.suggestions.SuggestionsResponse;
 import global.maplink.http.HttpAsyncEngine;
 import global.maplink.http.Response;
 import global.maplink.http.request.Request;
@@ -46,7 +46,7 @@ public class GeocodeAsyncApiImpl implements GeocodeAsyncAPI {
     private final MapLinkCredentials credentials;
 
     @Override
-    public CompletableFuture<SuggestionsResponse> suggestions(SuggestionsRequest request) {
+    public CompletableFuture<SuggestionsResult> suggestions(SuggestionsRequest request) {
         val httpRequest = get(environment.withService(SUGGESTIONS_PATH))
                 .withQuery("q", request.getQuery());
         Optional.ofNullable(request.getType())
@@ -57,7 +57,7 @@ public class GeocodeAsyncApiImpl implements GeocodeAsyncAPI {
     }
 
     @Override
-    public CompletableFuture<SuggestionsResponse> geocode(GeocodeRequest request) {
+    public CompletableFuture<SuggestionsResult> geocode(GeocodeRequest request) {
         if (request instanceof GeocodeRequest.Single) return singleGeocode((GeocodeRequest.Single) request);
         if (request instanceof GeocodeRequest.Multi) return multiGeocode((GeocodeRequest.Multi) request);
 
@@ -65,21 +65,21 @@ public class GeocodeAsyncApiImpl implements GeocodeAsyncAPI {
     }
 
     @Override
-    public CompletableFuture<SuggestionsResponse> reverse(ReverseRequest request) {
+    public CompletableFuture<SuggestionsResult> reverse(ReverseRequest request) {
         return doRequest(post(
                 environment.withService(REVERSE_GEOCODE_PATH),
                 RequestBody.Json.of(request.getEntries(), mapper)
         )).thenApply(this::parse);
     }
 
-    private CompletableFuture<SuggestionsResponse> singleGeocode(GeocodeRequest.Single request) {
+    private CompletableFuture<SuggestionsResult> singleGeocode(GeocodeRequest.Single request) {
         return doRequest(post(
                 environment.withService(GEOCODE_PATH),
                 RequestBody.Json.of(request, mapper)
         )).thenApply(this::parse);
     }
 
-    private CompletableFuture<SuggestionsResponse> multiGeocode(GeocodeRequest.Multi request) {
+    private CompletableFuture<SuggestionsResult> multiGeocode(GeocodeRequest.Multi request) {
         return doRequest(post(
                 environment.withService(MULTI_GEOCODE_PATH),
                 RequestBody.Json.of(request.getRequests(), mapper)
@@ -92,7 +92,7 @@ public class GeocodeAsyncApiImpl implements GeocodeAsyncAPI {
                 .thenCompose(token -> http.run(httpRequest.withAuthorizationHeader(token.asHeaderValue())));
     }
 
-    private SuggestionsResponse parse(Response response) {
-        return response.parseBodyObject(mapper, SuggestionsResponse.class);
+    private SuggestionsResult parse(Response response) {
+        return response.parseBodyObject(mapper, SuggestionsResult.class);
     }
 }

@@ -1,6 +1,6 @@
 package global.maplink.geocode.geocode;
 
-import global.maplink.geocode.common.Type;
+import global.maplink.geocode.schema.Type;
 import lombok.*;
 
 public interface GeocodeRequest {

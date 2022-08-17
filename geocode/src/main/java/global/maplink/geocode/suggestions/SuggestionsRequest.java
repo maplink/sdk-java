@@ -1,6 +1,6 @@
 package global.maplink.geocode.suggestions;
 
-import global.maplink.geocode.common.Type;
+import global.maplink.geocode.schema.Type;
 import lombok.Builder;
 import lombok.Data;
 

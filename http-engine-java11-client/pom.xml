@@ -19,7 +19,7 @@
 
     <dependencies>
         <dependency>
-            <groupId>global.maplink</groupId>
+            <groupId>${project.groupId}</groupId>
             <artifactId>sdk-core</artifactId>
         </dependency>
         <dependency>

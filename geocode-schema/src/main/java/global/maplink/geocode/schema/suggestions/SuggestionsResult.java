@@ -1,4 +1,4 @@
-package global.maplink.geocode.suggestions;
+package global.maplink.geocode.schema.suggestions;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -14,7 +14,7 @@ import static java.util.Optional.empty;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor(force = true)
-public class SuggestionsResponse {
+public class SuggestionsResult {
 
     private final int found;
 

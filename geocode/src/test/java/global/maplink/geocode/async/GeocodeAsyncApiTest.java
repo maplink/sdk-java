@@ -16,9 +16,9 @@ import java.util.concurrent.ExecutionException;
 import static global.maplink.env.EnvironmentCatalog.HOMOLOG;
 import static global.maplink.geocode.common.Defaults.DEFAULT_CLIENT_ID;
 import static global.maplink.geocode.common.Defaults.DEFAULT_SECRET;
-import static global.maplink.geocode.common.Type.ZIPCODE;
 import static global.maplink.geocode.geocode.GeocodeRequest.multi;
 import static global.maplink.geocode.reverse.ReverseRequest.entry;
+import static global.maplink.geocode.schema.Type.ZIPCODE;
 import static global.maplink.geocode.utils.EnvCredentialsHelper.withEnvCredentials;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
@@ -109,6 +109,18 @@ public class GeocodeAsyncApiTest {
         });
     }
 
+    @Test
+    void mustFailInUnknownGeocodeRequestType() {
+        withEnvCredentials(credentials -> {
+            configureWith(credentials);
+            val instance = GeocodeAsyncAPI.getInstance();
+            val unknownRequest = new GeocodeRequest() {
+            };
+            assertThatThrownBy(() -> instance.geocode(unknownRequest).get())
+                    .isInstanceOf(IllegalArgumentException.class);
+        });
+    }
+
 
     @Test
     void mustReturnOneResultByRequestInReverse() {
@@ -116,6 +128,7 @@ public class GeocodeAsyncApiTest {
             configureWith(credentials);
             val instance = GeocodeAsyncAPI.getInstance();
             val result = instance.reverse(
+                    entry(-22.9141308, -43.445982),
                     entry("sp", -23.6818334, -46.8823662),
                     entry("pr", -25.494945, -49.3598374, 500),
                     Entry.builder()
@@ -125,8 +138,8 @@ public class GeocodeAsyncApiTest {
                             .build()
 
             ).get();
-            assertThat(result.getResults()).hasSize(3);
-            assertThat(result.getFound()).isEqualTo(3);
+            assertThat(result.getResults()).hasSize(4);
+            assertThat(result.getFound()).isEqualTo(4);
             assertThat(result.getById("sp")).isNotEmpty();
             assertThat(result.getById("pr")).isNotEmpty();
             assertThat(result.getById("addr")).isNotEmpty();
@@ -140,4 +153,5 @@ public class GeocodeAsyncApiTest {
                 .with(credentials)
                 .initialize();
     }
+
 }
