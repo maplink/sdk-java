@@ -1,4 +1,4 @@
-package global.maplink.geocode.common;
+package global.maplink.geocode.schema;
 
 public enum Type {
     ZIPCODE,

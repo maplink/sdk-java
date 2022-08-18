@@ -2,17 +2,33 @@ package global.maplink.geocode.sync;
 
 import global.maplink.env.Environment;
 import global.maplink.geocode.async.GeocodeAsyncAPI;
-import global.maplink.geocode.suggestions.SuggestionsRequest;
-import global.maplink.geocode.suggestions.SuggestionsResponse;
+import global.maplink.geocode.schema.Type;
+import global.maplink.geocode.schema.geocode.GeocodeRequest;
+import global.maplink.geocode.schema.reverse.ReverseRequest;
+import global.maplink.geocode.schema.suggestions.SuggestionsRequest;
+import global.maplink.geocode.schema.suggestions.SuggestionsResult;
+
+import static java.util.Arrays.asList;
 
 public interface GeocodeSyncAPI {
 
-    default SuggestionsResponse suggestions(String query) {
+    default SuggestionsResult suggestions(String query) {
         return suggestions(SuggestionsRequest.builder().query(query).build());
     }
 
-    SuggestionsResponse suggestions(SuggestionsRequest request);
+    default SuggestionsResult suggestions(String query, Type type) {
+        return suggestions(SuggestionsRequest.builder().query(query).type(type).build());
+    }
 
+    SuggestionsResult suggestions(SuggestionsRequest request);
+
+    SuggestionsResult geocode(GeocodeRequest request);
+
+    default SuggestionsResult reverse(ReverseRequest.Entry... request){
+        return reverse(ReverseRequest.builder().entries(asList(request)).build());
+    }
+
+    SuggestionsResult reverse(ReverseRequest request);
 
     static GeocodeSyncAPI getInstance() {
         return new GeocodeSyncApiImpl(GeocodeAsyncAPI.getInstance());

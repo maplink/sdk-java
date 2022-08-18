@@ -1,4 +1,4 @@
-package global.maplink.geocode.common;
+package global.maplink.geocode.schema;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

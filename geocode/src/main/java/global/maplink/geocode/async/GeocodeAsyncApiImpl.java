@@ -1,25 +1,25 @@
 package global.maplink.geocode.async;
 
+import global.maplink.MapLinkServiceRequest;
 import global.maplink.credentials.MapLinkCredentials;
 import global.maplink.env.Environment;
-import global.maplink.geocode.common.Type;
-import global.maplink.geocode.suggestions.SuggestionsRequest;
-import global.maplink.geocode.suggestions.SuggestionsResponse;
+import global.maplink.geocode.schema.geocode.GeocodeRequest;
+import global.maplink.geocode.schema.reverse.ReverseRequest;
+import global.maplink.geocode.schema.suggestions.SuggestionsRequest;
+import global.maplink.geocode.schema.suggestions.SuggestionsResult;
 import global.maplink.http.HttpAsyncEngine;
-import global.maplink.http.request.Request;
+import global.maplink.http.Response;
 import global.maplink.json.JsonMapper;
 import global.maplink.token.TokenProvider;
-import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.val;
 
-import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 
-@RequiredArgsConstructor(access = AccessLevel.PACKAGE)
-public class GeocodeAsyncApiImpl implements GeocodeAsyncAPI {
+import static lombok.AccessLevel.PACKAGE;
 
-    private static final String SUGGESTIONS_PATH = "geocode/v1/suggestions";
+@RequiredArgsConstructor(access = PACKAGE)
+public class GeocodeAsyncApiImpl implements GeocodeAsyncAPI {
 
     private final Environment environment;
 
@@ -32,16 +32,28 @@ public class GeocodeAsyncApiImpl implements GeocodeAsyncAPI {
     private final MapLinkCredentials credentials;
 
     @Override
-    public CompletableFuture<SuggestionsResponse> suggestions(SuggestionsRequest request) {
-        val getRequest = Request.get(environment.withService(SUGGESTIONS_PATH))
-                .withQuery("q", request.getQuery());
-        Optional.ofNullable(request.getType())
-                .map(Type::name)
-                .ifPresent(v -> getRequest.withQuery("type", v));
-
-        return credentials.fetchToken(tokenProvider)
-                .thenCompose(token -> http.run(getRequest.withAuthorizationHeader(token.asHeaderValue())))
-                .thenApply(v -> v.parseBodyObject(mapper, SuggestionsResponse.class));
+    public CompletableFuture<SuggestionsResult> suggestions(SuggestionsRequest request) {
+        return doRequest(request).thenApply(this::parse);
     }
 
+    @Override
+    public CompletableFuture<SuggestionsResult> geocode(GeocodeRequest request) {
+        return doRequest(request).thenApply(this::parse);
+    }
+
+    @Override
+    public CompletableFuture<SuggestionsResult> reverse(ReverseRequest request) {
+        return doRequest(request).thenApply(this::parse);
+    }
+
+
+    private CompletableFuture<Response> doRequest(MapLinkServiceRequest request) {
+        val httpRequest = request.asHttpRequest(environment, mapper);
+        return credentials.fetchToken(tokenProvider)
+                .thenCompose(token -> http.run(httpRequest.withAuthorizationHeader(token.asHeaderValue())));
+    }
+
+    private SuggestionsResult parse(Response response) {
+        return response.parseBodyObject(mapper, SuggestionsResult.class);
+    }
 }

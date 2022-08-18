@@ -1,4 +1,4 @@
-package global.maplink.geocode.common;
+package global.maplink.geocode.schema;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -7,8 +7,8 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor(force = true)
 @AllArgsConstructor
-public class IBGECode {
+public class State {
 
-    private final String city;
-    private final String state;
+    private final String code;
+    private final String name;
 }

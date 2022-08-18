@@ -2,19 +2,36 @@ package global.maplink.geocode.async;
 
 import global.maplink.MapLinkSDK;
 import global.maplink.env.Environment;
-import global.maplink.geocode.suggestions.SuggestionsRequest;
-import global.maplink.geocode.suggestions.SuggestionsResponse;
+import global.maplink.geocode.schema.Type;
+import global.maplink.geocode.schema.geocode.GeocodeRequest;
+import global.maplink.geocode.schema.reverse.ReverseRequest;
+import global.maplink.geocode.schema.suggestions.SuggestionsRequest;
+import global.maplink.geocode.schema.suggestions.SuggestionsResult;
 
 import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 
+import static java.util.Arrays.asList;
+
 public interface GeocodeAsyncAPI {
 
-    default CompletableFuture<SuggestionsResponse> suggestions(String query) {
+    default CompletableFuture<SuggestionsResult> suggestions(String query) {
         return suggestions(SuggestionsRequest.builder().query(query).build());
     }
 
-    CompletableFuture<SuggestionsResponse> suggestions(SuggestionsRequest request);
+    default CompletableFuture<SuggestionsResult> suggestions(String query, Type type) {
+        return suggestions(SuggestionsRequest.builder().query(query).type(type).build());
+    }
+
+    CompletableFuture<SuggestionsResult> suggestions(SuggestionsRequest request);
+
+    CompletableFuture<SuggestionsResult> geocode(GeocodeRequest request);
+
+    default CompletableFuture<SuggestionsResult> reverse(ReverseRequest.Entry... request) {
+        return reverse(ReverseRequest.builder().entries(asList(request)).build());
+    }
+
+    CompletableFuture<SuggestionsResult> reverse(ReverseRequest request);
 
 
     static GeocodeAsyncAPI getInstance() {
