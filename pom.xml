@@ -16,6 +16,7 @@
         <junit.version>5.8.2</junit.version>
         <mockito.version>4.6.1</mockito.version>
         <assertj.version>3.23.1</assertj.version>
+        <delombok.output>${project.build.directory}/delombok</delombok.output>
     </properties>
 
     <modules>
@@ -120,6 +121,18 @@
                 <version>2.22.2</version>
             </plugin>
             <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-release-plugin</artifactId>
+                <version>3.0.0-M6</version>
+                <configuration>
+                    <allowTimestampedSnapshots>true</allowTimestampedSnapshots>
+                    <autoVersionSubmodules>true</autoVersionSubmodules>
+                    <tagNameFormat>v@{project.version}</tagNameFormat>
+                    <remoteTagging>false</remoteTagging>
+                    <scmCommentPrefix>[maven-release-plugin] [skip ci]</scmCommentPrefix>
+                </configuration>
+            </plugin>
+            <plugin>
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
                 <version>0.8.8</version>
@@ -153,13 +166,39 @@
                             <addOutputDirectory>false</addOutputDirectory>
                             <sourceDirectory>src/main/java</sourceDirectory>
                             <outputDirectory>
-                                ${project.build.directory}/delombok
+                                ${delombok.output}
                             </outputDirectory>
                         </configuration>
                     </execution>
                 </executions>
             </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>3.4.1</version>
+                <configuration>
+                    <sourcepath>${delombok.output}</sourcepath>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
+
+    <scm>
+        <url>scm:git:git@github.com:maplink/sdk-java.git</url>
+        <connection>scm:git:git@github.com:maplink/sdk-java.git</connection>
+        <developerConnection>scm:git:git@github.com:maplink/sdk-java.git</developerConnection>
+        <tag>HEAD</tag>
+    </scm>
+
+    <distributionManagement>
+        <snapshotRepository>
+            <id>maplink-libs-snapshots</id>
+            <url>http://nexus.apontador.com.br:8081/nexus/content/repositories/snapshots/</url>
+        </snapshotRepository>
+        <repository>
+            <id>maplink-nexus-snapshot</id>
+            <url>http://nexus.apontador.com.br:8081/nexus/content/repositories/releases/</url>
+        </repository>
+    </distributionManagement>
 
 </project>
