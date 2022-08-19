@@ -120,6 +120,18 @@
                 <version>2.22.2</version>
             </plugin>
             <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-release-plugin</artifactId>
+                <version>3.0.0-M6</version>
+                <configuration>
+                    <allowTimestampedSnapshots>true</allowTimestampedSnapshots>
+                    <autoVersionSubmodules>true</autoVersionSubmodules>
+                    <tagNameFormat>v@{project.version}</tagNameFormat>
+                    <remoteTagging>false</remoteTagging>
+                    <scmCommentPrefix>[maven-release-plugin] [skip ci]</scmCommentPrefix>
+                </configuration>
+            </plugin>
+            <plugin>
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
                 <version>0.8.8</version>
@@ -161,5 +173,22 @@
             </plugin>
         </plugins>
     </build>
+
+    <scm>
+        <url>https://github.com/maplink/sdk-java</url>
+        <connection>git@github.com:maplink/sdk-java.git</connection>
+        <tag>HEAD</tag>
+    </scm>
+
+    <distributionManagement>
+        <snapshotRepository>
+            <id>maplink-libs-snapshots</id>
+            <url>http://nexus.apontador.com.br:8081/nexus/content/repositories/snapshots/</url>
+        </snapshotRepository>
+        <repository>
+            <id>maplink-nexus-snapshot</id>
+            <url>http://nexus.apontador.com.br:8081/nexus/content/repositories/releases/</url>
+        </repository>
+    </distributionManagement>
 
 </project>
