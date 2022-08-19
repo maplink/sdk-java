@@ -184,8 +184,9 @@
     </build>
 
     <scm>
-        <url>https://github.com/maplink/sdk-java</url>
-        <connection>git@github.com:maplink/sdk-java.git</connection>
+        <url>scm:git:git@github.com:maplink/sdk-java.git</url>
+        <connection>scm:git:git@github.com:maplink/sdk-java.git</connection>
+        <developerConnection>scm:git:git@github.com:maplink/sdk-java.git</developerConnection>
         <tag>HEAD</tag>
     </scm>
 
