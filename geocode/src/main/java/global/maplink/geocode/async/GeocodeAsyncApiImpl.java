@@ -50,7 +50,7 @@ public class GeocodeAsyncApiImpl implements GeocodeAsyncAPI {
     private CompletableFuture<Response> doRequest(MapLinkServiceRequest request) {
         val httpRequest = request.asHttpRequest(environment, mapper);
         return credentials.fetchToken(tokenProvider)
-                .thenCompose(token -> http.run(httpRequest.withAuthorizationHeader(token.asHeaderValue())));
+                .thenCompose(token -> http.run(token.applyOn(httpRequest)));
     }
 
     private SuggestionsResult parse(Response response) {
