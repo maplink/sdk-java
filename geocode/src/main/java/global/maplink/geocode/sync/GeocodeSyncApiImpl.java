@@ -1,6 +1,7 @@
 package global.maplink.geocode.sync;
 
 import global.maplink.geocode.async.GeocodeAsyncAPI;
+import global.maplink.geocode.schema.crossCities.CrossCitiesRequest;
 import global.maplink.geocode.schema.geocode.GeocodeRequest;
 import global.maplink.geocode.schema.reverse.ReverseRequest;
 import global.maplink.geocode.schema.suggestions.SuggestionsRequest;
@@ -28,5 +29,10 @@ public class GeocodeSyncApiImpl implements GeocodeSyncAPI {
     @Override
     public SuggestionsResult reverse(ReverseRequest request) {
         return await(delegate.reverse(request));
+    }
+
+    @Override
+    public SuggestionsResult crossCities(CrossCitiesRequest request) {
+        return await(delegate.crossCities(request));
     }
 }

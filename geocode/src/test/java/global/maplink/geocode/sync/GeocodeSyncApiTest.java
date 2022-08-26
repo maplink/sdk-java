@@ -17,6 +17,7 @@ import static global.maplink.geocode.common.Defaults.DEFAULT_SECRET;
 import static global.maplink.geocode.schema.Type.ZIPCODE;
 import static global.maplink.geocode.schema.reverse.ReverseRequest.entry;
 import static java.math.BigDecimal.ZERO;
+import static java.util.Arrays.asList;
 import static java.util.concurrent.CompletableFuture.completedFuture;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.*;
@@ -63,11 +64,12 @@ public class GeocodeSyncApiTest {
         when(async.suggestions(any(), any())).thenCallRealMethod();
         when(async.suggestions(any(SuggestionsRequest.class))).thenReturn(completedFuture(new SuggestionsResult()));
         val sync = new GeocodeSyncApiImpl(async);
-        sync.suggestions(SOMETHING);
-        sync.suggestions(SOMETHING, ZIPCODE);
-        sync.suggestions(SuggestionsRequest.builder()
+        val result1 = sync.suggestions(SOMETHING);
+        val result2 = sync.suggestions(SOMETHING, ZIPCODE);
+        val result3 = sync.suggestions(SuggestionsRequest.builder()
                 .query(SOMETHING)
                 .build());
+        assertThat(asList(result1, result2, result3)).doesNotContainNull();
         verify(async, times(3)).suggestions(any(SuggestionsRequest.class));
     }
 
@@ -78,12 +80,13 @@ public class GeocodeSyncApiTest {
         when(async.reverse(any(ReverseRequest.Entry[].class))).thenCallRealMethod();
         when(async.reverse(any(ReverseRequest.class))).thenReturn(completedFuture(new SuggestionsResult()));
         val sync = new GeocodeSyncApiImpl(async);
-        sync.reverse(entry(1, 1), entry("teste", ZERO, ZERO));
-        sync.reverse(ReverseRequest.builder()
+        val result1 = sync.reverse(entry(1, 1), entry("teste", ZERO, ZERO));
+        val result2 = sync.reverse(ReverseRequest.builder()
                 .entry(entry(1, 1))
                 .entry(entry(ZERO, ZERO))
                 .build()
         );
+        assertThat(asList(result1, result2)).doesNotContainNull();
         verify(async, times(2)).reverse(any(ReverseRequest.class));
     }
 }

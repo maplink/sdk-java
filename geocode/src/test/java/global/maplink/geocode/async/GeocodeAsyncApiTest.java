@@ -17,6 +17,7 @@ import static global.maplink.env.EnvironmentCatalog.HOMOLOG;
 import static global.maplink.geocode.common.Defaults.DEFAULT_CLIENT_ID;
 import static global.maplink.geocode.common.Defaults.DEFAULT_SECRET;
 import static global.maplink.geocode.schema.Type.ZIPCODE;
+import static global.maplink.geocode.schema.crossCities.CrossCitiesRequest.point;
 import static global.maplink.geocode.schema.geocode.GeocodeRequest.multi;
 import static global.maplink.geocode.schema.reverse.ReverseRequest.entry;
 import static global.maplink.geocode.utils.EnvCredentialsHelper.withEnvCredentials;
@@ -130,6 +131,21 @@ public class GeocodeAsyncApiTest {
             assertThat(result.getById("sp")).isNotEmpty();
             assertThat(result.getById("pr")).isNotEmpty();
             assertThat(result.getById("addr")).isNotEmpty();
+        });
+    }
+
+    @Test
+    void mustReturnCrossedCities() {
+        withEnvCredentials(credentials -> {
+            configureWith(credentials);
+            val instance = GeocodeAsyncAPI.getInstance();
+            val result = instance.crossCities(
+                    point(-22.9141308, -43.445982),
+                    point(-23.6818334, -46.8823662),
+                    point(-25.494945, -49.3598374)
+            ).get();
+            assertThat(result.getResults()).hasSize(35);
+            assertThat(result.getFound()).isEqualTo(35);
         });
     }
 
