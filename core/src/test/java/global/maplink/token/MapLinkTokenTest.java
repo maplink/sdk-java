@@ -13,7 +13,7 @@ public class MapLinkTokenTest {
 
     @Test
     void mustCheckIfIsExpired() {
-        val token = new MapLinkToken(
+        val token = new OAuthMapLinkTokenImpl(
                 SAMPLE_TOKEN,
                 Instant.now().minusSeconds(1)
         );
@@ -26,7 +26,7 @@ public class MapLinkTokenTest {
 
     @Test
     void mustCheckIfIsAboutToExpire() {
-        val token = new MapLinkToken(
+        val token = new OAuthMapLinkTokenImpl(
                 SAMPLE_TOKEN,
                 Instant.now().plusSeconds(10)
         );

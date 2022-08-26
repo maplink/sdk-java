@@ -54,8 +54,7 @@ public class TokenProviderTest {
         }
 
         val token = credentials.fetchToken(MapLinkSDK.getInstance().getTokenProvider()).get();
-
+        assertThat(token).isNotNull();
         assertThat(token.isExpired()).isFalse();
-        assertThat(token.getToken()).isNotNull();
     }
 }

@@ -3,10 +3,13 @@ package global.maplink.geocode.sync;
 import global.maplink.env.Environment;
 import global.maplink.geocode.async.GeocodeAsyncAPI;
 import global.maplink.geocode.schema.Type;
+import global.maplink.geocode.schema.crossCities.CrossCitiesRequest;
 import global.maplink.geocode.schema.geocode.GeocodeRequest;
 import global.maplink.geocode.schema.reverse.ReverseRequest;
 import global.maplink.geocode.schema.suggestions.SuggestionsRequest;
 import global.maplink.geocode.schema.suggestions.SuggestionsResult;
+
+import java.util.List;
 
 import static java.util.Arrays.asList;
 
@@ -24,11 +27,26 @@ public interface GeocodeSyncAPI {
 
     SuggestionsResult geocode(GeocodeRequest request);
 
-    default SuggestionsResult reverse(ReverseRequest.Entry... request){
-        return reverse(ReverseRequest.builder().entries(asList(request)).build());
+
+    default SuggestionsResult reverse(ReverseRequest.Entry... request) {
+        return reverse(asList(request));
+    }
+
+    default SuggestionsResult reverse(List<ReverseRequest.Entry> request) {
+        return reverse(ReverseRequest.of(request));
     }
 
     SuggestionsResult reverse(ReverseRequest request);
+
+    default SuggestionsResult crossCities(CrossCitiesRequest.Point... points) {
+        return crossCities(asList(points));
+    }
+
+    default SuggestionsResult crossCities(List<CrossCitiesRequest.Point> points) {
+        return crossCities(CrossCitiesRequest.of(points));
+    }
+
+    SuggestionsResult crossCities(CrossCitiesRequest request);
 
     static GeocodeSyncAPI getInstance() {
         return new GeocodeSyncApiImpl(GeocodeAsyncAPI.getInstance());

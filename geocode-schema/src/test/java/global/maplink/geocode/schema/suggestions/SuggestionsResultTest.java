@@ -19,6 +19,9 @@ public class SuggestionsResultTest {
         assertThat(response.getResults()).hasSize(10);
         assertThat(response.getMostRelevant().getType()).isEqualTo(ROAD);
         assertThat(response.getMostRelevant().getId()).isEqualTo(FIRST_ID);
+        assertThat(response).isNotEmpty().hasSize(10);
+        assertThat(response.stream()).isNotEmpty().hasSize(10);
+        assertThat(response.parallelStream()).isNotEmpty().hasSize(10);
     }
 
     @Test
@@ -27,6 +30,9 @@ public class SuggestionsResultTest {
         assertThat(emptyResult.getMostRelevant()).isNull();
         assertThat(emptyResult.getResults()).isEmpty();
         assertThat(emptyResult.getFound()).isZero();
+        assertThat(emptyResult).isEmpty();
+        assertThat(emptyResult.stream()).isEmpty();
+        assertThat(emptyResult.parallelStream()).isEmpty();
     }
 
     @Test
@@ -35,5 +41,8 @@ public class SuggestionsResultTest {
         assertThat(emptyResult.getMostRelevant()).isNull();
         assertThat(emptyResult.getResults()).isNull();
         assertThat(emptyResult.getFound()).isZero();
+        assertThat(emptyResult).isEmpty();
+        assertThat(emptyResult.stream()).isEmpty();
+        assertThat(emptyResult.parallelStream()).isEmpty();
     }
 }

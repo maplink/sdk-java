@@ -72,7 +72,7 @@ public class OAuthTokenProvider implements TokenProvider {
         }
 
         MapLinkToken buildToken() {
-            return new MapLinkToken(getAccessToken(), getExpiration());
+            return new OAuthMapLinkTokenImpl(getAccessToken(), getExpiration());
         }
     }
 
