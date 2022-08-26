@@ -40,7 +40,7 @@ public class OAuthTokenProviderTest {
     void mustCallHttpEngineWithBodyAndTakeResponse() {
         val createDate = now();
         val expiresIn = 60;
-        val resultToken = new MapLinkToken("teste", createDate.plusSeconds(expiresIn));
+        val resultToken = new OAuthMapLinkTokenImpl("teste", createDate.plusSeconds(expiresIn));
         val http = mock(HttpAsyncEngine.class);
         when(http.run(any(PostRequest.class)))
                 .thenReturn(completedFuture(new Response(200, MediaType.Application.JSON, MOCK_RESP)));
@@ -55,11 +55,11 @@ public class OAuthTokenProviderTest {
 
         val oauthProvider = new OAuthTokenProvider(http, ENVIRONMENT, mapper);
         val token = oauthProvider.getToken(CLIENT_ID, CLIENT_SECRET).get();
-
-        assertThat(token).isNotSameAs(resultToken);
-        assertThat(token.getToken()).isEqualTo(resultToken.getToken());
+        assertThat(token).isInstanceOf(OAuthMapLinkTokenImpl.class).isNotSameAs(resultToken);
         assertThat(token.isExpired()).isFalse();
         assertThat(token.isAboutToExpireIn(expiresIn)).isTrue();
+        val oauthToken = (OAuthMapLinkTokenImpl) token;
+        assertThat(oauthToken.getToken()).isEqualTo(resultToken.getToken());
 
         verify(http, times(1)).run(any(PostRequest.class));
         verify(mapper, times(1)).fromJson(MOCK_RESP, Map.class);

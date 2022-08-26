@@ -3,6 +3,7 @@ package global.maplink.geocode.async;
 import global.maplink.MapLinkServiceRequest;
 import global.maplink.credentials.MapLinkCredentials;
 import global.maplink.env.Environment;
+import global.maplink.geocode.schema.crossCities.CrossCitiesRequest;
 import global.maplink.geocode.schema.geocode.GeocodeRequest;
 import global.maplink.geocode.schema.reverse.ReverseRequest;
 import global.maplink.geocode.schema.suggestions.SuggestionsRequest;
@@ -46,11 +47,15 @@ public class GeocodeAsyncApiImpl implements GeocodeAsyncAPI {
         return doRequest(request).thenApply(this::parse);
     }
 
+    @Override
+    public CompletableFuture<SuggestionsResult> crossCities(CrossCitiesRequest request) {
+        return doRequest(request).thenApply(this::parse);
+    }
 
     private CompletableFuture<Response> doRequest(MapLinkServiceRequest request) {
         val httpRequest = request.asHttpRequest(environment, mapper);
         return credentials.fetchToken(tokenProvider)
-                .thenCompose(token -> http.run(httpRequest.withAuthorizationHeader(token.asHeaderValue())));
+                .thenCompose(token -> http.run(token.applyOn(httpRequest)));
     }
 
     private SuggestionsResult parse(Response response) {

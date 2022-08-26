@@ -17,6 +17,7 @@ import static global.maplink.http.request.Request.post;
 @Getter
 @ToString
 @EqualsAndHashCode
+@RequiredArgsConstructor(staticName = "of")
 public class ReverseRequest implements MapLinkServiceRequest {
     public static final String PATH = "geocode/v1/reverse";
 

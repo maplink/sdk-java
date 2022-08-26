@@ -22,7 +22,7 @@ public class CachedTokenProviderDecoratorTest {
     void mustCallDelegateOnlyOnceBeforeExpiration() throws ExecutionException, InterruptedException {
         val delegate = mock(TokenProvider.class);
         when(delegate.getToken(CLIENT_ID, CLIENT_SECRET))
-                .thenAnswer(i -> completedFuture(new MapLinkToken(
+                .thenAnswer(i -> completedFuture(new OAuthMapLinkTokenImpl(
                         "Token",
                         now().plusSeconds(60)
                 )));
@@ -40,7 +40,7 @@ public class CachedTokenProviderDecoratorTest {
     void mustCallDelegateAfterExpiration() throws ExecutionException, InterruptedException {
         val delegate = mock(TokenProvider.class);
         when(delegate.getToken(CLIENT_ID, CLIENT_SECRET))
-                .thenAnswer(i -> completedFuture(new MapLinkToken(
+                .thenAnswer(i -> completedFuture(new OAuthMapLinkTokenImpl(
                         "Token",
                         now().plusMillis(100)
                 )));
