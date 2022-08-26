@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>global.maplink</groupId>
     <artifactId>sdk</artifactId>
-    <version>1.0.1-SNAPSHOT</version>
+    <version>1.0.1</version>
     <packaging>pom</packaging>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -186,7 +186,7 @@
         <url>scm:git:git@github.com:maplink/sdk-java.git</url>
         <connection>scm:git:git@github.com:maplink/sdk-java.git</connection>
         <developerConnection>scm:git:git@github.com:maplink/sdk-java.git</developerConnection>
-        <tag>HEAD</tag>
+        <tag>v1.0.1</tag>
     </scm>
 
     <distributionManagement>
