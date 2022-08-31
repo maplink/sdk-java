@@ -6,6 +6,10 @@
     <artifactId>sdk</artifactId>
     <version>1.0.2-SNAPSHOT</version>
     <packaging>pom</packaging>
+    <name>Maplink Java SDK</name>
+    <description>Maplink SDK for API access using Java</description>
+    <url>https://github.com/maplink/sdk-java</url>
+
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>8</maven.compiler.source>
@@ -256,5 +260,18 @@
             <url>http://nexus.apontador.com.br:8081/nexus/content/repositories/releases/</url>
         </repository>
     </distributionManagement>
-
+    <licenses>
+        <license>
+            <name>MIT License</name>
+            <url>https://www.opensource.org/licenses/mit-license.php</url>
+        </license>
+    </licenses>
+    <developers>
+        <developer>
+            <name>Clécius José Martinkoski</name>
+            <email>clecius.martinkoski@maplink.global</email>
+            <organization>Maplink</organization>
+            <organizationUrl>https://maplink.global</organizationUrl>
+        </developer>
+    </developers>
 </project>
