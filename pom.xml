@@ -211,6 +211,9 @@
     <profiles>
         <profile>
             <id>release</id>
+            <properties>
+                <gpg.keyname>0403DE35D906D28C3CE0ED024E6401928C742671</gpg.keyname>
+            </properties>
             <build>
                 <plugins>
                     <plugin>
@@ -224,6 +227,9 @@
                                 <goals>
                                     <goal>sign</goal>
                                 </goals>
+                                <configuration>
+                                    <keyname>${gpg.keyname}</keyname>
+                                </configuration>
                             </execution>
                         </executions>
                     </plugin>
