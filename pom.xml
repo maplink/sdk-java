@@ -1,10 +1,15 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>global.maplink</groupId>
     <artifactId>sdk</artifactId>
     <version>1.0.2-SNAPSHOT</version>
     <packaging>pom</packaging>
+    <name>Maplink Java SDK</name>
+    <description>Maplink SDK for API access using Java</description>
+    <url>https://github.com/maplink/sdk-java</url>
+
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>8</maven.compiler.source>
@@ -173,17 +178,79 @@
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <version>3.2.1</version>
+                <executions>
+                    <execution>
+                        <id>attach-sources</id>
+                        <goals>
+                            <goal>jar-no-fork</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
                 <version>3.4.1</version>
                 <configuration>
                     <sourcepath>${delombok.output}</sourcepath>
                 </configuration>
+                <executions>
+                    <execution>
+                        <id>attach-javadocs</id>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
+
         </plugins>
     </build>
+    <profiles>
+        <profile>
+            <id>release</id>
+            <properties>
+                <gpg.keyname>0403DE35D906D28C3CE0ED024E6401928C742671</gpg.keyname>
+            </properties>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-gpg-plugin</artifactId>
+                        <version>3.0.1</version>
+                        <executions>
+                            <execution>
+                                <id>sign-artifacts</id>
+                                <phase>verify</phase>
+                                <goals>
+                                    <goal>sign</goal>
+                                </goals>
+                                <configuration>
+                                    <keyname>${gpg.keyname}</keyname>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.sonatype.plugins</groupId>
+                        <artifactId>nexus-staging-maven-plugin</artifactId>
+                        <version>1.6.7</version>
+                        <extensions>true</extensions>
+                        <configuration>
+                            <serverId>ossrh</serverId>
+                            <nexusUrl>https://s01.oss.sonatype.org/</nexusUrl>
+                            <autoReleaseAfterClose>true</autoReleaseAfterClose>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 
     <scm>
-        <url>scm:git:git@github.com:maplink/sdk-java.git</url>
+        <url>https://github.com/maplink/sdk-java</url>
         <connection>scm:git:git@github.com:maplink/sdk-java.git</connection>
         <developerConnection>scm:git:git@github.com:maplink/sdk-java.git</developerConnection>
         <tag>HEAD</tag>
@@ -199,5 +266,18 @@
             <url>http://nexus.apontador.com.br:8081/nexus/content/repositories/releases/</url>
         </repository>
     </distributionManagement>
-
+    <licenses>
+        <license>
+            <name>MIT License</name>
+            <url>https://www.opensource.org/licenses/mit-license.php</url>
+        </license>
+    </licenses>
+    <developers>
+        <developer>
+            <name>Clécius José Martinkoski</name>
+            <email>clecius.martinkoski@maplink.global</email>
+            <organization>Maplink</organization>
+            <organizationUrl>https://maplink.global</organizationUrl>
+        </developer>
+    </developers>
 </project>
