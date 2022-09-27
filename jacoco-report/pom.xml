@@ -3,7 +3,7 @@
     <parent>
         <artifactId>sdk</artifactId>
         <groupId>global.maplink</groupId>
-        <version>1.0.7-SNAPSHOT</version>
+        <version>1.0.8-SNAPSHOT</version>
     </parent>
     <artifactId>jacoco-report</artifactId>
     <name>JaCoCo Coverage Aggregated Report</name>
@@ -19,6 +19,11 @@
         <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>geocode-schema</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>emission-schema</artifactId>
+            <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>${project.groupId}</groupId>

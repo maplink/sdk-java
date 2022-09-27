@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>global.maplink</groupId>
     <artifactId>sdk</artifactId>
-    <version>1.0.7-SNAPSHOT</version>
+    <version>1.0.8-SNAPSHOT</version>
     <packaging>pom</packaging>
     <name>Maplink Java SDK</name>
     <description>Maplink SDK for API access using Java</description>
@@ -31,6 +31,7 @@
         <module>http-engine-java11-client</module>
         <module>jacoco-report</module>
         <module>geocode-schema</module>
+        <module>emission-schema</module>
     </modules>
 
     <dependencyManagement>
@@ -53,6 +54,11 @@
             <dependency>
                 <groupId>${project.groupId}</groupId>
                 <artifactId>geocode-schema</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>${project.groupId}</groupId>
+                <artifactId>emission-schema</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
