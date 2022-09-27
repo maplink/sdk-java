@@ -1,8 +1,8 @@
 package global.maplink.geocode.schema.reverse;
 
 
-import global.maplink.MapLinkServiceRequest;
 import global.maplink.env.Environment;
+import global.maplink.geocode.schema.GeocodeServiceRequest;
 import global.maplink.http.request.Request;
 import global.maplink.http.request.RequestBody;
 import global.maplink.json.JsonMapper;
@@ -18,7 +18,7 @@ import static global.maplink.http.request.Request.post;
 @ToString
 @EqualsAndHashCode
 @RequiredArgsConstructor(staticName = "of")
-public class ReverseRequest implements MapLinkServiceRequest {
+public class ReverseRequest implements GeocodeServiceRequest {
     public static final String PATH = "geocode/v1/reverse";
 
     @Singular

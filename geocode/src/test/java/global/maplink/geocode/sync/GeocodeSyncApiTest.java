@@ -4,8 +4,8 @@ import global.maplink.MapLinkSDK;
 import global.maplink.credentials.MapLinkCredentials;
 import global.maplink.geocode.async.GeocodeAsyncAPI;
 import global.maplink.geocode.schema.crossCities.CrossCitiesRequest;
-import global.maplink.geocode.schema.geocode.GeocodeRequest;
 import global.maplink.geocode.schema.reverse.ReverseRequest;
+import global.maplink.geocode.schema.structured.StructuredRequest;
 import global.maplink.geocode.schema.suggestions.SuggestionsRequest;
 import global.maplink.geocode.schema.suggestions.SuggestionsResult;
 import lombok.val;
@@ -50,12 +50,12 @@ public class GeocodeSyncApiTest {
     @Test
     public void mustDelegateAllGeocodeToAsync() {
         val async = mock(GeocodeAsyncAPI.class);
-        when(async.geocode(any())).thenReturn(completedFuture(new SuggestionsResult()));
+        when(async.structured(any())).thenReturn(completedFuture(new SuggestionsResult()));
         val sync = new GeocodeSyncApiImpl(async);
-        sync.geocode(GeocodeRequest.multi());
-        sync.geocode(GeocodeRequest.ofDistrict(SOMETHING, SOMETHING, SOMETHING, SOMETHING));
-        verify(async, times(1)).geocode(any(GeocodeRequest.Single.class));
-        verify(async, times(1)).geocode(any(GeocodeRequest.Multi.class));
+        sync.structured(StructuredRequest.multi());
+        sync.structured(StructuredRequest.ofDistrict(SOMETHING, SOMETHING, SOMETHING, SOMETHING));
+        verify(async, times(1)).structured(any(StructuredRequest.Single.class));
+        verify(async, times(1)).structured(any(StructuredRequest.Multi.class));
     }
 
 

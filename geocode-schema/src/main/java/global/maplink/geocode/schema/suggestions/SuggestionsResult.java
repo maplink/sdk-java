@@ -11,6 +11,7 @@ import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
 
 import static java.util.Collections.emptyIterator;
+import static java.util.Collections.emptyList;
 import static java.util.Objects.requireNonNull;
 import static java.util.Optional.empty;
 
@@ -19,6 +20,8 @@ import static java.util.Optional.empty;
 @AllArgsConstructor
 @NoArgsConstructor(force = true)
 public class SuggestionsResult implements Iterable<Suggestion> {
+
+    public static final SuggestionsResult EMPTY = new SuggestionsResult(0, emptyList());
 
     private final int found;
 

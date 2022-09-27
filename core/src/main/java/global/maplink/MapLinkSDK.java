@@ -2,6 +2,7 @@ package global.maplink;
 
 import global.maplink.credentials.MapLinkCredentials;
 import global.maplink.env.Environment;
+import global.maplink.extensions.SdkExtension;
 import global.maplink.http.HttpAsyncEngine;
 import global.maplink.json.JsonMapper;
 import global.maplink.token.TokenProvider;
@@ -10,7 +11,11 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.val;
 
+import java.util.Collection;
+import java.util.HashSet;
 import java.util.Optional;
+
+import static java.util.Collections.unmodifiableCollection;
 
 @SuppressWarnings("unused")
 @RequiredArgsConstructor(access = AccessLevel.PRIVATE)
@@ -27,6 +32,8 @@ public class MapLinkSDK {
     private final JsonMapper jsonMapper;
 
     private final TokenProvider tokenProvider;
+
+    private final Collection<SdkExtension> extensions;
 
     public static Configurator configure() {
         return new Configurator();
@@ -55,6 +62,8 @@ public class MapLinkSDK {
 
         private Optional<JsonMapper> mapper = Optional.empty();
 
+        private final Collection<SdkExtension> extensions = new HashSet<>();
+
         public Configurator with(MapLinkCredentials credentials) {
             this.credentials = Optional.of(credentials);
             return this;
@@ -75,6 +84,11 @@ public class MapLinkSDK {
             return this;
         }
 
+        public Configurator with(SdkExtension extension) {
+            this.extensions.add(extension);
+            return this;
+        }
+
         public void initialize() {
             if (INSTANCE != null)
                 throw new IllegalStateException("MapLinkSDK already has been configured");
@@ -86,7 +100,8 @@ public class MapLinkSDK {
                     environment.orElseGet(Environment::loadDefault),
                     http,
                     jsonMapper,
-                    TokenProvider.create(http, env, jsonMapper, true)
+                    TokenProvider.create(http, env, jsonMapper, true),
+                    unmodifiableCollection(extensions)
             );
         }
     }
