@@ -1,0 +1,103 @@
+{
+   "results" : [
+      {
+         "address_components" : [
+            {
+               "long_name" : "Paraná",
+               "short_name" : "PR",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Brasil",
+               "short_name" : "BR",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Paraná, Brasil",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 0,
+                  "lng" : 0
+               },
+               "southwest" : {
+                  "lat" : 0,
+                  "lng" : 0
+               }
+            },
+            "location" : {
+               "lat" : 0,
+               "lng" : 0
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 0,
+                  "lng" : 0
+               },
+               "southwest" : {
+                  "lat" : 0,
+                  "lng" : 0
+               }
+            }
+         },
+         "place_id" : "place-result1",
+         "types" : [ "administrative_area_level_1", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Parã",
+               "short_name" : "Parã",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Be'er Sheva",
+               "short_name" : "Be'er Sheva",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Distrito Sul",
+               "short_name" : "Distrito Sul",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Israel",
+               "short_name" : "IL",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Parã, Israel",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 0,
+                  "lng" : 0
+               },
+               "southwest" : {
+                  "lat" : 0,
+                  "lng" : 0
+               }
+            },
+            "location" : {
+               "lat" : 0,
+               "lng" : 0
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 0,
+                  "lng" : 0
+               },
+               "southwest" : {
+                  "lat" : 0,
+                  "lng" : 0
+               }
+            }
+         },
+         "place_id" : "place-result2",
+         "types" : [ "locality", "political" ]
+      }
+   ],
+   "status" : "OK"
+}

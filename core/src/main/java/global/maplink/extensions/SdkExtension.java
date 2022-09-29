@@ -1,8 +1,13 @@
 package global.maplink.extensions;
 
+import global.maplink.MapLinkSDK;
+
 public interface SdkExtension extends Comparable<SdkExtension> {
 
     int DEFAULT_PRIORITY = 1000;
+
+    default void initialize(MapLinkSDK sdk) {
+    }
 
     String getName();
 

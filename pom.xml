@@ -27,15 +27,18 @@
         <module>core</module>
         <module>core-defaults</module>
         <module>geocode</module>
+        <module>geocode-schema</module>
+        <module>geocode-extensions</module>
         <module>json-mapper-jackson</module>
         <module>http-engine-java11-client</module>
         <module>jacoco-report</module>
-        <module>geocode-schema</module>
         <module>emission-schema</module>
     </modules>
 
     <dependencyManagement>
         <dependencies>
+
+            <!-- Base -->
             <dependency>
                 <groupId>${project.groupId}</groupId>
                 <artifactId>sdk-core</artifactId>
@@ -48,21 +51,6 @@
             </dependency>
             <dependency>
                 <groupId>${project.groupId}</groupId>
-                <artifactId>sdk-geocode</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>${project.groupId}</groupId>
-                <artifactId>geocode-schema</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>${project.groupId}</groupId>
-                <artifactId>emission-schema</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>${project.groupId}</groupId>
                 <artifactId>http-engine-java11-client</artifactId>
                 <version>${project.version}</version>
             </dependency>
@@ -71,6 +59,34 @@
                 <artifactId>json-mapper-jackson</artifactId>
                 <version>${project.version}</version>
             </dependency>
+
+            <!-- Geocode -->
+            <dependency>
+                <groupId>${project.groupId}</groupId>
+                <artifactId>sdk-geocode</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>${project.groupId}</groupId>
+                <artifactId>geocode-schema</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <!-- Geocode Extension -->
+            <dependency>
+                <groupId>${project.groupId}</groupId>
+                <artifactId>sdk-geocode-google-maps-extension</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <!-- Emission -->
+            <dependency>
+                <groupId>${project.groupId}</groupId>
+                <artifactId>emission-schema</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <!-- TP -->
             <dependency>
                 <groupId>org.projectlombok</groupId>
                 <artifactId>lombok</artifactId>
