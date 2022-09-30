@@ -45,12 +45,12 @@ public class GeocodeSuggestionsGMapsExtension implements GeocodeExtension<Sugges
     public void initialize(MapLinkSDK sdk) {
         http = sdk.getHttp();
         mapper = sdk.getJsonMapper();
-        this.initialized = true;
+        initialized = true;
     }
 
     @Override
     public CompletableFuture<SuggestionsResult> doRequest(SuggestionsRequest request, Function<SuggestionsRequest, CompletableFuture<SuggestionsResult>> action) {
-        return action.apply(request).thenCompose(this.afterRequest(request));
+        return action.apply(request).thenCompose(afterRequest(request));
     }
 
     private Function<SuggestionsResult, CompletableFuture<SuggestionsResult>> afterRequest(SuggestionsRequest request) {

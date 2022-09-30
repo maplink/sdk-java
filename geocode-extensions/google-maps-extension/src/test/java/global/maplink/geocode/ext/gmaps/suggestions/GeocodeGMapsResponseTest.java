@@ -1,6 +1,7 @@
 package global.maplink.geocode.ext.gmaps.suggestions;
 
 import global.maplink.geocode.schema.Address;
+import global.maplink.geocode.schema.GeoPoint;
 import global.maplink.geocode.schema.Type;
 import global.maplink.geocode.schema.suggestions.Suggestion;
 import global.maplink.geocode.schema.suggestions.SuggestionsResult;
@@ -73,6 +74,7 @@ class GeocodeGMapsResponseTest {
         assertThat(address.getRoad()).isNull();
         assertThat(address.getNumber()).isNull();
         assertThat(address.getZipCode()).isNull();
+        assertThat(address.getMainLocation()).isEqualTo(GeoPoint.of(5.5,2.5));
     }
 
     @Test
@@ -105,6 +107,7 @@ class GeocodeGMapsResponseTest {
         assertThat(address.getRoad()).isEqualTo("Alameda Campinas");
         assertThat(address.getNumber()).isEqualTo("579");
         assertThat(address.getZipCode()).isEqualTo("01404-100");
+        assertThat(address.getMainLocation()).isEqualTo(GeoPoint.of(10,5));
     }
 
     private Set<String> setOf(String... values) {

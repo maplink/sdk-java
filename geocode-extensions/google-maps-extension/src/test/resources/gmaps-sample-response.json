@@ -25,10 +25,10 @@
                   "lng" : 0
                }
             },
-            "location" : {
-               "lat" : 0,
-               "lng" : 0
-            },
+           "location" : {
+             "lat" : 5.5,
+             "lng" : 2.5
+           },
             "location_type" : "APPROXIMATE",
             "viewport" : {
                "northeast" : {
@@ -80,8 +80,8 @@
                }
             },
             "location" : {
-               "lat" : 0,
-               "lng" : 0
+               "lat" : 7.5,
+               "lng" : 1.5
             },
             "location_type" : "APPROXIMATE",
             "viewport" : {

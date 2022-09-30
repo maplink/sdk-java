@@ -1,6 +1,7 @@
 package global.maplink.geocode.ext.gmaps.suggestions;
 
 import global.maplink.geocode.schema.Address;
+import global.maplink.geocode.schema.GeoPoint;
 import global.maplink.geocode.schema.State;
 import global.maplink.geocode.schema.Type;
 import global.maplink.geocode.schema.suggestions.Suggestion;
@@ -8,10 +9,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 
-import java.util.AbstractMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 import java.util.function.Consumer;
 import java.util.function.Function;
 
@@ -61,6 +59,11 @@ public class GeocodeGMapsResult {
             components.fill(Components.ROAD, builder::road);
             components.fill(Components.STREET_NUMBER, builder::number);
         }
+        Optional.ofNullable(geometry)
+                .map(GMapsGeometry::getLocation)
+                .map(l -> GeoPoint.of(l.getLat(), l.getLng()))
+                .ifPresent(builder::mainLocation);
+
         return builder.build();
     }
 

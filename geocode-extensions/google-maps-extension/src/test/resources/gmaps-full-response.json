@@ -56,8 +56,8 @@
           }
         },
         "location" : {
-          "lat" : 0,
-          "lng" : 0
+          "lat" : 10,
+          "lng" : 5
         },
         "location_type" : "ROOFTOP",
         "viewport" : {
