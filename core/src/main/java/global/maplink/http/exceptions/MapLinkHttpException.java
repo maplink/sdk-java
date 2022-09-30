@@ -8,12 +8,12 @@ import static java.lang.String.format;
 import static java.util.Optional.ofNullable;
 
 @Getter
-public class HttpException extends RuntimeException {
+public class MapLinkHttpException extends RuntimeException {
     private final int status;
     private final String contentType;
     private final byte[] body;
 
-    public HttpException(int status, String contentType, byte[] body) {
+    public MapLinkHttpException(int status, String contentType, byte[] body) {
         super(toMessage(status, contentType, body));
         this.status = status;
         this.contentType = contentType;

@@ -1,6 +1,6 @@
 package global.maplink.http;
 
-import global.maplink.http.exceptions.HttpException;
+import global.maplink.http.exceptions.MapLinkHttpException;
 import global.maplink.json.JsonMapper;
 import lombok.RequiredArgsConstructor;
 
@@ -41,7 +41,7 @@ public class Response {
 
     public void throwIfIsError() {
         if (isError()) {
-            throw new HttpException(statusCode, contentType, body);
+            throw new MapLinkHttpException(statusCode, contentType, body);
         }
     }
 }
