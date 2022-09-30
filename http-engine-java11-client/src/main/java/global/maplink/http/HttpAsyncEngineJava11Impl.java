@@ -58,5 +58,4 @@ public class HttpAsyncEngineJava11Impl implements HttpAsyncEngine {
                 .thenApply(this::translateResponse);
     }
 
-
 }

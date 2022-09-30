@@ -23,7 +23,6 @@ public class ResponseTest {
 
     private static final SampleJson SAMPLE_OBJECT = new SampleJson(SAMPLE_NAME_VALUE);
 
-
     @Test
     public void mustEvaluate2xxAsOkStatus() {
         assertOk(buildWithStatus(200));
@@ -45,7 +44,6 @@ public class ResponseTest {
         assertServerError(buildWithStatus(504));
     }
 
-
     @Test
     public void mustEvaluateOthersAsServerError() {
         Response tooHigh = buildWithStatus(650);
@@ -53,7 +51,6 @@ public class ResponseTest {
         assertThat(tooHigh.isServerError()).isFalse();
         assertThat(tooHigh.isClientError()).isFalse();
         assertThat(tooHigh.isOk()).isFalse();
-
 
         Response tooLow = buildWithStatus(50);
         assertThat(tooLow.isError()).isTrue();
@@ -114,7 +111,6 @@ public class ResponseTest {
         assertThat(resp.isError()).isTrue();
         assertThat(resp.isServerError()).isTrue();
     }
-
 
     private Response buildWithStatus(int status) {
         return new Response(status, "none", new byte[0]);

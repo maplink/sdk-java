@@ -58,7 +58,6 @@ class GeocodeSuggestionsGMapsExtensionTest {
         });
     }
 
-
     private void withMockSdk(ThrowingConsumer<MapLinkSDK> action) {
         try {
             MapLinkSDK.configure()

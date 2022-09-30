@@ -58,7 +58,6 @@ public class GeocodeSyncApiTest {
         verify(async, times(1)).structured(any(StructuredRequest.Multi.class));
     }
 
-
     @Test
     public void mustDelegateAllSuggestionsToAsync() {
         val async = mock(GeocodeAsyncAPI.class);
@@ -74,7 +73,6 @@ public class GeocodeSyncApiTest {
         assertThat(asList(result1, result2, result3)).doesNotContainNull();
         verify(async, times(3)).suggestions(any(SuggestionsRequest.class));
     }
-
 
     @Test
     public void mustDelegateAllReverseToAsync() {

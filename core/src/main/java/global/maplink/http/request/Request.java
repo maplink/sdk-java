@@ -90,7 +90,6 @@ public abstract class Request {
                 .collect(joining("&"));
     }
 
-
     public static GetRequest get(URL url) {
         return new GetRequest(url);
     }

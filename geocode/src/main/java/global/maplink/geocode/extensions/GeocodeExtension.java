@@ -26,7 +26,6 @@ public interface GeocodeExtension<REQ extends GeocodeServiceRequest> extends Sdk
         return completedFuture(response);
     }
 
-
     static <T extends GeocodeServiceRequest> GeocodeExtension<T> empty(Class<T> requestType) {
         return new GeocodeExtension<T>() {
             private final String name = format("Empty extension for [%s]", requestType.getName());

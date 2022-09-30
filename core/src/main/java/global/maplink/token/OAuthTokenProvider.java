@@ -76,5 +76,4 @@ public class OAuthTokenProvider implements TokenProvider {
         }
     }
 
-
 }

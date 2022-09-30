@@ -7,7 +7,6 @@ import static java.lang.String.format;
 import static java.lang.System.getenv;
 import static java.util.Optional.ofNullable;
 
-
 @RequiredArgsConstructor
 @Data
 public class GeocodeGMapsConfig {

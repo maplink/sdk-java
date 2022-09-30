@@ -16,7 +16,6 @@ public interface StructuredRequest extends GeocodeServiceRequest {
         return Single.builder().id(id);
     }
 
-
     static Single.Single ofState(String id, String state) {
         return Single.builder()
                 .id(id)

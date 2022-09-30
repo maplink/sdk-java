@@ -28,7 +28,6 @@ public class GeocodeExtensionManager {
         );
     }
 
-
     @SuppressWarnings("unchecked")
     public <T extends GeocodeServiceRequest> GeocodeExtension<T> get(Class<T> requestType) {
         return ofNullable(group.get(requestType))
@@ -56,7 +55,6 @@ public class GeocodeExtensionManager {
                 .map(e -> (GeocodeExtension<GeocodeServiceRequest>) e)
                 .collect(Collectors.toSet()));
     }
-
 
     @RequiredArgsConstructor
     private static class RecursiveExtensionIterator<T extends GeocodeServiceRequest> implements GeocodeExtension<T> {

@@ -16,7 +16,6 @@ public class GeocodeGMapsExtensionCatalog implements SdkExtensionCatalog {
 
     private final List<GeocodeExtension<? extends GeocodeServiceRequest>> all;
 
-
     public GeocodeGMapsExtensionCatalog() {
         all = singletonList(new GeocodeSuggestionsGMapsExtension());
     }

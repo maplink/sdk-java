@@ -85,7 +85,6 @@ public class GeocodeSuggestionsGMapsExtension implements GeocodeExtension<Sugges
                 .orElse(false);
     }
 
-
     @Override
     public String getName() {
         return "Geocode Suggestions - Google Maps Extension";

@@ -33,7 +33,6 @@ public class TokenProviderTest {
         MapLinkSDK.resetConfiguration();
     }
 
-
     @Test
     void mustFailWithInvalidCredentials() {
         val tokenProvider = MapLinkSDK.getInstance().getTokenProvider();

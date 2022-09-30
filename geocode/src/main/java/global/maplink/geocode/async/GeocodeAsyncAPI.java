@@ -50,7 +50,6 @@ public interface GeocodeAsyncAPI {
 
     CompletableFuture<SuggestionsResult> crossCities(CrossCitiesRequest request);
 
-
     static GeocodeAsyncAPI getInstance() {
         return getInstance(null);
     }

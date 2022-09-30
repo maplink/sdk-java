@@ -13,7 +13,6 @@ public class HttpException extends RuntimeException {
     private final String contentType;
     private final byte[] body;
 
-
     public HttpException(int status, String contentType, byte[] body) {
         super(toMessage(status, contentType, body));
         this.status = status;
@@ -34,6 +33,5 @@ public class HttpException extends RuntimeException {
         }
         return format("HTTP Error %s with body %s of type %s", status, message, contentType);
     }
-
 
 }

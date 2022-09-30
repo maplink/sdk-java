@@ -17,7 +17,6 @@ public class CachedTokenProviderDecoratorTest {
     private static final String CLIENT_ID = "clientId";
     private static final String CLIENT_SECRET = "secret";
 
-
     @Test
     void mustCallDelegateOnlyOnceBeforeExpiration() throws ExecutionException, InterruptedException {
         val delegate = mock(TokenProvider.class);
