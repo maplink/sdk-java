@@ -16,6 +16,7 @@ import java.nio.file.Paths;
 import java.util.HashSet;
 import java.util.Set;
 
+import static global.maplink.geocode.ext.gmaps.suggestions.GeocodeGMapsResponse.STATUS_EMPTY;
 import static global.maplink.geocode.ext.gmaps.suggestions.GeocodeGMapsResponse.STATUS_OK;
 import static java.util.Arrays.asList;
 import static java.util.Optional.ofNullable;
@@ -23,14 +24,36 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 class GeocodeGMapsResponseTest {
 
+    private static final String EMPTY_RESPONSE_FILE = "gmaps-empty-response.json";
     private static final String SAMPLE_RESPONSE_FILE = "gmaps-sample-response.json";
     private static final String FULL_RESPONSE_FILE = "gmaps-full-response.json";
     public static final String SAMPLE_LABEL = "Paraná, Brasil";
     public static final String FULL_LABEL = "Edifício Silver Tower - Alameda Campinas, 579 - Jardim Paulista, São Paulo - SP, 01404-100, Brasil";
 
+    private final JsonMapper mapper = JsonMapper.loadDefault();
+
+    @Test
+    void mustResultEmptySuggestionResultWhenEmpty() {
+        GeocodeGMapsResponse response = new GeocodeGMapsResponse();
+        assertThat(response.toSuggestions()).isEqualTo(SuggestionsResult.EMPTY);
+    }
+
+    @Test
+    void mustResultEmptySuggestionResultWhenEmptyJsonResult() {
+        byte[] bytes = readResponseFile(EMPTY_RESPONSE_FILE);
+        GeocodeGMapsResponse response = mapper.fromJson(bytes, GeocodeGMapsResponse.class);
+        assertThat(response).isNotNull();
+        assertThat(response.getResults()).isEmpty();
+        assertThat(response.getStatus()).isEqualTo(STATUS_EMPTY);
+        assertThat(response.isOk()).isFalse();
+        assertThat(response.isDenied()).isFalse();
+        assertThat(response.isEmpty()).isTrue();
+
+        assertThat(response.toSuggestions()).isEqualTo(SuggestionsResult.EMPTY);
+    }
+
     @Test
     void mustFillSuggestionResultFromSampleJson() {
-        JsonMapper mapper = JsonMapper.loadDefault();
         byte[] bytes = readResponseFile(SAMPLE_RESPONSE_FILE);
 
         GeocodeGMapsResponse response = mapper.fromJson(bytes, GeocodeGMapsResponse.class);
@@ -74,7 +97,7 @@ class GeocodeGMapsResponseTest {
         assertThat(address.getRoad()).isNull();
         assertThat(address.getNumber()).isNull();
         assertThat(address.getZipCode()).isNull();
-        assertThat(address.getMainLocation()).isEqualTo(GeoPoint.of(5.5,2.5));
+        assertThat(address.getMainLocation()).isEqualTo(GeoPoint.of(5.5, 2.5));
     }
 
     @Test
@@ -107,7 +130,7 @@ class GeocodeGMapsResponseTest {
         assertThat(address.getRoad()).isEqualTo("Alameda Campinas");
         assertThat(address.getNumber()).isEqualTo("579");
         assertThat(address.getZipCode()).isEqualTo("01404-100");
-        assertThat(address.getMainLocation()).isEqualTo(GeoPoint.of(10,5));
+        assertThat(address.getMainLocation()).isEqualTo(GeoPoint.of(10, 5));
     }
 
     private Set<String> setOf(String... values) {
