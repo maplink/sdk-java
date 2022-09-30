@@ -1,0 +1,80 @@
+{
+  "results" : [
+    {
+      "address_components" : [
+        {
+          "long_name" : "Edifício Silver Tower",
+          "short_name" : "Edifício Silver Tower",
+          "types" : [ "premise" ]
+        },
+        {
+          "long_name" : "579",
+          "short_name" : "579",
+          "types" : [ "street_number" ]
+        },
+        {
+          "long_name" : "Alameda Campinas",
+          "short_name" : "Alameda Campinas",
+          "types" : [ "route" ]
+        },
+        {
+          "long_name" : "Jardim Paulista",
+          "short_name" : "Jardim Paulista",
+          "types" : [ "political", "sublocality", "sublocality_level_1" ]
+        },
+        {
+          "long_name" : "São Paulo",
+          "short_name" : "São Paulo",
+          "types" : [ "administrative_area_level_2", "political" ]
+        },
+        {
+          "long_name" : "São Paulo",
+          "short_name" : "SP",
+          "types" : [ "administrative_area_level_1", "political" ]
+        },
+        {
+          "long_name" : "Brasil",
+          "short_name" : "BR",
+          "types" : [ "country", "political" ]
+        },
+        {
+          "long_name" : "01404-100",
+          "short_name" : "01404-100",
+          "types" : [ "postal_code" ]
+        }
+      ],
+      "formatted_address" : "Edifício Silver Tower - Alameda Campinas, 579 - Jardim Paulista, São Paulo - SP, 01404-100, Brasil",
+      "geometry" : {
+        "bounds" : {
+          "northeast" : {
+            "lat" : 0,
+            "lng" : 0
+          },
+          "southwest" : {
+            "lat" : 0,
+            "lng" : 0
+          }
+        },
+        "location" : {
+          "lat" : 10,
+          "lng" : 5
+        },
+        "location_type" : "ROOFTOP",
+        "viewport" : {
+          "northeast" : {
+            "lat" : 0,
+            "lng" : 0
+          },
+          "southwest" : {
+            "lat" : 0,
+            "lng" : 0
+          }
+        }
+      },
+      "partial_match" : true,
+      "place_id" : "maplink-addr",
+      "types" : [ "premise" ]
+    }
+  ],
+  "status" : "OK"
+}

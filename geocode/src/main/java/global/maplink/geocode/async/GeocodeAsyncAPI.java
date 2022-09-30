@@ -2,10 +2,11 @@ package global.maplink.geocode.async;
 
 import global.maplink.MapLinkSDK;
 import global.maplink.env.Environment;
+import global.maplink.geocode.extensions.GeocodeExtensionManager;
 import global.maplink.geocode.schema.Type;
 import global.maplink.geocode.schema.crossCities.CrossCitiesRequest;
-import global.maplink.geocode.schema.geocode.GeocodeRequest;
 import global.maplink.geocode.schema.reverse.ReverseRequest;
+import global.maplink.geocode.schema.structured.StructuredRequest;
 import global.maplink.geocode.schema.suggestions.SuggestionsRequest;
 import global.maplink.geocode.schema.suggestions.SuggestionsResult;
 
@@ -27,7 +28,7 @@ public interface GeocodeAsyncAPI {
 
     CompletableFuture<SuggestionsResult> suggestions(SuggestionsRequest request);
 
-    CompletableFuture<SuggestionsResult> geocode(GeocodeRequest request);
+    CompletableFuture<SuggestionsResult> structured(StructuredRequest request);
 
     default CompletableFuture<SuggestionsResult> reverse(ReverseRequest.Entry... request) {
         return reverse(asList(request));
@@ -49,7 +50,6 @@ public interface GeocodeAsyncAPI {
 
     CompletableFuture<SuggestionsResult> crossCities(CrossCitiesRequest request);
 
-
     static GeocodeAsyncAPI getInstance() {
         return getInstance(null);
     }
@@ -61,7 +61,8 @@ public interface GeocodeAsyncAPI {
                 sdk.getHttp(),
                 sdk.getJsonMapper(),
                 sdk.getTokenProvider(),
-                sdk.getCredentials()
+                sdk.getCredentials(),
+                GeocodeExtensionManager.from(sdk.getExtensions())
         );
     }
 

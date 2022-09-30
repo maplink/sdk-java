@@ -3,13 +3,13 @@ package global.maplink.geocode.async;
 import global.maplink.MapLinkServiceRequest;
 import global.maplink.credentials.MapLinkCredentials;
 import global.maplink.env.Environment;
+import global.maplink.geocode.extensions.GeocodeExtensionManager;
 import global.maplink.geocode.schema.crossCities.CrossCitiesRequest;
-import global.maplink.geocode.schema.geocode.GeocodeRequest;
 import global.maplink.geocode.schema.reverse.ReverseRequest;
+import global.maplink.geocode.schema.structured.StructuredRequest;
 import global.maplink.geocode.schema.suggestions.SuggestionsRequest;
 import global.maplink.geocode.schema.suggestions.SuggestionsResult;
 import global.maplink.http.HttpAsyncEngine;
-import global.maplink.http.Response;
 import global.maplink.json.JsonMapper;
 import global.maplink.token.TokenProvider;
 import lombok.RequiredArgsConstructor;
@@ -32,33 +32,33 @@ public class GeocodeAsyncApiImpl implements GeocodeAsyncAPI {
 
     private final MapLinkCredentials credentials;
 
+    private final GeocodeExtensionManager extensionManager;
+
     @Override
     public CompletableFuture<SuggestionsResult> suggestions(SuggestionsRequest request) {
-        return doRequest(request).thenApply(this::parse);
+        return extensionManager.get(SuggestionsRequest.class).doRequest(request, this::run);
     }
 
     @Override
-    public CompletableFuture<SuggestionsResult> geocode(GeocodeRequest request) {
-        return doRequest(request).thenApply(this::parse);
+    public CompletableFuture<SuggestionsResult> structured(StructuredRequest request) {
+        return extensionManager.get(StructuredRequest.class).doRequest(request, this::run);
     }
 
     @Override
     public CompletableFuture<SuggestionsResult> reverse(ReverseRequest request) {
-        return doRequest(request).thenApply(this::parse);
+        return extensionManager.get(ReverseRequest.class).doRequest(request, this::run);
     }
 
     @Override
     public CompletableFuture<SuggestionsResult> crossCities(CrossCitiesRequest request) {
-        return doRequest(request).thenApply(this::parse);
+        return extensionManager.get(CrossCitiesRequest.class).doRequest(request, this::run);
     }
 
-    private CompletableFuture<Response> doRequest(MapLinkServiceRequest request) {
+    private CompletableFuture<SuggestionsResult> run(MapLinkServiceRequest request) {
         val httpRequest = request.asHttpRequest(environment, mapper);
         return credentials.fetchToken(tokenProvider)
-                .thenCompose(token -> http.run(token.applyOn(httpRequest)));
+                .thenCompose(token -> http.run(token.applyOn(httpRequest)))
+                .thenApply(r -> r.parseBodyObject(mapper, SuggestionsResult.class));
     }
 
-    private SuggestionsResult parse(Response response) {
-        return response.parseBodyObject(mapper, SuggestionsResult.class);
-    }
 }

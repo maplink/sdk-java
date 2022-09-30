@@ -5,6 +5,12 @@
     <file url="file://$PROJECT_DIR$/core-defaults/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/core/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/core/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/emission-schema/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/emission-schema/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/geocode-extensions/google-maps-extension/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/geocode-extensions/google-maps-extension/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/geocode-extensions/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/geocode-extensions/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/geocode-schema/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/geocode-schema/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/geocode/src/main/java" charset="UTF-8" />

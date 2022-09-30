@@ -1,7 +1,7 @@
 package global.maplink.geocode.schema.suggestions;
 
-import global.maplink.MapLinkServiceRequest;
 import global.maplink.env.Environment;
+import global.maplink.geocode.schema.GeocodeServiceRequest;
 import global.maplink.geocode.schema.Type;
 import global.maplink.http.request.Request;
 import global.maplink.json.JsonMapper;
@@ -15,7 +15,7 @@ import static global.maplink.http.request.Request.get;
 
 @Builder
 @Data
-public class SuggestionsRequest implements MapLinkServiceRequest {
+public class SuggestionsRequest implements GeocodeServiceRequest {
 
     public static final String PATH = "geocode/v1/suggestions";
     private static final String PARAM_QUERY = "q";

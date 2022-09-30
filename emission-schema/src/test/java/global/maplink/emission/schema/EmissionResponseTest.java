@@ -1,6 +1,5 @@
 package global.maplink.emission.schema;
 
-import global.maplink.emission.testUtils.SampleFiles;
 import global.maplink.json.JsonMapper;
 import org.junit.jupiter.api.Test;
 

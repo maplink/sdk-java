@@ -34,7 +34,6 @@ public class OAuthTokenProviderTest {
     public static final String RESPONSE_EXPIRES_IN = "expires_in";
     public static final String RESPONSE_ISSUED_AT = "issued_at";
 
-
     @Test
     @SneakyThrows
     void mustCallHttpEngineWithBodyAndTakeResponse() {

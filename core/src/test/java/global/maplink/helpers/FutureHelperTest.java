@@ -12,7 +12,6 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 public class FutureHelperTest {
 
-
     @Test
     public void mustAwaitForExecution() {
         val future = CompletableFuture.supplyAsync(() -> {
@@ -22,7 +21,6 @@ public class FutureHelperTest {
         val result = await(future);
         assertThat(result).isTrue();
     }
-
 
     @Test
     public void mustAwaitAndRethrowRuntimeExceptions() {
@@ -37,7 +35,6 @@ public class FutureHelperTest {
     private void sleep(int time) {
         Thread.sleep(time);
     }
-
 
     static class SampleUncheckedException extends RuntimeException {
     }

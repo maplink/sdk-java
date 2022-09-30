@@ -1,5 +1,6 @@
 package global.maplink.http;
 
+import global.maplink.http.exceptions.MapLinkHttpException;
 import global.maplink.json.JsonMapper;
 import lombok.RequiredArgsConstructor;
 
@@ -36,5 +37,11 @@ public class Response {
 
     public boolean isServerError() {
         return statusCode >= 500 && statusCode < 600;
+    }
+
+    public void throwIfIsError() {
+        if (isError()) {
+            throw new MapLinkHttpException(statusCode, contentType, body);
+        }
     }
 }
