@@ -2,6 +2,7 @@ package global.maplink.geocode.ext.gmaps;
 
 import global.maplink.extensions.SdkExtension;
 import global.maplink.extensions.SdkExtensionCatalog;
+import global.maplink.geocode.ext.gmaps.config.GeocodeGMapsConfig;
 import global.maplink.geocode.ext.gmaps.suggestions.GeocodeSuggestionsGMapsExtension;
 import global.maplink.geocode.extensions.GeocodeExtension;
 import global.maplink.geocode.schema.GeocodeServiceRequest;
@@ -17,7 +18,7 @@ public class GeocodeGMapsExtensionCatalog implements SdkExtensionCatalog {
     private final List<GeocodeExtension<? extends GeocodeServiceRequest>> all;
 
     public GeocodeGMapsExtensionCatalog() {
-        all = singletonList(new GeocodeSuggestionsGMapsExtension());
+        this(GeocodeGMapsConfig.fromEnv());
     }
 
     public GeocodeGMapsExtensionCatalog(GeocodeGMapsConfig config) {

@@ -3,7 +3,7 @@ package global.maplink.geocode.ext.gmaps.suggestions;
 import global.maplink.MapLinkSDK;
 import global.maplink.credentials.MapLinkCredentials;
 import global.maplink.env.EnvironmentCatalog;
-import global.maplink.geocode.ext.gmaps.GeocodeGMapsConfig;
+import global.maplink.geocode.ext.gmaps.config.GeocodeGMapsConfig;
 import global.maplink.geocode.schema.suggestions.Suggestion;
 import global.maplink.geocode.schema.suggestions.SuggestionsRequest;
 import global.maplink.geocode.schema.suggestions.SuggestionsResult;

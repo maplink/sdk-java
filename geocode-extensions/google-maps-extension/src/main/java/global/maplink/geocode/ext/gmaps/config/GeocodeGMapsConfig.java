@@ -1,13 +1,12 @@
-package global.maplink.geocode.ext.gmaps;
+package global.maplink.geocode.ext.gmaps.config;
 
 import lombok.Data;
-import lombok.RequiredArgsConstructor;
 
+import static global.maplink.geocode.ext.gmaps.config.GeocodeGmapsSwitchStrategy.defaultStrategy;
 import static java.lang.String.format;
 import static java.lang.System.getenv;
 import static java.util.Optional.ofNullable;
 
-@RequiredArgsConstructor
 @Data
 public class GeocodeGMapsConfig {
 
@@ -16,11 +15,21 @@ public class GeocodeGMapsConfig {
 
     private final String apiKey;
 
-    public static GeocodeGMapsConfig fromEnv() {
-        return ofNullable(getenv(GOOGLE_MAPS_KEY_ENV))
+    private final GeocodeGmapsSwitchStrategy switchStrategy;
+
+    public GeocodeGMapsConfig(String apiKey) {
+        this(apiKey, defaultStrategy());
+    }
+
+    public GeocodeGMapsConfig(String key, GeocodeGmapsSwitchStrategy strategy) {
+        apiKey = ofNullable(key)
                 .map(String::trim)
                 .filter(s -> !s.isEmpty())
-                .map(GeocodeGMapsConfig::new)
                 .orElseThrow(() -> new IllegalStateException(format(ERROR_MESSAGE_TEMPLATE, GOOGLE_MAPS_KEY_ENV)));
+        switchStrategy = strategy;
+    }
+
+    public static GeocodeGMapsConfig fromEnv() {
+        return new GeocodeGMapsConfig(getenv(GOOGLE_MAPS_KEY_ENV));
     }
 }

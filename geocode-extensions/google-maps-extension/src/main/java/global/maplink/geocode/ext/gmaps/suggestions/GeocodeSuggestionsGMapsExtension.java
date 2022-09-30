@@ -1,13 +1,15 @@
 package global.maplink.geocode.ext.gmaps.suggestions;
 
 import global.maplink.MapLinkSDK;
-import global.maplink.geocode.ext.gmaps.GeocodeGMapsConfig;
+import global.maplink.geocode.ext.gmaps.config.GeocodeGMapsConfig;
 import global.maplink.geocode.extensions.GeocodeExtension;
 import global.maplink.geocode.schema.suggestions.SuggestionsRequest;
 import global.maplink.geocode.schema.suggestions.SuggestionsResult;
 import global.maplink.http.HttpAsyncEngine;
 import global.maplink.http.Response;
 import global.maplink.json.JsonMapper;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
 import java.net.URL;
@@ -16,10 +18,10 @@ import java.util.function.Function;
 
 import static global.maplink.helpers.UrlHelper.urlFrom;
 import static global.maplink.http.request.Request.get;
-import static java.util.Optional.ofNullable;
 import static java.util.concurrent.CompletableFuture.completedFuture;
 
 @RequiredArgsConstructor
+@EqualsAndHashCode
 public class GeocodeSuggestionsGMapsExtension implements GeocodeExtension<SuggestionsRequest> {
 
     private static final Class<SuggestionsRequest> REQUEST_TYPE = SuggestionsRequest.class;
@@ -29,13 +31,16 @@ public class GeocodeSuggestionsGMapsExtension implements GeocodeExtension<Sugges
     private static final String PARAM_KEY = "key";
     private static final String PARAM_LANG = "language";
     private static final String PARAM_LANG_DEFAULT = "pt-BR";
-    private static final double THRESHOLD = 70.0;
 
+    @Getter
+    private boolean initialized = false;
+    @Getter
     private final GeocodeGMapsConfig config;
+
     private final URL url = urlFrom(GMAPS_URL);
     private HttpAsyncEngine http;
     private JsonMapper mapper;
-    private boolean initialized = false;
+
 
     public GeocodeSuggestionsGMapsExtension() {
         this(GeocodeGMapsConfig.fromEnv());
@@ -55,7 +60,7 @@ public class GeocodeSuggestionsGMapsExtension implements GeocodeExtension<Sugges
 
     private Function<SuggestionsResult, CompletableFuture<SuggestionsResult>> afterRequest(SuggestionsRequest request) {
         return result -> {
-            if (!initialized || hasGoodScore(result)) {
+            if (!initialized || !config.getSwitchStrategy().shouldSwitchAfter(request, result)) {
                 return completedFuture(result);
             }
             return delegateToGmaps(request);
@@ -77,12 +82,6 @@ public class GeocodeSuggestionsGMapsExtension implements GeocodeExtension<Sugges
             throw new IllegalArgumentException(body.getStatus() + ": " + body.getError_message());
         }
         return body.toSuggestions();
-    }
-
-    private boolean hasGoodScore(SuggestionsResult result) {
-        return ofNullable(result.getMostRelevant())
-                .map(r -> r.getScore() > THRESHOLD)
-                .orElse(false);
     }
 
     @Override
