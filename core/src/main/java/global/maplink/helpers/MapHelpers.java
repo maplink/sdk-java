@@ -12,7 +12,9 @@ import static lombok.AccessLevel.PRIVATE;
 public class MapHelpers {
 
     public static Map<String, String> mapOf(String... values) {
-        assert values.length % 2 == 0;
+        if (values.length % 2 != 0) {
+            throw new IllegalArgumentException("Arguments must be passed in pairs");
+        }
         val map = new HashMap<String, String>();
         for (int i = 0; i < values.length; i += 2) {
             map.put(values[i], values[i + 1]);
