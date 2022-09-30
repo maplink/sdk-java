@@ -11,5 +11,4 @@ public enum EnvironmentCatalog implements Environment {
 
     private final String host;
 
-
 }

@@ -11,7 +11,6 @@ public interface HttpAsyncEngine {
 
     CompletableFuture<Response> run(Request request);
 
-
     static HttpAsyncEngine loadDefault() {
         ServiceLoader<HttpAsyncEngine> load = ServiceLoader.load(HttpAsyncEngine.class);
         return StreamSupport.stream(load.spliterator(), false)

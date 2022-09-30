@@ -36,7 +36,6 @@ public class GetRequestTest {
                 .hasNoQuery();
     }
 
-
     @Test
     public void shouldBeAbleToAddQueryParams() {
         val key = "query1";

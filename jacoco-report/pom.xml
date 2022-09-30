@@ -23,7 +23,6 @@
         <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>emission-schema</artifactId>
-            <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>${project.groupId}</groupId>
@@ -32,6 +31,10 @@
         <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>json-mapper-jackson</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>sdk-geocode-google-maps-extension</artifactId>
         </dependency>
     </dependencies>
     <build>

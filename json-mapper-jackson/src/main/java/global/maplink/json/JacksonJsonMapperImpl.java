@@ -7,9 +7,11 @@ import com.fasterxml.jackson.databind.type.CollectionType;
 import java.io.IOException;
 import java.util.List;
 
+import static com.fasterxml.jackson.databind.DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES;
+
 public class JacksonJsonMapperImpl implements JsonMapper {
 
-    private final ObjectMapper mapper = new ObjectMapper().findAndRegisterModules();
+    private final ObjectMapper mapper = new ObjectMapper().findAndRegisterModules().disable(FAIL_ON_UNKNOWN_PROPERTIES);
 
     @Override
     public <T> T fromJson(byte[] data, Class<T> type) {

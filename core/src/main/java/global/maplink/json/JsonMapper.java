@@ -10,7 +10,6 @@ import static java.nio.charset.StandardCharsets.UTF_8;
 
 public interface JsonMapper {
 
-
     <T> T fromJson(byte[] data, Class<T> type);
 
     default <T> T fromJson(String data, Class<T> type) {
@@ -28,7 +27,6 @@ public interface JsonMapper {
     default <T> String toJsonString(T object) {
         return new String(toJson(object), UTF_8);
     }
-
 
     static JsonMapper loadDefault() {
         ServiceLoader<JsonMapper> load = ServiceLoader.load(JsonMapper.class);

@@ -48,12 +48,10 @@ public class EnvironmentTest {
         ).hasCauseInstanceOf(MalformedURLException.class);
     }
 
-
     @RequiredArgsConstructor
     @Getter
     private static class SimpleEnvironment implements Environment {
         private final String host;
     }
+
 }
-
-

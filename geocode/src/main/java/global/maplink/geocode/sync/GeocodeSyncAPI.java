@@ -4,8 +4,8 @@ import global.maplink.env.Environment;
 import global.maplink.geocode.async.GeocodeAsyncAPI;
 import global.maplink.geocode.schema.Type;
 import global.maplink.geocode.schema.crossCities.CrossCitiesRequest;
-import global.maplink.geocode.schema.geocode.GeocodeRequest;
 import global.maplink.geocode.schema.reverse.ReverseRequest;
+import global.maplink.geocode.schema.structured.StructuredRequest;
 import global.maplink.geocode.schema.suggestions.SuggestionsRequest;
 import global.maplink.geocode.schema.suggestions.SuggestionsResult;
 
@@ -25,8 +25,7 @@ public interface GeocodeSyncAPI {
 
     SuggestionsResult suggestions(SuggestionsRequest request);
 
-    SuggestionsResult geocode(GeocodeRequest request);
-
+    SuggestionsResult structured(StructuredRequest request);
 
     default SuggestionsResult reverse(ReverseRequest.Entry... request) {
         return reverse(asList(request));

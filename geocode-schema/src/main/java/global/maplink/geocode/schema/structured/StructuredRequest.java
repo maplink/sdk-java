@@ -1,7 +1,7 @@
-package global.maplink.geocode.schema.geocode;
+package global.maplink.geocode.schema.structured;
 
-import global.maplink.MapLinkServiceRequest;
 import global.maplink.env.Environment;
+import global.maplink.geocode.schema.GeocodeServiceRequest;
 import global.maplink.geocode.schema.Type;
 import global.maplink.http.request.Request;
 import global.maplink.http.request.RequestBody;
@@ -10,12 +10,11 @@ import lombok.*;
 
 import static global.maplink.http.request.Request.post;
 
-public interface GeocodeRequest extends MapLinkServiceRequest {
+public interface StructuredRequest extends GeocodeServiceRequest {
 
     static Single.SingleBuilder of(String id) {
         return Single.builder().id(id);
     }
-
 
     static Single.Single ofState(String id, String state) {
         return Single.builder()
@@ -41,7 +40,7 @@ public interface GeocodeRequest extends MapLinkServiceRequest {
                 .build();
     }
 
-    static GeocodeRequest.Multi multi(Single... requests) {
+    static StructuredRequest.Multi multi(Single... requests) {
         return new Multi(requests);
     }
 
@@ -49,7 +48,7 @@ public interface GeocodeRequest extends MapLinkServiceRequest {
     @Getter
     @ToString
     @EqualsAndHashCode
-    class Single implements GeocodeRequest {
+    class Single implements StructuredRequest {
         public static final String PATH = "geocode/v1/geocode";
         private String id;
         private String road;
@@ -73,7 +72,7 @@ public interface GeocodeRequest extends MapLinkServiceRequest {
     @RequiredArgsConstructor
     @Getter
     @ToString
-    class Multi implements GeocodeRequest {
+    class Multi implements StructuredRequest {
         public static final String PATH = "geocode/v1/multi-geocode";
 
         private final Single[] requests;

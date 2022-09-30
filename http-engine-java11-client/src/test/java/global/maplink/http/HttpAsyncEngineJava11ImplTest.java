@@ -21,7 +21,6 @@ public class HttpAsyncEngineJava11ImplTest {
         assertThat(engine).isNotNull().isInstanceOf(HttpAsyncEngineJava11Impl.class);
     }
 
-
     @Test
     @SneakyThrows
     public void mustBeAbleToDoGetRequest() {
@@ -30,7 +29,6 @@ public class HttpAsyncEngineJava11ImplTest {
         assertThat(result).isNotNull();
         assertThat(result.isOk()).isTrue();
     }
-
 
     @Test
     @SneakyThrows

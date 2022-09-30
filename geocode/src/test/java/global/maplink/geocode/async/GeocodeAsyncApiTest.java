@@ -3,8 +3,8 @@ package global.maplink.geocode.async;
 import global.maplink.MapLinkSDK;
 import global.maplink.credentials.InvalidCredentialsException;
 import global.maplink.credentials.MapLinkCredentials;
-import global.maplink.geocode.schema.geocode.GeocodeRequest;
 import global.maplink.geocode.schema.reverse.ReverseRequest.Entry;
+import global.maplink.geocode.schema.structured.StructuredRequest;
 import lombok.extern.slf4j.Slf4j;
 import lombok.val;
 import org.junit.jupiter.api.AfterEach;
@@ -18,8 +18,8 @@ import static global.maplink.geocode.common.Defaults.DEFAULT_CLIENT_ID;
 import static global.maplink.geocode.common.Defaults.DEFAULT_SECRET;
 import static global.maplink.geocode.schema.Type.ZIPCODE;
 import static global.maplink.geocode.schema.crossCities.CrossCitiesRequest.point;
-import static global.maplink.geocode.schema.geocode.GeocodeRequest.multi;
 import static global.maplink.geocode.schema.reverse.ReverseRequest.entry;
+import static global.maplink.geocode.schema.structured.StructuredRequest.multi;
 import static global.maplink.geocode.utils.EnvCredentialsHelper.withEnvCredentials;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
@@ -76,8 +76,8 @@ public class GeocodeAsyncApiTest {
         withEnvCredentials(credentials -> {
             configureWith(credentials);
             val instance = GeocodeAsyncAPI.getInstance();
-            val result = instance.geocode(
-                    GeocodeRequest.ofCity("sp", "São Paulo", "SP")
+            val result = instance.structured(
+                    StructuredRequest.ofCity("sp", "Paulo", "SP")
             ).get();
             assertThat(result.getResults()).hasSizeGreaterThan(1);
             assertThat(result.getFound()).isGreaterThan(1);
@@ -90,10 +90,10 @@ public class GeocodeAsyncApiTest {
         withEnvCredentials(credentials -> {
             configureWith(credentials);
             val instance = GeocodeAsyncAPI.getInstance();
-            val result = instance.geocode(multi(
-                    GeocodeRequest.ofCity("sp", "São Paulo", "SP"),
-                    GeocodeRequest.ofCity("pr", "Paraná", "PR"),
-                    GeocodeRequest.of("addr")
+            val result = instance.structured(multi(
+                    StructuredRequest.ofCity("sp", "São Paulo", "SP"),
+                    StructuredRequest.ofCity("pr", "Paraná", "PR"),
+                    StructuredRequest.of("addr")
                             .state("SP")
                             .city("São Paulo")
                             .district("Jardim Paulista")
