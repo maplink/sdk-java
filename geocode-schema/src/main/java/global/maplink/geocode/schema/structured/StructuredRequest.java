@@ -20,6 +20,7 @@ public interface StructuredRequest extends GeocodeServiceRequest {
         return Single.builder()
                 .id(id)
                 .state(state)
+                .type(Type.STATE)
                 .build();
     }
 
@@ -28,6 +29,7 @@ public interface StructuredRequest extends GeocodeServiceRequest {
                 .id(id)
                 .state(state)
                 .city(city)
+                .type(Type.CITY)
                 .build();
     }
 
@@ -37,6 +39,7 @@ public interface StructuredRequest extends GeocodeServiceRequest {
                 .state(state)
                 .city(city)
                 .district(district)
+                .type(Type.DISTRICT)
                 .build();
     }
 
