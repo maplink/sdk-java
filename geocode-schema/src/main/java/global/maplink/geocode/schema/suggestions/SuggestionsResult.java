@@ -13,6 +13,7 @@ import static java.util.Collections.emptyList;
 import static java.util.Comparator.naturalOrder;
 import static java.util.Objects.requireNonNull;
 import static java.util.Optional.empty;
+import static java.util.stream.Collectors.toList;
 
 @SuppressWarnings("ConstantConditions")
 @Data
@@ -42,6 +43,13 @@ public class SuggestionsResult implements Iterable<Suggestion> {
         if (isEmpty()) return empty();
 
         return results.stream().filter(r -> id.equals(r.getId())).findAny();
+    }
+
+    public SuggestionsResult joinTo(SuggestionsResult anotherResult) {
+        return new SuggestionsResult(
+                found + anotherResult.found,
+                Stream.concat(stream(), anotherResult.stream()).collect(toList())
+        );
     }
 
     @Override
