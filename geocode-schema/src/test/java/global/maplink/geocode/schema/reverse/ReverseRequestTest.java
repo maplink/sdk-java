@@ -28,7 +28,6 @@ class ReverseRequestTest {
         assertThat(split.get(2).getEntries()).hasSameElementsAs(request.getEntries().subList(400, 500));
     }
 
-
     private ReverseRequest generate(int entriesNumber) {
         val entries = range(0, entriesNumber)
                 .mapToObj(i -> entry(

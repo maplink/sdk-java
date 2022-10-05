@@ -16,6 +16,7 @@ import java.util.concurrent.ExecutionException;
 import static global.maplink.env.EnvironmentCatalog.HOMOLOG;
 import static global.maplink.geocode.common.Defaults.DEFAULT_CLIENT_ID;
 import static global.maplink.geocode.common.Defaults.DEFAULT_SECRET;
+import static global.maplink.geocode.schema.Type.CITY;
 import static global.maplink.geocode.schema.Type.ZIPCODE;
 import static global.maplink.geocode.schema.crossCities.CrossCitiesRequest.point;
 import static global.maplink.geocode.schema.reverse.ReverseRequest.entry;
@@ -113,6 +114,26 @@ public class GeocodeAsyncApiTest {
     }
 
     @Test
+    void mustAllowAbove200PointsInStructuredMulti() {
+        withEnvCredentials(credentials -> {
+            configureWith(credentials);
+            val instance = GeocodeAsyncAPI.getInstance();
+            val requests = range(0, 500)
+                    .mapToObj(i -> StructuredRequest.of("id-" + i)
+                            .type(CITY)
+                            .city("sao paulo " + i)
+                            .build()
+                    ).collect(toList());
+            val result = instance.structured(multi(requests)).get();
+            assertThat(result.getResults()).hasSize(requests.size());
+            assertThat(result.getFound()).isEqualTo(requests.size());
+            for (val request : requests) {
+                assertThat(result.getById(request.getId())).isNotEmpty();
+            }
+        });
+    }
+
+    @Test
     void mustReturnOneResultByRequestInReverse() {
         withEnvCredentials(credentials -> {
             configureWith(credentials);
@@ -136,20 +157,6 @@ public class GeocodeAsyncApiTest {
         });
     }
 
-    @Test
-    void mustReturnCrossedCities() {
-        withEnvCredentials(credentials -> {
-            configureWith(credentials);
-            val instance = GeocodeAsyncAPI.getInstance();
-            val result = instance.crossCities(
-                    point(-22.9141308, -43.445982),
-                    point(-23.6818334, -46.8823662),
-                    point(-25.494945, -49.3598374)
-            ).get();
-            assertThat(result.getResults()).hasSize(35);
-            assertThat(result.getFound()).isEqualTo(35);
-        });
-    }
 
     @Test
     void mustAllowAbove200PointsInReverse() {
@@ -170,6 +177,22 @@ public class GeocodeAsyncApiTest {
             }
         });
     }
+
+    @Test
+    void mustReturnCrossedCities() {
+        withEnvCredentials(credentials -> {
+            configureWith(credentials);
+            val instance = GeocodeAsyncAPI.getInstance();
+            val result = instance.crossCities(
+                    point(-22.9141308, -43.445982),
+                    point(-23.6818334, -46.8823662),
+                    point(-25.494945, -49.3598374)
+            ).get();
+            assertThat(result.getResults()).hasSize(35);
+            assertThat(result.getFound()).isEqualTo(35);
+        });
+    }
+
 
     private void configureWith(MapLinkCredentials credentials) {
         MapLinkSDK.resetConfiguration();
