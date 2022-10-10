@@ -45,11 +45,9 @@ public interface GeocodeGmapsSwitchStrategy {
                 MlpSuggestionsRequestAction mlpAction
         ) {
             return mlpAction.apply(request).thenCompose(result -> {
-                if (shouldSwitchAfter(result)) {
+                if (shouldSwitchAfter(result))
                     return gmapsAction.apply(request).thenApply(GeocodeGMapsResponse::toSuggestions);
-                } else {
-                    return completedFuture(result);
-                }
+                else return completedFuture(result);
             });
         }
 
