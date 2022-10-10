@@ -1,15 +1,26 @@
 package global.maplink.geocode.ext.gmaps.config;
 
+import global.maplink.geocode.ext.gmaps.suggestions.GMapsSuggestionsRequestAction;
+import global.maplink.geocode.ext.gmaps.suggestions.GeocodeGMapsResponse;
+import global.maplink.geocode.ext.gmaps.suggestions.MlpSuggestionsRequestAction;
+import global.maplink.geocode.schema.suggestions.Suggestion;
 import global.maplink.geocode.schema.suggestions.SuggestionsRequest;
 import global.maplink.geocode.schema.suggestions.SuggestionsResult;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
+import java.util.concurrent.CompletableFuture;
+
 import static java.util.Optional.ofNullable;
+import static java.util.concurrent.CompletableFuture.completedFuture;
 
 public interface GeocodeGmapsSwitchStrategy {
 
-    boolean shouldSwitchAfter(SuggestionsRequest request, SuggestionsResult result);
+    CompletableFuture<SuggestionsResult> choose(
+            SuggestionsRequest request,
+            GMapsSuggestionsRequestAction gmapsAction,
+            MlpSuggestionsRequestAction mlpAction
+    );
 
     static GeocodeGmapsSwitchStrategy defaultStrategy() {
         return new SwitchOnLowScore();
@@ -28,10 +39,40 @@ public interface GeocodeGmapsSwitchStrategy {
         }
 
         @Override
-        public boolean shouldSwitchAfter(SuggestionsRequest request, SuggestionsResult result) {
+        public CompletableFuture<SuggestionsResult> choose(
+                SuggestionsRequest request,
+                GMapsSuggestionsRequestAction gmapsAction,
+                MlpSuggestionsRequestAction mlpAction
+        ) {
+            return mlpAction.apply(request).thenCompose(result -> {
+                if (shouldSwitchAfter(result)) {
+                    return gmapsAction.apply(request).thenApply(GeocodeGMapsResponse::toSuggestions);
+                } else {
+                    return completedFuture(result);
+                }
+            });
+        }
+
+
+        private boolean shouldSwitchAfter(SuggestionsResult result) {
             return ofNullable(result.getMostRelevant())
-                    .map(r -> r.getScore() < threshold)
+                    .map(Suggestion::getScore)
+                    .map(score -> score < threshold)
                     .orElse(true);
+        }
+    }
+
+    @RequiredArgsConstructor
+    @Getter
+    class GMapsFirstStrategy implements GeocodeGmapsSwitchStrategy {
+
+        @Override
+        public CompletableFuture<SuggestionsResult> choose(
+                SuggestionsRequest request,
+                GMapsSuggestionsRequestAction gmapsAction,
+                MlpSuggestionsRequestAction mlpAction
+        ) {
+            return gmapsAction.apply(request).thenApply(GeocodeGMapsResponse::toSuggestions);
         }
     }
 }
