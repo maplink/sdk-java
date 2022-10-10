@@ -26,6 +26,9 @@ public class GeocodeSuggestionsGMapsExtension implements GeocodeExtension<Sugges
 
     private static final Class<SuggestionsRequest> REQUEST_TYPE = SuggestionsRequest.class;
 
+    private static final String EXTENSION_NAME = "Geocode Suggestions - Google Maps Extension";
+    private static final String NOT_INITIALIZED_ERROR_MESSAGE = "Extension: %s isn't initialized yet";
+
     private static final String GMAPS_URL = "https://maps.googleapis.com/maps/api/geocode/json";
     private static final String PARAM_QUERY = "address";
     private static final String PARAM_KEY = "key";
@@ -56,14 +59,14 @@ public class GeocodeSuggestionsGMapsExtension implements GeocodeExtension<Sugges
     @Override
     public CompletableFuture<SuggestionsResult> doRequest(SuggestionsRequest request, Function<SuggestionsRequest, CompletableFuture<SuggestionsResult>> action) {
         if (!initialized) {
-            throw new IllegalStateException(format("Extension: %s não inicializada corretamente", getName()));
+            throw new IllegalStateException(format(NOT_INITIALIZED_ERROR_MESSAGE, getName()));
         }
         return config.getSwitchStrategy().choose(request, new GMapsRequestActionImpl(), action::apply);
     }
 
     @Override
     public String getName() {
-        return "Geocode Suggestions - Google Maps Extension";
+        return EXTENSION_NAME;
     }
 
     @Override
