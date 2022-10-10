@@ -1,5 +1,6 @@
 package global.maplink.geocode.ext.gmaps.config;
 
+import global.maplink.geocode.ext.gmaps.config.GeocodeGmapsSwitchStrategy.GMapsFirstSwitchOnEmptyStrategy;
 import global.maplink.geocode.ext.gmaps.config.GeocodeGmapsSwitchStrategy.SwitchOnLowScore;
 import global.maplink.geocode.ext.gmaps.suggestions.*;
 import global.maplink.geocode.schema.suggestions.Suggestion;
@@ -57,8 +58,8 @@ class GeocodeGmapsSwitchStrategyTest {
 
         @Test
         void shouldReturnWhenSwitchIsNeededBasedOnResultScore() {
-            SwitchOnLowScore strategy = new SwitchOnLowScore(50.0);
-            SuggestionsRequest request = SuggestionsRequest.builder().query("Teste").build();
+            val strategy = new SwitchOnLowScore(50.0);
+            val request = SuggestionsRequest.builder().query("Teste").build();
 
             val gMapsResponse = gMapsResponse();
             val gmapsAction = mock(GMapsSuggestionsRequestAction.class);
@@ -85,6 +86,50 @@ class GeocodeGmapsSwitchStrategyTest {
             verify(gmapsAction, times(1)).apply(request);
         }
 
+    }
+
+    @Nested
+    class GMapsFirstStrategyTest {
+
+        @Test
+        void shouldSwitchToMaplinkWhenGoogleReturnsEmpty() {
+            val strategy = new GMapsFirstSwitchOnEmptyStrategy();
+            val request = SuggestionsRequest.builder().query("Teste").build();
+
+            val gMapsResponse = emptyGmapsResponse();
+            val gmapsAction = mock(GMapsSuggestionsRequestAction.class);
+            when(gmapsAction.apply(request)).thenReturn(completedFuture(gMapsResponse));
+
+            val mlpResult = buildResultWithScore(70);
+            val mlpAction = mock(MlpSuggestionsRequestAction.class);
+            when(mlpAction.apply(request)).thenReturn(completedFuture(mlpResult));
+
+            assertThat(strategy.choose(request, gmapsAction, mlpAction)).isCompletedWithValue(mlpResult);
+
+            verify(gmapsAction, times(1)).apply(request);
+            verify(mlpAction, times(1)).apply(request);
+        }
+
+
+        @Test
+        void shouldHitOnlyGmapsWhenGMapsResultIsNotEmpty() {
+            val strategy = new GMapsFirstSwitchOnEmptyStrategy();
+            val request = SuggestionsRequest.builder().query("Teste").build();
+
+            val gMapsResponse = gMapsResponse();
+            val gmapsAction = mock(GMapsSuggestionsRequestAction.class);
+            when(gmapsAction.apply(request)).thenReturn(completedFuture(gMapsResponse));
+
+            val mlpResult = buildResultWithScore(70);
+            val mlpAction = mock(MlpSuggestionsRequestAction.class);
+            when(mlpAction.apply(request)).thenReturn(completedFuture(mlpResult));
+
+            assertThat(strategy.choose(request, gmapsAction, mlpAction))
+                    .isCompletedWithValue(gMapsResponse.toSuggestions());
+
+            verify(gmapsAction, times(1)).apply(request);
+            verify(mlpAction, times(0)).apply(request);
+        }
     }
 
     private GeocodeGMapsResponse emptyGmapsResponse() {

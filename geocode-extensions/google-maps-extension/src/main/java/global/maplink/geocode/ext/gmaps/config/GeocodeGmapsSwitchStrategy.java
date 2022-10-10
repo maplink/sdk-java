@@ -64,7 +64,7 @@ public interface GeocodeGmapsSwitchStrategy {
 
     @RequiredArgsConstructor
     @Getter
-    class GMapsFirstStrategy implements GeocodeGmapsSwitchStrategy {
+    class GMapsFirstSwitchOnEmptyStrategy implements GeocodeGmapsSwitchStrategy {
 
         @Override
         public CompletableFuture<SuggestionsResult> choose(
@@ -72,7 +72,10 @@ public interface GeocodeGmapsSwitchStrategy {
                 GMapsSuggestionsRequestAction gmapsAction,
                 MlpSuggestionsRequestAction mlpAction
         ) {
-            return gmapsAction.apply(request).thenApply(GeocodeGMapsResponse::toSuggestions);
+            return gmapsAction.apply(request).thenCompose(r -> {
+                if (r.isEmpty()) return mlpAction.apply(request);
+                else return completedFuture(r.toSuggestions());
+            });
         }
     }
 }
