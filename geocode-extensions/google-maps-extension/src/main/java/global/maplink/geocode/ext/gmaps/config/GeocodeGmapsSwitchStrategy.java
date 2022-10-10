@@ -60,7 +60,6 @@ public interface GeocodeGmapsSwitchStrategy {
         }
     }
 
-    @RequiredArgsConstructor
     @Getter
     class GMapsFirstSwitchOnEmptyStrategy implements GeocodeGmapsSwitchStrategy {
 
