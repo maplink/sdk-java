@@ -7,7 +7,7 @@ import global.maplink.geocode.ext.gmaps.config.GeocodeGMapsConfig;
 import global.maplink.geocode.schema.suggestions.Suggestion;
 import global.maplink.geocode.schema.suggestions.SuggestionsRequest;
 import global.maplink.geocode.schema.suggestions.SuggestionsResult;
-import lombok.SneakyThrows;
+import lombok.val;
 import org.assertj.core.api.ThrowingConsumer;
 import org.junit.jupiter.api.Test;
 
@@ -25,21 +25,20 @@ class GeocodeSuggestionsGMapsExtensionTest {
     private final SuggestionsRequest mockRequest = SuggestionsRequest.builder().query("Test").build();
 
     @Test
-    @SneakyThrows
-    void mustReturnSameResponseWhenNotInitialized() {
-        SuggestionsResult expected = SuggestionsResult.builder().build();
-        GeocodeSuggestionsGMapsExtension extension = new GeocodeSuggestionsGMapsExtension(mockConfig);
-        SuggestionsResult result = extension.doRequest(mockRequest, request -> completedFuture(expected)).get();
-        assertThat(result).isSameAs(expected);
+    void mustFailWhenIsNotInitialized() {
+        val expected = SuggestionsResult.builder().build();
+        val extension = new GeocodeSuggestionsGMapsExtension(mockConfig);
+        assertThatThrownBy(() -> extension.doRequest(mockRequest, request -> completedFuture(expected)).get())
+                .isInstanceOf(IllegalStateException.class);
     }
 
     @Test
     void mustReturnSameResponseWhenScoreIsGoodEnough() {
         withMockSdk(sdk -> {
-            SuggestionsResult expected = SuggestionsResult.builder().found(10).result(Suggestion.builder().score(99f).build()).build();
-            GeocodeSuggestionsGMapsExtension extension = new GeocodeSuggestionsGMapsExtension(mockConfig);
+            val expected = SuggestionsResult.builder().found(10).result(Suggestion.builder().score(99f).build()).build();
+            val extension = new GeocodeSuggestionsGMapsExtension(mockConfig);
             extension.initialize(sdk);
-            SuggestionsResult result = extension.doRequest(mockRequest, request -> completedFuture(expected)).get();
+            val result = extension.doRequest(mockRequest, request -> completedFuture(expected)).get();
             assertThat(result).isSameAs(expected);
         });
     }
@@ -47,8 +46,8 @@ class GeocodeSuggestionsGMapsExtensionTest {
     @Test
     void mustReturnCallGoogleMapsWhenScoreIsTooLowAndFailWithInvalidCredential() {
         withMockSdk(sdk -> {
-            SuggestionsResult expected = SuggestionsResult.builder().found(10).result(Suggestion.builder().score(0f).build()).build();
-            GeocodeSuggestionsGMapsExtension extension = new GeocodeSuggestionsGMapsExtension(mockConfig);
+            val expected = SuggestionsResult.builder().found(10).result(Suggestion.builder().score(0f).build()).build();
+            val extension = new GeocodeSuggestionsGMapsExtension(mockConfig);
             extension.initialize(sdk);
             assertThatThrownBy(() -> extension.doRequest(mockRequest, request -> completedFuture(expected)).get())
                     .isInstanceOf(ExecutionException.class)
