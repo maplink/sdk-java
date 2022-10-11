@@ -154,7 +154,7 @@
                     <autoVersionSubmodules>true</autoVersionSubmodules>
                     <tagNameFormat>v@{project.version}</tagNameFormat>
                     <remoteTagging>false</remoteTagging>
-                    <scmCommentPrefix>[maven-release-plugin] [skip ci]</scmCommentPrefix>
+                    <scmCommentPrefix>[maven-release-plugin]</scmCommentPrefix>
                 </configuration>
             </plugin>
             <plugin>
