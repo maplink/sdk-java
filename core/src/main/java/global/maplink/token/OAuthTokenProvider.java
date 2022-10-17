@@ -48,7 +48,7 @@ public class OAuthTokenProvider implements TokenProvider {
             if (!r.isOk()) {
                 throw new InvalidCredentialsException(
                         clientId,
-                        Optional.ofNullable(r.parseBodyObject(mapper, Map.class,false))
+                        Optional.ofNullable(r.parseBodyObject(mapper, Map.class, false))
                                 .map(Map::toString)
                                 .orElse("")
                 );
