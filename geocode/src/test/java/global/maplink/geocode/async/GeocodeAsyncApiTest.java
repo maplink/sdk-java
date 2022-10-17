@@ -5,6 +5,7 @@ import global.maplink.credentials.InvalidCredentialsException;
 import global.maplink.credentials.MapLinkCredentials;
 import global.maplink.geocode.schema.reverse.ReverseRequest.Entry;
 import global.maplink.geocode.schema.structured.StructuredRequest;
+import global.maplink.http.exceptions.MapLinkHttpException;
 import lombok.extern.slf4j.Slf4j;
 import lombok.val;
 import org.junit.jupiter.api.AfterEach;
@@ -49,6 +50,18 @@ public class GeocodeAsyncApiTest {
         assertThatThrownBy(() -> instance.suggestions("Rua Afonso Celso").get())
                 .isInstanceOf(ExecutionException.class)
                 .hasCauseInstanceOf(InvalidCredentialsException.class);
+    }
+
+    @Test
+    void mustFailOnInvalidRequest() {
+        withEnvCredentials(credentials -> {
+            configureWith(credentials);
+            val instance = GeocodeAsyncAPI.getInstance(() -> "https://maplink.global");
+            assertThatThrownBy(() ->
+                    instance.suggestions("São Paulo", ZIPCODE).get()
+            ).isInstanceOf(ExecutionException.class)
+                    .hasCauseInstanceOf(MapLinkHttpException.class);
+        });
     }
 
     @Test
