@@ -16,10 +16,20 @@ public class Response {
     private final byte[] body;
 
     public <T> T parseBodyObject(JsonMapper mapper, Class<T> type) {
+        return parseBodyObject(mapper, type, true);
+    }
+
+    public <T> T parseBodyObject(JsonMapper mapper, Class<T> type, boolean throwOnError) {
+        if (throwOnError) throwIfIsError();
         return mapper.fromJson(body, type);
     }
 
     public <T> List<T> parseBodyArray(JsonMapper mapper, Class<T> type) {
+        return parseBodyArray(mapper, type, true);
+    }
+
+    public <T> List<T> parseBodyArray(JsonMapper mapper, Class<T> type, boolean throwOnError) {
+        if (throwOnError) throwIfIsError();
         return mapper.fromJsonList(body, type);
     }
 
