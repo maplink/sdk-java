@@ -1,0 +1,25 @@
+{
+  "periods": [
+    {
+      "open": {
+        "time": "09:00",
+        "day": "MONDAY"
+      },
+      "close": {
+        "time": "12:00",
+        "day": "MONDAY"
+      }
+    },
+    {
+      "open": {
+        "time": "13:00",
+        "day": "MONDAY"
+      },
+      "close": {
+        "time": "18:00",
+        "day": "MONDAY"
+      }
+    }
+  ],
+  "open24Hours": false
+}
