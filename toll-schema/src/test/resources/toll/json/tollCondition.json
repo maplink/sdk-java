@@ -1,0 +1,10 @@
+{
+  "daysOfWeek": ["MONDAY", "WEDNESDAY", "FRIDAY"],
+  "periods": ["NORMAL", "HOLIDAY"],
+  "billingsType": ["NORMAL", "ADDITIONAL_AXLE"],
+  "timesWindow": ["ONE", "TWO"],
+  "tags": ["FIRST_TAG"],
+  "vehicleTypes": ["CAR_WITH_THREE_SIMPLE_AXLES", "BUS_WITH_FIVE_DOUBLE_AXLES", "TRUCK_WITH_TWO_DOUBLE_AXLES"],
+  "routes": ["ROUTE_ONE"],
+  "value": 149.8
+}

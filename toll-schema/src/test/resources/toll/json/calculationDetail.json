@@ -1,0 +1,36 @@
+{
+  "id": "236e9cd5-4181-408c-b90f-a24c31237f11",
+  "name": "MAIN",
+  "address": "calculationDetailAddress",
+  "city": "Sao Paulo",
+  "state": {
+    "name": "Sao Paulo",
+    "code": "SP"
+  },
+  "country": "Brasil",
+  "concession": "IDK",
+  "direction": "NORTH",
+  "coordinates": {
+    "latitude": "-23.5666499",
+    "longitude": "-46.6557755"
+  },
+  "serviceTypes": [
+    {
+      "serviceId": "236e9cd5-4181-408c-b90f-a24c31237f11",
+      "name": "MAPLINK"
+    }
+  ],
+  "price": 59.7,
+  "conditions": [
+    {
+      "daysOfWeek": ["MONDAY", "WEDNESDAY", "FRIDAY"],
+      "periods": ["NORMAL", "HOLIDAY"],
+      "billingsType": ["NORMAL", "ADDITIONAL_AXLE"],
+      "timesWindow": ["ONE", "TWO"],
+      "tags": ["FIRST_TAG"],
+      "vehicleTypes": ["CAR_WITH_THREE_SIMPLE_AXLES", "BUS_WITH_FIVE_DOUBLE_AXLES", "TRUCK_WITH_TWO_DOUBLE_AXLES"],
+      "routes": ["ROUTE_ONE"],
+      "value": 149.8
+    }
+  ]
+}
