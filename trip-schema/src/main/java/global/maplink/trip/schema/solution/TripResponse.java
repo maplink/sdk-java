@@ -24,7 +24,7 @@ public class TripResponse {
     private final String clientId;
     private final Long totalDistance;
     private final Long totalNominalDuration;
-    private final Double averageSpeed;
+    private final BigDecimal averageSpeed;
     private final BigDecimal tollCosts;
     private final BigDecimal routeFreightCost;
     private final List<SolutionLeg> legs;

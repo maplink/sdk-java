@@ -17,10 +17,8 @@ import static lombok.AccessLevel.PRIVATE;
 @RequiredArgsConstructor(staticName = "of")
 @NoArgsConstructor(force = true, access = PRIVATE)
 public class TripRequest {
-    private final String profileName;
     private final List<SitePoint> points;
     private final String calculationMode;
-    private final VehicleSpecification vehicleSpecification;
     private final Set<String> restrictionZones;
     private final Set<String> avoidanceTypes;
     private final TollRequest toll;

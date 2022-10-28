@@ -12,7 +12,6 @@
     <name>toll-schema</name>
 
     <dependencies>
-
         <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>sdk-core</artifactId>

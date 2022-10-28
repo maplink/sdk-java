@@ -16,7 +16,6 @@ import static lombok.AccessLevel.PRIVATE;
 @Builder
 @RequiredArgsConstructor(staticName = "of")
 @NoArgsConstructor(force = true, access = PRIVATE)
-
 public class FreightCalculationRequest {
     private final Set<OperationType> operationType;
     private final Set<GoodsType> goodsType;

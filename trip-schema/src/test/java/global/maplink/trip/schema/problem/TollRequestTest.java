@@ -1,5 +1,7 @@
 package global.maplink.trip.schema.problem;
 
+import gloabl.maplink.toll.schema.TollConditionBillingType;
+import gloabl.maplink.toll.schema.TollVehicleType;
 import global.maplink.json.JsonMapper;
 import org.junit.jupiter.api.Test;
 
@@ -13,7 +15,7 @@ public class TollRequestTest {
     @Test
     public void shouldSerialize(){
         TollRequest tollRequest = mapper.fromJson(TOLL_REQUEST.load(), TollRequest.class);
-        assertEquals("TRUCK", tollRequest.getVehicleType());
-        assertEquals("CREDIT_CARD", tollRequest.getBilling());
+        assertEquals(TollVehicleType.TRUCK_WITH_TWO_SINGLE_AXIS, tollRequest.getVehicleType());
+        assertEquals(TollConditionBillingType.NORMAL, tollRequest.getBilling());
     }
 }

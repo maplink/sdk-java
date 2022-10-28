@@ -34,7 +34,7 @@ public class TripResponseTest {
         assertEquals("tripResponseClientId", tripResponse.getClientId());
         assertEquals(1565L, tripResponse.getTotalDistance());
         assertEquals(1780L, tripResponse.getTotalNominalDuration());
-        assertEquals(70.0D, tripResponse.getAverageSpeed());
+        assertEquals(0, new BigDecimal("70.0").compareTo(tripResponse.getAverageSpeed()));
         assertEquals(0, new BigDecimal("380.95").compareTo(tripResponse.getTollCosts()));
         assertEquals(0, new BigDecimal("450.0").compareTo(tripResponse.getRouteFreightCost()));
 

@@ -1,5 +1,7 @@
 package global.maplink.trip.schema.problem;
 
+import gloabl.maplink.toll.schema.TollConditionBillingType;
+import gloabl.maplink.toll.schema.TollVehicleType;
 import global.maplink.json.JsonMapper;
 import org.junit.jupiter.api.Test;
 
@@ -17,27 +19,12 @@ public class TripRequestTest {
     @Test
     public void shouldSerialize(){
         TripRequest tripRequest = mapper.fromJson(TRIP_REQUEST.load(), TripRequest.class);
-        assertEquals("MAPLINK", tripRequest.getProfileName());
-
         assertEquals(1, tripRequest.getPoints().size());
         assertEquals("36cdd555-41b6-4327-ac83-04ac74cff915", tripRequest.getPoints().get(0).getSiteId());
         assertEquals(0, new BigDecimal("-23.5666499").compareTo(tripRequest.getPoints().get(0).getLatitude()));
         assertEquals(0, new BigDecimal("-46.6557755").compareTo(tripRequest.getPoints().get(0).getLongitude()));
 
         assertEquals("STRICT", tripRequest.getCalculationMode());
-
-        VehicleSpecification vehicleSpecification = tripRequest.getVehicleSpecification();
-        assertNotNull(vehicleSpecification);
-        assertEquals(1000.0D, vehicleSpecification.getMaxWeight());
-        assertEquals(150.0D, vehicleSpecification.getMaxWeightPerAxle());
-        assertEquals(20.0D, vehicleSpecification.getMaxLength());
-        assertEquals(50.0D, vehicleSpecification.getMaxLengthBetweenAxles());
-        assertEquals(7.0D, vehicleSpecification.getMaxWidth());
-        assertEquals(4.0D, vehicleSpecification.getMaxHeight());
-        assertEquals(10.0D, vehicleSpecification.getMaxWeightForExplodingMaterials());
-        assertEquals(5.0D, vehicleSpecification.getMaxWeightForPollutingMaterials());
-        assertEquals(3.0D, vehicleSpecification.getMaxWeightForDangerousMaterials());
-        assertTrue(vehicleSpecification.getLoadTypes().containsAll(Arrays.asList("LoadTypeOne", "LoadTypeTwo")));
 
         assertEquals(2, tripRequest.getRestrictionZones().size());
         assertTrue(tripRequest.getRestrictionZones().containsAll(Arrays.asList("ONE", "TWO")));
@@ -47,8 +34,8 @@ public class TripRequestTest {
 
         TollRequest tollRequest = tripRequest.getToll();
         assertNotNull(tollRequest);
-        assertEquals("TRUCK", tollRequest.getVehicleType());
-        assertEquals("CREDIT_CARD", tollRequest.getBilling());
+        assertEquals(TollVehicleType.TRUCK_WITH_TWO_SINGLE_AXIS, tollRequest.getVehicleType());
+        assertEquals(TollConditionBillingType.NORMAL, tollRequest.getBilling());
 
         CrossedBordersRequest crossedBordersRequest = tripRequest.getCrossedBorders();
         assertNotNull(crossedBordersRequest);

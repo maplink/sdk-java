@@ -1,4 +1,4 @@
 {
-  "vehicleType": "TRUCK",
-  "billing": "CREDIT_CARD"
+  "vehicleType": "TRUCK_WITH_TWO_SINGLE_AXIS",
+  "billing": "NORMAL"
 }

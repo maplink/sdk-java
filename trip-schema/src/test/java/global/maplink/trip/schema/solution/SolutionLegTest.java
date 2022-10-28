@@ -1,7 +1,6 @@
 package global.maplink.trip.schema.solution;
 
 import gloabl.maplink.toll.schema.*;
-import gloabl.maplink.toll.schema.CalculationDetail;
 import global.maplink.geocode.schema.Address;
 import global.maplink.json.JsonMapper;
 import global.maplink.place.schema.Category;
@@ -17,10 +16,8 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-import static global.maplink.trip.testUtils.SolutionSampleFiles.COORDINATES;
 import static global.maplink.trip.testUtils.SolutionSampleFiles.SOLUTION_LEG;
 import static org.junit.jupiter.api.Assertions.*;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class SolutionLegTest {
 
