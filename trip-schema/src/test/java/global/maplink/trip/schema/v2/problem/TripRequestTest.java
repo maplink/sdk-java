@@ -1,8 +1,12 @@
-package global.maplink.trip.schema.problem;
+package global.maplink.trip.schema.v2.problem;
 
 import gloabl.maplink.toll.schema.TollConditionBillingType;
 import gloabl.maplink.toll.schema.TollVehicleType;
 import global.maplink.json.JsonMapper;
+import global.maplink.trip.schema.v2.problem.CalculationMode;
+import global.maplink.trip.schema.v2.problem.CrossedBordersRequest;
+import global.maplink.trip.schema.v2.problem.TollRequest;
+import global.maplink.trip.schema.v2.problem.TripRequest;
 import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
@@ -24,7 +28,7 @@ public class TripRequestTest {
         assertEquals(0, new BigDecimal("-23.5666499").compareTo(tripRequest.getPoints().get(0).getLatitude()));
         assertEquals(0, new BigDecimal("-46.6557755").compareTo(tripRequest.getPoints().get(0).getLongitude()));
 
-        assertEquals("STRICT", tripRequest.getCalculationMode());
+        assertEquals(CalculationMode.THE_FASTEST, tripRequest.getCalculationMode());
 
         assertEquals(2, tripRequest.getRestrictionZones().size());
         assertTrue(tripRequest.getRestrictionZones().containsAll(Arrays.asList("ONE", "TWO")));

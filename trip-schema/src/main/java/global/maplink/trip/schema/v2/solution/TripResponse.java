@@ -1,4 +1,4 @@
-package global.maplink.trip.schema.solution;
+package global.maplink.trip.schema.v2.solution;
 
 import global.maplink.emission.schema.EmissionResponse;
 import global.maplink.freight.schema.FreightCalculationResponse;

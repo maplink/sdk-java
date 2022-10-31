@@ -1,4 +1,4 @@
-package global.maplink.trip.schema.problem;
+package global.maplink.trip.schema.v2.problem;
 
 import gloabl.maplink.toll.schema.TollConditionBillingType;
 import gloabl.maplink.toll.schema.TollVehicleType;

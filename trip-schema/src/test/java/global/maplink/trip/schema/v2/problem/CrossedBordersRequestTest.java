@@ -1,6 +1,7 @@
-package global.maplink.trip.schema.problem;
+package global.maplink.trip.schema.v2.problem;
 
 import global.maplink.json.JsonMapper;
+import global.maplink.trip.schema.v2.problem.CrossedBordersRequest;
 import org.junit.jupiter.api.Test;
 
 import static global.maplink.trip.testUtils.ProblemSampleFiles.CROSSED_BORDERS_REQUEST;

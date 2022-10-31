@@ -1,7 +1,7 @@
-package global.maplink.trip.schema.solution;
+package global.maplink.trip.schema.v2.solution;
 
 import global.maplink.geocode.schema.Address;
-import global.maplink.trip.schema.problem.SitePoint;
+import global.maplink.trip.schema.v2.problem.SitePoint;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;

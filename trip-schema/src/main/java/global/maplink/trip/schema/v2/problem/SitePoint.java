@@ -1,9 +1,11 @@
-package global.maplink.trip.schema.problem;
+package global.maplink.trip.schema.v2.problem;
 
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
+
+import java.math.BigDecimal;
 
 import static lombok.AccessLevel.PRIVATE;
 
@@ -11,7 +13,8 @@ import static lombok.AccessLevel.PRIVATE;
 @Builder
 @RequiredArgsConstructor
 @NoArgsConstructor(force = true, access = PRIVATE)
-public class CrossedBordersRequest {
-    private final String level;
-    private final String reverseGeocode;
+public class SitePoint {
+    private final String siteId;
+    private final BigDecimal latitude;
+    private final BigDecimal longitude;
 }

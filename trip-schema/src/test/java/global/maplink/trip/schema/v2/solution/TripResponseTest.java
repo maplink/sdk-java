@@ -1,4 +1,4 @@
-package global.maplink.trip.schema.solution;
+package global.maplink.trip.schema.v2.solution;
 
 import gloabl.maplink.toll.schema.*;
 import gloabl.maplink.toll.schema.CalculationDetail;
@@ -8,7 +8,10 @@ import global.maplink.place.schema.Category;
 import global.maplink.place.schema.LegResult;
 import global.maplink.place.schema.PlaceRoute;
 import global.maplink.place.schema.SubCategory;
-import global.maplink.trip.schema.problem.SitePoint;
+import global.maplink.trip.schema.v2.problem.SitePoint;
+import global.maplink.trip.schema.v2.solution.CrossedBorderResponse;
+import global.maplink.trip.schema.v2.solution.SolutionLeg;
+import global.maplink.trip.schema.v2.solution.TripResponse;
 import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;

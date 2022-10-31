@@ -1,11 +1,9 @@
-package global.maplink.trip.schema.problem;
+package global.maplink.trip.schema.v2.solution;
 
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
-
-import java.math.BigDecimal;
 
 import static lombok.AccessLevel.PRIVATE;
 
@@ -13,8 +11,8 @@ import static lombok.AccessLevel.PRIVATE;
 @Builder
 @RequiredArgsConstructor
 @NoArgsConstructor(force = true, access = PRIVATE)
-public class SitePoint {
-    private final String siteId;
-    private final BigDecimal latitude;
-    private final BigDecimal longitude;
+public class CrossedBorderResponse {
+    private final String city;
+    private final String state;
+    private final String country;
 }
