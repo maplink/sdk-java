@@ -35,7 +35,7 @@ public class Place {
     private final boolean active;
     private final String clientId;
 
-    public void validateWithClientId() {
+    public void validate() {
         if (isInvalid(id)) {
             throw PlaceUpdateException.of("id");
         }

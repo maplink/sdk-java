@@ -7,7 +7,7 @@
     "longitude": "-46.6557755"
     }
   ],
-  "calculationMode": "STRICT",
+  "calculationMode": "THE_FASTEST",
   "vehicleSpecification": {
     "maxWeight": 1000.0,
     "maxWeightPerAxle": 150.0,
