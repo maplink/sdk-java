@@ -12,7 +12,7 @@ public class CrossedBordersRequestTest {
     private final JsonMapper mapper = JsonMapper.loadDefault();
 
     @Test
-    public void shouldSerialize(){
+    public void shouldDeserialize(){
         CrossedBordersRequest crossedBordersRequest = mapper.fromJson(CROSSED_BORDERS_REQUEST.load(), CrossedBordersRequest.class);
         assertEquals("HIGH", crossedBordersRequest.getLevel());
         assertEquals("reverseGeocode", crossedBordersRequest.getReverseGeocode());

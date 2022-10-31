@@ -19,7 +19,7 @@ public class PlaceTest {
     private final JsonMapper mapper = JsonMapper.loadDefault();
 
     @Test
-    public void shouldSerialize(){
+    public void shouldDeserialize(){
         Place place = mapper.fromJson(PLACE.load(), Place.class);
         assertEquals("a98553bc-78e5-4035-a048-74e361625ce1", place.getId());
         assertEquals("MAPLINK", place.getName());

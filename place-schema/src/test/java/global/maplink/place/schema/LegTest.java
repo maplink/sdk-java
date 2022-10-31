@@ -15,7 +15,7 @@ public class LegTest {
     private final JsonMapper mapper = JsonMapper.loadDefault();
 
     @Test
-    public void shouldSerialize(){
+    public void shouldDeserialize(){
         Leg leg = mapper.fromJson(LEG.load(), Leg.class);
         assertEquals(3, leg.getPoints().size());
         assertEquals(0, new BigDecimal("-23.5666499").compareTo(leg.getPoints().get(0).getLatitude()));

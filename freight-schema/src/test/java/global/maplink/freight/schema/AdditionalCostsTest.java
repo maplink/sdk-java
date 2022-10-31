@@ -13,7 +13,7 @@ public class AdditionalCostsTest {
     private final JsonMapper mapper = JsonMapper.loadDefault();
 
     @Test
-    public void shouldSerializeAdditionalCostsJsonFile(){
+    public void shouldDeserializeAdditionalCostsJsonFile(){
         AdditionalCosts additionalCosts = mapper.fromJson(ADDITIONAL_COSTS.load(), AdditionalCosts.class);
         assertEquals("TAX", additionalCosts.getName());
         assertEquals(CostType.FIXED, additionalCosts.getType());

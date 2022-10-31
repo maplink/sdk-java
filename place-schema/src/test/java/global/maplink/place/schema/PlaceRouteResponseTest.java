@@ -15,7 +15,7 @@ public class PlaceRouteResponseTest {
     private final JsonMapper mapper = JsonMapper.loadDefault();
 
     @Test
-    public void shouldSerialize(){
+    public void shouldDeserialize(){
         PlaceRouteResponse placeRouteResponse = mapper.fromJson(PLACEROUTERESPONSE.load(), PlaceRouteResponse.class);
         assertEquals(1, placeRouteResponse.getTotal());
 

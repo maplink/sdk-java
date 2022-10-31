@@ -14,7 +14,7 @@ public class CrossedBorderResponseTest {
     private final JsonMapper mapper = JsonMapper.loadDefault();
 
     @Test
-    public void shouldSerialize(){
+    public void shouldDeserialize(){
         CrossedBorderResponse crossedBorderResponse = mapper.fromJson(CROSSED_BORDER_RESPONSE.load(), CrossedBorderResponse.class);
         assertEquals("Sao Paulo", crossedBorderResponse.getCity());
         assertEquals("SP", crossedBorderResponse.getState());

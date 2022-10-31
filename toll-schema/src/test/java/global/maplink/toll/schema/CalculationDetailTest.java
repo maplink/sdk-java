@@ -19,7 +19,7 @@ public class CalculationDetailTest {
     private final JsonMapper mapper = JsonMapper.loadDefault();
 
     @Test
-    public void shouldSerialize(){
+    public void shouldDeserialize(){
         CalculationDetail calculationDetail = mapper.fromJson(CALCULATION_DETAIL.load(), CalculationDetail.class);
 
         assertEquals("236e9cd5-4181-408c-b90f-a24c31237f11", calculationDetail.getId());

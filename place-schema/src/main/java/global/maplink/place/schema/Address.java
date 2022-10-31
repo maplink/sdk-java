@@ -25,28 +25,32 @@ public class Address {
     private final Point point;
 
     public void validate() {
-        if (Place.isInvalid(street)) {
+        if (isInvalid(street)) {
             throw PlaceUpdateException.of("address.street");
         }
 
-        if (Place.isInvalid(city)) {
+        if (isInvalid(city)) {
             throw PlaceUpdateException.of("address.city");
         }
 
-        if (Place.isInvalid(state)) {
+        if (isInvalid(state)) {
             throw PlaceUpdateException.of("address.state");
         }
 
-        if (Place.isInvalid(number)) {
+        if (isInvalid(number)) {
             throw PlaceUpdateException.of("address.number");
         }
 
-        if (Place.isInvalid(zipcode)) {
+        if (isInvalid(zipcode)) {
             throw PlaceUpdateException.of("address.zipcode");
         }
 
         if (Objects.isNull(point)) {
             throw PlaceUpdateException.of("address.point");
         }
+    }
+
+    private boolean isInvalid(final String value) {
+        return Objects.isNull(value) || value.trim().isEmpty();
     }
 }

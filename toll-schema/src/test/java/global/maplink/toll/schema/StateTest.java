@@ -14,7 +14,7 @@ public class StateTest {
     private final JsonMapper mapper = JsonMapper.loadDefault();
 
     @Test
-    public void shouldSerialize(){
+    public void shouldDeserialize(){
         State state = mapper.fromJson(STATE.load(), State.class);
         assertEquals("Sao Paulo", state.getName());
         assertEquals("SP", state.getCode());

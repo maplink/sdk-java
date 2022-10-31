@@ -14,7 +14,7 @@ public class OpeningHoursTest {
     private final JsonMapper mapper = JsonMapper.loadDefault();
 
     @Test
-    public void shouldSerialize(){
+    public void shouldDeserialize(){
         OpeningHours openingHours = mapper.fromJson(OPENINGHOURS.load(), OpeningHours.class);
         assertEquals(2, openingHours.getPeriods().size());
         assertEquals("09:00", openingHours.getPeriods().get(0).getOpen().getTime());

@@ -14,7 +14,7 @@ public class PlaceRouteTest {
     private final JsonMapper mapper = JsonMapper.loadDefault();
 
     @Test
-    public void shouldSerialize(){
+    public void shouldDeserialize(){
         PlaceRoute placeRoute = mapper.fromJson(PLACEROUTE.load(), PlaceRoute.class);
         assertEquals("c4b00106-1d68-49ba-baeb-d72f7c7e35b2", placeRoute.getId());
         assertEquals("MAPLINK", placeRoute.getName());

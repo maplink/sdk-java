@@ -14,7 +14,7 @@ public class TollRequestTest {
     private final JsonMapper mapper = JsonMapper.loadDefault();
 
     @Test
-    public void shouldSerialize(){
+    public void shouldDeserialize(){
         TollRequest tollRequest = mapper.fromJson(TOLL_REQUEST.load(), TollRequest.class);
         assertEquals(TollVehicleType.TRUCK_WITH_TWO_SINGLE_AXIS, tollRequest.getVehicleType());
         assertEquals(TollConditionBillingType.NORMAL, tollRequest.getBilling());

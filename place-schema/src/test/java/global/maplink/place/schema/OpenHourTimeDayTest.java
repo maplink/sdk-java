@@ -15,7 +15,7 @@ public class OpenHourTimeDayTest {
     private final JsonMapper mapper = JsonMapper.loadDefault();
 
     @Test
-    public void shouldSerialize(){
+    public void shouldDeserialize(){
         OpenHourTimeDay openHourTimeDay = mapper.fromJson(OPENHOURTIMEDAY.load(), OpenHourTimeDay.class);
         assertEquals("08:00", openHourTimeDay.getTime());
         assertEquals(DayOfWeek.MONDAY, openHourTimeDay.getDay());

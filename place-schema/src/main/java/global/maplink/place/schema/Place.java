@@ -59,7 +59,7 @@ public class Place {
         address.validate();
     }
 
-    public static boolean isInvalid(final String value) {
+    private boolean isInvalid(final String value) {
         return Objects.isNull(value) || value.trim().isEmpty();
     }
 }

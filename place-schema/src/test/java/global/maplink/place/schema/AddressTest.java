@@ -13,7 +13,7 @@ public class AddressTest {
     private final JsonMapper mapper = JsonMapper.loadDefault();
 
     @Test
-    public void shouldSerialize(){
+    public void shouldDeserialize(){
         Address address = mapper.fromJson(ADDRESS.load(), Address.class);
         assertEquals("Alameda Campinas", address.getStreet());
         assertEquals("579", address.getNumber());

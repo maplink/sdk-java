@@ -25,7 +25,7 @@ public class SolutionLegTest {
     private final JsonMapper mapper = JsonMapper.loadDefault();
 
     @Test
-    public void shouldSerialize(){
+    public void shouldDeserialize(){
         SolutionLeg solutionLeg = mapper.fromJson(SOLUTION_LEG.load(), SolutionLeg.class);
         assertEquals(1000L, solutionLeg.getDistance());
         assertEquals(1200L, solutionLeg.getNominalDuration());

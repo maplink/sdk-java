@@ -30,7 +30,7 @@ public class TripResponseTest {
     private final JsonMapper mapper = JsonMapper.loadDefault();
 
     @Test
-    public void shouldSerialize(){
+    public void shouldDeserialize(){
         TripResponse tripResponse = mapper.fromJson(TRIP_RESPONSE.load(), TripResponse.class);
 
         assertEquals("236e9cd5-4181-408c-b90f-a24c31237f11", tripResponse.getId());

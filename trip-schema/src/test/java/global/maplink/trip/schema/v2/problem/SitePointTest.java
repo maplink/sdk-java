@@ -14,7 +14,7 @@ public class SitePointTest {
     private final JsonMapper mapper = JsonMapper.loadDefault();
 
     @Test
-    public void shouldSerialize(){
+    public void shouldDeserialize(){
         SitePoint sitePoint = mapper.fromJson(SITE_POINT.load(), SitePoint.class);
         assertEquals("36cdd555-41b6-4327-ac83-04ac74cff915", sitePoint.getSiteId());
         assertEquals(0, new BigDecimal("-23.5666499").compareTo(sitePoint.getLatitude()));

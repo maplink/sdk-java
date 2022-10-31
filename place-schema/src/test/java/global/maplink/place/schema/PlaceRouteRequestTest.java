@@ -19,7 +19,7 @@ public class PlaceRouteRequestTest {
     private final JsonMapper mapper = JsonMapper.loadDefault();
 
     @Test
-    public void shouldSerialize(){
+    public void shouldDeserialize(){
         PlaceRouteRequest placeRouteRequest = mapper.fromJson(PLACEROUTEREQUEST.load(), PlaceRouteRequest.class);
         assertEquals(3, placeRouteRequest.getCategories().size());
         assertTrue(placeRouteRequest.getCategories().containsAll(Arrays.asList(Category.ADVOGADOS, Category.AGENCIAS, Category.BANCOS)));

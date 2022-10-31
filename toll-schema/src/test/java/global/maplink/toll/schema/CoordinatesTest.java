@@ -16,7 +16,7 @@ public class CoordinatesTest {
     private final JsonMapper mapper = JsonMapper.loadDefault();
 
     @Test
-    public void shouldSerialize(){
+    public void shouldDeserialize(){
         Coordinates coordinates = mapper.fromJson(COORDINATES.load(), Coordinates.class);
         assertEquals(0, new BigDecimal("-23.5666499").compareTo(coordinates.getLatitude()));
         assertEquals(0, new BigDecimal("-46.6557755").compareTo(coordinates.getLongitude()));

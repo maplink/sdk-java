@@ -22,7 +22,7 @@ public class TollConditionTest {
     private final JsonMapper mapper = JsonMapper.loadDefault();
 
     @Test
-    public void shouldSerialize(){
+    public void shouldDeserialize(){
         TollCondition tollCondition = mapper.fromJson(TOLL_CONDITION.load(), TollCondition.class);
 
         List<DayOfWeek> daysOfWeek = Arrays.asList(DayOfWeek.MONDAY, DayOfWeek.WEDNESDAY, DayOfWeek.FRIDAY);

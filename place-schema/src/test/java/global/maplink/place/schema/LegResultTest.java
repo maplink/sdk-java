@@ -14,7 +14,7 @@ public class LegResultTest {
     private final JsonMapper mapper = JsonMapper.loadDefault();
 
     @Test
-    public void shouldSerialize(){
+    public void shouldDeserialize(){
         LegResult legResult = mapper.fromJson(LEGRESULT.load(), LegResult.class);
         assertEquals(1, legResult.getTotal());
         assertEquals(1, legResult.getPlaces().size());

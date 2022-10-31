@@ -14,7 +14,7 @@ public class FreightCalculationRequestTest {
     private final JsonMapper mapper = JsonMapper.loadDefault();
 
     @Test
-    public void shouldSerializeFreightCalculationRequestJsonFile(){
+    public void shouldDeserializeFreightCalculationRequestJsonFile(){
         FreightCalculationRequest freightCalculationRequest = mapper.fromJson(FREIGHT_CALCULATION_REQUEST.load(),
                 FreightCalculationRequest.class);
 

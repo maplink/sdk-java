@@ -13,7 +13,7 @@ public class TollServiceTypeTest {
     private final JsonMapper mapper = JsonMapper.loadDefault();
 
     @Test
-    public void shouldSerialize(){
+    public void shouldDeserialize(){
         TollServiceType tollServiceType = mapper.fromJson(TOLL_SERVICE_TYPE.load(), TollServiceType.class);
         assertEquals("236e9cd5-4181-408c-b90f-a24c31237f11", tollServiceType.getServiceId());
         assertEquals("MAPLINK", tollServiceType.getName());

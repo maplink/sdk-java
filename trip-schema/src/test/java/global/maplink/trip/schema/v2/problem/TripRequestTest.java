@@ -21,7 +21,7 @@ public class TripRequestTest {
     private final JsonMapper mapper = JsonMapper.loadDefault();
     
     @Test
-    public void shouldSerialize(){
+    public void shouldDeserialize(){
         TripRequest tripRequest = mapper.fromJson(TRIP_REQUEST.load(), TripRequest.class);
         assertEquals(1, tripRequest.getPoints().size());
         assertEquals("36cdd555-41b6-4327-ac83-04ac74cff915", tripRequest.getPoints().get(0).getSiteId());

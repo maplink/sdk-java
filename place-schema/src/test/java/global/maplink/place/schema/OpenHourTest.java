@@ -13,7 +13,7 @@ public class OpenHourTest {
     private final JsonMapper mapper = JsonMapper.loadDefault();
 
     @Test
-    public void shouldSerialize(){
+    public void shouldDeserialize(){
         OpenHour openHour = mapper.fromJson(OPENHOUR.load(), OpenHour.class);
         assertEquals("09:00", openHour.getOpen().getTime());
         assertEquals(DayOfWeek.MONDAY, openHour.getOpen().getDay());

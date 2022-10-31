@@ -14,7 +14,7 @@ public class PointTest {
     private final JsonMapper mapper = JsonMapper.loadDefault();
 
     @Test
-    public void shouldSerialize(){
+    public void shouldDeserialize(){
         Point point = mapper.fromJson(POINT.load(), Point.class);
         assertEquals(0, new BigDecimal("-23.5666499").compareTo(point.getLatitude()));
         assertEquals(0, new BigDecimal("-46.6557755").compareTo(point.getLongitude()));
