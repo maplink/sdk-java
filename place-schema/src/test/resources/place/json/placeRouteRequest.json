@@ -1,0 +1,31 @@
+{
+  "categories": ["ADVOGADOS", "AGENCIAS", "BANCOS"],
+  "subCategories": [
+    "ADVOGADOS",
+    "ADVOGADOS_CAUSAS_AMBIENTAIS",
+    "AGENCIAS_DE_EMPREGOS",
+    "BANCOS_DE_IMAGENS",
+    "BANCOS_DE_SANGUE"
+  ],
+  "bufferRouteInMeters": 50,
+  "bufferStoppingPointsInMeters": 100,
+  "onlyMyPlaces": false,
+  "legs": [
+    {
+      "points": [
+        {
+          "latitude": "-23.5666499",
+          "longitude": "-46.6557755"
+        },
+        {
+          "latitude": "-23.5688742",
+          "longitude": "-46.6638823"
+        },
+        {
+          "latitude": "-23.5757982",
+          "longitude": "-46.6779297"
+        }
+      ]
+    }
+  ]
+}

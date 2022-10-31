@@ -1,0 +1,13 @@
+{
+  "street": "Alameda Campinas",
+  "number": "579",
+  "district": "Jardim Paulista",
+  "city": "São Paulo",
+  "state": "SP",
+  "zipcode": "01404-100",
+  "complement": "9th floor",
+  "point": {
+    "latitude": "-23.5666499",
+    "longitude": "-46.6557755"
+  }
+}

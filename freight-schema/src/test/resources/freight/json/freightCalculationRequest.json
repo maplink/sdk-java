@@ -1,0 +1,16 @@
+{
+  "operationType": ["A", "B"],
+  "goodsType": ["GRANEL_SOLIDO", "FRIGORIFICADA", "NEOGRANEL", "PERIGOSA_GRANEL_LIQUIDO", "GRANEL_PRESSURIZADA"],
+  "axis": [4, 6],
+  "otherCosts": [
+    {
+      "name": "TAX",
+      "type": "FIXED",
+      "value": 250.6
+    }
+  ],
+  "distance": 30.3,
+  "date": "2022-10-21",
+  "roundTrip": false,
+  "backEmpty": true
+}

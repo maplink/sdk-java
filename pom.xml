@@ -32,6 +32,10 @@
         <module>http-engine-java11-client</module>
         <module>jacoco-report</module>
         <module>emission-schema</module>
+        <module>trip-schema</module>
+        <module>freight-schema</module>
+        <module>place-schema</module>
+        <module>toll-schema</module>
     </modules>
 
     <dependencyManagement>
@@ -82,6 +86,34 @@
             <dependency>
                 <groupId>${project.groupId}</groupId>
                 <artifactId>emission-schema</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <!-- Trip -->
+            <dependency>
+                <groupId>${project.groupId}</groupId>
+                <artifactId>trip-schema</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <!-- Freight -->
+            <dependency>
+                <groupId>${project.groupId}</groupId>
+                <artifactId>freight-schema</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <!-- Place -->
+            <dependency>
+                <groupId>${project.groupId}</groupId>
+                <artifactId>place-schema</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <!-- Toll -->
+            <dependency>
+                <groupId>${project.groupId}</groupId>
+                <artifactId>toll-schema</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
@@ -294,6 +326,12 @@
         <developer>
             <name>Clécius José Martinkoski</name>
             <email>clecius.martinkoski@maplink.global</email>
+            <organization>Maplink</organization>
+            <organizationUrl>https://maplink.global</organizationUrl>
+        </developer>
+        <developer>
+            <name>Felipe de Souza Mendes</name>
+            <email>felipe.mendes@maplink.global</email>
             <organization>Maplink</organization>
             <organizationUrl>https://maplink.global</organizationUrl>
         </developer>

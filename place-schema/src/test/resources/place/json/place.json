@@ -1,0 +1,95 @@
+{
+  "id": "a98553bc-78e5-4035-a048-74e361625ce1",
+  "name": "MAPLINK",
+  "documentNumber": "95.424.764/0001-10",
+  "description": "Maplink Brasil",
+  "url": "",
+  "website": "http://maplink.global",
+  "favicon": "",
+  "openingHours": {
+    "periods": [
+      {
+        "open": {
+          "time": "09:00",
+          "day": "MONDAY"
+        },
+        "close": {
+          "time": "18:00",
+          "day": "MONDAY"
+        }
+      },
+      {
+        "open": {
+          "time": "09:00",
+          "day": "TUESDAY"
+        },
+        "close": {
+          "time": "18:00",
+          "day": "TUESDAY"
+        }
+      },
+      {
+        "open": {
+          "time": "09:00",
+          "day": "WEDNESDAY"
+        },
+        "close": {
+          "time": "18:00",
+          "day": "WEDNESDAY"
+        }
+      },
+      {
+        "open": {
+          "time": "09:00",
+          "day": "THURSDAY"
+        },
+        "close": {
+          "time": "18:00",
+          "day": "THURSDAY"
+        }
+      },
+      {
+        "open": {
+          "time": "09:00",
+          "day": "FRIDAY"
+        },
+        "close": {
+          "time": "18:00",
+          "day": "FRIDAY"
+        }
+      }
+    ],
+    "open24Hours": false
+  },
+  "payments": ["BOLETO_BANCARIO", "DINHEIRO", "MASTERCARD", "VISA"],
+  "category": "TECNOLOGIA",
+  "subCategory": "DESENVOLVIMENTO_DE_SOFTWARE",
+  "address": {
+    "street": "Alameda Campinas",
+    "number": "579",
+    "district": "Jardim Paulista",
+    "city": "São Paulo",
+    "state": "SP",
+    "zipcode": "01404-100",
+    "complement": "9th floor",
+    "point": {
+      "latitude": "-23.5666499",
+      "longitude": "-46.6557755"
+    }
+  },
+  "phones": [
+    "(11) 2222-3333",
+    "(11) 4444-5555"
+  ],
+  "connections": [
+    {
+      "provider": "facebook",
+      "url": "https://www.facebook.com/maplink"
+    },{
+      "provider": "instagram",
+      "url": "https://br.linkedin.com/company/maplink"
+    }
+  ],
+  "active": true,
+  "clientId": "maplinkClientId"
+}
