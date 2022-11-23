@@ -1,0 +1,87 @@
+package global.maplink.tracking.schema.schemaTest;
+
+import global.maplink.json.JsonMapper;
+import global.maplink.tracking.schema.schema.domain.Audit;
+import global.maplink.tracking.schema.schema.domain.Theme;
+import global.maplink.tracking.schema.schema.exceptions.TrackingException;
+import lombok.var;
+import org.testng.annotations.Test;
+
+import java.time.Instant;
+import java.util.Locale;
+
+import static global.maplink.tracking.schema.schema.exceptions.ErrorType.TRACKING_01;
+import static global.maplink.tracking.schema.schema.exceptions.ErrorType.TRACKING_02;
+import static global.maplink.tracking.schema.testUtils.SampleFiles.TRACKING_THEME;
+import static org.junit.jupiter.api.Assertions.*;
+
+
+public class ThemeTest {
+    private final JsonMapper mapper = JsonMapper.loadDefault();
+
+    @Test
+    void shouldSerializeJsonFileToThemeRequestTest() {
+        Theme theme = mapper.fromJson(TRACKING_THEME.load(), Theme.class);
+        var language = new Locale("pt", "BR");
+
+        assertEquals("DEFAULT", theme.getId());
+        assertEquals("https://example.logo.com", theme.getLogo());
+        assertEquals("#FF0000", theme.getColor());
+        assertEquals("https://example.icon.com", theme.getIcon());
+        assertEquals(language, theme.getLanguage());
+        assertEquals(Instant.parse("2022-11-28T16:00:00.120Z"), theme.getAudit().getCreatedAt());
+        assertEquals(Instant.parse("2022-11-28T16:30:00.120Z"), theme.getAudit().getUpdatedAt());
+    }
+
+    @Test
+    public void isValidHexadecimalCorrect() {
+        Theme theme = Theme.builder()
+                .id("default")
+                .logo("cutomize Theme")
+                .color("#1AFFa1")
+                .language(new Locale("pt", "BR"))
+                .audit(Audit.builder()
+                        .createdAt(Instant.parse("2022-11-28T16:00:00.120Z"))
+                        .updatedAt(Instant.parse("2022-11-28T16:30:00.120Z"))
+                        .build())
+                .build();
+
+        assertDoesNotThrow(theme::validate);
+    }
+
+    @Test
+    public void isValidHexadecimalIncorrect() {
+        Theme theme = Theme.builder()
+                .id("default")
+                .logo("cutomize Theme")
+                .color("1AFFa1####")
+                .language(new Locale("pt", "BR"))
+                .audit(Audit.builder()
+                        .createdAt(Instant.parse("2022-11-28T16:00:00.120Z"))
+                        .updatedAt(Instant.parse("2022-11-28T16:30:00.120Z"))
+                        .build())
+                .build();
+
+        var exception =
+                assertThrows(TrackingException.class, theme::validate);
+        assertEquals(TRACKING_02.getMessage(), exception.getMessage());
+    }
+
+    @Test
+    public void isValidHexadecimalIsNull() {
+        Theme theme = Theme.builder()
+                .id("default")
+                .logo("cutomize Theme")
+                .color(null)
+                .language(new Locale("pt", "BR"))
+                .audit(Audit.builder()
+                        .createdAt(Instant.parse("2022-11-28T16:00:00.120Z"))
+                        .updatedAt(Instant.parse("2022-11-28T16:30:00.120Z"))
+                        .build())
+                .build();
+
+        var exception =
+                assertThrows(TrackingException.class, theme::validate);
+        assertEquals(TRACKING_01.getMessage(), exception.getMessage());
+    }
+}
