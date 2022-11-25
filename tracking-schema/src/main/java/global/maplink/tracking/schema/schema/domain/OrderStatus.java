@@ -1,28 +1,34 @@
 package global.maplink.tracking.schema.schema.domain;
 
 
-import global.maplink.tracking.schema.schema.exceptions.ValidationErrorType;
-import lombok.*;
+import global.maplink.validations.Validable;
+import global.maplink.validations.ValidationViolation;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
-import static global.maplink.tracking.schema.schema.exceptions.ValidationErrorType.*;
+import static global.maplink.tracking.schema.schema.errors.ValidationErrorType.TRACKING_STATUS_LABEL_NOTNULL;
+import static global.maplink.tracking.schema.schema.errors.ValidationErrorType.TRACKING_STATUS_VALUE_NOTNULL;
+import static java.util.Objects.isNull;
 
 
 @Data
 @Builder
 @NoArgsConstructor(force = true)
 @AllArgsConstructor
-public class OrderStatus {
+public class OrderStatus implements Validable {
 
     private final Value value;
     private final String label;
 
-    public List<ValidationErrorType> validate() {
-        List<ValidationErrorType> errors = new ArrayList<>();
-        if (isInvalid(value)) {
+    @Override
+    public List<ValidationViolation> validate() {
+        List<ValidationViolation> errors = new ArrayList<>();
+        if (isNull(value)) {
             errors.add(TRACKING_STATUS_VALUE_NOTNULL);
         }
         if (isInvalid(label)) {
@@ -31,13 +37,8 @@ public class OrderStatus {
         return errors;
     }
 
-    private boolean isInvalid(final Object value) {
-        return Objects.isNull(value);
-    }
-
     private boolean isInvalid(final String label) {
-        return Objects.isNull(label) || label.trim().isEmpty();
+        return isNull(label) || label.trim().isEmpty();
     }
-
 
 }

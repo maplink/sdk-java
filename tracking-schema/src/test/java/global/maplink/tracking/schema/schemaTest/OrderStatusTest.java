@@ -5,8 +5,9 @@ import lombok.var;
 import org.junit.jupiter.api.Test;
 
 import static global.maplink.tracking.schema.schema.domain.Value.ON_THE_WAY;
-import static global.maplink.tracking.schema.schema.exceptions.ValidationErrorType.*;
-import static org.junit.jupiter.api.Assertions.*;
+import static global.maplink.tracking.schema.schema.errors.ValidationErrorType.TRACKING_STATUS_LABEL_NOTNULL;
+import static global.maplink.tracking.schema.schema.errors.ValidationErrorType.TRACKING_STATUS_VALUE_NOTNULL;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class OrderStatusTest {
 

@@ -1,23 +1,27 @@
 package global.maplink.tracking.schema.schema.domain;
 
 import global.maplink.geocode.schema.Address;
-import global.maplink.tracking.schema.schema.exceptions.ValidationErrorType;
-import lombok.*;
+import global.maplink.validations.Validable;
+import global.maplink.validations.ValidationViolation;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
-import static global.maplink.tracking.schema.schema.exceptions.ValidationErrorType.*;
+import static global.maplink.tracking.schema.schema.errors.ValidationErrorType.TRACKING_DESCRIPTION_NOTNULL;
+import static java.util.Objects.isNull;
+import static java.util.Objects.nonNull;
 
 @Data
 @Builder
 @NoArgsConstructor(force = true)
 @AllArgsConstructor
-public class Order {
-
+public class Order implements Validable {
 
     private final String id;
     private final Long number;
@@ -33,15 +37,19 @@ public class Order {
     private final Instant expiresIn;
     private final String theme;
 
-    public List<ValidationErrorType> validate() {
-        List<ValidationErrorType> errors = new ArrayList<>();
+    @Override
+    public List<ValidationViolation> validate() {
+        List<ValidationViolation> errors = new ArrayList<>();
         if (isInvalidDescription(description)) {
             errors.add(TRACKING_DESCRIPTION_NOTNULL);
+        }
+        if (nonNull(driver)) {
+            errors.addAll(driver.validate());
         }
         return errors;
     }
 
     private boolean isInvalidDescription(final String value) {
-        return Objects.isNull(value) || value.trim().isEmpty();
+        return isNull(value) || value.trim().isEmpty();
     }
 }

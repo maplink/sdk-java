@@ -1,20 +1,26 @@
 package global.maplink.tracking.schema.schema.domain;
 
-import global.maplink.tracking.schema.schema.exceptions.TrackingValidationException;
-import lombok.*;
+import global.maplink.validations.Validable;
+import global.maplink.validations.ValidationViolation;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
-import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import static global.maplink.tracking.schema.schema.exceptions.ValidationErrorType.*;
+import static global.maplink.tracking.schema.schema.errors.ValidationErrorType.*;
+import static java.util.Objects.isNull;
 
 @Data
 @Builder
 @NoArgsConstructor(force = true)
 @RequiredArgsConstructor
-public class Theme {
+public class Theme implements Validable {
 
     public static final String COLOR_HEX_PATTERN = "^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$";
 
@@ -25,29 +31,27 @@ public class Theme {
     private final Locale language;
     private final Audit audit;
 
-    public void validate() {
+    public List<ValidationViolation> validate() {
+        List<ValidationViolation> violations = new ArrayList<>();
         if (isInvalid(id)) {
-            throw new TrackingValidationException(THEME_ID_NOTNULL);
+            violations.add(THEME_ID_NOTNULL);
         }
-        if (isInvalid(language)) {
-            throw new TrackingValidationException(THEME_LANGUAGE_NOTNULL);
+        if (isNull(language)) {
+            violations.add(THEME_LANGUAGE_NOTNULL);
         }
         if (isInvalid(color)) {
-            throw new TrackingValidationException(THEME_COLOR_NOTNULL);
+            violations.add(THEME_COLOR_NOTNULL);
         } else {
             Pattern p = Pattern.compile(COLOR_HEX_PATTERN);
             Matcher m = p.matcher(color);
 
-            if (!m.matches()) throw new TrackingValidationException(THEME_COLOR_INCORRECT);
+            if (!m.matches()) violations.add(THEME_COLOR_INCORRECT);
         }
+        return violations;
     }
 
     private boolean isInvalid(final String value) {
-        return Objects.isNull(value) || value.trim().isEmpty();
-    }
-
-    private boolean isInvalid(final Locale value) {
-        return Objects.isNull(value);
+        return isNull(value) || value.trim().isEmpty();
     }
 
 }

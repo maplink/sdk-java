@@ -13,7 +13,7 @@ import java.time.Instant;
 import java.time.LocalDateTime;
 
 import static global.maplink.tracking.schema.schema.domain.Value.ON_THE_WAY;
-import static global.maplink.tracking.schema.schema.exceptions.ValidationErrorType.TRACKING_DESCRIPTION_NOTNULL;
+import static global.maplink.tracking.schema.schema.errors.ValidationErrorType.TRACKING_DESCRIPTION_NOTNULL;
 import static global.maplink.tracking.schema.testUtils.SampleFiles.TRACKING_ORDER;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 

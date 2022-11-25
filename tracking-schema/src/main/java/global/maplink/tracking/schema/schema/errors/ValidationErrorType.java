@@ -1,11 +1,12 @@
-package global.maplink.tracking.schema.schema.exceptions;
+package global.maplink.tracking.schema.schema.errors;
 
+import global.maplink.validations.ValidationViolation;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 @Getter
 @AllArgsConstructor
-public enum ValidationErrorType {
+public enum ValidationErrorType implements ValidationViolation {
 
     THEME_ID_NOTNULL("id cannot be null"),
     THEME_LANGUAGE_NOTNULL("language cannot be null"),

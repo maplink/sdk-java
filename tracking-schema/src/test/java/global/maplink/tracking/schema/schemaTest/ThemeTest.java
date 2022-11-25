@@ -3,14 +3,14 @@ package global.maplink.tracking.schema.schemaTest;
 import global.maplink.json.JsonMapper;
 import global.maplink.tracking.schema.schema.domain.Audit;
 import global.maplink.tracking.schema.schema.domain.Theme;
-import global.maplink.tracking.schema.schema.exceptions.TrackingValidationException;
+import global.maplink.validations.ValidationException;
 import lombok.var;
 import org.junit.jupiter.api.Test;
 
 import java.time.Instant;
 import java.util.Locale;
 
-import static global.maplink.tracking.schema.schema.exceptions.ValidationErrorType.*;
+import static global.maplink.tracking.schema.schema.errors.ValidationErrorType.*;
 import static global.maplink.tracking.schema.testUtils.SampleFiles.TRACKING_THEME;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -63,7 +63,7 @@ public class ThemeTest {
                 .build();
 
         var exception =
-                assertThrows(TrackingValidationException.class, theme::validate);
+                assertThrows(ValidationException.class, theme::throwIfInvalid);
         assertEquals(THEME_COLOR_INCORRECT.getMessage(), exception.getMessage());
     }
 
@@ -81,7 +81,7 @@ public class ThemeTest {
                 .build();
 
         var exception =
-                assertThrows(TrackingValidationException.class, theme::validate);
+                assertThrows(ValidationException.class, theme::throwIfInvalid);
         assertEquals(THEME_COLOR_NOTNULL.getMessage(), exception.getMessage());
     }
 
@@ -99,7 +99,7 @@ public class ThemeTest {
                 .build();
 
         var exception =
-                assertThrows(TrackingValidationException.class, theme::validate);
+                assertThrows(ValidationException.class, theme::throwIfInvalid);
         assertEquals(THEME_ID_NOTNULL.getMessage(), exception.getMessage());
     }
 
@@ -117,7 +117,7 @@ public class ThemeTest {
                 .build();
 
         var exception =
-                assertThrows(TrackingValidationException.class, theme::validate);
+                assertThrows(ValidationException.class, theme::throwIfInvalid);
         assertEquals(THEME_LANGUAGE_NOTNULL.getMessage(), exception.getMessage());
     }
 }

@@ -2,27 +2,32 @@ package global.maplink.tracking.schema.schema.domain;
 
 
 import global.maplink.geocode.schema.GeoPoint;
-import global.maplink.tracking.schema.schema.exceptions.ValidationErrorType;
-import lombok.*;
+import global.maplink.validations.Validable;
+import global.maplink.validations.ValidationViolation;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-import static global.maplink.tracking.schema.schema.exceptions.ValidationErrorType.*;
+import static global.maplink.tracking.schema.schema.errors.ValidationErrorType.TRACKING_DRIVER_GEOPOINT_NOTNULL;
 
 @Data
 @Builder
 @NoArgsConstructor(force = true)
 @AllArgsConstructor
-public class Driver {
+public class Driver implements Validable {
 
     private final String name;
     private final String image;
     private final GeoPoint currentLocation;
 
-    public List<ValidationErrorType> validate() {
-        List<ValidationErrorType> errors = new ArrayList<>();
+    @Override
+    public List<ValidationViolation> validate() {
+        List<ValidationViolation> errors = new ArrayList<>();
         if (isInvalid(currentLocation)) {
             errors.add(TRACKING_DRIVER_GEOPOINT_NOTNULL);
         }
