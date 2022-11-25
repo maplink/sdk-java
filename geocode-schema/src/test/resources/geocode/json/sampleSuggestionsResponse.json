@@ -1,52 +1,207 @@
 {
-  "id": "INTERNAL_ID",
-  "number": "1232132132143438",
-  "description": "Product Test",
-  "companyName": "Maplink",
-  "status": {
-    "value": "ON_THE_WAY",
-    "label": "Pedido em trânsito"
-  },
-  "origin": {
-    "road": "Alameda Campinas",
-    "number": "579",
-    "city": "São Paulo",
-    "zipCode": "01419001",
-    "state": {
-      "code": "SP",
-      "name": "São Paulo"
+  "found": 317,
+  "results": [
+    {
+      "id": "b77c04eb-92b1-4383-aaf8-d1f40ff50f9a",
+      "address": {
+        "road": "Rua Silva Jardim",
+        "number": "568",
+        "district": "Cidade Alta",
+        "zipCode": "13419140",
+        "city": "Piracicaba",
+        "state": {
+          "code": "SP",
+          "name": "São Paulo"
+        },
+        "mainLocation": {
+          "lat": -22.72725697031394,
+          "lon": -47.636846753567944
+        }
+      },
+      "type": "ROAD",
+      "score": 94.69347,
+      "label": "Rua Silva Jardim, 568, Cidade Alta, 13419140, Piracicaba, São Paulo, SP"
     },
-    "mainLocation": {
-      "lat": -22.7342864,
-      "lon": -47.6480644
-    }
-  },
-  "destination": {
-    "road": "R. Menina Rosana",
-    "number": "70",
-    "city": "Itajaí",
-    "zipCode": "88304250",
-    "state": {
-      "code": "SC",
-      "name": "Santa Catarina"
+    {
+      "id": "e5f36cde-2375-4dbb-8b09-0207daf0c9de",
+      "address": {
+        "road": "Rua Doutor Otávio Teixeira Mendes",
+        "number": "568",
+        "district": "Cidade Alta",
+        "zipCode": "13419220",
+        "city": "Piracicaba",
+        "state": {
+          "code": "SP",
+          "name": "São Paulo"
+        },
+        "mainLocation": {
+          "lat": -22.72859909085603,
+          "lon": -47.646662703084864
+        }
+      },
+      "type": "ROAD",
+      "score": 54.633842,
+      "label": "Rua Doutor Otávio Teixeira Mendes, 568, Cidade Alta, 13419220, Piracicaba, São Paulo, SP"
     },
-    "mainLocation": {
-      "lat": -22.72725697031394,
-      "lon": -47.636846753567944
+    {
+      "id": "faa3d43c-a7c8-4e92-a257-967360a7d944",
+      "address": {
+        "road": "Rua Doutor Otávio Teixeira Mendes",
+        "district": "Cidade Alta",
+        "zipCode": "13417095",
+        "city": "Piracicaba",
+        "state": {
+          "code": "SP",
+          "name": "São Paulo"
+        },
+        "mainLocation": {
+          "lat": -22.7331478,
+          "lon": -47.6370854
+        }
+      },
+      "type": "ZIPCODE",
+      "score": 36.25135,
+      "label": "Rua Doutor Otávio Teixeira Mendes, Cidade Alta, 13417095, Piracicaba, São Paulo, SP"
+    },
+    {
+      "id": "1ab4e99d-718c-4d9b-bd6d-a4b6e0b9b1e8",
+      "address": {
+        "road": "Rua Dom Pedro I",
+        "district": "Cidade Alta",
+        "zipCode": "13419200",
+        "city": "Piracicaba",
+        "state": {
+          "code": "SP",
+          "name": "São Paulo"
+        },
+        "mainLocation": {
+          "lat": -22.73379,
+          "lon": -47.639885
+        }
+      },
+      "type": "ZIPCODE",
+      "score": 36.25135,
+      "label": "Rua Dom Pedro I, Cidade Alta, 13419200, Piracicaba, São Paulo, SP"
+    },
+    {
+      "id": "f9a64989-bcb7-41fd-8222-d2617073b37e",
+      "address": {
+        "road": "Rua Walter Ramos Jardim",
+        "district": "Jardim Nova Iguaçu",
+        "zipCode": "13423025",
+        "city": "Piracicaba",
+        "state": {
+          "code": "SP",
+          "name": "São Paulo"
+        },
+        "mainLocation": {
+          "lat": -22.73921,
+          "lon": -47.59856
+        }
+      },
+      "type": "ZIPCODE",
+      "score": 34.38538,
+      "label": "Rua Walter Ramos Jardim, Jardim Nova Iguaçu, 13423025, Piracicaba, São Paulo, SP"
+    },
+    {
+      "id": "dcbb9511-bb0e-4727-aa3e-e97b6dd1598b",
+      "address": {
+        "road": "Rua Júlio Galvão da Silva Castro",
+        "district": "Alto da Pompéia",
+        "zipCode": "13422608",
+        "city": "Piracicaba",
+        "state": {
+          "code": "SP",
+          "name": "São Paulo"
+        },
+        "mainLocation": {
+          "lat": -22.7577,
+          "lon": -47.61905
+        }
+      },
+      "type": "ZIPCODE",
+      "score": 29.497272,
+      "label": "Rua Júlio Galvão da Silva Castro, Alto da Pompéia, 13422608, Piracicaba, São Paulo, SP"
+    },
+    {
+      "id": "4c492aa7-4949-4d99-aad1-43a2ddfc88f5",
+      "address": {
+        "road": "Rua Liberina Silva Santos",
+        "district": "Residencial Alto da Boa Vista",
+        "zipCode": "13406326",
+        "city": "Piracicaba",
+        "state": {
+          "code": "SP",
+          "name": "São Paulo"
+        },
+        "mainLocation": {
+          "lat": -22.683855,
+          "lon": -47.70763
+        }
+      },
+      "type": "ZIPCODE",
+      "score": 29.288906,
+      "label": "Rua Liberina Silva Santos, Residencial Alto da Boa Vista, 13406326, Piracicaba, São Paulo, SP"
+    },
+    {
+      "id": "8586383f-6e2f-478e-9033-6c7baf0dd99b",
+      "address": {
+        "road": "Rua Fermina de Andrade e Silva",
+        "district": "Residencial Alto da Boa Vista",
+        "zipCode": "13406348",
+        "city": "Piracicaba",
+        "state": {
+          "code": "SP",
+          "name": "São Paulo"
+        },
+        "mainLocation": {
+          "lat": -22.687310385,
+          "lon": -47.710861693
+        }
+      },
+      "type": "ZIPCODE",
+      "score": 28.195667,
+      "label": "Rua Fermina de Andrade e Silva, Residencial Alto da Boa Vista, 13406348, Piracicaba, São Paulo, SP"
+    },
+    {
+      "id": "5429088b-8bdb-48f2-ae18-2cdab84c425d",
+      "address": {
+        "road": "Rua Doutor João Sampaio",
+        "district": "Cidade Jardim",
+        "zipCode": "13416421",
+        "city": "Piracicaba",
+        "state": {
+          "code": "SP",
+          "name": "São Paulo"
+        },
+        "mainLocation": {
+          "lat": -22.7161263,
+          "lon": -47.6414111
+        }
+      },
+      "type": "ZIPCODE",
+      "score": 25.869972,
+      "label": "Rua Doutor João Sampaio, Cidade Jardim, 13416421, Piracicaba, São Paulo, SP"
+    },
+    {
+      "id": "8145a7a7-ed13-4945-a2e2-2ab53e8ccf28",
+      "address": {
+        "road": "Travessa Fernando Silva",
+        "district": "Parque Santa Cecília",
+        "zipCode": "13420208",
+        "city": "Piracicaba",
+        "state": {
+          "code": "SP",
+          "name": "São Paulo"
+        },
+        "mainLocation": {
+          "lat": -22.7342864,
+          "lon": -47.6480644
+        }
+      },
+      "type": "ZIPCODE",
+      "score": 25.062197,
+      "label": "Travessa Fernando Silva, Parque Santa Cecília, 13420208, Piracicaba, São Paulo, SP"
     }
-  },
-  "driver": {
-    "name": "Maplink BR",
-    "image": "http://example.com",
-    "currentLocation": {
-      "lat": -23.564515,
-      "lon": -46.652681
-    }
-  },
-  "audit": {
-    "createdAt": "2022-11-28T16:00:00.120Z",
-    "updatedAt": "2022-11-22T16:30:00.120Z"
-  },
-  "expiresIn": "2022-11-28T16:00:00.120Z",
-  "theme": "DEFAULT"
+  ]
 }
