@@ -5,7 +5,7 @@ import global.maplink.tracking.schema.schema.domain.Audit;
 import global.maplink.tracking.schema.schema.domain.Theme;
 import global.maplink.tracking.schema.schema.exceptions.TrackingException;
 import lombok.var;
-import org.testng.annotations.Test;
+import org.junit.jupiter.api.Test;
 
 import java.time.Instant;
 import java.util.Locale;
