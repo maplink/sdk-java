@@ -3,7 +3,6 @@ package global.maplink.tracking.schema.schemaTest;
 import global.maplink.json.JsonMapper;
 import global.maplink.tracking.schema.schema.domain.Audit;
 import global.maplink.tracking.schema.schema.domain.Theme;
-import global.maplink.validations.ValidationException;
 import lombok.var;
 import org.junit.jupiter.api.Test;
 
@@ -62,9 +61,8 @@ public class ThemeTest {
                         .build())
                 .build();
 
-        var exception =
-                assertThrows(ValidationException.class, theme::throwIfInvalid);
-        assertEquals(THEME_COLOR_INCORRECT.getMessage(), exception.getMessage());
+        var errors = theme.validate();
+        assertEquals(THEME_COLOR_INCORRECT, errors.get(0));
     }
 
     @Test
@@ -80,9 +78,8 @@ public class ThemeTest {
                         .build())
                 .build();
 
-        var exception =
-                assertThrows(ValidationException.class, theme::throwIfInvalid);
-        assertEquals(THEME_COLOR_NOTNULL.getMessage(), exception.getMessage());
+        var errors = theme.validate();
+        assertEquals(THEME_COLOR_NOTNULL, errors.get(0));
     }
 
     @Test
@@ -98,9 +95,8 @@ public class ThemeTest {
                         .build())
                 .build();
 
-        var exception =
-                assertThrows(ValidationException.class, theme::throwIfInvalid);
-        assertEquals(THEME_ID_NOTNULL.getMessage(), exception.getMessage());
+        var errors = theme.validate();
+        assertEquals(THEME_ID_NOTNULL, errors.get(0));
     }
 
     @Test
@@ -116,8 +112,7 @@ public class ThemeTest {
                         .build())
                 .build();
 
-        var exception =
-                assertThrows(ValidationException.class, theme::throwIfInvalid);
-        assertEquals(THEME_LANGUAGE_NOTNULL.getMessage(), exception.getMessage());
+        var errors = theme.validate();
+        assertEquals(THEME_LANGUAGE_NOTNULL, errors.get(0));
     }
 }

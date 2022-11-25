@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-import static global.maplink.tracking.schema.schema.errors.ValidationErrorType.TRACKING_DESCRIPTION_NOTNULL;
+import static global.maplink.tracking.schema.schema.errors.ValidationErrorType.*;
 import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
 
@@ -43,8 +43,29 @@ public class Order implements Validable {
         if (isInvalidDescription(description)) {
             errors.add(TRACKING_DESCRIPTION_NOTNULL);
         }
+        if (isNull(destination.getRoad())) {
+            errors.add(TRACKING_DESTINATION_ROAD_NOTNULL);
+        }
+        if (isNull(destination.getNumber())) {
+            errors.add(TRACKING_DESTINATION_NUMBER_NOTNULL);
+        }
+        if (isNull(destination.getCity())) {
+            errors.add(TRACKING_DESTINATION_CITY_NOTNULL);
+        }
+        if (isNull(destination.getZipCode())) {
+            errors.add(TRACKING_DESTINATION_ZIPCODE_NOTNULL);
+        }
+        if (isNull(destination.getState())) {
+            errors.add(TRACKING_DESTINATION_STATE_NOTNULL);
+        }
+        if (isNull(destination.getMainLocation())) {
+            errors.add(TRACKING_GEOPOINT_NOTNULL);
+        }
         if (nonNull(driver)) {
             errors.addAll(driver.validate());
+        }
+        if (nonNull(status)) {
+            errors.addAll(status.validate());
         }
         return errors;
     }

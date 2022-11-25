@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-import static global.maplink.tracking.schema.schema.errors.ValidationErrorType.TRACKING_DRIVER_GEOPOINT_NOTNULL;
+import static global.maplink.tracking.schema.schema.errors.ValidationErrorType.TRACKING_GEOPOINT_NOTNULL;
 
 @Data
 @Builder
@@ -29,7 +29,7 @@ public class Driver implements Validable {
     public List<ValidationViolation> validate() {
         List<ValidationViolation> errors = new ArrayList<>();
         if (isInvalid(currentLocation)) {
-            errors.add(TRACKING_DRIVER_GEOPOINT_NOTNULL);
+            errors.add(TRACKING_GEOPOINT_NOTNULL);
         }
         return errors;
     }

@@ -1,6 +1,8 @@
 package global.maplink.tracking.schema.schemaTest;
 
 import global.maplink.geocode.schema.Address;
+import global.maplink.geocode.schema.GeoPoint;
+import global.maplink.geocode.schema.State;
 import global.maplink.json.JsonMapper;
 import global.maplink.tracking.schema.schema.domain.Driver;
 import global.maplink.tracking.schema.schema.domain.Order;
@@ -13,7 +15,7 @@ import java.time.Instant;
 import java.time.LocalDateTime;
 
 import static global.maplink.tracking.schema.schema.domain.Value.ON_THE_WAY;
-import static global.maplink.tracking.schema.schema.errors.ValidationErrorType.TRACKING_DESCRIPTION_NOTNULL;
+import static global.maplink.tracking.schema.schema.errors.ValidationErrorType.*;
 import static global.maplink.tracking.schema.testUtils.SampleFiles.TRACKING_ORDER;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -68,6 +70,212 @@ class OrderTest {
                         .number("579")
                         .city("São Paulo")
                         .zipCode("01419001")
+                        .state(new State("SP", "São Paulo"))
+                        .mainLocation(GeoPoint.of(
+                                BigDecimal.valueOf(-22.7342864),
+                                BigDecimal.valueOf(-47.648064)))
+                        .build())
+                .driver(Driver.builder()
+                        .name("Maplink BR")
+                        .currentLocation(GeoPoint.of(
+                                BigDecimal.valueOf(-22.7342864),
+                                BigDecimal.valueOf(-47.648064)))
+                        .build())
+                .build();
+
+        var errors = order.validate();
+        assertEquals(TRACKING_DESCRIPTION_NOTNULL, errors.get(0));
+    }
+
+    @Test
+    public void isValidateDestinationRoadNull() {
+        Order order = Order.builder()
+                .description("Pedido")
+                .status(OrderStatus.builder()
+                        .value(ON_THE_WAY)
+                        .label("Pedido em trânsito")
+                        .build())
+                .destination(Address.builder()
+                        .number("579")
+                        .city("São Paulo")
+                        .zipCode("01419001")
+                        .state(new State("SP", "São Paulo"))
+                        .mainLocation(GeoPoint.of(
+                                BigDecimal.valueOf(-22.7342864),
+                                BigDecimal.valueOf(-47.648064)))
+                        .build())
+                .driver(Driver.builder()
+                        .name("Maplink BR")
+                        .currentLocation(GeoPoint.of(
+                                BigDecimal.valueOf(-22.7342864),
+                                BigDecimal.valueOf(-47.648064)))
+                        .build())
+                .build();
+
+        var errors = order.validate();
+        assertEquals(TRACKING_DESTINATION_ROAD_NOTNULL, errors.get(0));
+    }
+
+    @Test
+    public void isValidateDestinationNumberNull() {
+        Order order = Order.builder()
+                .description("Pedido")
+                .status(OrderStatus.builder()
+                        .value(ON_THE_WAY)
+                        .label("Pedido em trânsito")
+                        .build())
+                .destination(Address.builder()
+                        .road("Alameda Campinas")
+                        .city("São Paulo")
+                        .zipCode("01419001")
+                        .state(new State("SP", "São Paulo"))
+                        .mainLocation(GeoPoint.of(
+                                BigDecimal.valueOf(-22.7342864),
+                                BigDecimal.valueOf(-47.648064)))
+                        .build())
+                .driver(Driver.builder()
+                        .name("Maplink BR")
+                        .currentLocation(GeoPoint.of(
+                                BigDecimal.valueOf(-22.7342864),
+                                BigDecimal.valueOf(-47.648064)))
+                        .build())
+                .build();
+
+        var errors = order.validate();
+        assertEquals(TRACKING_DESTINATION_NUMBER_NOTNULL, errors.get(0));
+    }
+
+    @Test
+    public void isValidateDestinationCityNull() {
+        Order order = Order.builder()
+                .description("Pedido")
+                .status(OrderStatus.builder()
+                        .value(ON_THE_WAY)
+                        .label("Pedido em trânsito")
+                        .build())
+                .destination(Address.builder()
+                        .number("579")
+                        .road("Alameda Campinas")
+                        .state(new State("SP", "São Paulo"))
+                        .zipCode("01419001")
+                        .mainLocation(GeoPoint.of(
+                                BigDecimal.valueOf(-22.7342864),
+                                BigDecimal.valueOf(-47.648064)))
+                        .build())
+                .driver(Driver.builder()
+                        .name("Maplink BR")
+                        .currentLocation(GeoPoint.of(
+                                BigDecimal.valueOf(-22.7342864),
+                                BigDecimal.valueOf(-47.648064)))
+                        .build())
+                .build();
+
+        var errors = order.validate();
+        assertEquals(TRACKING_DESTINATION_CITY_NOTNULL, errors.get(0));
+    }
+
+    @Test
+    public void isValidateDestinationStateNull() {
+        Order order = Order.builder()
+                .description("Pedido")
+                .status(OrderStatus.builder()
+                        .value(ON_THE_WAY)
+                        .label("Pedido em trânsito")
+                        .build())
+                .destination(Address.builder()
+                        .number("579")
+                        .city("São Paulo")
+                        .road("Alameda Campinas")
+                        .zipCode("01419001")
+                        .mainLocation(GeoPoint.of(
+                                BigDecimal.valueOf(-22.7342864),
+                                BigDecimal.valueOf(-47.648064)))
+                        .build())
+                .driver(Driver.builder()
+                        .name("Maplink BR")
+                        .currentLocation(GeoPoint.of(
+                                BigDecimal.valueOf(-22.7342864),
+                                BigDecimal.valueOf(-47.648064)))
+                        .build())
+                .build();
+
+        var errors = order.validate();
+        assertEquals(TRACKING_DESTINATION_STATE_NOTNULL, errors.get(0));
+    }
+
+    @Test
+    public void isValidateDestinationMainLocationNull() {
+        Order order = Order.builder()
+                .description("Pedido")
+                .status(OrderStatus.builder()
+                        .value(ON_THE_WAY)
+                        .label("Pedido em trânsito")
+                        .build())
+                .destination(Address.builder()
+                        .road("Alameda Campinas")
+                        .number("579")
+                        .city("São Paulo")
+                        .state(new State("SP", "São Paulo"))
+                        .zipCode("01419001")
+                        .build())
+                .driver(Driver.builder()
+                        .name("Maplink BR")
+                        .currentLocation(GeoPoint.of(
+                                BigDecimal.valueOf(-22.7342864),
+                                BigDecimal.valueOf(-47.648064)))
+                        .build())
+                .build();
+
+        var errors = order.validate();
+        assertEquals(TRACKING_GEOPOINT_NOTNULL, errors.get(0));
+    }
+
+    @Test
+    public void isValidateDestinationZipCodeNull() {
+        Order order = Order.builder()
+                .description("Pedido")
+                .status(OrderStatus.builder()
+                        .value(ON_THE_WAY)
+                        .label("Pedido em trânsito")
+                        .build())
+                .destination(Address.builder()
+                        .road("Alameda Campinas")
+                        .number("579")
+                        .city("São Paulo")
+                        .state(new State("SP", "São Paulo"))
+                        .mainLocation(GeoPoint.of(
+                                BigDecimal.valueOf(-22.7342864),
+                                BigDecimal.valueOf(-47.648064)))
+                        .build())
+                .driver(Driver.builder()
+                        .name("Maplink BR")
+                        .currentLocation(GeoPoint.of(
+                                BigDecimal.valueOf(-22.7342864),
+                                BigDecimal.valueOf(-47.648064)))
+                        .build())
+                .build();
+
+        var errors = order.validate();
+        assertEquals(TRACKING_DESTINATION_ZIPCODE_NOTNULL, errors.get(0));
+    }
+
+    @Test
+    public void isValidateDestinationDriverNull() {
+        Order order = Order.builder()
+                .description("Pedido")
+                .status(OrderStatus.builder()
+                        .value(ON_THE_WAY)
+                        .label("Pedido em trânsito")
+                        .build())
+                .destination(Address.builder()
+                        .road("Alameda Campinas")
+                        .number("579")
+                        .city("São Paulo")
+                        .state(new State("SP", "São Paulo"))
+                        .zipCode("01419001")
+                        .mainLocation(GeoPoint.of(
+                                BigDecimal.valueOf(-22.7342864),
+                                BigDecimal.valueOf(-47.648064)))
                         .build())
                 .driver(Driver.builder()
                         .name("Maplink BR")
@@ -75,7 +283,91 @@ class OrderTest {
                 .build();
 
         var errors = order.validate();
+        assertEquals(TRACKING_GEOPOINT_NOTNULL, errors.get(0));
+    }
+
+    @Test
+    public void isValidateDestinationStatusLabelNull() {
+        Order order = Order.builder()
+                .description("Pedido")
+                .status(OrderStatus.builder()
+                        .value(ON_THE_WAY)
+                        .build())
+                .destination(Address.builder()
+                        .road("Alameda Campinas")
+                        .number("579")
+                        .city("São Paulo")
+                        .state(new State("SP", "São Paulo"))
+                        .zipCode("01419001")
+                        .mainLocation(GeoPoint.of(
+                                BigDecimal.valueOf(-22.7342864),
+                                BigDecimal.valueOf(-47.648064)))
+                        .build())
+                .driver(Driver.builder()
+                        .name("Maplink BR")
+                        .currentLocation(GeoPoint.of(
+                                BigDecimal.valueOf(-22.7342864),
+                                BigDecimal.valueOf(-47.648064)))
+                        .build())
+                .build();
+
+        var errors = order.validate();
+        assertEquals(TRACKING_STATUS_LABEL_NOTNULL, errors.get(0));
+    }
+
+    @Test
+    public void isValidateDestinationStatusValueNull() {
+        Order order = Order.builder()
+                .description("Pedido")
+                .status(OrderStatus.builder()
+                        .label("Pedido em trânsito")
+                        .build())
+                .destination(Address.builder()
+                        .road("Alameda Campinas")
+                        .number("579")
+                        .city("São Paulo")
+                        .state(new State("SP", "São Paulo"))
+                        .zipCode("01419001")
+                        .mainLocation(GeoPoint.of(
+                                BigDecimal.valueOf(-22.7342864),
+                                BigDecimal.valueOf(-47.648064)))
+                        .build())
+                .driver(Driver.builder()
+                        .name("Maplink BR")
+                        .currentLocation(GeoPoint.of(
+                                BigDecimal.valueOf(-22.7342864),
+                                BigDecimal.valueOf(-47.648064)))
+                        .build())
+                .build();
+
+        var errors = order.validate();
+        assertEquals(TRACKING_STATUS_VALUE_NOTNULL, errors.get(0));
+    }
+
+    @Test
+    public void isValidateOrderMultipleFieldsNull() {
+        Order order = Order.builder()
+                .status(OrderStatus.builder()
+                        .label("Pedido em trânsito")
+                        .build())
+                .destination(Address.builder()
+                        .road("Alameda Campinas")
+                        .number("579")
+                        .city("São Paulo")
+                        .state(new State("SP", "São Paulo"))
+                        .zipCode("01419001")
+                        .build())
+                .driver(Driver.builder()
+                        .name("Maplink BR")
+                        .build())
+                .build();
+
+        var errors = order.validate();
+        assertEquals(4, errors.size());
         assertEquals(TRACKING_DESCRIPTION_NOTNULL, errors.get(0));
+        assertEquals(TRACKING_GEOPOINT_NOTNULL, errors.get(1));
+        assertEquals(TRACKING_GEOPOINT_NOTNULL, errors.get(2));
+        assertEquals(TRACKING_STATUS_VALUE_NOTNULL, errors.get(3));
     }
 
 }

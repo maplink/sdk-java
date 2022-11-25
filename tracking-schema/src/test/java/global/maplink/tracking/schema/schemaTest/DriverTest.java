@@ -4,7 +4,7 @@ import global.maplink.tracking.schema.schema.domain.Driver;
 import lombok.var;
 import org.junit.jupiter.api.Test;
 
-import static global.maplink.tracking.schema.schema.errors.ValidationErrorType.TRACKING_DRIVER_GEOPOINT_NOTNULL;
+import static global.maplink.tracking.schema.schema.errors.ValidationErrorType.TRACKING_GEOPOINT_NOTNULL;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class DriverTest {
@@ -18,6 +18,6 @@ public class DriverTest {
                 .build();
 
         var errors = driver.validate();
-        assertEquals(TRACKING_DRIVER_GEOPOINT_NOTNULL, errors.get(0));
+        assertEquals(TRACKING_GEOPOINT_NOTNULL, errors.get(0));
     }
 }
