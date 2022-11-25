@@ -43,23 +43,11 @@ public class Order implements Validable {
         if (isInvalidDescription(description)) {
             errors.add(TRACKING_DESCRIPTION_NOTNULL);
         }
-        if (isNull(destination.getRoad())) {
-            errors.add(TRACKING_DESTINATION_ROAD_NOTNULL);
+        if (nonNull(origin)) {
+            errors.addAll(validate(origin));
         }
-        if (isNull(destination.getNumber())) {
-            errors.add(TRACKING_DESTINATION_NUMBER_NOTNULL);
-        }
-        if (isNull(destination.getCity())) {
-            errors.add(TRACKING_DESTINATION_CITY_NOTNULL);
-        }
-        if (isNull(destination.getZipCode())) {
-            errors.add(TRACKING_DESTINATION_ZIPCODE_NOTNULL);
-        }
-        if (isNull(destination.getState())) {
-            errors.add(TRACKING_DESTINATION_STATE_NOTNULL);
-        }
-        if (isNull(destination.getMainLocation())) {
-            errors.add(TRACKING_GEOPOINT_NOTNULL);
+        if (nonNull(destination)) {
+            errors.addAll(validate(destination));
         }
         if (nonNull(driver)) {
             errors.addAll(driver.validate());
@@ -68,6 +56,32 @@ public class Order implements Validable {
             errors.addAll(status.validate());
         }
         return errors;
+    }
+
+    private List<ValidationViolation> validate(Address address) {
+        List<ValidationViolation> violations = new ArrayList<>();
+        if (isNull(address)) {
+            return violations;
+        }
+        if (isNull(address.getRoad())) {
+            violations.add(TRACKING_DESTINATION_ROAD_NOTNULL);
+        }
+        if (isNull(address.getNumber())) {
+            violations.add(TRACKING_DESTINATION_NUMBER_NOTNULL);
+        }
+        if (isNull(address.getCity())) {
+            violations.add(TRACKING_DESTINATION_CITY_NOTNULL);
+        }
+        if (isNull(address.getZipCode())) {
+            violations.add(TRACKING_DESTINATION_ZIPCODE_NOTNULL);
+        }
+        if (isNull(address.getState())) {
+            violations.add(TRACKING_DESTINATION_STATE_NOTNULL);
+        }
+        if (isNull(address.getMainLocation())) {
+            violations.add(TRACKING_GEOPOINT_NOTNULL);
+        }
+        return violations;
     }
 
     private boolean isInvalidDescription(final String value) {
