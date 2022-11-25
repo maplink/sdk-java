@@ -11,9 +11,9 @@ import lombok.NoArgsConstructor;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 import static global.maplink.tracking.schema.schema.errors.ValidationErrorType.TRACKING_DRIVER_GEOPOINT_NOTNULL;
+import static java.util.Objects.isNull;
 
 @Data
 @Builder
@@ -35,7 +35,7 @@ public class Driver implements Validable {
     }
 
     private boolean isInvalid(final GeoPoint currentLocation) {
-        return Objects.isNull(currentLocation);
+        return isNull(currentLocation) || isNull(currentLocation.getLat()) || isNull(currentLocation.getLon());
     }
 
 }
