@@ -3,20 +3,20 @@ package global.maplink.tracking.schema.schemaTest;
 import global.maplink.json.JsonMapper;
 import global.maplink.tracking.schema.schema.domain.Audit;
 import global.maplink.tracking.schema.schema.domain.Theme;
-import global.maplink.tracking.schema.schema.exceptions.TrackingException;
+import global.maplink.tracking.schema.schema.exceptions.TrackingValidationException;
 import lombok.var;
 import org.junit.jupiter.api.Test;
 
 import java.time.Instant;
 import java.util.Locale;
 
-import static global.maplink.tracking.schema.schema.exceptions.ErrorType.TRACKING_01;
-import static global.maplink.tracking.schema.schema.exceptions.ErrorType.TRACKING_02;
+import static global.maplink.tracking.schema.schema.exceptions.ValidationErrorType.*;
 import static global.maplink.tracking.schema.testUtils.SampleFiles.TRACKING_THEME;
 import static org.junit.jupiter.api.Assertions.*;
 
 
 public class ThemeTest {
+
     private final JsonMapper mapper = JsonMapper.loadDefault();
 
     @Test
@@ -63,12 +63,12 @@ public class ThemeTest {
                 .build();
 
         var exception =
-                assertThrows(TrackingException.class, theme::validate);
-        assertEquals(TRACKING_02.getMessage(), exception.getMessage());
+                assertThrows(TrackingValidationException.class, theme::validate);
+        assertEquals(THEME_COLOR_INCORRECT.getMessage(), exception.getMessage());
     }
 
     @Test
-    public void isValidHexadecimalIsNull() {
+    public void isValidateColorNull() {
         Theme theme = Theme.builder()
                 .id("default")
                 .logo("cutomize Theme")
@@ -81,7 +81,43 @@ public class ThemeTest {
                 .build();
 
         var exception =
-                assertThrows(TrackingException.class, theme::validate);
-        assertEquals(TRACKING_01.getMessage(), exception.getMessage());
+                assertThrows(TrackingValidationException.class, theme::validate);
+        assertEquals(THEME_COLOR_NOTNULL.getMessage(), exception.getMessage());
+    }
+
+    @Test
+    public void isValidateIdNull() {
+        Theme theme = Theme.builder()
+                .id(null)
+                .logo("cutomize Theme")
+                .color("#1AFFa1")
+                .language(new Locale("pt", "BR"))
+                .audit(Audit.builder()
+                        .createdAt(Instant.parse("2022-11-28T16:00:00.120Z"))
+                        .updatedAt(Instant.parse("2022-11-28T16:30:00.120Z"))
+                        .build())
+                .build();
+
+        var exception =
+                assertThrows(TrackingValidationException.class, theme::validate);
+        assertEquals(THEME_ID_NOTNULL.getMessage(), exception.getMessage());
+    }
+
+    @Test
+    public void isValidateLanguageNull() {
+        Theme theme = Theme.builder()
+                .id("default")
+                .logo("cutomize Theme")
+                .color("#1AFFa1")
+                .language(null)
+                .audit(Audit.builder()
+                        .createdAt(Instant.parse("2022-11-28T16:00:00.120Z"))
+                        .updatedAt(Instant.parse("2022-11-28T16:30:00.120Z"))
+                        .build())
+                .build();
+
+        var exception =
+                assertThrows(TrackingValidationException.class, theme::validate);
+        assertEquals(THEME_LANGUAGE_NOTNULL.getMessage(), exception.getMessage());
     }
 }

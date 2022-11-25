@@ -16,21 +16,29 @@
     "road": "Alameda Campinas",
     "number": "579",
     "city": "São Paulo",
+    "zipCode": "01419001",
     "state": {
       "code": "SP",
       "name": "São Paulo"
     },
-    "zipCode": "01419001"
+    "mainLocation": {
+      "lat": -22.7342864,
+      "lon": -47.6480644
+    }
   },
   "destination": {
     "road": "R. Menina Rosana",
     "number": "70",
     "city": "Itajaí",
+    "zipCode": "88304250",
     "state": {
       "code": "SC",
       "name": "Santa Catarina"
     },
-    "zipCode": "88304250"
+    "mainLocation": {
+      "lat": -22.72725697031394,
+      "lon": -47.636846753567944
+    }
   },
   "driver": {
     "name": "Maplink BR",
@@ -44,5 +52,6 @@
     "createdAt": "2022-11-28T16:00:00.120Z",
     "updatedAt": "2022-11-22T16:30:00.120Z"
   },
-  "expiresIn": "2022-11-28T16:00:00.120Z"
+  "expiresIn": "2022-11-28T16:00:00.120Z",
+  "theme": "DEFAULT"
 }

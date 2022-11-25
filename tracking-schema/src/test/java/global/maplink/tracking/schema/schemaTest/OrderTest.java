@@ -1,8 +1,11 @@
 package global.maplink.tracking.schema.schemaTest;
 
-
+import global.maplink.geocode.schema.Address;
 import global.maplink.json.JsonMapper;
+import global.maplink.tracking.schema.schema.domain.Driver;
 import global.maplink.tracking.schema.schema.domain.Order;
+import global.maplink.tracking.schema.schema.domain.OrderStatus;
+import lombok.var;
 import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
@@ -10,6 +13,7 @@ import java.time.Instant;
 import java.time.LocalDateTime;
 
 import static global.maplink.tracking.schema.schema.domain.Value.ON_THE_WAY;
+import static global.maplink.tracking.schema.schema.exceptions.ValidationErrorType.TRACKING_DESCRIPTION_NOTNULL;
 import static global.maplink.tracking.schema.testUtils.SampleFiles.TRACKING_ORDER;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -49,7 +53,29 @@ class OrderTest {
         assertEquals(Instant.parse("2022-11-28T16:00:00.120Z"), order.getAudit().getCreatedAt());
         assertEquals(Instant.parse("2022-11-22T16:30:00.120Z"), order.getAudit().getUpdatedAt());
         assertEquals(Instant.parse("2022-11-28T16:00:00.120Z"), order.getExpiresIn());
+        assertEquals("DEFAULT", order.getTheme());
+    }
 
+    @Test
+    public void isValidateDescriptionNull() {
+        Order order = Order.builder()
+                .status(OrderStatus.builder()
+                        .value(ON_THE_WAY)
+                        .label("Pedido em trânsito")
+                        .build())
+                .destination(Address.builder()
+                        .road("Alameda Campinas")
+                        .number("579")
+                        .city("São Paulo")
+                        .zipCode("01419001")
+                        .build())
+                .driver(Driver.builder()
+                        .name("Maplink BR")
+                        .build())
+                .build();
+
+        var errors = order.validate();
+        assertEquals(TRACKING_DESCRIPTION_NOTNULL, errors.get(0));
     }
 
 }
