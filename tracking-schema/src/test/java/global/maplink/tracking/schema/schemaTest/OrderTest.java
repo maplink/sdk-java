@@ -4,9 +4,9 @@ import global.maplink.geocode.schema.Address;
 import global.maplink.geocode.schema.GeoPoint;
 import global.maplink.geocode.schema.State;
 import global.maplink.json.JsonMapper;
-import global.maplink.tracking.schema.schema.domain.Driver;
-import global.maplink.tracking.schema.schema.domain.Order;
-import global.maplink.tracking.schema.schema.domain.OrderStatus;
+import global.maplink.tracking.schema.domain.Driver;
+import global.maplink.tracking.schema.domain.Order;
+import global.maplink.tracking.schema.domain.OrderStatus;
 import lombok.var;
 import org.junit.jupiter.api.Test;
 
@@ -14,8 +14,8 @@ import java.math.BigDecimal;
 import java.time.Instant;
 import java.time.LocalDateTime;
 
-import static global.maplink.tracking.schema.schema.domain.Value.ON_THE_WAY;
-import static global.maplink.tracking.schema.schema.errors.ValidationErrorType.*;
+import static global.maplink.tracking.schema.domain.Value.ON_THE_WAY;
+import static global.maplink.tracking.schema.errors.ValidationErrorType.*;
 import static global.maplink.tracking.schema.testUtils.SampleFiles.TRACKING_ORDER;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 

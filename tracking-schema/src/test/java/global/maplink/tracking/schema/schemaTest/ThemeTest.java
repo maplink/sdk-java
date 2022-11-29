@@ -1,17 +1,18 @@
 package global.maplink.tracking.schema.schemaTest;
 
 import global.maplink.json.JsonMapper;
-import global.maplink.tracking.schema.schema.domain.Audit;
-import global.maplink.tracking.schema.schema.domain.Theme;
+import global.maplink.tracking.schema.domain.Audit;
+import global.maplink.tracking.schema.domain.Theme;
 import lombok.var;
 import org.junit.jupiter.api.Test;
 
 import java.time.Instant;
 import java.util.Locale;
 
-import static global.maplink.tracking.schema.schema.errors.ValidationErrorType.*;
+import static global.maplink.tracking.schema.errors.ValidationErrorType.*;
 import static global.maplink.tracking.schema.testUtils.SampleFiles.TRACKING_THEME;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 
 public class ThemeTest {

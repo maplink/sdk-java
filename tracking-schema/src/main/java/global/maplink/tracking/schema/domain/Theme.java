@@ -1,5 +1,6 @@
-package global.maplink.tracking.schema.schema.domain;
+package global.maplink.tracking.schema.domain;
 
+import global.maplink.tracking.schema.errors.ValidationErrorType;
 import global.maplink.validations.Validable;
 import global.maplink.validations.ValidationViolation;
 import lombok.Builder;
@@ -13,7 +14,6 @@ import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import static global.maplink.tracking.schema.schema.errors.ValidationErrorType.*;
 import static java.util.Objects.isNull;
 
 @Data
@@ -34,18 +34,18 @@ public class Theme implements Validable {
     public List<ValidationViolation> validate() {
         List<ValidationViolation> violations = new ArrayList<>();
         if (isInvalid(id)) {
-            violations.add(THEME_ID_NOTNULL);
+            violations.add(ValidationErrorType.THEME_ID_NOTNULL);
         }
         if (isNull(language)) {
-            violations.add(THEME_LANGUAGE_NOTNULL);
+            violations.add(ValidationErrorType.THEME_LANGUAGE_NOTNULL);
         }
         if (isInvalid(color)) {
-            violations.add(THEME_COLOR_NOTNULL);
+            violations.add(ValidationErrorType.THEME_COLOR_NOTNULL);
         } else {
             Pattern p = Pattern.compile(COLOR_HEX_PATTERN);
             Matcher m = p.matcher(color);
 
-            if (!m.matches()) violations.add(THEME_COLOR_INCORRECT);
+            if (!m.matches()) violations.add(ValidationErrorType.THEME_COLOR_INCORRECT);
         }
         return violations;
     }
