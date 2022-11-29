@@ -2,7 +2,6 @@ package global.maplink.tracking.schema.domain;
 
 
 import global.maplink.geocode.schema.GeoPoint;
-import global.maplink.tracking.schema.errors.ValidationErrorType;
 import global.maplink.validations.Validable;
 import global.maplink.validations.ValidationViolation;
 import lombok.AllArgsConstructor;
@@ -13,6 +12,8 @@ import lombok.NoArgsConstructor;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+
+import static global.maplink.tracking.schema.errors.ValidationErrorType.TRACKING_GEOPOINT_NOTNULL;
 
 @Data
 @Builder
@@ -28,7 +29,7 @@ public class Driver implements Validable {
     public List<ValidationViolation> validate() {
         List<ValidationViolation> errors = new ArrayList<>();
         if (isInvalid(currentLocation)) {
-            errors.add(ValidationErrorType.TRACKING_GEOPOINT_NOTNULL);
+            errors.add(TRACKING_GEOPOINT_NOTNULL);
         }
         return errors;
     }
