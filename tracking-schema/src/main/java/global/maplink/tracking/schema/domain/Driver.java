@@ -1,4 +1,4 @@
-package global.maplink.tracking.schema.schema.domain;
+package global.maplink.tracking.schema.domain;
 
 
 import global.maplink.geocode.schema.GeoPoint;
@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-import static global.maplink.tracking.schema.schema.errors.ValidationErrorType.TRACKING_GEOPOINT_NOTNULL;
+import static global.maplink.tracking.schema.errors.ValidationErrorType.TRACKING_GEOPOINT_NOTNULL;
 
 @Data
 @Builder

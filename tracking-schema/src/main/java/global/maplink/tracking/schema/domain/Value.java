@@ -1,4 +1,4 @@
-package global.maplink.tracking.schema.schema.domain;
+package global.maplink.tracking.schema.domain;
 
 
 public enum Value {
@@ -8,5 +8,5 @@ public enum Value {
     DONE,
     NOT_DONE,
     CANCELLED,
-    ;
+
 }

@@ -1,4 +1,4 @@
-package global.maplink.tracking.schema.schema.errors;
+package global.maplink.tracking.schema.errors;
 
 import global.maplink.validations.ValidationViolation;
 import lombok.AllArgsConstructor;

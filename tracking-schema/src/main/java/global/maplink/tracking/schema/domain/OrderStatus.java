@@ -1,4 +1,4 @@
-package global.maplink.tracking.schema.schema.domain;
+package global.maplink.tracking.schema.domain;
 
 
 import global.maplink.validations.Validable;
@@ -11,8 +11,8 @@ import lombok.NoArgsConstructor;
 import java.util.ArrayList;
 import java.util.List;
 
-import static global.maplink.tracking.schema.schema.errors.ValidationErrorType.TRACKING_STATUS_LABEL_NOTNULL;
-import static global.maplink.tracking.schema.schema.errors.ValidationErrorType.TRACKING_STATUS_VALUE_NOTNULL;
+import static global.maplink.tracking.schema.errors.ValidationErrorType.TRACKING_STATUS_LABEL_NOTNULL;
+import static global.maplink.tracking.schema.errors.ValidationErrorType.TRACKING_STATUS_VALUE_NOTNULL;
 import static java.util.Objects.isNull;
 
 

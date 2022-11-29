@@ -1,4 +1,4 @@
-package global.maplink.tracking.schema.schema.domain;
+package global.maplink.tracking.schema.domain;
 
 import global.maplink.geocode.schema.Address;
 import global.maplink.validations.Validable;
@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-import static global.maplink.tracking.schema.schema.errors.ValidationErrorType.*;
+import static global.maplink.tracking.schema.errors.ValidationErrorType.*;
 import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
 

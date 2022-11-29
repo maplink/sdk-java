@@ -1,4 +1,4 @@
-package global.maplink.tracking.schema.schema.domain;
+package global.maplink.tracking.schema.domain;
 
 import global.maplink.validations.Validable;
 import global.maplink.validations.ValidationViolation;
@@ -13,7 +13,7 @@ import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import static global.maplink.tracking.schema.schema.errors.ValidationErrorType.*;
+import static global.maplink.tracking.schema.errors.ValidationErrorType.*;
 import static java.util.Objects.isNull;
 
 @Data

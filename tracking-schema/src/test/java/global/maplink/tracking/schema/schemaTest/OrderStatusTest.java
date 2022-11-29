@@ -1,12 +1,12 @@
 package global.maplink.tracking.schema.schemaTest;
 
-import global.maplink.tracking.schema.schema.domain.OrderStatus;
+import global.maplink.tracking.schema.domain.OrderStatus;
 import lombok.var;
 import org.junit.jupiter.api.Test;
 
-import static global.maplink.tracking.schema.schema.domain.Value.ON_THE_WAY;
-import static global.maplink.tracking.schema.schema.errors.ValidationErrorType.TRACKING_STATUS_LABEL_NOTNULL;
-import static global.maplink.tracking.schema.schema.errors.ValidationErrorType.TRACKING_STATUS_VALUE_NOTNULL;
+import static global.maplink.tracking.schema.domain.Value.ON_THE_WAY;
+import static global.maplink.tracking.schema.errors.ValidationErrorType.TRACKING_STATUS_LABEL_NOTNULL;
+import static global.maplink.tracking.schema.errors.ValidationErrorType.TRACKING_STATUS_VALUE_NOTNULL;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class OrderStatusTest {
