@@ -1,7 +1,6 @@
 package global.maplink.tracking.schema.domain;
 
 import global.maplink.geocode.schema.Address;
-import global.maplink.tracking.schema.errors.ValidationErrorType;
 import global.maplink.validations.Validable;
 import global.maplink.validations.ValidationViolation;
 import lombok.AllArgsConstructor;
@@ -14,6 +13,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+import static global.maplink.tracking.schema.errors.ValidationErrorType.*;
 import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
 
@@ -41,7 +41,7 @@ public class Order implements Validable {
     public List<ValidationViolation> validate() {
         List<ValidationViolation> errors = new ArrayList<>();
         if (isInvalidDescription(description)) {
-            errors.add(ValidationErrorType.TRACKING_DESCRIPTION_NOTNULL);
+            errors.add(TRACKING_DESCRIPTION_NOTNULL);
         }
         if (nonNull(origin)) {
             errors.addAll(validate(origin));
@@ -64,22 +64,22 @@ public class Order implements Validable {
             return violations;
         }
         if (isNull(address.getRoad())) {
-            violations.add(ValidationErrorType.TRACKING_DESTINATION_ROAD_NOTNULL);
+            violations.add(TRACKING_DESTINATION_ROAD_NOTNULL);
         }
         if (isNull(address.getNumber())) {
-            violations.add(ValidationErrorType.TRACKING_DESTINATION_NUMBER_NOTNULL);
+            violations.add(TRACKING_DESTINATION_NUMBER_NOTNULL);
         }
         if (isNull(address.getCity())) {
-            violations.add(ValidationErrorType.TRACKING_DESTINATION_CITY_NOTNULL);
+            violations.add(TRACKING_DESTINATION_CITY_NOTNULL);
         }
         if (isNull(address.getZipCode())) {
-            violations.add(ValidationErrorType.TRACKING_DESTINATION_ZIPCODE_NOTNULL);
+            violations.add(TRACKING_DESTINATION_ZIPCODE_NOTNULL);
         }
         if (isNull(address.getState())) {
-            violations.add(ValidationErrorType.TRACKING_DESTINATION_STATE_NOTNULL);
+            violations.add(TRACKING_DESTINATION_STATE_NOTNULL);
         }
         if (isNull(address.getMainLocation())) {
-            violations.add(ValidationErrorType.TRACKING_GEOPOINT_NOTNULL);
+            violations.add(TRACKING_GEOPOINT_NOTNULL);
         }
         return violations;
     }
