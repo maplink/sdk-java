@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Arrays;
 
 import static global.maplink.trip.schema.v2.features.crossedBorders.CrossedBorderLevel.CITY;
@@ -45,6 +46,6 @@ public class TripRequestTest {
         assertEquals(CITY, crossedBordersRequest.getLevel());
         assertEquals(START_END, crossedBordersRequest.getReverseGeocode());
 
-        assertEquals(LocalDate.of(2022, 12, 25), tripRequest.getExpireIn());
+        assertEquals(LocalDateTime.of(2022, 12, 25, 0, 0, 0), tripRequest.getExpireIn());
     }
 }
