@@ -27,8 +27,8 @@
     "billing": "NORMAL"
   },
   "crossedBorders": {
-    "level": "HIGH",
-    "reverseGeocode": "reverseGeocode"
+    "level": "CITY",
+    "reverseGeocode": "START_END"
   },
   "expireIn": "2022-12-25"
 }

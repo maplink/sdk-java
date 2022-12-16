@@ -1,7 +1,6 @@
-package global.maplink.trip.schema.v2.solution;
+package global.maplink.trip.schema.v2.features.crossedBorders;
 
 import global.maplink.json.JsonMapper;
-import global.maplink.trip.schema.v2.solution.CrossedBorderResponse;
 import lombok.Data;
 import org.junit.jupiter.api.Test;
 

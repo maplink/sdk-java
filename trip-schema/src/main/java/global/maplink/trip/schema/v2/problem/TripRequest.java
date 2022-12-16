@@ -3,7 +3,11 @@ package global.maplink.trip.schema.v2.problem;
 import global.maplink.emission.schema.EmissionRequest;
 import global.maplink.freight.schema.FreightCalculationRequest;
 import global.maplink.place.schema.PlaceRouteRequest;
-import lombok.*;
+import global.maplink.trip.schema.v2.features.crossedBorders.CrossedBordersRequest;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 
 import java.time.LocalDate;
 import java.util.List;

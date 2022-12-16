@@ -1,4 +1,4 @@
-package global.maplink.trip.schema.v2.problem;
+package global.maplink.trip.schema.v2.features.crossedBorders;
 
 import lombok.Builder;
 import lombok.Data;
@@ -11,7 +11,8 @@ import static lombok.AccessLevel.PRIVATE;
 @Builder
 @RequiredArgsConstructor
 @NoArgsConstructor(force = true, access = PRIVATE)
-public class CrossedBordersRequest {
-    private final String level;
-    private final String reverseGeocode;
+public class CrossedBorderResponse {
+    private final String city;
+    private final String state;
+    private final String country;
 }
