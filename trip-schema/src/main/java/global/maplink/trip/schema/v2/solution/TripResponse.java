@@ -3,6 +3,7 @@ package global.maplink.trip.schema.v2.solution;
 import global.maplink.emission.schema.EmissionResponse;
 import global.maplink.freight.schema.FreightCalculationResponse;
 import global.maplink.geocode.schema.Address;
+import global.maplink.trip.schema.v2.features.crossedBorders.CrossedBorderResponse;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;

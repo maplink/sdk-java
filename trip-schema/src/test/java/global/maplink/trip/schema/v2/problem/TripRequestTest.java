@@ -3,16 +3,15 @@ package global.maplink.trip.schema.v2.problem;
 import gloabl.maplink.toll.schema.TollConditionBillingType;
 import gloabl.maplink.toll.schema.TollVehicleType;
 import global.maplink.json.JsonMapper;
-import global.maplink.trip.schema.v2.problem.CalculationMode;
-import global.maplink.trip.schema.v2.problem.CrossedBordersRequest;
-import global.maplink.trip.schema.v2.problem.TollRequest;
-import global.maplink.trip.schema.v2.problem.TripRequest;
+import global.maplink.trip.schema.v2.features.crossedBorders.CrossedBordersRequest;
 import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Arrays;
 
+import static global.maplink.trip.schema.v2.features.crossedBorders.CrossedBorderLevel.CITY;
+import static global.maplink.trip.schema.v2.features.reverseGeocode.ReverseGeocodePointsMode.START_END;
 import static global.maplink.trip.testUtils.ProblemSampleFiles.TRIP_REQUEST;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -43,8 +42,8 @@ public class TripRequestTest {
 
         CrossedBordersRequest crossedBordersRequest = tripRequest.getCrossedBorders();
         assertNotNull(crossedBordersRequest);
-        assertEquals("HIGH", crossedBordersRequest.getLevel());
-        assertEquals("reverseGeocode", crossedBordersRequest.getReverseGeocode());
+        assertEquals(CITY, crossedBordersRequest.getLevel());
+        assertEquals(START_END, crossedBordersRequest.getReverseGeocode());
 
         assertEquals(LocalDate.of(2022, 12, 25), tripRequest.getExpireIn());
     }

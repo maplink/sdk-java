@@ -1,17 +1,14 @@
 package global.maplink.trip.schema.v2.solution;
 
 import gloabl.maplink.toll.schema.*;
-import gloabl.maplink.toll.schema.CalculationDetail;
 import global.maplink.geocode.schema.Address;
 import global.maplink.json.JsonMapper;
 import global.maplink.place.schema.Category;
 import global.maplink.place.schema.LegResult;
 import global.maplink.place.schema.PlaceRoute;
 import global.maplink.place.schema.SubCategory;
+import global.maplink.trip.schema.v2.features.crossedBorders.CrossedBorderResponse;
 import global.maplink.trip.schema.v2.problem.SitePoint;
-import global.maplink.trip.schema.v2.solution.CrossedBorderResponse;
-import global.maplink.trip.schema.v2.solution.SolutionLeg;
-import global.maplink.trip.schema.v2.solution.TripResponse;
 import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
@@ -23,7 +20,6 @@ import java.util.List;
 
 import static global.maplink.trip.testUtils.SolutionSampleFiles.TRIP_RESPONSE;
 import static org.junit.jupiter.api.Assertions.*;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class TripResponseTest {
 
