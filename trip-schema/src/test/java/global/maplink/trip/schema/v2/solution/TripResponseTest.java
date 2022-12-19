@@ -14,15 +14,17 @@ import org.junit.jupiter.api.Test;
 import java.math.BigDecimal;
 import java.time.DayOfWeek;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
 import static global.maplink.trip.testUtils.SolutionSampleFiles.TRIP_RESPONSE;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class TripResponseTest {
-
     private final JsonMapper mapper = JsonMapper.loadDefault();
 
     @Test
@@ -191,10 +193,9 @@ public class TripResponseTest {
         assertEquals(0, new BigDecimal("-23.566649").compareTo(endAddress.getMainLocation().getLat()));
         assertEquals(0, new BigDecimal("-46.6557755").compareTo(endAddress.getMainLocation().getLon()));
 
-
-
         assertEquals("maplink", tripResponse.getSource());
-        assertEquals(LocalDateTime.of(2022, 10, 26, 0, 0, 0), tripResponse.getCreatedAt());
-        assertEquals(LocalDateTime.of(2023, 10, 26, 0, 0, 0), tripResponse.getExpireIn());
+
+        assertThat(tripResponse.getCreatedAt()).isEqualTo("2022-10-26T00:00:00-03:00");
+        assertThat(tripResponse.getExpireIn()).isEqualTo("2023-10-26T00:00:00-03:00");
     }
 }
