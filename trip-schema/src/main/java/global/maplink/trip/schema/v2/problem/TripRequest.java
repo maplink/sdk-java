@@ -9,8 +9,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.Set;
 
@@ -30,5 +29,5 @@ public class TripRequest {
     private final FreightCalculationRequest freight;
     private final EmissionRequest emission;
     private final PlaceRouteRequest place;
-    private final LocalDateTime expireIn;
+    private final ZonedDateTime expireIn;
 }

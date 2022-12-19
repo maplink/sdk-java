@@ -14,6 +14,8 @@ import org.junit.jupiter.api.Test;
 import java.math.BigDecimal;
 import java.time.DayOfWeek;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -191,10 +193,14 @@ public class TripResponseTest {
         assertEquals(0, new BigDecimal("-23.566649").compareTo(endAddress.getMainLocation().getLat()));
         assertEquals(0, new BigDecimal("-46.6557755").compareTo(endAddress.getMainLocation().getLon()));
 
-
-
         assertEquals("maplink", tripResponse.getSource());
-        assertEquals(LocalDateTime.of(2022, 10, 26, 0, 0, 0), tripResponse.getCreatedAt());
-        assertEquals(LocalDateTime.of(2023, 10, 26, 0, 0, 0), tripResponse.getExpireIn());
+
+        LocalDateTime createdAt = LocalDateTime.of(2022, 10, 26, 0, 0, 0);
+        LocalDateTime expireIn = LocalDateTime.of(2023, 10, 26, 0, 0, 0);
+
+        assertTrue(ZonedDateTime.of(createdAt, ZoneId.of("America/Sao_Paulo"))
+                .isEqual(tripResponse.getCreatedAt().withZoneSameInstant(ZoneId.of("America/Sao_Paulo"))));
+        assertTrue(ZonedDateTime.of(expireIn, ZoneId.of("America/Sao_Paulo"))
+                .isEqual(tripResponse.getExpireIn().withZoneSameInstant(ZoneId.of("America/Sao_Paulo"))));
     }
 }
