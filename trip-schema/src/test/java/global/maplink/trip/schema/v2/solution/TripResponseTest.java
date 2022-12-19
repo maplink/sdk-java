@@ -21,10 +21,10 @@ import java.util.Collections;
 import java.util.List;
 
 import static global.maplink.trip.testUtils.SolutionSampleFiles.TRIP_RESPONSE;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class TripResponseTest {
-
     private final JsonMapper mapper = JsonMapper.loadDefault();
 
     @Test
@@ -195,12 +195,7 @@ public class TripResponseTest {
 
         assertEquals("maplink", tripResponse.getSource());
 
-        LocalDateTime createdAt = LocalDateTime.of(2022, 10, 26, 0, 0, 0);
-        LocalDateTime expireIn = LocalDateTime.of(2023, 10, 26, 0, 0, 0);
-
-        assertTrue(ZonedDateTime.of(createdAt, ZoneId.of("America/Sao_Paulo"))
-                .isEqual(tripResponse.getCreatedAt().withZoneSameInstant(ZoneId.of("America/Sao_Paulo"))));
-        assertTrue(ZonedDateTime.of(expireIn, ZoneId.of("America/Sao_Paulo"))
-                .isEqual(tripResponse.getExpireIn().withZoneSameInstant(ZoneId.of("America/Sao_Paulo"))));
+        assertThat(tripResponse.getCreatedAt()).isEqualTo("2022-10-26T00:00:00-03:00");
+        assertThat(tripResponse.getExpireIn()).isEqualTo("2023-10-26T00:00:00-03:00");
     }
 }

@@ -7,18 +7,15 @@ import global.maplink.trip.schema.v2.features.crossedBorders.CrossedBordersReque
 import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.time.ZonedDateTime;
 import java.util.Arrays;
 
 import static global.maplink.trip.schema.v2.features.crossedBorders.CrossedBorderLevel.CITY;
 import static global.maplink.trip.schema.v2.features.reverseGeocode.ReverseGeocodePointsMode.START_END;
 import static global.maplink.trip.testUtils.ProblemSampleFiles.TRIP_REQUEST;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class TripRequestTest {
-    
     private final JsonMapper mapper = JsonMapper.loadDefault();
     
     @Test
@@ -47,9 +44,6 @@ public class TripRequestTest {
         assertEquals(CITY, crossedBordersRequest.getLevel());
         assertEquals(START_END, crossedBordersRequest.getReverseGeocode());
 
-        LocalDateTime expireIn = LocalDateTime.of(2022, 12, 25, 0, 0, 0);
-
-        assertTrue(ZonedDateTime.of(expireIn, ZoneId.of("America/Sao_Paulo"))
-                .isEqual(tripRequest.getExpireIn().withZoneSameInstant(ZoneId.of("America/Sao_Paulo"))));
+        assertThat(tripRequest.getExpireIn()).isEqualTo("2022-12-25T00:00:00-03:00");
     }
 }

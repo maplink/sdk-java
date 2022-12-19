@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 
 import java.math.BigDecimal;
-import java.time.ZonedDateTime;
+import java.time.OffsetDateTime;
 import java.util.List;
 
 import static lombok.AccessLevel.PRIVATE;
@@ -35,6 +35,6 @@ public class TripResponse {
     private final Address startAddress;
     private final Address endAddress;
     private final String source;
-    private final ZonedDateTime createdAt;
-    private final ZonedDateTime expireIn;
+    private final OffsetDateTime createdAt;
+    private final OffsetDateTime expireIn;
 }
