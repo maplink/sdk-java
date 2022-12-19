@@ -13,7 +13,7 @@ import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
 import java.time.DayOfWeek;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -194,7 +194,7 @@ public class TripResponseTest {
 
 
         assertEquals("maplink", tripResponse.getSource());
-        assertEquals(LocalDate.of(2022, 10, 26), tripResponse.getCreatedAt());
-        assertEquals(LocalDate.of(2023, 10, 26), tripResponse.getExpireIn());
+        assertEquals(LocalDateTime.of(2022, 10, 26, 0, 0, 0), tripResponse.getCreatedAt());
+        assertEquals(LocalDateTime.of(2023, 10, 26, 0, 0, 0), tripResponse.getExpireIn());
     }
 }
