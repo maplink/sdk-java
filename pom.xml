@@ -15,9 +15,11 @@
         <maven.compiler.target>8</maven.compiler.target>
         <lombok.version>1.18.24</lombok.version>
         <lombok.plugin.version>1.18.20.0</lombok.plugin.version>
+        <slf4j.version>2.0.6</slf4j.version>
+        <logback.version>1.4.5</logback.version>
         <jackson.version>2.14.1</jackson.version>
         <junit.version>5.9.1</junit.version>
-        <mockito.version>4.6.1</mockito.version>
+        <mockito.version>4.10.0</mockito.version>
         <assertj.version>3.23.1</assertj.version>
         <delombok.output>${project.build.directory}/delombok</delombok.output>
     </properties>
@@ -130,6 +132,16 @@
                 <groupId>org.projectlombok</groupId>
                 <artifactId>lombok</artifactId>
                 <version>${lombok.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>slf4j-api</artifactId>
+                <version>${slf4j.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>ch.qos.logback</groupId>
+                <artifactId>logback-classic</artifactId>
+                <version>${logback.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.fasterxml.jackson.core</groupId>
