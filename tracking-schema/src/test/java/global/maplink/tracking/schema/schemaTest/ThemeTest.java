@@ -27,7 +27,7 @@ public class ThemeTest {
         assertEquals("DEFAULT", theme.getId());
         assertEquals("https://example.logo.com", theme.getLogo());
         assertEquals("#FF0000", theme.getColor());
-        assertEquals("https://example.icon.com", theme.getIcon());
+        assertEquals("https://example.icon.com", theme.getFavicon());
         assertEquals(language, theme.getLanguage());
         assertEquals(Instant.parse("2022-11-28T16:00:00.120Z"), theme.getAudit().getCreatedAt());
         assertEquals(Instant.parse("2022-11-28T16:30:00.120Z"), theme.getAudit().getUpdatedAt());

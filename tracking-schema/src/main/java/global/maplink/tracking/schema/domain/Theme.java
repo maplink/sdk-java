@@ -27,7 +27,7 @@ public class Theme implements Validable {
     private final String id;
     private final String logo;
     private final String color;
-    private final String icon;
+    private final String favicon;
     private final Locale language;
     private final Audit audit;
 
