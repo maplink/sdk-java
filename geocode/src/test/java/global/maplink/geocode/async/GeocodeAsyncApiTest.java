@@ -170,7 +170,6 @@ public class GeocodeAsyncApiTest {
         });
     }
 
-
     @Test
     void mustAllowAbove200PointsInReverse() {
         withEnvCredentials(credentials -> {

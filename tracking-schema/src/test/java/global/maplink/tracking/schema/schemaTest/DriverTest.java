@@ -12,7 +12,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class DriverTest {
 
-
     @Test
     public void isValidateDriverCurrentLocationNull() {
         val driver = driverWith(null);
@@ -27,7 +26,6 @@ public class DriverTest {
     public void isValidateDriverCurrentLocationLatNull() {
         val driver = driverWith(GeoPoint.of(null, ONE));
 
-
         assertThat(driver.validate())
                 .hasSize(1)
                 .first()
@@ -37,7 +35,6 @@ public class DriverTest {
     @Test
     public void isValidateDriverCurrentLocationLongNull() {
         val driver = driverWith(GeoPoint.of(ONE, null));
-
 
         assertThat(driver.validate())
                 .hasSize(1)

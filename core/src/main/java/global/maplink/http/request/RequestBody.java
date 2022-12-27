@@ -51,7 +51,6 @@ public interface RequestBody {
             return of(mapOf(entries));
         }
 
-
         private static String encodeToForm(Map<String, String> form) {
             return form.entrySet()
                     .stream()

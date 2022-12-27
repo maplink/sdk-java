@@ -51,7 +51,6 @@ public interface GeocodeGmapsSwitchStrategy {
             });
         }
 
-
         private boolean shouldSwitchAfter(SuggestionsResult result) {
             return ofNullable(result.getMostRelevant())
                     .map(Suggestion::getScore)

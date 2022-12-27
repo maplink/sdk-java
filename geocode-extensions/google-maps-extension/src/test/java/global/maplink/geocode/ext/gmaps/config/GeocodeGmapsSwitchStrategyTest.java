@@ -35,7 +35,6 @@ class GeocodeGmapsSwitchStrategyTest {
             assertThat(strategy.getThreshold()).isGreaterThan(0.0).isLessThanOrEqualTo(100.0);
         }
 
-
         @Test
         void shouldSwitchWhenTheResultIsEmpty() {
             val strategy = new SwitchOnLowScore();
@@ -54,7 +53,6 @@ class GeocodeGmapsSwitchStrategyTest {
             verify(mlpAction, times(1)).apply(request);
             verify(gmapsAction, times(1)).apply(request);
         }
-
 
         @Test
         void shouldReturnWhenSwitchIsNeededBasedOnResultScore() {
@@ -109,7 +107,6 @@ class GeocodeGmapsSwitchStrategyTest {
             verify(gmapsAction, times(1)).apply(request);
             verify(mlpAction, times(1)).apply(request);
         }
-
 
         @Test
         void shouldHitOnlyGmapsWhenGMapsResultIsNotEmpty() {

@@ -89,7 +89,6 @@ class OrderTest {
         assertEquals(TRACKING_DESCRIPTION_NOTNULL, errors.get(0));
     }
 
-
     @Test
     void isValidateDestinationMainLocationNull() {
         Order order = Order.builder()
@@ -116,7 +115,6 @@ class OrderTest {
         var errors = order.validate();
         assertEquals(TRACKING_ADDRESS_MAINLOCATION_NOTNULL, errors.get(0));
     }
-
 
     @Test
     void isValidateDestinationDriverNull() {
