@@ -7,6 +7,7 @@ import global.maplink.json.JsonMapper;
 import global.maplink.tracking.schema.domain.Driver;
 import global.maplink.tracking.schema.domain.Order;
 import global.maplink.tracking.schema.domain.OrderStatus;
+import lombok.val;
 import lombok.var;
 import org.junit.jupiter.api.Test;
 
@@ -17,6 +18,7 @@ import java.time.LocalDateTime;
 import static global.maplink.tracking.schema.domain.Value.ON_THE_WAY;
 import static global.maplink.tracking.schema.errors.ValidationErrorType.*;
 import static global.maplink.tracking.schema.testUtils.SampleFiles.TRACKING_ORDER;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class OrderTest {
@@ -59,7 +61,7 @@ class OrderTest {
     }
 
     @Test
-    public void isValidateDescriptionNull() {
+    void isValidateDescriptionNull() {
         Order order = Order.builder()
                 .status(OrderStatus.builder()
                         .value(ON_THE_WAY)
@@ -87,124 +89,9 @@ class OrderTest {
         assertEquals(TRACKING_DESCRIPTION_NOTNULL, errors.get(0));
     }
 
-    @Test
-    public void isValidateDestinationRoadNull() {
-        Order order = Order.builder()
-                .description("Pedido")
-                .status(OrderStatus.builder()
-                        .value(ON_THE_WAY)
-                        .label("Pedido em trânsito")
-                        .build())
-                .destination(Address.builder()
-                        .number("579")
-                        .city("São Paulo")
-                        .zipCode("01419001")
-                        .state(new State("SP", "São Paulo"))
-                        .mainLocation(GeoPoint.of(
-                                BigDecimal.valueOf(-22.7342864),
-                                BigDecimal.valueOf(-47.648064)))
-                        .build())
-                .driver(Driver.builder()
-                        .name("Maplink BR")
-                        .currentLocation(GeoPoint.of(
-                                BigDecimal.valueOf(-22.7342864),
-                                BigDecimal.valueOf(-47.648064)))
-                        .build())
-                .build();
-
-        var errors = order.validate();
-        assertEquals(TRACKING_DESTINATION_ROAD_NOTNULL, errors.get(0));
-    }
 
     @Test
-    public void isValidateDestinationNumberNull() {
-        Order order = Order.builder()
-                .description("Pedido")
-                .status(OrderStatus.builder()
-                        .value(ON_THE_WAY)
-                        .label("Pedido em trânsito")
-                        .build())
-                .destination(Address.builder()
-                        .road("Alameda Campinas")
-                        .city("São Paulo")
-                        .zipCode("01419001")
-                        .state(new State("SP", "São Paulo"))
-                        .mainLocation(GeoPoint.of(
-                                BigDecimal.valueOf(-22.7342864),
-                                BigDecimal.valueOf(-47.648064)))
-                        .build())
-                .driver(Driver.builder()
-                        .name("Maplink BR")
-                        .currentLocation(GeoPoint.of(
-                                BigDecimal.valueOf(-22.7342864),
-                                BigDecimal.valueOf(-47.648064)))
-                        .build())
-                .build();
-
-        var errors = order.validate();
-        assertEquals(TRACKING_DESTINATION_NUMBER_NOTNULL, errors.get(0));
-    }
-
-    @Test
-    public void isValidateDestinationCityNull() {
-        Order order = Order.builder()
-                .description("Pedido")
-                .status(OrderStatus.builder()
-                        .value(ON_THE_WAY)
-                        .label("Pedido em trânsito")
-                        .build())
-                .destination(Address.builder()
-                        .number("579")
-                        .road("Alameda Campinas")
-                        .state(new State("SP", "São Paulo"))
-                        .zipCode("01419001")
-                        .mainLocation(GeoPoint.of(
-                                BigDecimal.valueOf(-22.7342864),
-                                BigDecimal.valueOf(-47.648064)))
-                        .build())
-                .driver(Driver.builder()
-                        .name("Maplink BR")
-                        .currentLocation(GeoPoint.of(
-                                BigDecimal.valueOf(-22.7342864),
-                                BigDecimal.valueOf(-47.648064)))
-                        .build())
-                .build();
-
-        var errors = order.validate();
-        assertEquals(TRACKING_DESTINATION_CITY_NOTNULL, errors.get(0));
-    }
-
-    @Test
-    public void isValidateDestinationStateNull() {
-        Order order = Order.builder()
-                .description("Pedido")
-                .status(OrderStatus.builder()
-                        .value(ON_THE_WAY)
-                        .label("Pedido em trânsito")
-                        .build())
-                .destination(Address.builder()
-                        .number("579")
-                        .city("São Paulo")
-                        .road("Alameda Campinas")
-                        .zipCode("01419001")
-                        .mainLocation(GeoPoint.of(
-                                BigDecimal.valueOf(-22.7342864),
-                                BigDecimal.valueOf(-47.648064)))
-                        .build())
-                .driver(Driver.builder()
-                        .name("Maplink BR")
-                        .currentLocation(GeoPoint.of(
-                                BigDecimal.valueOf(-22.7342864),
-                                BigDecimal.valueOf(-47.648064)))
-                        .build())
-                .build();
-
-        var errors = order.validate();
-        assertEquals(TRACKING_DESTINATION_STATE_NOTNULL, errors.get(0));
-    }
-
-    @Test
-    public void isValidateDestinationMainLocationNull() {
+    void isValidateDestinationMainLocationNull() {
         Order order = Order.builder()
                 .description("Pedido")
                 .status(OrderStatus.builder()
@@ -227,40 +114,12 @@ class OrderTest {
                 .build();
 
         var errors = order.validate();
-        assertEquals(TRACKING_GEOPOINT_NOTNULL, errors.get(0));
+        assertEquals(TRACKING_ADDRESS_MAINLOCATION_NOTNULL, errors.get(0));
     }
 
-    @Test
-    public void isValidateDestinationZipCodeNull() {
-        Order order = Order.builder()
-                .description("Pedido")
-                .status(OrderStatus.builder()
-                        .value(ON_THE_WAY)
-                        .label("Pedido em trânsito")
-                        .build())
-                .destination(Address.builder()
-                        .road("Alameda Campinas")
-                        .number("579")
-                        .city("São Paulo")
-                        .state(new State("SP", "São Paulo"))
-                        .mainLocation(GeoPoint.of(
-                                BigDecimal.valueOf(-22.7342864),
-                                BigDecimal.valueOf(-47.648064)))
-                        .build())
-                .driver(Driver.builder()
-                        .name("Maplink BR")
-                        .currentLocation(GeoPoint.of(
-                                BigDecimal.valueOf(-22.7342864),
-                                BigDecimal.valueOf(-47.648064)))
-                        .build())
-                .build();
-
-        var errors = order.validate();
-        assertEquals(TRACKING_DESTINATION_ZIPCODE_NOTNULL, errors.get(0));
-    }
 
     @Test
-    public void isValidateDestinationDriverNull() {
+    void isValidateDestinationDriverNull() {
         Order order = Order.builder()
                 .description("Pedido")
                 .status(OrderStatus.builder()
@@ -283,11 +142,11 @@ class OrderTest {
                 .build();
 
         var errors = order.validate();
-        assertEquals(TRACKING_GEOPOINT_NOTNULL, errors.get(0));
+        assertEquals(TRACKING_DRIVER_CURRENTLOCATION_NOTNULL, errors.get(0));
     }
 
     @Test
-    public void isValidateDestinationStatusLabelNull() {
+    void isValidateDestinationStatusLabelNull() {
         Order order = Order.builder()
                 .description("Pedido")
                 .status(OrderStatus.builder()
@@ -316,7 +175,7 @@ class OrderTest {
     }
 
     @Test
-    public void isValidateDestinationStatusValueNull() {
+    void isValidateDestinationStatusValueNull() {
         Order order = Order.builder()
                 .description("Pedido")
                 .status(OrderStatus.builder()
@@ -345,8 +204,8 @@ class OrderTest {
     }
 
     @Test
-    public void isValidateOrderMultipleFieldsNull() {
-        Order order = Order.builder()
+    void isValidateOrderMultipleFieldsNull() {
+        val order = Order.builder()
                 .status(OrderStatus.builder()
                         .label("Pedido em trânsito")
                         .build())
@@ -362,12 +221,14 @@ class OrderTest {
                         .build())
                 .build();
 
-        var errors = order.validate();
-        assertEquals(4, errors.size());
-        assertEquals(TRACKING_DESCRIPTION_NOTNULL, errors.get(0));
-        assertEquals(TRACKING_GEOPOINT_NOTNULL, errors.get(1));
-        assertEquals(TRACKING_GEOPOINT_NOTNULL, errors.get(2));
-        assertEquals(TRACKING_STATUS_VALUE_NOTNULL, errors.get(3));
+        assertThat(order.validate())
+                .hasSize(4)
+                .containsExactlyInAnyOrder(
+                        TRACKING_DESCRIPTION_NOTNULL,
+                        TRACKING_ADDRESS_MAINLOCATION_NOTNULL,
+                        TRACKING_DRIVER_CURRENTLOCATION_NOTNULL,
+                        TRACKING_STATUS_VALUE_NOTNULL
+                );
     }
 
 }
