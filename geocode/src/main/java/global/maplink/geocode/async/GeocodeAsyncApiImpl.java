@@ -76,5 +76,4 @@ public class GeocodeAsyncApiImpl implements GeocodeAsyncAPI {
 
     }
 
-
 }

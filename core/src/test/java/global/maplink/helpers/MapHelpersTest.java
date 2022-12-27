@@ -29,7 +29,6 @@ public class MapHelpersTest {
                 .isInstanceOf(IllegalArgumentException.class);
     }
 
-
     @Test
     void mustReturnEmptyMapOnEmptyArgs() {
         Map<String, String> map = mapOf();

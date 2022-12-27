@@ -18,24 +18,24 @@ import static java.util.Arrays.asList;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
-public class MapLinkSDKTest {
+class MapLinkSDKTest {
 
-    public static final String CLIENT_ID = "clientId";
-    public static final String CLIENT_SECRET = "secret";
+    static final String CLIENT_ID = "clientId";
+    static final String CLIENT_SECRET = "secret";
 
     @BeforeEach
-    public void cleanupConfig() {
+    void cleanupConfig() {
         MapLinkSDK.resetConfiguration();
     }
 
     @Test
-    public void mustFailOnInitializeWithoutConfigure() {
+    void mustFailOnInitializeWithoutConfigure() {
         assertThatThrownBy(MapLinkSDK::getInstance)
                 .isInstanceOf(MapLinkNotConfiguredException.class);
     }
 
     @Test
-    public void mustFailOnConfigureAlreadyConfigured() {
+    void mustFailOnConfigureAlreadyConfigured() {
         Runnable configure = () ->
                 MapLinkSDK.configure()
                         .with(MapLinkCredentials.ofKey(CLIENT_ID, CLIENT_SECRET))
@@ -48,7 +48,7 @@ public class MapLinkSDKTest {
     }
 
     @Test
-    public void mustCreateGlobalInstanceAfterConfiguration() {
+    void mustCreateGlobalInstanceAfterConfiguration() {
         MapLinkSDK.configure()
                 .with(MapLinkCredentials.ofKey(CLIENT_ID, CLIENT_SECRET))
                 .with(new MockJsonMapper())
@@ -59,7 +59,7 @@ public class MapLinkSDKTest {
     }
 
     @Test
-    public void mustAcceptExtensionsAndExtensionsCatalogs() {
+    void mustAcceptExtensionsAndExtensionsCatalogs() {
         MapLinkSDK.configure()
                 .with(MapLinkCredentials.ofKey(CLIENT_ID, CLIENT_SECRET))
                 .with(new MockJsonMapper())

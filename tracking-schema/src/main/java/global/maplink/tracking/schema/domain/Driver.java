@@ -9,11 +9,11 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
-import static global.maplink.tracking.schema.errors.ValidationErrorType.TRACKING_GEOPOINT_NOTNULL;
+import static global.maplink.tracking.schema.errors.GeoPointValidator.validateGeoPoint;
+import static global.maplink.tracking.schema.errors.ValidationErrorType.TRACKING_DRIVER_CURRENTLOCATION_LATLON_NOTNULL;
+import static global.maplink.tracking.schema.errors.ValidationErrorType.TRACKING_DRIVER_CURRENTLOCATION_NOTNULL;
 
 @Data
 @Builder
@@ -27,15 +27,11 @@ public class Driver implements Validable {
 
     @Override
     public List<ValidationViolation> validate() {
-        List<ValidationViolation> errors = new ArrayList<>();
-        if (isInvalid(currentLocation)) {
-            errors.add(TRACKING_GEOPOINT_NOTNULL);
-        }
-        return errors;
-    }
-
-    private boolean isInvalid(final GeoPoint currentLocation) {
-        return Objects.isNull(currentLocation);
+        return validateGeoPoint(
+                currentLocation,
+                TRACKING_DRIVER_CURRENTLOCATION_NOTNULL,
+                TRACKING_DRIVER_CURRENTLOCATION_LATLON_NOTNULL
+        );
     }
 
 }

@@ -11,16 +11,14 @@ public enum ValidationErrorType implements ValidationViolation {
     THEME_ID_NOTNULL("id cannot be null"),
     THEME_LANGUAGE_NOTNULL("language cannot be null"),
     THEME_COLOR_NOTNULL("color cannot be null"),
-    THEME_COLOR_INCORRECT("color is incorrect"),
+    THEME_COLOR_INCORRECT("color must be a valid hexadecimal value, like #000000"),
     TRACKING_DESCRIPTION_NOTNULL("description cannot be null"),
-    TRACKING_DESTINATION_ROAD_NOTNULL("road cannot be null"),
-    TRACKING_DESTINATION_NUMBER_NOTNULL("number cannot be null"),
-    TRACKING_DESTINATION_CITY_NOTNULL("city cannot be null"),
-    TRACKING_DESTINATION_ZIPCODE_NOTNULL("cep cannot be null"),
-    TRACKING_DESTINATION_STATE_NOTNULL("state cannot be null"),
-    TRACKING_GEOPOINT_NOTNULL("lat and lon cannot be null"),
-    TRACKING_STATUS_VALUE_NOTNULL("value cannot be null"),
-    TRACKING_STATUS_LABEL_NOTNULL("label cannot be null");
+    TRACKING_ADDRESS_MAINLOCATION_NOTNULL("at origin and destionation, mainLocation cannot be null"),
+    TRACKING_ADDRESS_MAINLOCATION_LATLON_NOTNULL("at origin and destionation, mainLocation lat and lon cannot be null"),
+    TRACKING_DRIVER_CURRENTLOCATION_NOTNULL("driver.currentLocation cannot be null"),
+    TRACKING_DRIVER_CURRENTLOCATION_LATLON_NOTNULL("at driver.currentLocation lat and lon cannot be null"),
+    TRACKING_STATUS_VALUE_NOTNULL("status.value cannot be null"),
+    TRACKING_STATUS_LABEL_NOTNULL("status.label cannot be null");
 
     private final String message;
 }
