@@ -1,14 +1,14 @@
 package global.maplink.trip.schema.v2.solution;
 
-import gloabl.maplink.toll.schema.*;
 import global.maplink.geocode.schema.Address;
 import global.maplink.json.JsonMapper;
 import global.maplink.place.schema.Category;
 import global.maplink.place.schema.LegResult;
 import global.maplink.place.schema.PlaceRoute;
 import global.maplink.place.schema.SubCategory;
+import global.maplink.toll.schema.*;
+import global.maplink.toll.schema.result.CalculationDetail;
 import global.maplink.trip.schema.v2.problem.SitePoint;
-import global.maplink.trip.schema.v2.solution.SolutionLeg;
 import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
@@ -81,7 +81,7 @@ public class SolutionLegTest {
         assertEquals(0, new BigDecimal("-46.6557755").compareTo(placeRoute.getAddress().getPoint().getLongitude()));
 
         assertNotNull(solutionLeg.getTollCalculation());
-        gloabl.maplink.toll.schema.LegResult tollCalculation = solutionLeg.getTollCalculation();
+        global.maplink.toll.schema.result.LegResult tollCalculation = solutionLeg.getTollCalculation();
 
         assertEquals(1, tollCalculation.getTolls().size());
         assertEquals(0, new BigDecimal("209.5").compareTo(tollCalculation.getLegTotalCost()));

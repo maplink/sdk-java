@@ -1,14 +1,11 @@
 package global.maplink.toll.schema;
 
-import gloabl.maplink.toll.schema.Coordinates;
-import gloabl.maplink.toll.schema.TollServiceType;
 import global.maplink.json.JsonMapper;
 import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
 
 import static global.maplink.toll.testUtils.SampleFiles.COORDINATES;
-import static global.maplink.toll.testUtils.SampleFiles.TOLL_SERVICE_TYPE;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class CoordinatesTest {

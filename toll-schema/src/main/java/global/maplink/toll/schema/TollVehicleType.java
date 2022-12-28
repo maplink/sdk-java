@@ -1,4 +1,4 @@
-package gloabl.maplink.toll.schema;
+package global.maplink.toll.schema;
 
 public enum TollVehicleType {
     CAR,
@@ -18,5 +18,5 @@ public enum TollVehicleType {
     TRUCK_WITH_SEVEN_DOUBLE_AXLES,
     TRUCK_WITH_EIGHT_DOUBLE_AXLES,
     TRUCK_WITH_NINE_DOUBLE_AXLES,
-    TRUCK_WITH_TEN_DOUBLE_AXLES;
+    TRUCK_WITH_TEN_DOUBLE_AXLES
 }

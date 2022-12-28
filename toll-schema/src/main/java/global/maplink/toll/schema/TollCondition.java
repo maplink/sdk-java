@@ -1,4 +1,4 @@
-package gloabl.maplink.toll.schema;
+package global.maplink.toll.schema;
 
 import lombok.Builder;
 import lombok.Data;

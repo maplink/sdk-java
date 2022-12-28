@@ -1,9 +1,8 @@
 package global.maplink.trip.schema.v2.problem;
 
-import gloabl.maplink.toll.schema.TollConditionBillingType;
-import gloabl.maplink.toll.schema.TollVehicleType;
 import global.maplink.json.JsonMapper;
-import global.maplink.trip.schema.v2.problem.TollRequest;
+import global.maplink.toll.schema.TollConditionBillingType;
+import global.maplink.toll.schema.TollVehicleType;
 import org.junit.jupiter.api.Test;
 
 import static global.maplink.trip.testUtils.ProblemSampleFiles.TOLL_REQUEST;

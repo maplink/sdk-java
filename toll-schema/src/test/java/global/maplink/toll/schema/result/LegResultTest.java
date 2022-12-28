@@ -1,7 +1,8 @@
-package global.maplink.toll.schema;
+package global.maplink.toll.schema.result;
 
-import gloabl.maplink.toll.schema.*;
 import global.maplink.json.JsonMapper;
+import global.maplink.toll.schema.*;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
@@ -10,17 +11,21 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-import static global.maplink.toll.testUtils.SampleFiles.CALCULATION_DETAIL;
-import static global.maplink.toll.testUtils.SampleFiles.TOLL_CONDITION;
+import static global.maplink.toll.testUtils.SampleFiles.LEG_RESULT;
 import static org.junit.jupiter.api.Assertions.*;
 
-public class CalculationDetailTest {
+public class LegResultTest {
 
     private final JsonMapper mapper = JsonMapper.loadDefault();
 
     @Test
-    public void shouldDeserialize(){
-        CalculationDetail calculationDetail = mapper.fromJson(CALCULATION_DETAIL.load(), CalculationDetail.class);
+    public void shouldDeserialize() {
+        LegResult legResult = mapper.fromJson(LEG_RESULT.load(), LegResult.class);
+
+        assertEquals(1, legResult.getTolls().size());
+        assertEquals(0, new BigDecimal("209.5").compareTo(legResult.getLegTotalCost()));
+
+        CalculationDetail calculationDetail = legResult.getTolls().get(0);
 
         assertEquals("236e9cd5-4181-408c-b90f-a24c31237f11", calculationDetail.getId());
         assertEquals("MAIN", calculationDetail.getName());
@@ -33,7 +38,7 @@ public class CalculationDetailTest {
 
         assertEquals("Brasil", calculationDetail.getCountry());
         assertEquals("IDK", calculationDetail.getConcession());
-        assertEquals(TollDirection.NORTH, calculationDetail.getDirection());
+        Assertions.assertEquals(TollDirection.NORTH, calculationDetail.getDirection());
 
         assertNotNull(calculationDetail.getCoordinates());
         assertEquals(0, new BigDecimal("-23.5666499").compareTo(calculationDetail.getCoordinates().getLatitude()));
@@ -78,7 +83,5 @@ public class CalculationDetailTest {
         assertTrue(tollCondition.getRoutes().containsAll(routes));
 
         assertEquals(0, new BigDecimal("149.8").compareTo(tollCondition.getValue()));
-
-
     }
 }

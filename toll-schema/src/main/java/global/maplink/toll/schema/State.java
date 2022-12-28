@@ -1,4 +1,4 @@
-package gloabl.maplink.toll.schema;
+package global.maplink.toll.schema;
 
 import lombok.Builder;
 import lombok.Data;
@@ -11,7 +11,7 @@ import static lombok.AccessLevel.PRIVATE;
 @Builder
 @RequiredArgsConstructor
 @NoArgsConstructor(force = true, access = PRIVATE)
-public class TollServiceType {
-    private final String serviceId;
+public class State {
     private final String name;
+    private final String code;
 }
