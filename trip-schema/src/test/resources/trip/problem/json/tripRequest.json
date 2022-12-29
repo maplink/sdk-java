@@ -24,7 +24,7 @@
   "avoidanceTypes": ["FIRST", "SECOND"],
   "toll": {
     "vehicleType": "TRUCK_WITH_TWO_SINGLE_AXIS",
-    "billing": "NORMAL"
+    "billing": "DEFAULT"
   },
   "crossedBorders": {
     "level": "CITY",
