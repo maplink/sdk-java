@@ -11,9 +11,14 @@ import static lombok.AccessLevel.PRIVATE;
 
 @Data
 @Builder
-@RequiredArgsConstructor
+@RequiredArgsConstructor(staticName = "of")
 @NoArgsConstructor(force = true, access = PRIVATE)
 public class Coordinates {
     private final BigDecimal latitude;
     private final BigDecimal longitude;
+
+    public static Coordinates of(double latitude, double longitude) {
+        return of(BigDecimal.valueOf(latitude), BigDecimal.valueOf(longitude));
+    }
+
 }
