@@ -2,7 +2,6 @@ package global.maplink.toll.schema.result;
 
 import global.maplink.json.JsonMapper;
 import global.maplink.toll.schema.*;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
@@ -38,7 +37,7 @@ public class LegResultTest {
 
         assertEquals("Brasil", calculationDetail.getCountry());
         assertEquals("IDK", calculationDetail.getConcession());
-        Assertions.assertEquals(TollDirection.NORTH, calculationDetail.getDirection());
+        assertEquals(TollDirection.NORTH, calculationDetail.getDirection());
 
         assertNotNull(calculationDetail.getCoordinates());
         assertEquals(0, new BigDecimal("-23.5666499").compareTo(calculationDetail.getCoordinates().getLatitude()));
