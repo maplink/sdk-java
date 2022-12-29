@@ -1,7 +1,7 @@
 package global.maplink.trip.schema.v2.problem;
 
-import gloabl.maplink.toll.schema.TollConditionBillingType;
-import gloabl.maplink.toll.schema.TollVehicleType;
+import global.maplink.toll.schema.TollConditionBillingType;
+import global.maplink.toll.schema.TollVehicleType;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;

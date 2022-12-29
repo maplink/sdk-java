@@ -1,12 +1,9 @@
-package gloabl.maplink.toll.schema;
+package global.maplink.toll.schema;
 
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
-
-import java.math.BigDecimal;
-import java.util.List;
 
 import static lombok.AccessLevel.PRIVATE;
 
@@ -14,7 +11,7 @@ import static lombok.AccessLevel.PRIVATE;
 @Builder
 @RequiredArgsConstructor
 @NoArgsConstructor(force = true, access = PRIVATE)
-public class LegResult {
-    private final List<CalculationDetail> tolls;
-    private final BigDecimal legTotalCost;
+public class State {
+    private final String name;
+    private final String code;
 }

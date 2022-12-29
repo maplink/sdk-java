@@ -1,8 +1,8 @@
 package global.maplink.trip.schema.v2.problem;
 
-import gloabl.maplink.toll.schema.TollConditionBillingType;
-import gloabl.maplink.toll.schema.TollVehicleType;
 import global.maplink.json.JsonMapper;
+import global.maplink.toll.schema.TollConditionBillingType;
+import global.maplink.toll.schema.TollVehicleType;
 import global.maplink.trip.schema.v2.features.crossedBorders.CrossedBordersRequest;
 import org.junit.jupiter.api.Test;
 

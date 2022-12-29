@@ -1,0 +1,34 @@
+{
+  "legs": [
+    {
+      "tolls": [
+        {
+          "id": "123",
+          "name": "teste",
+          "address": "addr teste",
+          "city": "teste",
+          "state": {
+            "name": "Rio de Janeiro",
+            "code": "RJ"
+          },
+          "country": "Brasil",
+          "concession": "teste",
+          "direction": "NORTHEAST",
+          "coordinates": {
+            "latitude": -22.05479,
+            "longitude": -42.36228
+          },
+          "serviceTypes": [
+            {
+              "serviceId": "301",
+              "name": "Via Facil"
+            }
+          ],
+          "price": 10
+        }
+      ],
+      "legTotalCost": 10
+    }
+  ],
+  "totalCost": 10
+}

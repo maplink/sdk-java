@@ -1,4 +1,4 @@
-package gloabl.maplink.toll.schema;
+package global.maplink.toll.schema;
 
 public enum TollConditionBillingType {
     TAG,
@@ -6,5 +6,5 @@ public enum TollConditionBillingType {
     ADDITIONAL_AXLE,
     TRAILER_AXLE,
     CRANE_AXLE,
-    SUGARCANE_AXLE;
+    SUGARCANE_AXLE
 }

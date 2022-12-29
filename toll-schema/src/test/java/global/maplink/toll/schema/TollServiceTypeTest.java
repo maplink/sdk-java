@@ -1,8 +1,6 @@
 package global.maplink.toll.schema;
 
-import gloabl.maplink.toll.schema.TollServiceType;
 import global.maplink.json.JsonMapper;
-import global.maplink.toll.testUtils.SampleFiles;
 import org.junit.jupiter.api.Test;
 
 import static global.maplink.toll.testUtils.SampleFiles.TOLL_SERVICE_TYPE;
