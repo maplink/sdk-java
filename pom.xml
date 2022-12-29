@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>global.maplink</groupId>
     <artifactId>sdk</artifactId>
-    <version>1.1.6-SNAPSHOT</version>
+    <version>1.1.6</version>
     <packaging>pom</packaging>
     <name>Maplink Java SDK</name>
     <description>Maplink SDK for API access using Java</description>
@@ -334,7 +334,7 @@
         <url>https://github.com/maplink/sdk-java</url>
         <connection>scm:git:git@github.com:maplink/sdk-java.git</connection>
         <developerConnection>scm:git:git@github.com:maplink/sdk-java.git</developerConnection>
-        <tag>HEAD</tag>
+        <tag>v1.1.6</tag>
     </scm>
 
     <distributionManagement>
