@@ -1,7 +1,7 @@
 package global.maplink.trip.schema.v2.problem;
 
 import global.maplink.json.JsonMapper;
-import global.maplink.toll.schema.TollConditionBillingType;
+import global.maplink.toll.schema.Billing;
 import global.maplink.toll.schema.TollVehicleType;
 import global.maplink.trip.schema.v2.features.crossedBorders.CrossedBordersRequest;
 import org.junit.jupiter.api.Test;
@@ -17,9 +17,9 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class TripRequestTest {
     private final JsonMapper mapper = JsonMapper.loadDefault();
-    
+
     @Test
-    public void shouldDeserialize(){
+    public void shouldDeserialize() {
         TripRequest tripRequest = mapper.fromJson(TRIP_REQUEST.load(), TripRequest.class);
         assertEquals(1, tripRequest.getPoints().size());
         assertEquals("36cdd555-41b6-4327-ac83-04ac74cff915", tripRequest.getPoints().get(0).getSiteId());
@@ -37,7 +37,7 @@ public class TripRequestTest {
         TollRequest tollRequest = tripRequest.getToll();
         assertNotNull(tollRequest);
         assertEquals(TollVehicleType.TRUCK_WITH_TWO_SINGLE_AXIS, tollRequest.getVehicleType());
-        assertEquals(TollConditionBillingType.NORMAL, tollRequest.getBilling());
+        assertEquals(Billing.DEFAULT, tollRequest.getBilling());
 
         CrossedBordersRequest crossedBordersRequest = tripRequest.getCrossedBorders();
         assertNotNull(crossedBordersRequest);
