@@ -1,6 +1,6 @@
 package global.maplink.trip.schema.v2.problem;
 
-import global.maplink.toll.schema.TollConditionBillingType;
+import global.maplink.toll.schema.Billing;
 import global.maplink.toll.schema.TollVehicleType;
 import lombok.Builder;
 import lombok.Data;
@@ -15,5 +15,5 @@ import static lombok.AccessLevel.PRIVATE;
 @NoArgsConstructor(force = true, access = PRIVATE)
 public class TollRequest {
     private final TollVehicleType vehicleType;
-    private final TollConditionBillingType billing;
+    private final Billing billing;
 }
