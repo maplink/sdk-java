@@ -44,7 +44,6 @@ public class GeocodeSuggestionsGMapsExtension implements GeocodeExtension<Sugges
     private HttpAsyncEngine http;
     private JsonMapper mapper;
 
-
     public GeocodeSuggestionsGMapsExtension() {
         this(GeocodeGMapsConfig.fromEnv());
     }

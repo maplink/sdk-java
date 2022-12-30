@@ -33,6 +33,7 @@
         <module>json-mapper-jackson</module>
         <module>http-engine-java11-client</module>
         <module>jacoco-report</module>
+        <module>emission</module>
         <module>emission-schema</module>
         <module>trip-schema</module>
         <module>freight-schema</module>
@@ -87,6 +88,11 @@
             </dependency>
 
             <!-- Emission -->
+            <dependency>
+                <groupId>${project.groupId}</groupId>
+                <artifactId>sdk-emission</artifactId>
+                <version>${project.version}</version>
+            </dependency>
             <dependency>
                 <groupId>${project.groupId}</groupId>
                 <artifactId>emission-schema</artifactId>
