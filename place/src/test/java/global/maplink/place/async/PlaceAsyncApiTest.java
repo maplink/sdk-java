@@ -8,6 +8,8 @@ import global.maplink.place.schema.*;
 import lombok.val;
 import org.junit.jupiter.api.Test;
 
+import java.util.concurrent.ExecutionException;
+
 import static global.maplink.env.EnvironmentCatalog.HOMOLOG;
 import static global.maplink.place.common.Defaults.DEFAULT_CLIENT_ID;
 import static global.maplink.place.common.Defaults.DEFAULT_SECRET;
@@ -29,7 +31,8 @@ class PlaceAsyncApiTest {
         configureWith(MapLinkCredentials.ofKey(DEFAULT_CLIENT_ID, DEFAULT_SECRET));
         val instance = PlaceAsyncAPI.getInstance();
         assertThatThrownBy(() -> instance.calculate(PlaceRouteRequest.builder().build()).get())
-                .isInstanceOf(InvalidCredentialsException.class);
+                .isInstanceOf(ExecutionException.class)
+                .hasCauseInstanceOf(InvalidCredentialsException.class);
     }
 
     @Test
@@ -38,7 +41,8 @@ class PlaceAsyncApiTest {
             configureWith(credentials);
             val instance = PlaceAsyncAPI.getInstance(() -> "https://maplink.global");
             assertThatThrownBy(() -> instance.calculate(PlaceRouteRequest.builder().build()).get())
-                    .isInstanceOf(MapLinkHttpException.class);
+                    .isInstanceOf(ExecutionException.class)
+                    .hasCauseInstanceOf(MapLinkHttpException.class);
         });
     }
 
