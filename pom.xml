@@ -37,6 +37,7 @@
         <module>emission-schema</module>
         <module>trip-schema</module>
         <module>freight-schema</module>
+        <module>place</module>
         <module>place-schema</module>
         <module>toll</module>
         <module>toll-schema</module>
@@ -114,6 +115,11 @@
             </dependency>
 
             <!-- Place -->
+            <dependency>
+                <groupId>${project.groupId}</groupId>
+                <artifactId>sdk-place</artifactId>
+                <version>${project.version}</version>
+            </dependency>
             <dependency>
                 <groupId>${project.groupId}</groupId>
                 <artifactId>place-schema</artifactId>

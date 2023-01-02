@@ -7,6 +7,9 @@
 ## Services List
 
 * [Geocode API](./geocode/Readme.md)
+* [Emission API](./emission/Readme.md)
+* [Toll API](./toll/Readme.md)
+* [Place API](./place/Readme.md)
 
 ## Usage
 
