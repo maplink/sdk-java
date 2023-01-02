@@ -78,6 +78,5 @@ public class CalculationDetailTest {
 
         assertEquals(0, new BigDecimal("149.8").compareTo(tollCondition.getValue()));
 
-
     }
 }

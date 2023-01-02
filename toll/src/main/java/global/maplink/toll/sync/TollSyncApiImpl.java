@@ -6,8 +6,9 @@ import global.maplink.toll.schema.result.TollCalculationResult;
 import lombok.RequiredArgsConstructor;
 
 import static global.maplink.helpers.FutureHelper.await;
+import static lombok.AccessLevel.PROTECTED;
 
-@RequiredArgsConstructor
+@RequiredArgsConstructor(access = PROTECTED)
 public class TollSyncApiImpl implements TollSyncAPI {
 
     private final TollAsyncAPI delegate;

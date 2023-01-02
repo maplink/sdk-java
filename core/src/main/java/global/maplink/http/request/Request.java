@@ -97,4 +97,8 @@ public abstract class Request {
         return new PostRequest(url, body);
     }
 
+    public static PutRequest put(URL url, RequestBody body) {
+        return new PutRequest(url, body);
+    }
+
 }

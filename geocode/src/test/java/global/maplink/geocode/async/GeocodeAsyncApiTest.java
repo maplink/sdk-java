@@ -205,7 +205,6 @@ public class GeocodeAsyncApiTest {
         });
     }
 
-
     private void configureWith(MapLinkCredentials credentials) {
         MapLinkSDK.resetConfiguration();
         MapLinkSDK.configure()

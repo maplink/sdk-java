@@ -1,21 +1,15 @@
 package global.maplink.http.request;
 
-import lombok.Getter;
-
 import java.net.URL;
 
-public class PostRequest extends Request {
-    @Getter
-    private final byte[] body;
+public class PostRequest extends WithBodyRequest {
 
     public PostRequest(URL url, byte[] body) {
-        super(url);
-        this.body = body;
+        super(url, body);
     }
 
     public PostRequest(URL url, RequestBody body) {
-        this(url, body.getBytes());
-        this.withHeader("Content-Type", body.getContentType());
+        super(url, body);
     }
 
     @Override
