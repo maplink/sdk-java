@@ -179,16 +179,6 @@ class OrderTest {
                 .status(OrderStatus.builder()
                         .label("Pedido em trânsito")
                         .build())
-                .destination(Address.builder()
-                        .road("Alameda Campinas")
-                        .number("579")
-                        .city("São Paulo")
-                        .state(new State("SP", "São Paulo"))
-                        .zipCode("01419001")
-                        .mainLocation(GeoPoint.of(
-                                BigDecimal.valueOf(-22.7342864),
-                                BigDecimal.valueOf(-47.648064)))
-                        .build())
                 .driver(Driver.builder()
                         .name("Maplink BR")
                         .currentLocation(GeoPoint.of(
@@ -197,8 +187,10 @@ class OrderTest {
                         .build())
                 .build();
 
-        var errors = order.validate();
-        assertEquals(TRACKING_STATUS_VALUE_NOTNULL, errors.get(0));
+        assertThat(order.validate()).containsExactlyInAnyOrder(
+                TRACKING_STATUS_VALUE_NOTNULL,
+                TRACKING_DESTINATION_NOTNULL
+        );
     }
 
     @Test

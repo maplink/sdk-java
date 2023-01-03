@@ -41,21 +41,29 @@ public class Order implements Validable {
     @Override
     public List<ValidationViolation> validate() {
         List<ValidationViolation> errors = new ArrayList<>();
+
         if (isInvalidDescription(description)) {
             errors.add(TRACKING_DESCRIPTION_NOTNULL);
         }
+
         if (nonNull(origin)) {
             errors.addAll(validate(origin));
         }
-        if (nonNull(destination)) {
+
+        if (isNull(destination)) {
+            errors.add(TRACKING_DESTINATION_NOTNULL);
+        }else{
             errors.addAll(validate(destination));
         }
+
         if (nonNull(driver)) {
             errors.addAll(driver.validate());
         }
+
         if (nonNull(status)) {
             errors.addAll(status.validate());
         }
+
         return errors;
     }
 
