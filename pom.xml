@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>global.maplink</groupId>
     <artifactId>sdk</artifactId>
-    <version>1.3.2-SNAPSHOT</version>
+    <version>1.4.0-SNAPSHOT</version>
     <packaging>pom</packaging>
     <name>Maplink Java SDK</name>
     <description>Maplink SDK for API access using Java</description>
@@ -36,6 +36,7 @@
         <module>emission</module>
         <module>emission-schema</module>
         <module>trip-schema</module>
+        <module>freight</module>
         <module>freight-schema</module>
         <module>place</module>
         <module>place-schema</module>
@@ -108,6 +109,11 @@
             </dependency>
 
             <!-- Freight -->
+            <dependency>
+                <groupId>${project.groupId}</groupId>
+                <artifactId>sdk-freight</artifactId>
+                <version>${project.version}</version>
+            </dependency>
             <dependency>
                 <groupId>${project.groupId}</groupId>
                 <artifactId>freight-schema</artifactId>

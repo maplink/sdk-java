@@ -7,14 +7,19 @@
         <version>1.4.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>geocode-schema</artifactId>
+    <artifactId>sdk-freight</artifactId>
 
-    <name>geocode-schema</name>
+    <name>sdk-freight</name>
 
     <dependencies>
         <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>sdk-core</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>freight-schema</artifactId>
         </dependency>
 
         <dependency>
@@ -25,7 +30,13 @@
 
         <dependency>
             <groupId>${project.groupId}</groupId>
-            <artifactId>json-mapper-jackson</artifactId>
+            <artifactId>sdk-core-defaults</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-core</artifactId>
             <scope>test</scope>
         </dependency>
 
