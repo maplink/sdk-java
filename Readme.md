@@ -10,6 +10,7 @@
 * [Emission API](./emission/Readme.md)
 * [Toll API](./toll/Readme.md)
 * [Place API](./place/Readme.md)
+* [Freight API](./freight/Readme.md)
 
 ## Usage
 
