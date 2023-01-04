@@ -36,6 +36,7 @@
         <module>emission</module>
         <module>emission-schema</module>
         <module>trip-schema</module>
+        <module>freight</module>
         <module>freight-schema</module>
         <module>place</module>
         <module>place-schema</module>
@@ -108,6 +109,11 @@
             </dependency>
 
             <!-- Freight -->
+            <dependency>
+                <groupId>${project.groupId}</groupId>
+                <artifactId>sdk-freight</artifactId>
+                <version>${project.version}</version>
+            </dependency>
             <dependency>
                 <groupId>${project.groupId}</groupId>
                 <artifactId>freight-schema</artifactId>
