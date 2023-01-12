@@ -14,6 +14,6 @@ public interface TokenProvider {
 
     static TokenProvider create(HttpAsyncEngine http, Environment env, JsonMapper mapper, boolean withCache) {
         val oauth = new OAuthTokenProvider(http, env, mapper);
-        return withCache ? oauth : new CachedTokenProviderDecorator(oauth);
+        return withCache ? new CachedTokenProviderDecorator(oauth) : oauth;
     }
 }
