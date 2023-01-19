@@ -8,9 +8,12 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpRequest.BodyPublishers;
 import java.net.http.HttpResponse;
 import java.net.http.HttpResponse.BodyHandlers;
+import java.util.Objects;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.BiFunction;
 import java.util.function.Function;
+
+import static java.net.http.HttpClient.Version.HTTP_1_1;
 
 public class HttpAsyncEngineJava11Impl implements HttpAsyncEngine {
 
@@ -30,9 +33,10 @@ public class HttpAsyncEngineJava11Impl implements HttpAsyncEngine {
     private HttpRequest.Builder buildBaseRequest(Request request) {
         var builder = HttpRequest.newBuilder(request.getFullURI());
         request.getHeaders().forEach(builder::header);
+        if (Objects.equals(request.getUrl().getProtocol(), "http"))
+            builder.version(HTTP_1_1);
         return builder;
     }
-
     private Response translateResponse(HttpResponse<byte[]> response) {
         return new Response(
                 response.statusCode(),
