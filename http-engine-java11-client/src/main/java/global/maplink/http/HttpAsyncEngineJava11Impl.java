@@ -35,10 +35,11 @@ public class HttpAsyncEngineJava11Impl implements HttpAsyncEngine {
     private HttpRequest.Builder buildBaseRequest(Request request) {
         var builder = HttpRequest.newBuilder(request.getFullURI());
         request.getHeaders().forEach(builder::header);
-        if (request.getUrl().getProtocol().equals(HTTP))
+        if (HTTP.equals(request.getUrl().getProtocol()))
             builder.version(HTTP_1_1);
         return builder;
     }
+
     private Response translateResponse(HttpResponse<byte[]> response) {
         return new Response(
                 response.statusCode(),
