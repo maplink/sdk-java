@@ -14,10 +14,6 @@
     <properties>
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
-
-        <!-- ini:external -->
-        <wiremock.version>2.35.0</wiremock.version>
-        <!-- end:external -->
     </properties>
 
     <dependencies>
@@ -47,7 +43,6 @@
         <dependency>
             <groupId>com.github.tomakehurst</groupId>
             <artifactId>wiremock-jre8</artifactId>
-            <version>${wiremock.version}</version>
             <scope>test</scope>
         </dependency>
     </dependencies>

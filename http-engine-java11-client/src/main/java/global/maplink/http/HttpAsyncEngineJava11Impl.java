@@ -19,6 +19,8 @@ public class HttpAsyncEngineJava11Impl implements HttpAsyncEngine {
 
     public static final String HEADER_CONTENT_TYPE = "content-type";
 
+    public static final String HTTP = "http";
+
     private final HttpClient client = HttpClient.newHttpClient();
 
     @Override
@@ -33,7 +35,7 @@ public class HttpAsyncEngineJava11Impl implements HttpAsyncEngine {
     private HttpRequest.Builder buildBaseRequest(Request request) {
         var builder = HttpRequest.newBuilder(request.getFullURI());
         request.getHeaders().forEach(builder::header);
-        if (Objects.equals(request.getUrl().getProtocol(), "http"))
+        if (request.getUrl().getProtocol().equals(HTTP))
             builder.version(HTTP_1_1);
         return builder;
     }
