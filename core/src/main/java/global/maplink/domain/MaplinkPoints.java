@@ -17,6 +17,8 @@ import static java.lang.Math.max;
 @ToString
 public class MaplinkPoints implements Iterable<MaplinkPoint> {
 
+    public static final MaplinkPoints EMPTY = new MaplinkPoints(new MaplinkPoint[0]);
+
     private static final double DEFAULT_POLYLINE_PRECISION = 1e5;
 
     private final MaplinkPoint[] data;

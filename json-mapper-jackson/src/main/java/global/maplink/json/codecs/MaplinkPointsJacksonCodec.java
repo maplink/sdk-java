@@ -82,8 +82,8 @@ public class MaplinkPointsJacksonCodec extends MlpJacksonCodec<MaplinkPoints> {
 
         private MaplinkPoints deserializeArray(JsonParser parser) throws IOException {
             MaplinkPoint[] points = parser.readValueAs(MaplinkPoint[].class);
-            if (isNull(points) || points.length < 2) {
-                return null;
+            if (isNull(points) || points.length < 1) {
+                return MaplinkPoints.EMPTY;
             }
             return new MaplinkPoints(points);
         }

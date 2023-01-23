@@ -1,5 +1,6 @@
 package global.maplink.trip.schema.v2.solution;
 
+import global.maplink.domain.MaplinkPoint;
 import global.maplink.geocode.schema.Address;
 import global.maplink.json.JsonMapper;
 import global.maplink.place.schema.Category;
@@ -8,7 +9,6 @@ import global.maplink.place.schema.PlaceRoute;
 import global.maplink.place.schema.SubCategory;
 import global.maplink.toll.schema.*;
 import global.maplink.toll.schema.result.CalculationDetail;
-import global.maplink.trip.schema.v2.problem.SitePoint;
 import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
@@ -18,6 +18,7 @@ import java.util.Collections;
 import java.util.List;
 
 import static global.maplink.trip.testUtils.SolutionSampleFiles.SOLUTION_LEG;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class SolutionLegTest {
@@ -25,18 +26,16 @@ public class SolutionLegTest {
     private final JsonMapper mapper = JsonMapper.loadDefault();
 
     @Test
-    public void shouldDeserialize(){
+    public void shouldDeserialize() {
         SolutionLeg solutionLeg = mapper.fromJson(SOLUTION_LEG.load(), SolutionLeg.class);
         assertEquals(1000L, solutionLeg.getDistance());
         assertEquals(1200L, solutionLeg.getNominalDuration());
         assertEquals(70.0D, solutionLeg.getAverageSpeed());
 
-        assertEquals(1, solutionLeg.getPoints().size());
-        SitePoint sitePoint = solutionLeg.getPoints().get(0);
-
-        assertEquals("36cdd555-41b6-4327-ac83-04ac74cff915", sitePoint.getSiteId());
-        assertEquals(0, new BigDecimal("-23.5666499").compareTo(sitePoint.getLatitude()));
-        assertEquals(0, new BigDecimal("-46.6557755").compareTo(sitePoint.getLongitude()));
+        assertThat(solutionLeg.getPoints())
+                .hasSize(1)
+                .first()
+                .isEqualTo(new MaplinkPoint(-23.5666499, -46.6557755));
 
         assertNotNull(solutionLeg.getFirstPointAddress());
         Address address = solutionLeg.getFirstPointAddress();
