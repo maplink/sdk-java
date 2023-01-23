@@ -1,40 +1,50 @@
 package global.maplink.domain;
 
 import global.maplink.MapLinkSDK;
+import lombok.SneakyThrows;
 
-import java.util.Optional;
+import java.util.Objects;
 import java.util.concurrent.Callable;
 import java.util.function.Supplier;
+import java.util.stream.Stream;
 
 public enum PointsMode {
     OBJECT,
     ARRAY,
-    GEOCODE,
+    GEOHASH,
     POLYLINE;
 
-    private static final ThreadLocal<PointsMode> current = new ThreadLocal<>();
+    private static final ThreadLocal<PointsMode> threadCurrent = new ThreadLocal<>();
+
+    private static Supplier<PointsMode> externalSupplier = () -> null;
 
     public static PointsMode current() {
-        MapLinkSDK sdk = MapLinkSDK.getInstance();
-        return Optional.ofNullable(current.get()).orElseGet(sdk::getPointsMode);
+        return Stream.of(
+                        threadCurrent::get,
+                        externalSupplier,
+                        fromSDK()
+                ).map(Supplier::get)
+                .filter(Objects::nonNull)
+                .findAny()
+                .orElseGet(PointsMode::loadDefault);
     }
 
-    public static <T> T runWith(PointsMode mode, Callable<T> action) throws Exception {
+    private static Supplier<PointsMode> fromSDK() {
+        return () -> MapLinkSDK.isInitialized() ? MapLinkSDK.getInstance().getPointsMode() : null;
+    }
+
+    @SneakyThrows
+    public static <T> T runWith(PointsMode mode, Callable<T> action) {
         try {
-            current.set(mode);
+            threadCurrent.set(mode);
             return action.call();
         } finally {
-            current.set(null);
+            threadCurrent.set(null);
         }
     }
 
-    public static <T> T runWith(PointsMode mode, Supplier<T> action) {
-        try {
-            current.set(mode);
-            return action.get();
-        } finally {
-            current.set(null);
-        }
+    public static void setExternalSupplier(Supplier<PointsMode> supplier) {
+        externalSupplier = supplier;
     }
 
     public static PointsMode loadDefault() {

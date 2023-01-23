@@ -29,7 +29,7 @@ public class MaplinkPointJacksonCodec extends MlpJacksonCodec<MaplinkPoint> {
                 case ARRAY:
                     serializeAsArray(value, jgen);
                     break;
-                case GEOCODE:
+                case GEOHASH:
                     serializeAsGeohash(value, jgen);
                     break;
                 case OBJECT:

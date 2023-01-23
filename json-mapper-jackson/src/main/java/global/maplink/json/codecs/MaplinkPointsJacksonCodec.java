@@ -31,7 +31,7 @@ public class MaplinkPointsJacksonCodec extends MlpJacksonCodec<MaplinkPoints> {
             switch (PointsMode.current()) {
                 case OBJECT:
                 case ARRAY:
-                case GEOCODE:
+                case GEOHASH:
                     serializeAsList(value, jgen);
                     break;
                 case POLYLINE:

@@ -68,6 +68,10 @@ public class MapLinkSDK {
         INSTANCE = null;
     }
 
+    public static boolean isInitialized() {
+        return INSTANCE != null;
+    }
+
     @SuppressWarnings("OptionalUsedAsFieldOrParameterType")
     public static class Configurator {
 
