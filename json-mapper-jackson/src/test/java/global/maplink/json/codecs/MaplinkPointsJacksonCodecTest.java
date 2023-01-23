@@ -13,6 +13,7 @@ import org.junit.jupiter.api.Test;
 import java.nio.charset.StandardCharsets;
 
 import static global.maplink.domain.PointsMode.*;
+import static java.lang.String.format;
 import static java.util.stream.IntStream.range;
 import static net.javacrumbs.jsonunit.assertj.JsonAssertions.assertThatJson;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -82,6 +83,17 @@ class MaplinkPointsJacksonCodecTest {
         assertThat(reversePoints).isEqualTo(SAMPLE_POINTS);
     }
 
+    @Test
+    void shouldDeserializeFromMultipleTypes() {
+        String json = format("[%s,%s,%s]",
+                "\"6gycfmgep\"",
+                "[-23.56649,-46.6538]",
+                "{\"latitude\":-23.56649,\"longitude\":-46.6538}"
+        );
+
+        MaplinkPoints points = mapper.fromJson(json.getBytes(StandardCharsets.UTF_8), MaplinkPoints.class);
+        assertThat(points).hasSize(3);
+    }
 
     @Test
     void shouldRespectExternalSupplier() {
