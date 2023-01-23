@@ -1,6 +1,7 @@
 package global.maplink;
 
 import global.maplink.credentials.MapLinkCredentials;
+import global.maplink.domain.PointsMode;
 import global.maplink.env.Environment;
 import global.maplink.extensions.SdkExtension;
 import global.maplink.extensions.SdkExtensionCatalog;
@@ -36,6 +37,8 @@ public class MapLinkSDK {
     private final JsonMapper jsonMapper;
 
     private final TokenProvider tokenProvider;
+
+    private final PointsMode pointsMode;
 
     private final Collection<SdkExtension> extensions;
 
@@ -76,6 +79,8 @@ public class MapLinkSDK {
 
         private Optional<JsonMapper> mapper = Optional.empty();
 
+        private Optional<PointsMode> pointsMode = Optional.empty();
+
         private final Collection<SdkExtension> extensions = new HashSet<>();
 
         public Configurator with(MapLinkCredentials credentials) {
@@ -108,6 +113,11 @@ public class MapLinkSDK {
             return this;
         }
 
+        public Configurator with(PointsMode pointsMode) {
+            this.pointsMode = Optional.of(pointsMode);
+            return this;
+        }
+
         public void initialize() {
             if (INSTANCE != null)
                 throw new IllegalStateException("MapLinkSDK already has been configured");
@@ -120,6 +130,7 @@ public class MapLinkSDK {
                     http,
                     jsonMapper,
                     TokenProvider.create(http, env, jsonMapper, true),
+                    pointsMode.orElseGet(PointsMode::loadDefault),
                     unmodifiableCollection(extensions)
             );
             INSTANCE.postConstruct();
