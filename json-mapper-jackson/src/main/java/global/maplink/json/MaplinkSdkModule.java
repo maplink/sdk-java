@@ -7,7 +7,6 @@ import global.maplink.json.codecs.MlpJacksonCodec;
 
 public class MaplinkSdkModule extends SimpleModule {
 
-
     public MaplinkSdkModule() {
         this(
                 new MaplinkPointsJacksonCodec(),

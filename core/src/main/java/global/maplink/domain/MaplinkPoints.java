@@ -154,5 +154,4 @@ public class MaplinkPoints implements Iterable<MaplinkPoint> {
         return new MaplinkPoints(points.stream().toArray(MaplinkPoint[]::new));
     }
 
-
 }

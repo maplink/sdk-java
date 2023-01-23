@@ -39,7 +39,6 @@ class MaplinkPointsJacksonCodecTest {
         assertThat(reversePoints).isEqualTo(SAMPLE_POINTS);
     }
 
-
     @Test
     void shouldSerializeAsCoordinatesArray() {
         String json = PointsMode.runWith(ARRAY, () -> mapper.toJsonString(SAMPLE_POINTS));
@@ -128,6 +127,5 @@ class MaplinkPointsJacksonCodecTest {
             MapLinkSDK.resetConfiguration();
         }
     }
-
 
 }

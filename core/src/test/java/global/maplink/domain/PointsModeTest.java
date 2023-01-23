@@ -48,7 +48,6 @@ class PointsModeTest {
         assertThat(PointsMode.current()).isNotEqualTo(PointsMode.loadDefault());
     }
 
-
     @Test
     void shouldTakeFromSDK() {
         assertThat(PointsMode.current()).isEqualTo(PointsMode.loadDefault());

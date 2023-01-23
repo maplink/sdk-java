@@ -65,7 +65,6 @@ class MaplinkPointsTest {
         assertThat(MaplinkPoints.fromPolyline(polyline)).isEqualTo(points);
     }
 
-
     @Test
     void shoulDeserializeFromPolyline() {
         MaplinkPoints points = MaplinkPoints.fromPolyline(SAMPLE_POLYLINE);
@@ -107,7 +106,6 @@ class MaplinkPointsTest {
         assertThat(expected.hasNext()).isFalse();
     }
 
-
     @Test
     void emptyShouldReturnNullOnFirstLastOrPoint() {
         MaplinkPoints points = MaplinkPoints.from(new double[0][2]);
@@ -115,7 +113,6 @@ class MaplinkPointsTest {
         assertThat(points.last()).isNull();
         assertThat(points.get(3)).isNull();
     }
-
 
     private double[][] randSampleLine(int lenght) {
         return new Random()
