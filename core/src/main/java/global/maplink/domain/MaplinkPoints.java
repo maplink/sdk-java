@@ -9,14 +9,15 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import static global.maplink.helpers.PolylineHelper.encodePolyline;
+import static java.lang.Math.floor;
+import static java.lang.Math.max;
 
 @RequiredArgsConstructor
 @EqualsAndHashCode
 @ToString
 public class MaplinkPoints implements Iterable<MaplinkPoint> {
 
-    private static final int DEFAULT_POLYLINE_PRECISION = 15;
+    private static final double DEFAULT_POLYLINE_PRECISION = 1e5;
 
     private final MaplinkPoint[] data;
 
@@ -32,6 +33,9 @@ public class MaplinkPoints implements Iterable<MaplinkPoint> {
     }
 
     public MaplinkPoint get(int pos) {
+        if (pos >= data.length) {
+            return null;
+        }
         return data[pos];
     }
 
@@ -43,12 +47,32 @@ public class MaplinkPoints implements Iterable<MaplinkPoint> {
     }
 
     public String toPolyline() {
-        return encodePolyline(
-                stream()
-                        .map(MaplinkPoint::toArray)
-                        .toArray(double[][]::new),
-                DEFAULT_POLYLINE_PRECISION
-        );
+        StringBuilder sb = new StringBuilder(max(20, data.length * 3));
+        int prevLat = 0;
+        int prevLon = 0;
+        for (MaplinkPoint point : data) {
+            int num = (int) floor(point.getLatitude() * DEFAULT_POLYLINE_PRECISION);
+            encodePolylineNumber(sb, num - prevLat);
+            prevLat = num;
+            num = (int) floor(point.getLongitude() * DEFAULT_POLYLINE_PRECISION);
+            encodePolylineNumber(sb, num - prevLon);
+            prevLon = num;
+        }
+        return sb.toString();
+    }
+
+    private static void encodePolylineNumber(StringBuilder sb, int num) {
+        num = num << 1;
+        if (num < 0) {
+            num = ~num;
+        }
+        while (num >= 0x20) {
+            int nextValue = (0x20 | (num & 0x1f)) + 63;
+            sb.append((char) (nextValue));
+            num >>= 5;
+        }
+        num += 63;
+        sb.append((char) (num));
     }
 
     public List<String> toGeohash() {
@@ -103,37 +127,30 @@ public class MaplinkPoints implements Iterable<MaplinkPoint> {
         List<MaplinkPoint> points = new LinkedList<>();
         int index = 0;
         int len = encoded.length();
-        int lat = 0;
-        int lng = 0;
-        while (index < len) {
-            // latitude
-            int b;
-            int shift = 0;
-            int result = 0;
-            do {
-                b = encoded.charAt(index++) - 63;
-                result |= (b & 0x1f) << shift;
-                shift += 5;
-            } while (b >= 0x20);
-            int deltaLatitude = ((result & 1) != 0 ? ~(result >> 1) : (result >> 1));
-            lat += deltaLatitude;
+        int[] coordinates = new int[]{0, 0};
 
-            // longitude
-            shift = 0;
-            result = 0;
-            do {
-                b = encoded.charAt(index++) - 63;
-                result |= (b & 0x1f) << shift;
-                shift += 5;
-            } while (b >= 0x20);
-            int deltaLongitude = ((result & 1) != 0 ? ~(result >> 1) : (result >> 1));
-            lng += deltaLongitude;
+        while (index < len) {
+            int b;
+            int[] delta = new int[]{0, 0};
+            for (int i = 0; i < 2; i++) {
+                int shift = 0;
+                int result = 0;
+                do {
+                    b = encoded.charAt(index++) - 63;
+                    result |= (b & 0x1f) << shift;
+                    shift += 5;
+                } while (b >= 0x20);
+                delta[i] = ((result & 1) != 0 ? ~(result >> 1) : (result >> 1));
+                coordinates[i] += delta[i];
+            }
 
             points.add(new MaplinkPoint(
-                    (double) lat / 1e5,
-                    (double) lng / 1e5
+                    (double) coordinates[0] / DEFAULT_POLYLINE_PRECISION,
+                    (double) coordinates[1] / DEFAULT_POLYLINE_PRECISION
             ));
         }
         return new MaplinkPoints(points.stream().toArray(MaplinkPoint[]::new));
     }
+
+
 }

@@ -13,14 +13,14 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 class MaplinkPointsTest {
 
-    private static final String SAMPLE_POLYLINE = "pyynCfaw{GiCeC{DwD??iSnW@A";
+    private static final String SAMPLE_POLYLINE = "pyynCfaw{GiCeC{DwD??iSnW@B";
     private static final List<String> SAMPLE_GEOHASHES = Arrays.asList(
             "6gycfmgep",
             "6gycfmupr",
             "6gycfqhus",
             "6gycfqhus",
             "6gycfqdp9",
-            "6gycfqdpd"
+            "6gycfqdp8"
     );
     private static final double[][] SAMPLE_POINTS = new double[][]{
             new double[]{
@@ -45,7 +45,7 @@ class MaplinkPointsTest {
             },
             new double[]{
                     -23.56162,
-                    -46.65612
+                    -46.65615
             }
     };
 
@@ -75,8 +75,9 @@ class MaplinkPointsTest {
 
     @Test
     void shouldReadSelfWritedGeohash() {
+        int geohashSize = 11;
         MaplinkPoints points = MaplinkPoints.from(randSampleLine(50));
-        List<String> geohash = points.toGeohash();
+        List<String> geohash = points.toGeohash(geohashSize);
         MaplinkPoints fromGeohash = MaplinkPoints.fromGeohash(geohash);
 
         range(0, points.size()).forEach(i -> {
@@ -90,8 +91,7 @@ class MaplinkPointsTest {
     @Test
     void shouldSerializeAsValidGeohash() {
         MaplinkPoints points = MaplinkPoints.from(SAMPLE_POINTS);
-        List<String> geohash = points.toGeohash();
-        assertThat(points.toGeohash()).isEqualTo(geohash);
+        assertThat(points.toGeohash()).isEqualTo(SAMPLE_GEOHASHES);
     }
 
     @Test
@@ -105,6 +105,15 @@ class MaplinkPointsTest {
             assertThat(point).isEqualTo(expected.next());
         }
         assertThat(expected.hasNext()).isFalse();
+    }
+
+
+    @Test
+    void emptyShouldReturnNullOnFirstLastOrPoint() {
+        MaplinkPoints points = MaplinkPoints.from(new double[0][2]);
+        assertThat(points.first()).isNull();
+        assertThat(points.last()).isNull();
+        assertThat(points.get(3)).isNull();
     }
 
 
