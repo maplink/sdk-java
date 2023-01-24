@@ -13,9 +13,12 @@
       "averageSpeed": 70.0,
       "points":[
         {
-          "siteId": "36cdd555-41b6-4327-ac83-04ac74cff915",
           "latitude": "-23.5666499",
           "longitude": "-46.6557755"
+        },
+        {
+          "latitude": "-23.56905",
+          "longitude": "-46.6504"
         }
       ],
       "firstPointAddress": {

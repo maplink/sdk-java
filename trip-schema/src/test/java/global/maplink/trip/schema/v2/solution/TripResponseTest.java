@@ -1,5 +1,6 @@
 package global.maplink.trip.schema.v2.solution;
 
+import global.maplink.domain.MaplinkPoint;
 import global.maplink.geocode.schema.Address;
 import global.maplink.json.JsonMapper;
 import global.maplink.place.schema.Category;
@@ -9,7 +10,6 @@ import global.maplink.place.schema.SubCategory;
 import global.maplink.toll.schema.*;
 import global.maplink.toll.schema.result.CalculationDetail;
 import global.maplink.trip.schema.v2.features.crossedBorders.CrossedBorderResponse;
-import global.maplink.trip.schema.v2.problem.SitePoint;
 import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
@@ -26,7 +26,7 @@ public class TripResponseTest {
     private final JsonMapper mapper = JsonMapper.loadDefault();
 
     @Test
-    public void shouldDeserialize(){
+    public void shouldDeserialize() {
         TripResponse tripResponse = mapper.fromJson(TRIP_RESPONSE.load(), TripResponse.class);
 
         assertEquals("236e9cd5-4181-408c-b90f-a24c31237f11", tripResponse.getId());
@@ -43,12 +43,10 @@ public class TripResponseTest {
         assertEquals(1200L, solutionLeg.getNominalDuration());
         assertEquals(70.0D, solutionLeg.getAverageSpeed());
 
-        assertEquals(1, solutionLeg.getPoints().size());
-        SitePoint sitePoint = solutionLeg.getPoints().get(0);
-
-        assertEquals("36cdd555-41b6-4327-ac83-04ac74cff915", sitePoint.getSiteId());
-        assertEquals(0, new BigDecimal("-23.5666499").compareTo(sitePoint.getLatitude()));
-        assertEquals(0, new BigDecimal("-46.6557755").compareTo(sitePoint.getLongitude()));
+        assertThat(solutionLeg.getPoints())
+                .hasSize(2)
+                .first()
+                .isEqualTo(new MaplinkPoint(-23.5666499, -46.6557755));
 
         assertNotNull(solutionLeg.getFirstPointAddress());
         Address address = solutionLeg.getFirstPointAddress();

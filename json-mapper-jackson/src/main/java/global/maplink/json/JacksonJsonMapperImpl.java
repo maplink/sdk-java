@@ -3,6 +3,7 @@ package global.maplink.json;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.type.CollectionType;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
 import java.io.IOException;
 import java.util.List;
@@ -11,7 +12,10 @@ import static com.fasterxml.jackson.databind.DeserializationFeature.FAIL_ON_UNKN
 
 public class JacksonJsonMapperImpl implements JsonMapper {
 
-    private final ObjectMapper mapper = new ObjectMapper().findAndRegisterModules().disable(FAIL_ON_UNKNOWN_PROPERTIES);
+    private final ObjectMapper mapper = new ObjectMapper()
+            .registerModule(new JavaTimeModule())
+            .registerModule(new MaplinkSdkModule())
+            .disable(FAIL_ON_UNKNOWN_PROPERTIES);
 
     @Override
     public <T> T fromJson(byte[] data, Class<T> type) {
