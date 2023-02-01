@@ -32,6 +32,7 @@ public class Place {
     private final Set<String> phones;
     private final Map<String, String> additionalInfo;
     private final Set<SocialConnection> connections;
+    private final Set<String> tags;
     private final boolean active;
     private final String clientId;
 
