@@ -1,7 +1,7 @@
 package global.maplink.trip.schema.v2.problem;
 
 import global.maplink.json.JsonMapper;
-import global.maplink.trip.schema.v2.problem.SitePoint;
+import global.maplink.trip.schema.commons.SitePoint;
 import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;

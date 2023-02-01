@@ -9,6 +9,7 @@ import global.maplink.place.schema.PlaceRoute;
 import global.maplink.place.schema.SubCategory;
 import global.maplink.toll.schema.*;
 import global.maplink.toll.schema.result.CalculationDetail;
+import global.maplink.trip.schema.commons.SolutionLeg;
 import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
