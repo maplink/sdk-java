@@ -1,5 +1,6 @@
 package global.maplink.place.schema.exception;
 
+import global.maplink.validations.ValidationViolation;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -7,7 +8,7 @@ import static global.maplink.place.schema.PlaceRouteRequest.MAX_BUFFER;
 
 @Getter
 @AllArgsConstructor
-public enum ErrorType {
+public enum ErrorType implements ValidationViolation {
     PLACE_0001("The route buffer should be bigger than zero"),
     PLACE_0002("The stopping points buffer should be bigger than zero"),
     PLACE_0003("Category or subcategory info is necessary"),
