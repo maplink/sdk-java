@@ -8,15 +8,14 @@ import static global.maplink.place.schema.PlaceRouteRequest.MAX_BUFFER;
 
 @Getter
 @AllArgsConstructor
-public enum ErrorType implements ValidationViolation {
-    PLACE_0001("The route buffer should be bigger than zero"),
-    PLACE_0002("The stopping points buffer should be bigger than zero"),
-    PLACE_0003("Category or subcategory info is necessary"),
-    PLACE_0004("Legs info is necessary"),
-    PLACE_0005("The route buffer should be less than " + MAX_BUFFER),
-    PLACE_0006("The stopping points buffer should be less than " + MAX_BUFFER),
-    PLACE_0007("Required valid field")
-    ;
+public enum PlaceErrorType implements ValidationViolation {
+    ROUTE_BUFFER_LESS_THAN_ZERO("The route buffer should be bigger than zero"),
+    STOPPING_POINTS_LESS_THAN_ZERO("The stopping points buffer should be bigger than zero"),
+    CATEGORY_SUBCATEGORY_NECESSARY("Category or subcategory info is necessary"),
+    LEGS_INFO_NEEDED("Legs info is necessary"),
+    ROUTE_BUFFER_BIGGER_THAN_MAX_BUFFER("The route buffer should be less than " + MAX_BUFFER),
+    STOPPING_POINTS_BIGGER_THAN_MAX_BUFFER("The stopping points buffer should be less than " + MAX_BUFFER),
+    REQUIRED_FIELDS_INVALID("Required valid field");
 
     private final String message;
 }

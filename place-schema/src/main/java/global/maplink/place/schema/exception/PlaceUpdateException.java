@@ -9,6 +9,6 @@ public class PlaceUpdateException extends RuntimeException implements Serializab
     }
 
     private PlaceUpdateException(final String field) {
-        super(String.format("%s: %s", ErrorType.PLACE_0007.getMessage(), field));
+        super(String.format("%s: %s", PlaceErrorType.REQUIRED_FIELDS_INVALID.getMessage(), field));
     }
 }
