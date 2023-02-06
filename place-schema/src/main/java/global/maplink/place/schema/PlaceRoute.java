@@ -25,5 +25,6 @@ public class PlaceRoute {
     private final Set<String> phones;
     private final String clientId;
     private final Map<String, String> additionalInfo;
+    private final Set<String> tags;
     private final boolean active;
 }

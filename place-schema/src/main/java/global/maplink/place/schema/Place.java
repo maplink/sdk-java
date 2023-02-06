@@ -7,9 +7,9 @@ import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 
 import java.util.Map;
-import java.util.Objects;
 import java.util.Set;
 
+import static java.util.Objects.isNull;
 import static lombok.AccessLevel.PRIVATE;
 
 @Data
@@ -45,15 +45,15 @@ public class Place {
             throw PlaceUpdateException.of("name");
         }
 
-        if (Objects.isNull(category)) {
+        if (isNull(category)) {
             throw PlaceUpdateException.of("category");
         }
 
-        if (Objects.isNull(subCategory)) {
+        if (isNull(subCategory)) {
             throw PlaceUpdateException.of("subCategory");
         }
 
-        if (Objects.isNull(address)) {
+        if (isNull(address)) {
             throw PlaceUpdateException.of("subCategory");
         }
 
@@ -61,6 +61,6 @@ public class Place {
     }
 
     private boolean isInvalid(final String value) {
-        return Objects.isNull(value) || value.trim().isEmpty();
+        return isNull(value) || value.trim().isEmpty();
     }
 }
