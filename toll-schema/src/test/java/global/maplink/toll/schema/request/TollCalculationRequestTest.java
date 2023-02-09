@@ -6,7 +6,6 @@ import lombok.val;
 import org.junit.jupiter.api.Test;
 
 import static global.maplink.toll.schema.Billing.FREE_FLOW;
-import static global.maplink.toll.schema.Source.DEFAULT;
 import static global.maplink.toll.schema.TollVehicleType.CAR;
 import static global.maplink.toll.testUtils.SampleFiles.CALCULATION_REQUEST;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -20,7 +19,6 @@ class TollCalculationRequestTest {
     void shouldDeserialize() {
         val data = mapper.fromJson(CALCULATION_REQUEST.load(), TollCalculationRequest.class);
         assertThat(data.getBilling()).isEqualTo(FREE_FLOW);
-        assertThat(data.getSource()).isEqualTo(DEFAULT);
 
         assertThat(data.getLegs())
                 .hasSize(1);

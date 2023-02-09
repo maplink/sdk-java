@@ -6,7 +6,6 @@ import global.maplink.http.request.Request;
 import global.maplink.http.request.RequestBody;
 import global.maplink.json.JsonMapper;
 import global.maplink.toll.schema.Billing;
-import global.maplink.toll.schema.Source;
 import lombok.*;
 
 import java.util.List;
@@ -22,9 +21,6 @@ public class TollCalculationRequest implements MapLinkServiceRequest {
 
     @Singular
     private final List<LegRequest> legs;
-
-    @Builder.Default
-    private final Source source = Source.DEFAULT;
 
     @Builder.Default
     private final Billing billing = Billing.DEFAULT;
