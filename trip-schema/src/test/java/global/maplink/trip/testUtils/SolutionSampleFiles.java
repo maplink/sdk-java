@@ -10,10 +10,10 @@ import java.nio.file.Paths;
 
 @RequiredArgsConstructor
 public enum SolutionSampleFiles {
-    COORDINATES("trip/solution/json/coordinates.json"),
-    CROSSED_BORDER_RESPONSE("trip/solution/json/crossedBorderResponse.json"),
-    SOLUTION_LEG("trip/solution/json/solutionLeg.json"),
-    TRIP_RESPONSE("trip/solution/json/tripResponse.json");
+    COORDINATES("trip/v2/solution/json/coordinates.json"),
+    CROSSED_BORDER_RESPONSE("trip/v2/solution/json/crossedBorderResponse.json"),
+    SOLUTION_LEG("trip/v2/solution/json/solutionLeg.json"),
+    TRIP_RESPONSE("trip/v2/solution/json/tripResponse.json");
 
     private final String filePath;
 
