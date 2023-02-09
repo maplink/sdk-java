@@ -68,11 +68,11 @@ public class TripProblem implements Validable {
         }
 
         if (speedPreferences != null && !speedPreferences.isEmpty()) {
-            validateSpeedPreferences();
+            validateSpeedPreferences(errors);
         }
 
         if (vehicleSpecification != null) {
-            vehicleSpecification.validate();
+            errors.addAll(vehicleSpecification.validate());
         }
 
         if (freight != null) {
@@ -94,14 +94,14 @@ public class TripProblem implements Validable {
         validate();
     }
 
-    private void validateSpeedPreferences() {
+    private void validateSpeedPreferences(List<ValidationViolation> errors) {
         final long roadTypesCount = speedPreferences.stream()
                 .map(SpeedPreference::getRoadType)
                 .distinct()
                 .count();
 
         if (roadTypesCount != RoadType.values().length) {
-            throw new TripCalculationRequestException(TripErrorType.ROAD_TYPE_ELEMENTS_EMPTY);
+            errors.add(TripErrorType.ROAD_TYPE_ELEMENTS_EMPTY);
         }
     }
 

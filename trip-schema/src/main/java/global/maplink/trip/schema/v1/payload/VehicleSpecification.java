@@ -1,7 +1,6 @@
 package global.maplink.trip.schema.v1.payload;
 
 import global.maplink.trip.schema.v1.exception.TripErrorType;
-import global.maplink.trip.schema.v1.exception.TripCalculationRequestException;
 import global.maplink.validations.Validable;
 import global.maplink.validations.ValidationViolation;
 import lombok.*;
