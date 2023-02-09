@@ -1,0 +1,98 @@
+{
+  "distance": 1000,
+  "nominalDuration": 1200,
+  "averageSpeed": 70.0,
+  "points":[
+    {
+      "latitude": "-23.5666499",
+      "longitude": "-46.6557755"
+    }
+  ],
+  "firstPointAddress": {
+    "road": "Rua Doutor Otávio Teixeira Mendes",
+    "district": "Cidade Alta",
+    "zipCode": "13417095",
+    "city": "Piracicaba",
+    "state": {
+      "code": "SP",
+      "name": "São Paulo"
+    },
+    "mainLocation": {
+      "lat": -22.7331478,
+      "lon": -47.6370854
+    }
+  },
+  "placeCalculation": {
+    "total": 1,
+    "places": [
+      {
+        "id": "c4b00106-1d68-49ba-baeb-d72f7c7e35b2",
+        "name": "MAPLINK",
+        "documentNumber": "95.424.764/0001-10",
+        "category": "TECNOLOGIA",
+        "subCategory": "DESENVOLVIMENTO_DE_SOFTWARE",
+        "address": {
+          "street": "Alameda Campinas",
+          "number": "579",
+          "district": "Jardim Paulista",
+          "city": "São Paulo",
+          "state": "SP",
+          "zipcode": "01404-100",
+          "complement": "9th floor",
+          "point": {
+            "latitude": "-23.5666499",
+            "longitude": "-46.6557755"
+          }
+        },
+        "website": "https://maplink.global/",
+        "phones": [
+          "(11) 2222-3333",
+          "(11) 4444-5555"
+        ],
+        "clientId": "maplinkClientId",
+        "active": true
+      }
+    ]
+  },
+  "tollCalculation": {
+    "tolls": [
+      {
+        "id": "236e9cd5-4181-408c-b90f-a24c31237f11",
+        "name": "MAIN",
+        "address": "calculationDetailAddress",
+        "city": "Sao Paulo",
+        "state": {
+          "name": "Sao Paulo",
+          "code": "SP"
+        },
+        "country": "Brasil",
+        "concession": "IDK",
+        "direction": "NORTH",
+        "coordinates": {
+          "latitude": "-23.5666499",
+          "longitude": "-46.6557755"
+        },
+        "serviceTypes": [
+          {
+            "serviceId": "236e9cd5-4181-408c-b90f-a24c31237f11",
+            "name": "MAPLINK"
+          }
+        ],
+        "price": 59.7,
+        "conditions": [
+          {
+            "daysOfWeek": ["MONDAY", "WEDNESDAY", "FRIDAY"],
+            "periods": ["NORMAL", "HOLIDAY"],
+            "billingsType": ["NORMAL", "ADDITIONAL_AXLE"],
+            "timesWindow": ["ONE", "TWO"],
+            "tags": ["FIRST_TAG"],
+            "vehicleTypes": ["CAR_WITH_THREE_SIMPLE_AXLES", "BUS_WITH_FIVE_DOUBLE_AXLES", "TRUCK_WITH_TWO_DOUBLE_AXLES"],
+            "routes": ["ROUTE_ONE"],
+            "value": 149.8
+          }
+        ]
+      }
+    ],
+    "legTotalCost": 209.5
+  }
+}

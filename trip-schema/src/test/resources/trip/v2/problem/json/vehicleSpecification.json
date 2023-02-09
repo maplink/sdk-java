@@ -1,0 +1,12 @@
+{
+  "maxWeight": 1000.0,
+  "maxWeightPerAxle": 150.0,
+  "maxLength": 20.0,
+  "maxLengthBetweenAxles": 50.0,
+  "maxWidth": 7.0,
+  "maxHeight": 4.0,
+  "maxWeightForExplodingMaterials": 10.0,
+  "maxWeightForPollutingMaterials": 5.0,
+  "maxWeightForDangerousMaterials": 3.0,
+  "loadTypes": ["LoadTypeOne", "LoadTypeTwo"]
+}
