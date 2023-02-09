@@ -1,0 +1,11 @@
+{
+  "maxWeight": 10000,
+  "maxWeightPerAxle": 2000,
+  "maxLength": 40,
+  "maxLengthBetweenAxles": -1,
+  "maxWidth": 50,
+  "maxHeight": 5,
+  "maxWeightForExplodingMaterials": 30,
+  "maxWeightForPollutingMaterials": 30,
+  "maxWeightForDangerousMaterials": 30
+}

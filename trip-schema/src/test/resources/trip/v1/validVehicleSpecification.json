@@ -1,0 +1,12 @@
+{
+  "maxWeight": 10000,
+  "maxWeightPerAxle": 2000,
+  "maxLength": 40,
+  "maxLengthBetweenAxles": 5,
+  "maxWidth": 50,
+  "maxHeight": 5,
+  "maxWeightForExplodingMaterials": 30,
+  "maxWeightForPollutingMaterials": 30,
+  "maxWeightForDangerousMaterials": 30,
+  "loadTypes": ["BUILDING_PRODUCTS", "HEATH_WASTES", "SAND_GRAVELS"]
+}
