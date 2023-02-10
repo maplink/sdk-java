@@ -5,10 +5,13 @@ import global.maplink.env.Environment;
 import global.maplink.http.request.Request;
 import global.maplink.http.request.RequestBody;
 import global.maplink.json.JsonMapper;
-import global.maplink.place.schema.exception.ErrorType;
+import global.maplink.place.schema.exception.PlaceErrorType;
 import global.maplink.place.schema.exception.PlaceCalculationRequestException;
+import global.maplink.validations.Validable;
+import global.maplink.validations.ValidationViolation;
 import lombok.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -19,7 +22,7 @@ import static lombok.AccessLevel.PRIVATE;
 @Builder
 @RequiredArgsConstructor(staticName = "of")
 @NoArgsConstructor(force = true, access = PRIVATE)
-public class PlaceRouteRequest implements MapLinkServiceRequest {
+public class PlaceRouteRequest implements MapLinkServiceRequest, Validable {
 
     public static final String PATH = "place/v1/calculations";
 
@@ -34,33 +37,38 @@ public class PlaceRouteRequest implements MapLinkServiceRequest {
     @Singular
     private final List<Leg> legs;
 
-    public void validate() {
+    @Override
+    public List<ValidationViolation> validate() {
+        List<ValidationViolation> errors = new ArrayList<>();
+
         if (getBufferRouteInMeters() <= 0) {
-            throw new PlaceCalculationRequestException(ErrorType.PLACE_0001);
+            errors.add(PlaceErrorType.ROUTE_BUFFER_LESS_THAN_ZERO);
         }
 
         if (getBufferStoppingPointsInMeters() <= 0) {
-            throw new PlaceCalculationRequestException(ErrorType.PLACE_0002);
+            errors.add(PlaceErrorType.STOPPING_POINTS_LESS_THAN_ZERO);
         }
 
         if (!containsCategory() && !containsSubCategory()) {
-            throw new PlaceCalculationRequestException(ErrorType.PLACE_0003);
+            errors.add(PlaceErrorType.CATEGORY_SUBCATEGORY_NECESSARY);
         }
 
         if (getBufferRouteInMeters() > MAX_BUFFER) {
-            throw new PlaceCalculationRequestException(ErrorType.PLACE_0005);
+            errors.add(PlaceErrorType.ROUTE_BUFFER_BIGGER_THAN_MAX_BUFFER);
         }
 
         if (getBufferStoppingPointsInMeters() > MAX_BUFFER) {
-            throw new PlaceCalculationRequestException(ErrorType.PLACE_0006);
+            errors.add(PlaceErrorType.STOPPING_POINTS_BIGGER_THAN_MAX_BUFFER);
         }
+
+        return errors;
     }
 
     public void validateWithLegs() {
-        validate();
+        throwIfInvalid();
 
         if (getLegs() == null || getLegs().isEmpty()) {
-            throw new PlaceCalculationRequestException(ErrorType.PLACE_0004);
+            throw new PlaceCalculationRequestException(PlaceErrorType.LEGS_INFO_NEEDED);
         }
     }
 

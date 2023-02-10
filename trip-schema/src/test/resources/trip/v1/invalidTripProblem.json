@@ -1,0 +1,40 @@
+{
+  "clientId": "DEFAULT_CLIENT_ID",
+  "points": [
+    {
+      "siteId": "Start",
+      "latitude": -13.8169976,
+      "longitude": -56.0884274
+    },
+    {
+      "siteId": "End",
+      "latitude": -12.5407237,
+      "longitude": -55.7226752
+    }
+  ],
+  "calculationMode": "THE_FASTEST",
+  "speedPreferences": [
+    {
+      "roadType": "HIGHWAY",
+      "speed": 90,
+      "speedAtToll": 50
+    }
+  ],
+  "vehicleSpecification": {
+    "maxWeight": 10000,
+    "maxWeightPerAxle": 2000,
+    "maxLength": 40,
+    "maxLengthBetweenAxles": 5,
+    "maxWidth": 50,
+    "maxHeight": 5,
+    "maxWeightForExplodingMaterials": 30,
+    "maxWeightForPollutingMaterials": 30,
+    "maxWeightForDangerousMaterials": 30,
+    "loadTypes": ["BUILDING_PRODUCTS", "HEATH_WASTES", "SAND_GRAVELS"]
+  },
+  "avoidanceTypes": ["TUNNELS", "BRIDGES"],
+  "callback": {
+    "user": "user",
+    "password": "password"
+  }
+}

@@ -4,10 +4,7 @@ import global.maplink.emission.schema.EmissionResponse;
 import global.maplink.freight.schema.FreightCalculationResponse;
 import global.maplink.geocode.schema.Address;
 import global.maplink.trip.schema.v2.features.crossedBorders.CrossedBorderResponse;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
+import lombok.*;
 
 import java.math.BigDecimal;
 import java.time.OffsetDateTime;
@@ -28,6 +25,7 @@ public class TripResponse {
     private final BigDecimal averageSpeed;
     private final BigDecimal tollCosts;
     private final BigDecimal routeFreightCost;
+    @Singular
     private final List<SolutionLeg> legs;
     private final List<CrossedBorderResponse> crossedBorders;
     private final FreightCalculationResponse freight;

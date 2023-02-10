@@ -2,9 +2,14 @@ package global.maplink.freight.schema;
 
 import global.maplink.MapLinkServiceRequest;
 import global.maplink.env.Environment;
+import global.maplink.freight.schema.exception.FreightErrorType;
+import global.maplink.freight.schema.exception.FreightRequestException;
 import global.maplink.http.request.Request;
 import global.maplink.http.request.RequestBody;
 import global.maplink.json.JsonMapper;
+import global.maplink.validations.Validable;
+import global.maplink.validations.ValidationException;
+import global.maplink.validations.ValidationViolation;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -12,6 +17,7 @@ import lombok.RequiredArgsConstructor;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -22,7 +28,7 @@ import static lombok.AccessLevel.PRIVATE;
 @Builder
 @RequiredArgsConstructor(staticName = "of")
 @NoArgsConstructor(force = true, access = PRIVATE)
-public class FreightCalculationRequest implements MapLinkServiceRequest {
+public class FreightCalculationRequest implements MapLinkServiceRequest, Validable {
     public static final String PATH = "freight/v1/calculations";
 
     private final Set<OperationType> operationType;
@@ -40,5 +46,28 @@ public class FreightCalculationRequest implements MapLinkServiceRequest {
                 environment.withService(PATH),
                 RequestBody.Json.of(this, mapper)
         );
+    }
+
+    @Override
+    public List<ValidationViolation> validate() {
+        List<ValidationViolation> errors = new ArrayList<>();
+
+        if (date == null) {
+            errors.add(FreightErrorType.DATE_FIELD_EMPTY);
+        }
+
+        if (operationType == null || operationType.isEmpty()) {
+            errors.add(FreightErrorType.OPERATION_TYPE_FIELD_EMPTY);
+        }
+
+        if (goodsType == null || goodsType.isEmpty()) {
+            errors.add(FreightErrorType.GOODS_TYPE_FIELD_EMPTY);
+        }
+
+        if (axis == null || axis.isEmpty()) {
+            errors.add(FreightErrorType.AXIS_FIELD_EMPTY);
+        }
+
+        return errors;
     }
 }
