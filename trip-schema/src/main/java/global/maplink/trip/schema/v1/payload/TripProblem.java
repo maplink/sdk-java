@@ -17,6 +17,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
+import static global.maplink.trip.schema.v1.exception.TripErrorType.*;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -48,23 +50,23 @@ public class TripProblem implements Validable {
         List<ValidationViolation> errors = new ArrayList<>();
 
         if (profileName == null || profileName.isEmpty()) {
-            errors.add(TripErrorType.PROFILE_NAME_EMPTY);
+            errors.add(PROFILE_NAME_EMPTY);
         }
 
         if (calculationMode == null) {
-            errors.add(TripErrorType.CALCULATION_MODE_FIELD_EMPTY);
+            errors.add(CALCULATION_MODE_FIELD_EMPTY);
         }
 
         if (callback != null && callback.getUrl() == null) {
-            errors.add(TripErrorType.CALLBACK_DOES_NOT_HAVE_URL);
+            errors.add(CALLBACK_DOES_NOT_HAVE_URL);
         }
 
         if (toll != null && toll.getVehicleType() == null) {
-            errors.add(TripErrorType.TOLL_PARAMETERS_DOES_NOT_HAVE_VEHICLE_TYPE);
+            errors.add(TOLL_PARAMETERS_DOES_NOT_HAVE_VEHICLE_TYPE);
         }
 
         if (crossedBorders != null && crossedBorders.getLevel() == null) {
-            errors.add(TripErrorType.CROSSED_BORDERS_DOES_NOT_HAVE_LEVEL);
+            errors.add(CROSSED_BORDERS_DOES_NOT_HAVE_LEVEL);
         }
 
         if (speedPreferences != null && !speedPreferences.isEmpty()) {
@@ -88,7 +90,7 @@ public class TripProblem implements Validable {
 
     public void validateWithPoints() {
         if (points == null || points.size() < MINIMUM_POINTS) {
-            throw new TripCalculationRequestException(TripErrorType.ROUTE_POINTS_LESS_THAN_TWO);
+            throw new TripCalculationRequestException(ROUTE_POINTS_LESS_THAN_TWO);
         }
 
         validate();
@@ -101,7 +103,7 @@ public class TripProblem implements Validable {
                 .count();
 
         if (roadTypesCount != RoadType.values().length) {
-            errors.add(TripErrorType.ROAD_TYPE_ELEMENTS_EMPTY);
+            errors.add(ROAD_TYPE_ELEMENTS_EMPTY);
         }
     }
 

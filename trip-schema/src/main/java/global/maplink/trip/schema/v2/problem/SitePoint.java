@@ -30,7 +30,5 @@ public class SitePoint {
 
         return this.getLatitude().compareTo(other.getLatitude()) == 0
                 && this.getLongitude().compareTo(other.getLongitude()) == 0;
-//        return Objects.equals(this.getLatitude(), other.getLatitude())
-//                && Objects.equals(this.getLongitude(), other.getLongitude());
     }
 }
