@@ -2,11 +2,12 @@ package global.maplink.place.schema;
 
 import global.maplink.MapLinkServiceRequest;
 import global.maplink.env.Environment;
+import global.maplink.http.Response;
 import global.maplink.http.request.Request;
 import global.maplink.http.request.RequestBody;
 import global.maplink.json.JsonMapper;
-import global.maplink.place.schema.exception.PlaceErrorType;
 import global.maplink.place.schema.exception.PlaceCalculationRequestException;
+import global.maplink.place.schema.exception.PlaceErrorType;
 import global.maplink.validations.Validable;
 import global.maplink.validations.ValidationViolation;
 import lombok.*;
@@ -14,6 +15,7 @@ import lombok.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
+import java.util.function.Function;
 
 import static global.maplink.http.request.Request.post;
 import static lombok.AccessLevel.PRIVATE;
@@ -22,7 +24,7 @@ import static lombok.AccessLevel.PRIVATE;
 @Builder
 @RequiredArgsConstructor(staticName = "of")
 @NoArgsConstructor(force = true, access = PRIVATE)
-public class PlaceRouteRequest implements MapLinkServiceRequest, Validable {
+public class PlaceRouteRequest implements MapLinkServiceRequest<PlaceRouteResponse>, Validable {
 
     public static final String PATH = "place/v1/calculations";
 
@@ -86,5 +88,10 @@ public class PlaceRouteRequest implements MapLinkServiceRequest, Validable {
                 environment.withService(PATH),
                 RequestBody.Json.of(this, mapper)
         );
+    }
+
+    @Override
+    public Function<Response, PlaceRouteResponse> getResponseParser(JsonMapper mapper) {
+        return response -> response.parseBodyObject(mapper, PlaceRouteResponse.class);
     }
 }

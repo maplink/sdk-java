@@ -15,7 +15,8 @@ public enum PlaceErrorType implements ValidationViolation {
     LEGS_INFO_NEEDED("Legs info is necessary"),
     ROUTE_BUFFER_BIGGER_THAN_MAX_BUFFER("The route buffer should be less than " + MAX_BUFFER),
     STOPPING_POINTS_BIGGER_THAN_MAX_BUFFER("The stopping points buffer should be less than " + MAX_BUFFER),
-    REQUIRED_FIELDS_INVALID("Required valid field");
+    REQUIRED_FIELDS_INVALID("Required valid field")
+    ;
 
     private final String message;
 }

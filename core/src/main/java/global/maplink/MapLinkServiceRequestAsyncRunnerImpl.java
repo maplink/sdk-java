@@ -1,19 +1,20 @@
-package global.maplink.place.async;
+package global.maplink;
 
 import global.maplink.credentials.MapLinkCredentials;
 import global.maplink.env.Environment;
 import global.maplink.http.HttpAsyncEngine;
 import global.maplink.json.JsonMapper;
-import global.maplink.place.schema.PlaceRouteRequest;
-import global.maplink.place.schema.PlaceRouteResponse;
 import global.maplink.token.TokenProvider;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.val;
 
 import java.util.concurrent.CompletableFuture;
 
 @RequiredArgsConstructor
-public class PlaceAsyncApiImpl implements PlaceAsyncAPI {
+public class MapLinkServiceRequestAsyncRunnerImpl implements MapLinkServiceRequestAsyncRunner {
+
+    @Getter
     private final Environment environment;
 
     private final HttpAsyncEngine http;
@@ -25,10 +26,11 @@ public class PlaceAsyncApiImpl implements PlaceAsyncAPI {
     private final MapLinkCredentials credentials;
 
     @Override
-    public CompletableFuture<PlaceRouteResponse> calculate(PlaceRouteRequest request) {
+    public <T> CompletableFuture<T> run(MapLinkServiceRequest<T> request) {
         val httpRequest = request.asHttpRequest(environment, mapper);
         return credentials.fetchToken(tokenProvider)
                 .thenCompose(token -> http.run(token.applyOn(httpRequest)))
-                .thenApply(r -> r.parseBodyObject(mapper, PlaceRouteResponse.class));
+                .thenApply(request.getResponseParser(mapper));
     }
+
 }
