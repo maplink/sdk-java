@@ -2,6 +2,7 @@ package global.maplink.http;
 
 import global.maplink.http.exceptions.MapLinkHttpException;
 import global.maplink.json.JsonMapper;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
 import java.util.List;
@@ -9,6 +10,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class Response {
 
+    @Getter
     private final int statusCode;
 
     private final String contentType;

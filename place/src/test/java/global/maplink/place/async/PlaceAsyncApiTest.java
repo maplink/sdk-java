@@ -30,7 +30,7 @@ class PlaceAsyncApiTest {
     void mustFailWithInvalidCredentials() {
         configureWith(MapLinkCredentials.ofKey(DEFAULT_CLIENT_ID, DEFAULT_SECRET));
         val instance = PlaceAsyncAPI.getInstance();
-        assertThatThrownBy(() -> instance.calculate(PlaceRouteRequest.builder().build()).get())
+        assertThatThrownBy(() -> instance.calculate(validRequest()).get())
                 .isInstanceOf(ExecutionException.class)
                 .hasCauseInstanceOf(InvalidCredentialsException.class);
     }
@@ -40,7 +40,7 @@ class PlaceAsyncApiTest {
         withEnvCredentials(credentials -> {
             configureWith(credentials);
             val instance = PlaceAsyncAPI.getInstance(() -> "https://maplink.global");
-            assertThatThrownBy(() -> instance.calculate(PlaceRouteRequest.builder().build()).get())
+            assertThatThrownBy(() -> instance.calculate(validRequest()).get())
                     .isInstanceOf(ExecutionException.class)
                     .hasCauseInstanceOf(MapLinkHttpException.class);
         });
@@ -52,14 +52,7 @@ class PlaceAsyncApiTest {
             configureWith(credentials);
             val instance = PlaceAsyncAPI.getInstance();
             val result = instance.calculate(
-                    PlaceRouteRequest.builder()
-                            .category(POSTOS_DE_COMBUSTIVEL)
-                            .bufferRouteInMeters(10L)
-                            .bufferStoppingPointsInMeters(20L)
-                            .leg(Leg.of(
-                                    -23.36865, -46.77967,
-                                    -23.36875, -46.77805
-                            )).build()
+                    validRequest()
             ).get();
 
             assertThat(result.getTotal()).isEqualTo(1);
@@ -80,6 +73,17 @@ class PlaceAsyncApiTest {
                     .isEqualTo(Point.of(-23.368653161261896, -46.77969932556152));
             assertThat(firstPlace.getPhones()).isNotEmpty();
         });
+    }
+
+    private static PlaceRouteRequest validRequest() {
+        return PlaceRouteRequest.builder()
+                .category(POSTOS_DE_COMBUSTIVEL)
+                .bufferRouteInMeters(10L)
+                .bufferStoppingPointsInMeters(20L)
+                .leg(Leg.of(
+                        -23.36865, -46.77967,
+                        -23.36875, -46.77805
+                )).build();
     }
 
     private void configureWith(MapLinkCredentials credentials) {

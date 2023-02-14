@@ -12,10 +12,13 @@ import org.junit.jupiter.api.Test;
 
 import java.net.URL;
 
-import static com.github.tomakehurst.wiremock.client.WireMock.*;
+import static com.github.tomakehurst.wiremock.client.WireMock.ok;
+import static com.github.tomakehurst.wiremock.client.WireMock.post;
+import static com.github.tomakehurst.wiremock.core.WireMockConfiguration.wireMockConfig;
 import static com.github.tomakehurst.wiremock.matching.RequestPatternBuilder.allRequests;
 import static global.maplink.helpers.FutureHelper.await;
-import static org.assertj.core.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 public class HttpAsyncEngineJava11ImplTest {
 
@@ -25,7 +28,7 @@ public class HttpAsyncEngineJava11ImplTest {
 
     public static final String HTTP_1_1 = "HTTP/1.1";
 
-    public static WireMockServer wireMockServer = new WireMockServer();
+    public static WireMockServer wireMockServer = new WireMockServer(wireMockConfig().dynamicPort());
 
     @BeforeAll
     public static void wireMockServerStart() {

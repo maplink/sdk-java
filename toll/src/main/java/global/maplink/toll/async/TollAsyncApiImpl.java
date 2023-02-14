@@ -31,7 +31,7 @@ public class TollAsyncApiImpl implements TollAsyncAPI {
         val httpRequest = request.asHttpRequest(environment, mapper);
         return credentials.fetchToken(tokenProvider)
                 .thenCompose(token -> http.run(token.applyOn(httpRequest)))
-                .thenApply(r -> r.parseBodyObject(mapper, TollCalculationResult.class));
+                .thenApply(request.getResponseParser(mapper));
     }
 
 }

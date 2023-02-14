@@ -28,7 +28,7 @@ class PlaceSyncApiTest {
     void mustFailWithInvalidCredentials() {
         configureWith(MapLinkCredentials.ofKey(DEFAULT_CLIENT_ID, DEFAULT_SECRET));
         val instance = PlaceSyncAPI.getInstance();
-        assertThatThrownBy(() -> instance.calculate(PlaceRouteRequest.builder().build()))
+        assertThatThrownBy(() -> instance.calculate(validRequest()))
                 .isInstanceOf(InvalidCredentialsException.class);
     }
 
@@ -37,7 +37,7 @@ class PlaceSyncApiTest {
         withEnvCredentials(credentials -> {
             configureWith(credentials);
             val instance = PlaceSyncAPI.getInstance(() -> "https://maplink.global");
-            assertThatThrownBy(() -> instance.calculate(PlaceRouteRequest.builder().build()))
+            assertThatThrownBy(() -> instance.calculate(validRequest()))
                     .isInstanceOf(MapLinkHttpException.class);
         });
     }
@@ -48,14 +48,7 @@ class PlaceSyncApiTest {
             configureWith(credentials);
             val instance = PlaceSyncAPI.getInstance();
             val result = instance.calculate(
-                    PlaceRouteRequest.builder()
-                            .category(POSTOS_DE_COMBUSTIVEL)
-                            .bufferRouteInMeters(10L)
-                            .bufferStoppingPointsInMeters(20L)
-                            .leg(Leg.of(
-                                    -23.36865, -46.77967,
-                                    -23.36875, -46.77805
-                            )).build()
+                    validRequest()
             );
 
             assertThat(result.getTotal()).isEqualTo(1);
@@ -76,6 +69,17 @@ class PlaceSyncApiTest {
                     .isEqualTo(Point.of(-23.368653161261896, -46.77969932556152));
             assertThat(firstPlace.getPhones()).isNotEmpty();
         });
+    }
+
+    private static PlaceRouteRequest validRequest() {
+        return PlaceRouteRequest.builder()
+                .category(POSTOS_DE_COMBUSTIVEL)
+                .bufferRouteInMeters(10L)
+                .bufferStoppingPointsInMeters(20L)
+                .leg(Leg.of(
+                        -23.36865, -46.77967,
+                        -23.36875, -46.77805
+                )).build();
     }
 
     private void configureWith(MapLinkCredentials credentials) {

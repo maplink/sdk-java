@@ -1,9 +1,10 @@
 package global.maplink.place.sync;
 
 import global.maplink.place.async.PlaceAsyncAPI;
-import global.maplink.place.schema.PlaceRouteRequest;
-import global.maplink.place.schema.PlaceRouteResponse;
+import global.maplink.place.schema.*;
 import lombok.RequiredArgsConstructor;
+
+import java.util.Optional;
 
 import static global.maplink.helpers.FutureHelper.await;
 import static lombok.AccessLevel.PROTECTED;
@@ -15,5 +16,40 @@ public class PlaceSyncApiImpl implements PlaceSyncAPI {
     @Override
     public PlaceRouteResponse calculate(PlaceRouteRequest request) {
         return await(delegate.calculate(request));
+    }
+
+    @Override
+    public void create(CreatePlaceRequest request) {
+        await(delegate.create(request));
+    }
+
+    @Override
+    public void create(Place place) {
+        await(delegate.create(place));
+    }
+
+    @Override
+    public PlacePageResult listAll(ListAllPlacesRequest request) {
+        return await(delegate.listAll(request));
+    }
+
+    @Override
+    public PlacePageResult listAll(int limit, int offset) {
+        return await(delegate.listAll(limit, offset));
+    }
+
+    @Override
+    public PlacePageResult listAll() {
+        return await(delegate.listAll());
+    }
+
+    @Override
+    public Optional<Place> getByOriginId(PlaceByOriginIdRequest request) {
+        return await(delegate.getByOriginId(request));
+    }
+
+    @Override
+    public Optional<Place> getByOriginId(String originId) {
+        return await(delegate.getByOriginId(originId));
     }
 }

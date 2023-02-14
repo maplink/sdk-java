@@ -30,6 +30,6 @@ public class FreightAsyncApiImpl implements FreightAsyncAPI {
         val httpRequest = request.asHttpRequest(environment, mapper);
         return credentials.fetchToken(tokenProvider)
                 .thenCompose(token -> http.run(token.applyOn(httpRequest)))
-                .thenApply(r -> r.parseBodyObject(mapper, FreightCalculationResponse.class));
+                .thenApply(request.getResponseParser(mapper));
     }
 }
