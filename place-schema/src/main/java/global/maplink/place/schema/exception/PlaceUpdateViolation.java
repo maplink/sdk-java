@@ -2,10 +2,12 @@ package global.maplink.place.schema.exception;
 
 import global.maplink.validations.ValidationViolation;
 import lombok.Getter;
+import lombok.ToString;
 
 import static global.maplink.place.schema.exception.PlaceErrorType.REQUIRED_FIELDS_INVALID;
 
 @Getter
+@ToString
 public class PlaceUpdateViolation implements ValidationViolation {
 
     private final String message;
@@ -17,4 +19,5 @@ public class PlaceUpdateViolation implements ValidationViolation {
     public static PlaceUpdateViolation of(final String field) {
         return new PlaceUpdateViolation(field);
     }
+
 }

@@ -1,12 +1,13 @@
 package global.maplink.place.async;
 
 import global.maplink.MapLinkSDK;
-import global.maplink.MapLinkServiceRequestAsyncRunner;
 import global.maplink.env.Environment;
 import global.maplink.place.schema.*;
 
 import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
+
+import static global.maplink.MapLinkServiceRequestAsyncRunner.proxyFor;
 
 public interface PlaceAsyncAPI {
 
@@ -40,7 +41,8 @@ public interface PlaceAsyncAPI {
 
     static PlaceAsyncAPI getInstance(Environment environment) {
         MapLinkSDK sdk = MapLinkSDK.getInstance();
-        return MapLinkServiceRequestAsyncRunner.proxyFor(PlaceAsyncAPI.class,
+        return proxyFor(
+                PlaceAsyncAPI.class,
                 Optional.ofNullable(environment).orElse(sdk.getEnvironment()),
                 sdk.getHttp(),
                 sdk.getJsonMapper(),

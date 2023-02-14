@@ -27,6 +27,7 @@ public class MapLinkServiceRequestAsyncRunnerImpl implements MapLinkServiceReque
 
     @Override
     public <T> CompletableFuture<T> run(MapLinkServiceRequest<T> request) {
+        request.throwIfInvalid();
         val httpRequest = request.asHttpRequest(environment, mapper);
         return credentials.fetchToken(tokenProvider)
                 .thenCompose(token -> http.run(token.applyOn(httpRequest)))
