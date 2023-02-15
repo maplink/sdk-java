@@ -3,8 +3,12 @@ package global.maplink.domain;
 import ch.hsr.geohash.GeoHash;
 import lombok.Value;
 
+import java.util.Locale;
+
 import static ch.hsr.geohash.GeoHash.fromGeohashString;
 import static ch.hsr.geohash.GeoHash.geoHashStringWithCharacterPrecision;
+import static java.lang.String.format;
+import static java.util.Locale.ENGLISH;
 
 @Value
 public class MaplinkPoint {

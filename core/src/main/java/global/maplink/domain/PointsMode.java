@@ -12,7 +12,8 @@ public enum PointsMode {
     OBJECT,
     ARRAY,
     GEOHASH,
-    POLYLINE;
+    POLYLINE,
+    SIMPLE;
 
     private static final ThreadLocal<PointsMode> threadCurrent = new ThreadLocal<>();
 

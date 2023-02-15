@@ -5,13 +5,20 @@ import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.*;
 import global.maplink.domain.MaplinkPoint;
 import global.maplink.domain.PointsMode;
+import global.maplink.http.request.RequestBody;
 
 import java.io.IOException;
+import java.util.Map;
+
+import static java.lang.Double.parseDouble;
+import static java.lang.String.format;
+import static java.util.Locale.ENGLISH;
 
 public class MaplinkPointJacksonCodec extends MlpJacksonCodec<MaplinkPoint> {
 
     public static final String FIELD_LATITUDE = "latitude";
     public static final String FIELD_LONGITUDE = "longitude";
+    public static final String FIELD_POINT = "point";
 
     public MaplinkPointJacksonCodec() {
         super(MaplinkPoint.class, new Serializer(), new Deserializer());
@@ -26,6 +33,9 @@ public class MaplinkPointJacksonCodec extends MlpJacksonCodec<MaplinkPoint> {
                 SerializerProvider provider
         ) throws IOException {
             switch (PointsMode.current()) {
+                case SIMPLE:
+                    serializeAsSimple(value, jgen);
+                    break;
                 case ARRAY:
                     serializeAsArray(value, jgen);
                     break;
@@ -37,6 +47,12 @@ public class MaplinkPointJacksonCodec extends MlpJacksonCodec<MaplinkPoint> {
                     serializeAsObject(value, jgen);
                     break;
             }
+        }
+
+        private void serializeAsSimple(MaplinkPoint value, JsonGenerator jgen) throws IOException {
+            jgen.writeStartObject();
+            jgen.writeStringField(FIELD_POINT, format(ENGLISH, "%.7f,%7f", value.getLatitude(), value.getLongitude()));
+            jgen.writeEndObject();
         }
 
         private void serializeAsObject(MaplinkPoint value, JsonGenerator jgen) throws IOException {
@@ -70,7 +86,7 @@ public class MaplinkPointJacksonCodec extends MlpJacksonCodec<MaplinkPoint> {
                 case START_ARRAY:
                     return deserializeArray(parser);
                 case START_OBJECT:
-                    return deserializeObject(parser);
+                    return deserializeObjectOrSimple(parser);
                 default:
                     return null;
             }
@@ -86,12 +102,27 @@ public class MaplinkPointJacksonCodec extends MlpJacksonCodec<MaplinkPoint> {
             return MaplinkPoint.fromGeohash(coordinates);
         }
 
-        private MaplinkPoint deserializeObject(JsonParser parser) throws IOException {
+        private MaplinkPoint deserializeObjectOrSimple(JsonParser parser) throws IOException {
             JsonNode node = parser.readValueAsTree();
+            if (node.has(FIELD_POINT)) {
+                String value = node.get(FIELD_POINT).asText();
+                String[] coordinates = value.split(",");
+
+                if (coordinates.length != 2) {
+                    throw new IllegalArgumentException("Invalid point format [" + value + "], expected [lat,long]");
+                }
+
+                return new MaplinkPoint(
+                        parseDouble(coordinates[0]),
+                        parseDouble(coordinates[1])
+                );
+            }
+
             return new MaplinkPoint(
-                    node.get(FIELD_LATITUDE).asDouble(),
-                    node.get(FIELD_LONGITUDE).asDouble()
+                node.get(FIELD_LATITUDE).asDouble(),
+                node.get(FIELD_LONGITUDE).asDouble()
             );
+
         }
 
     }
