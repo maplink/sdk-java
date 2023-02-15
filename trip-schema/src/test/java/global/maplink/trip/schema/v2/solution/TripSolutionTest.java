@@ -22,23 +22,23 @@ import static global.maplink.trip.testUtils.SolutionSampleFiles.TRIP_RESPONSE;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 
-public class TripResponseTest {
+public class TripSolutionTest {
     private final JsonMapper mapper = JsonMapper.loadDefault();
 
     @Test
     public void shouldDeserialize() {
-        TripResponse tripResponse = mapper.fromJson(TRIP_RESPONSE.load(), TripResponse.class);
+        TripSolution tripSolution = mapper.fromJson(TRIP_RESPONSE.load(), TripSolution.class);
 
-        assertEquals("236e9cd5-4181-408c-b90f-a24c31237f11", tripResponse.getId());
-        assertEquals("tripResponseClientId", tripResponse.getClientId());
-        assertEquals(1565L, tripResponse.getTotalDistance());
-        assertEquals(1780L, tripResponse.getTotalNominalDuration());
-        assertEquals(0, new BigDecimal("70.0").compareTo(tripResponse.getAverageSpeed()));
-        assertEquals(0, new BigDecimal("380.95").compareTo(tripResponse.getTollCosts()));
-        assertEquals(0, new BigDecimal("450.0").compareTo(tripResponse.getRouteFreightCost()));
+        assertEquals("236e9cd5-4181-408c-b90f-a24c31237f11", tripSolution.getId());
+        assertEquals("tripResponseClientId", tripSolution.getClientId());
+        assertEquals(1565L, tripSolution.getTotalDistance());
+        assertEquals(1780L, tripSolution.getTotalNominalDuration());
+        assertEquals(0, new BigDecimal("70.0").compareTo(tripSolution.getAverageSpeed()));
+        assertEquals(0, new BigDecimal("380.95").compareTo(tripSolution.getTollCosts()));
+        assertEquals(0, new BigDecimal("450.0").compareTo(tripSolution.getRouteFreightCost()));
 
-        assertEquals(1, tripResponse.getLegs().size());
-        SolutionLeg solutionLeg = tripResponse.getLegs().get(0);
+        assertEquals(1, tripSolution.getLegs().size());
+        SolutionLeg solutionLeg = tripSolution.getLegs().get(0);
         assertEquals(1000L, solutionLeg.getDistance());
         assertEquals(1200L, solutionLeg.getNominalDuration());
         assertEquals(70.0D, solutionLeg.getAverageSpeed());
@@ -155,14 +155,14 @@ public class TripResponseTest {
 
         assertEquals(0, new BigDecimal("149.8").compareTo(tollCondition.getValue()));
 
-        assertEquals(1, tripResponse.getCrossedBorders().size());
-        CrossedBorderResponse crossedBorderResponse = tripResponse.getCrossedBorders().get(0);
+        assertEquals(1, tripSolution.getCrossedBorders().size());
+        CrossedBorderResponse crossedBorderResponse = tripSolution.getCrossedBorders().get(0);
         assertEquals("Sao Paulo", crossedBorderResponse.getCity());
         assertEquals("SP", crossedBorderResponse.getState());
         assertEquals("Brasil", crossedBorderResponse.getCountry());
 
-        assertNotNull(tripResponse.getStartAddress());
-        Address startAddress = tripResponse.getStartAddress();
+        assertNotNull(tripSolution.getStartAddress());
+        Address startAddress = tripSolution.getStartAddress();
         assertEquals("Rua Doutor Otávio Teixeira Mendes", startAddress.getRoad());
         assertEquals("568", startAddress.getNumber());
         assertEquals("Cidade Alta", startAddress.getDistrict());
@@ -175,8 +175,8 @@ public class TripResponseTest {
         assertEquals(0, new BigDecimal("-22.72859909085603").compareTo(startAddress.getMainLocation().getLat()));
         assertEquals(0, new BigDecimal("-47.646662703084864").compareTo(startAddress.getMainLocation().getLon()));
 
-        assertNotNull(tripResponse.getEndAddress());
-        Address endAddress = tripResponse.getEndAddress();
+        assertNotNull(tripSolution.getEndAddress());
+        Address endAddress = tripSolution.getEndAddress();
         assertEquals("Alameda Campinas", endAddress.getRoad());
         assertEquals("579", endAddress.getNumber());
         assertEquals("Jardim Paulista", endAddress.getDistrict());
@@ -189,9 +189,9 @@ public class TripResponseTest {
         assertEquals(0, new BigDecimal("-23.566649").compareTo(endAddress.getMainLocation().getLat()));
         assertEquals(0, new BigDecimal("-46.6557755").compareTo(endAddress.getMainLocation().getLon()));
 
-        assertEquals("maplink", tripResponse.getSource());
+        assertEquals("maplink", tripSolution.getSource());
 
-        assertThat(tripResponse.getCreatedAt()).isEqualTo("2022-10-26T00:00:00-03:00");
-        assertThat(tripResponse.getExpireIn()).isEqualTo("2023-10-26T00:00:00-03:00");
+        assertThat(tripSolution.getCreatedAt()).isEqualTo("2022-10-26T00:00:00-03:00");
+        assertThat(tripSolution.getExpireIn()).isEqualTo("2023-10-26T00:00:00-03:00");
     }
 }

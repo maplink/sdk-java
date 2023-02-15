@@ -17,7 +17,7 @@ import static lombok.AccessLevel.PRIVATE;
 @Builder
 @RequiredArgsConstructor
 @NoArgsConstructor(force = true, access = PRIVATE)
-public class TripResponse {
+public class TripSolution {
     private final String id;
     private final String clientId;
     private final Long totalDistance;

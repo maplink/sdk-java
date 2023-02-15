@@ -15,12 +15,12 @@ import static global.maplink.trip.testUtils.ProblemSampleFiles.TRIP_REQUEST;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 
-public class TripRequestTest {
+public class TripCalculateRequestTest {
     private final JsonMapper mapper = JsonMapper.loadDefault();
 
     @Test
     public void shouldDeserialize() {
-        TripRequest tripRequest = mapper.fromJson(TRIP_REQUEST.load(), TripRequest.class);
+        TripCalculateRequest tripRequest = mapper.fromJson(TRIP_REQUEST.load(), TripCalculateRequest.class);
         assertEquals(1, tripRequest.getPoints().size());
         assertEquals("36cdd555-41b6-4327-ac83-04ac74cff915", tripRequest.getPoints().get(0).getSiteId());
         assertEquals(0, new BigDecimal("-23.5666499").compareTo(tripRequest.getPoints().get(0).getLatitude()));
