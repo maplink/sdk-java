@@ -2,6 +2,7 @@ package global.maplink.emission.schema;
 
 import global.maplink.MapLinkServiceRequest;
 import global.maplink.env.Environment;
+import global.maplink.http.Response;
 import global.maplink.http.request.Request;
 import global.maplink.http.request.RequestBody;
 import global.maplink.json.JsonMapper;
@@ -11,6 +12,7 @@ import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 
 import java.math.BigDecimal;
+import java.util.function.Function;
 
 import static global.maplink.http.request.Request.put;
 import static lombok.AccessLevel.PRIVATE;
@@ -19,7 +21,7 @@ import static lombok.AccessLevel.PRIVATE;
 @Builder
 @RequiredArgsConstructor
 @NoArgsConstructor(force = true, access = PRIVATE)
-public final class EmissionRequest implements MapLinkServiceRequest {
+public final class EmissionRequest implements MapLinkServiceRequest<EmissionResponse> {
     public static final String PATH = "emission/v1/calculations";
 
     private final Source source;
@@ -36,4 +38,8 @@ public final class EmissionRequest implements MapLinkServiceRequest {
         );
     }
 
+    @Override
+    public Function<Response, EmissionResponse> getResponseParser(JsonMapper mapper) {
+        return r -> r.parseBodyObject(mapper, EmissionResponse.class);
+    }
 }

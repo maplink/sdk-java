@@ -32,6 +32,6 @@ public class EmissionAsyncApiImpl implements EmissionAsyncAPI {
         val httpRequest = request.asHttpRequest(environment, mapper);
         return credentials.fetchToken(tokenProvider)
                 .thenCompose(token -> http.run(token.applyOn(httpRequest)))
-                .thenApply(r -> r.parseBodyObject(mapper, EmissionResponse.class));
+                .thenApply(request.getResponseParser(mapper));
     }
 }

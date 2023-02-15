@@ -1,6 +1,8 @@
 package global.maplink.place.schema;
 
 import global.maplink.json.JsonMapper;
+import global.maplink.validations.ValidationException;
+import lombok.val;
 import org.junit.jupiter.api.Test;
 import org.junit.platform.commons.util.StringUtils;
 
@@ -12,6 +14,8 @@ import java.util.stream.Collectors;
 
 import static global.maplink.place.schema.PaymentMethod.*;
 import static global.maplink.place.testUtils.SampleFiles.PLACE;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class PlaceTest {
@@ -19,7 +23,7 @@ public class PlaceTest {
     private final JsonMapper mapper = JsonMapper.loadDefault();
 
     @Test
-    public void shouldDeserialize(){
+    public void shouldDeserialize() {
         Place place = mapper.fromJson(PLACE.load(), Place.class);
         assertEquals("a98553bc-78e5-4035-a048-74e361625ce1", place.getId());
         assertEquals("MAPLINK", place.getName());
@@ -69,5 +73,15 @@ public class PlaceTest {
         assertEquals("9th floor", place.getAddress().getComplement());
         assertEquals(0, new BigDecimal("-23.5666499").compareTo(place.getAddress().getPoint().getLatitude()));
         assertEquals(0, new BigDecimal("-46.6557755").compareTo(place.getAddress().getPoint().getLongitude()));
+        assertThat(place.validate()).isEmpty();
+        place.throwIfInvalid();
+    }
+
+    @Test
+    void shouldValidate() {
+        val place = Place.builder().build();
+        assertThat(place.validate()).isNotEmpty().hasSize(5);
+
+        assertThatThrownBy(place::throwIfInvalid).isInstanceOf(ValidationException.class);
     }
 }

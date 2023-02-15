@@ -62,7 +62,7 @@ public class GeocodeAsyncApiImpl implements GeocodeAsyncAPI {
         val httpRequest = request.asHttpRequest(environment, mapper);
         return credentials.fetchToken(tokenProvider)
                 .thenCompose(token -> http.run(token.applyOn(httpRequest)))
-                .thenApply(r -> r.parseBodyObject(mapper, SuggestionsResult.class));
+                .thenApply(request.getResponseParser(mapper));
     }
 
     private CompletableFuture<SuggestionsResult> runSplit(GeocodeSplittableRequest request) {

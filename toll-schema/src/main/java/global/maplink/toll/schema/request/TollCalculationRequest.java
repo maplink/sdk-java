@@ -2,13 +2,16 @@ package global.maplink.toll.schema.request;
 
 import global.maplink.MapLinkServiceRequest;
 import global.maplink.env.Environment;
+import global.maplink.http.Response;
 import global.maplink.http.request.Request;
 import global.maplink.http.request.RequestBody;
 import global.maplink.json.JsonMapper;
 import global.maplink.toll.schema.Billing;
+import global.maplink.toll.schema.result.TollCalculationResult;
 import lombok.*;
 
 import java.util.List;
+import java.util.function.Function;
 
 import static global.maplink.http.request.Request.post;
 
@@ -16,7 +19,7 @@ import static global.maplink.http.request.Request.post;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor(force = true)
-public class TollCalculationRequest implements MapLinkServiceRequest {
+public class TollCalculationRequest implements MapLinkServiceRequest<TollCalculationResult> {
     public static final String PATH = "toll/v1/calculations";
 
     @Singular
@@ -33,4 +36,8 @@ public class TollCalculationRequest implements MapLinkServiceRequest {
         );
     }
 
+    @Override
+    public Function<Response, TollCalculationResult> getResponseParser(JsonMapper mapper) {
+        return r -> r.parseBodyObject(mapper, TollCalculationResult.class);
+    }
 }

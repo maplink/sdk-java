@@ -1,11 +1,15 @@
 package global.maplink.place.schema;
 
-import global.maplink.place.schema.exception.PlaceUpdateException;
+import global.maplink.place.schema.exception.PlaceUpdateViolation;
+import global.maplink.validations.Validable;
+import global.maplink.validations.ValidationViolation;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -16,7 +20,7 @@ import static lombok.AccessLevel.PRIVATE;
 @Builder
 @RequiredArgsConstructor(staticName = "of")
 @NoArgsConstructor(force = true, access = PRIVATE)
-public class Place {
+public class Place implements Validable {
     private final String id;
     private final String name;
     private final String documentNumber;
@@ -36,28 +40,32 @@ public class Place {
     private final boolean active;
     private final String clientId;
 
-    public void validate() {
+    @Override
+    public List<ValidationViolation> validate() {
+        List<ValidationViolation> violations = new LinkedList<>();
         if (isInvalid(id)) {
-            throw PlaceUpdateException.of("id");
+            violations.add(PlaceUpdateViolation.of("id"));
         }
 
         if (isInvalid(name)) {
-            throw PlaceUpdateException.of("name");
+            violations.add(PlaceUpdateViolation.of("name"));
         }
 
         if (isNull(category)) {
-            throw PlaceUpdateException.of("category");
+            violations.add(PlaceUpdateViolation.of("category"));
         }
 
         if (isNull(subCategory)) {
-            throw PlaceUpdateException.of("subCategory");
+            violations.add(PlaceUpdateViolation.of("subCategory"));
         }
 
         if (isNull(address)) {
-            throw PlaceUpdateException.of("subCategory");
+            violations.add(PlaceUpdateViolation.of("subCategory"));
+        } else {
+            violations.addAll(address.validate());
         }
 
-        address.validate();
+        return violations;
     }
 
     private boolean isInvalid(final String value) {
