@@ -29,6 +29,7 @@ public class MaplinkPointsJacksonCodec extends MlpJacksonCodec<MaplinkPoints> {
                 SerializerProvider provider
         ) throws IOException {
             switch (PointsMode.current()) {
+                case SIMPLE:
                 case OBJECT:
                 case ARRAY:
                 case GEOHASH:

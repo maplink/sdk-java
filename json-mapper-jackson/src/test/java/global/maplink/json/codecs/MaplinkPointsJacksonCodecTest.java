@@ -83,6 +83,17 @@ class MaplinkPointsJacksonCodecTest {
     }
 
     @Test
+    void shouldSerializeAsSimple() {
+        String json = PointsMode.runWith(SIMPLE, () -> mapper.toJsonString(SAMPLE_POINTS));
+
+        assertThatJson(json,
+                j -> j.isArray().hasSize(6),
+                j -> j.isArray().first().isEqualTo("{\"point\":\"-23.5664900,-46.653800\"}"),
+                j -> j.isArray().last().isEqualTo("{\"point\":\"-23.5616200,-46.656150\"}")
+        );
+    }
+
+    @Test
     void shouldDeserializeFromMultipleTypes() {
         String json = format("[%s,%s,%s]",
                 "\"6gycfmgep\"",
