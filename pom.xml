@@ -37,6 +37,7 @@
         <module>jacoco-report</module>
         <module>emission</module>
         <module>emission-schema</module>
+        <module>trip</module>
         <module>trip-schema</module>
         <module>freight</module>
         <module>freight-schema</module>
@@ -104,6 +105,11 @@
             </dependency>
 
             <!-- Trip -->
+            <dependency>
+                <groupId>${project.groupId}</groupId>
+                <artifactId>sdk-trip</artifactId>
+                <version>${project.version}</version>
+            </dependency>
             <dependency>
                 <groupId>${project.groupId}</groupId>
                 <artifactId>trip-schema</artifactId>

@@ -6,12 +6,12 @@ import org.junit.jupiter.api.Test;
 import static global.maplink.trip.testUtils.V1SampleFiles.TRIP_RESPONSE;
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class TripResponseTest {
+public class TripSolutionIdTest {
     private final JsonMapper mapper = JsonMapper.loadDefault();
 
     @Test
     void shouldDeserialize(){
-        TripResponse tripResponse = mapper.fromJson(TRIP_RESPONSE.load(), TripResponse.class);
-        assertThat(tripResponse.getId()).isEqualTo("DEFAULT_ID");
+        TripSolutionId tripSolutionId = mapper.fromJson(TRIP_RESPONSE.load(), TripSolutionId.class);
+        assertThat(tripSolutionId.getId()).isEqualTo("DEFAULT_ID");
     }
 }

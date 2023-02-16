@@ -1,7 +1,6 @@
 package global.maplink.trip.schema.v1.payload;
 
 import global.maplink.json.JsonMapper;
-import global.maplink.trip.schema.v1.exception.TripErrorType;
 import global.maplink.trip.schema.v2.problem.SitePoint;
 import org.junit.jupiter.api.Test;
 
@@ -16,12 +15,12 @@ import static global.maplink.trip.testUtils.V1SampleFiles.INVALID_TRIP_PROBLEM;
 import static global.maplink.trip.testUtils.V1SampleFiles.VALID_TRIP_PROBLEM;
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class TripProblemTest {
+public class TripSendProblemRequestTest {
     private final JsonMapper mapper = JsonMapper.loadDefault();
 
     @Test
     void shouldDeserialize(){
-        TripProblem tripProblem = mapper.fromJson(VALID_TRIP_PROBLEM.load(), TripProblem.class);
+        TripSendProblemRequest tripProblem = mapper.fromJson(VALID_TRIP_PROBLEM.load(), TripSendProblemRequest.class);
 
         assertThat(tripProblem).isNotNull();
         assertThat(tripProblem.getClientId()).isEqualTo("DEFAULT_CLIENT_ID");
@@ -85,13 +84,13 @@ public class TripProblemTest {
     @Test
     void shouldValidateReturnEmptyErrorArray(){
         // TODO: Ajustar esse teste em relacao a regra de speedPreferences
-        TripProblem tripProblem = mapper.fromJson(VALID_TRIP_PROBLEM.load(), TripProblem.class);
+        TripSendProblemRequest tripProblem = mapper.fromJson(VALID_TRIP_PROBLEM.load(), TripSendProblemRequest.class);
 //        assertThat(tripProblem.validate()).isEmpty();
     }
 
     @Test
     void shouldValidateReturnNotEmptyErrorArray(){
-        TripProblem tripProblem = mapper.fromJson(INVALID_TRIP_PROBLEM.load(), TripProblem.class);
+        TripSendProblemRequest tripProblem = mapper.fromJson(INVALID_TRIP_PROBLEM.load(), TripSendProblemRequest.class);
         assertThat(tripProblem.validate()).isNotEmpty();
         assertThat(tripProblem.validate()).containsExactlyInAnyOrder(
                 PROFILE_NAME_EMPTY, CALLBACK_DOES_NOT_HAVE_URL, ROAD_TYPE_ELEMENTS_EMPTY

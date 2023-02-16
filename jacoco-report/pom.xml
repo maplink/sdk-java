@@ -12,6 +12,7 @@
             <groupId>${project.groupId}</groupId>
             <artifactId>sdk-core</artifactId>
         </dependency>
+
         <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>sdk-geocode</artifactId>
@@ -20,6 +21,7 @@
             <groupId>${project.groupId}</groupId>
             <artifactId>geocode-schema</artifactId>
         </dependency>
+
         <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>sdk-emission</artifactId>
@@ -28,10 +30,16 @@
             <groupId>${project.groupId}</groupId>
             <artifactId>emission-schema</artifactId>
         </dependency>
+
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>sdk-trip</artifactId>
+        </dependency>
         <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>trip-schema</artifactId>
         </dependency>
+
         <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>sdk-freight</artifactId>
@@ -40,6 +48,7 @@
             <groupId>${project.groupId}</groupId>
             <artifactId>freight-schema</artifactId>
         </dependency>
+
         <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>sdk-place</artifactId>
@@ -48,6 +57,7 @@
             <groupId>${project.groupId}</groupId>
             <artifactId>place-schema</artifactId>
         </dependency>
+
         <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>sdk-toll</artifactId>
@@ -56,10 +66,12 @@
             <groupId>${project.groupId}</groupId>
             <artifactId>toll-schema</artifactId>
         </dependency>
+
         <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>tracking-schema</artifactId>
         </dependency>
+
         <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>http-engine-java11-client</artifactId>
