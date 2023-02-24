@@ -1,8 +1,9 @@
 package global.maplink.domain;
 
-import lombok.*;
-
-import java.util.List;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 
 @Data
 @RequiredArgsConstructor
@@ -10,6 +11,5 @@ import java.util.List;
 @Builder
 public class MaplinkPolygon {
     private final String name;
-    @Singular
-    private final List<MaplinkPoints> vertices;
+    private final MaplinkPoints vertices;
 }
