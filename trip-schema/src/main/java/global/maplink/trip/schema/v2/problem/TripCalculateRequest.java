@@ -9,6 +9,7 @@ import global.maplink.http.request.Request;
 import global.maplink.http.request.RequestBody;
 import global.maplink.json.JsonMapper;
 import global.maplink.place.schema.PlaceRouteRequest;
+import global.maplink.trip.schema.v1.payload.AvoidanceType;
 import global.maplink.trip.schema.v2.features.crossedBorders.CrossedBordersRequest;
 import global.maplink.trip.schema.v2.solution.TripSolution;
 import lombok.*;
@@ -19,29 +20,32 @@ import java.util.Set;
 import java.util.function.Function;
 
 import static global.maplink.http.request.Request.post;
-import static global.maplink.trip.schema.v2.problem.CalculationMode.THE_FASTEST;
-import static lombok.AccessLevel.PRIVATE;
 
-@Data
-@Builder
-@AllArgsConstructor
-@NoArgsConstructor(force = true, access = PRIVATE)
-public class TripCalculateRequest implements MapLinkServiceRequest<TripSolution> {
+@Getter
+@ToString
+@EqualsAndHashCode(callSuper = true)
+@NoArgsConstructor(force = true)
+public class TripCalculateRequest extends TripProblem implements MapLinkServiceRequest<TripSolution> {
     public static final String PATH = "trip/v2/calculations";
-    @Singular
-    private final List<SitePoint> points;
-    @Builder.Default
-    private final CalculationMode calculationMode = THE_FASTEST;
-    @Singular
-    private final Set<String> restrictionZones;
-    @Singular
-    private final Set<String> avoidanceTypes;
-    private final TollRequest toll;
-    private final CrossedBordersRequest crossedBorders;
-    private final FreightCalculationRequest freight;
-    private final EmissionRequest emission;
-    private final PlaceRouteRequest place;
     private final OffsetDateTime expireIn;
+
+    @Builder
+    public TripCalculateRequest(
+            @Singular List<SitePoint> points,
+            CalculationMode calculationMode,
+            @Singular Set<String> restrictionZones,
+            @Singular Set<AvoidanceType> avoidanceTypes,
+            TollRequest toll,
+            CrossedBordersRequest crossedBorders,
+            FreightCalculationRequest freight,
+            EmissionRequest emission,
+            PlaceRouteRequest place,
+            OffsetDateTime expireIn
+    ) {
+        super(points, calculationMode, restrictionZones, avoidanceTypes, toll, crossedBorders, freight, emission, place);
+        this.expireIn = expireIn;
+    }
+
 
     @Override
     public Request asHttpRequest(Environment environment, JsonMapper mapper) {

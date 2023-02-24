@@ -7,11 +7,13 @@ import global.maplink.trip.schema.v2.features.crossedBorders.CrossedBordersReque
 import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
-import java.util.Arrays;
 
+import static global.maplink.trip.schema.v1.payload.AvoidanceType.BRIDGES;
+import static global.maplink.trip.schema.v1.payload.AvoidanceType.TUNNELS;
 import static global.maplink.trip.schema.v2.features.crossedBorders.CrossedBorderLevel.CITY;
 import static global.maplink.trip.schema.v2.features.reverseGeocode.ReverseGeocodePointsMode.START_END;
 import static global.maplink.trip.testUtils.ProblemSampleFiles.TRIP_REQUEST;
+import static java.util.Arrays.asList;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -29,10 +31,10 @@ public class TripCalculateRequestTest {
         assertEquals(CalculationMode.THE_FASTEST, tripRequest.getCalculationMode());
 
         assertEquals(2, tripRequest.getRestrictionZones().size());
-        assertTrue(tripRequest.getRestrictionZones().containsAll(Arrays.asList("ONE", "TWO")));
+        assertTrue(tripRequest.getRestrictionZones().containsAll(asList("ONE", "TWO")));
 
         assertEquals(2, tripRequest.getAvoidanceTypes().size());
-        assertTrue(tripRequest.getAvoidanceTypes().containsAll(Arrays.asList("FIRST", "SECOND")));
+        assertThat(tripRequest.getAvoidanceTypes()).containsExactlyInAnyOrder(TUNNELS, BRIDGES);
 
         TollRequest tollRequest = tripRequest.getToll();
         assertNotNull(tollRequest);
