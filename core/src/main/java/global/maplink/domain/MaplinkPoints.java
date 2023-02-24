@@ -11,6 +11,7 @@ import java.util.stream.Stream;
 
 import static java.lang.Math.floor;
 import static java.lang.Math.max;
+import static java.util.stream.IntStream.range;
 
 @RequiredArgsConstructor
 @EqualsAndHashCode
@@ -107,6 +108,21 @@ public class MaplinkPoints implements Iterable<MaplinkPoint> {
     @Override
     public Spliterator<MaplinkPoint> spliterator() {
         return Arrays.spliterator(data);
+    }
+
+    public static MaplinkPoints from(double... points) {
+        if (points.length == 0) {
+            return EMPTY;
+        }
+        if (points.length % 2 != 0) {
+            throw new IllegalArgumentException("MaplinkPoints.from requires coordinates in pairs");
+        }
+        return new MaplinkPoints(
+                range(0, points.length / 2)
+                        .map(i -> i * 2)
+                        .mapToObj(v -> new MaplinkPoint(points[v], points[v + 1]))
+                        .toArray(MaplinkPoint[]::new)
+        );
     }
 
     public static MaplinkPoints from(double[][] points) {
