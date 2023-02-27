@@ -1,0 +1,98 @@
+[
+  {
+    "name": "Sample1",
+    "roadMap": "MAPLINKBR_202201",
+    "geometries": [
+      {
+        "name": "Polygon1-1",
+        "vertices": [
+          {
+            "latitude": -22.639,
+            "longitude": -51.372
+          },
+          {
+            "latitude": -22.640,
+            "longitude": -51.370
+          },
+          {
+            "latitude": -22.673,
+            "longitude": -51.372
+          },
+          {
+            "latitude": -22.679,
+            "longitude": -51.368
+          },
+          {
+            "latitude": -22.68,
+            "longitude": -51.369
+          },
+          {
+            "latitude": -22.659,
+            "longitude": -51.388
+          },
+          {
+            "latitude": -22.6393,
+            "longitude": -51.373
+          }
+        ]
+      }
+    ],
+    "status": {
+      "name": "CALCULATED",
+      "description": "Roads inside restriction zone calculated",
+      "calculated": true
+    }
+  },
+  {
+    "name": "Sample2",
+    "roadMap": "MAPLINKBR_202201",
+    "geometries": [
+      {
+        "name": "Polygon2-1",
+        "vertices": [
+          {
+            "latitude": -23.528,
+            "longitude": -46.587
+          },
+          {
+            "latitude": -23.522,
+            "longitude": -46.602
+          },
+          {
+            "latitude": -23.521,
+            "longitude": -46.603
+          },
+          {
+            "latitude": -23.5218,
+            "longitude": -46.6046
+          },
+          {
+            "latitude": -23.521,
+            "longitude": -46.605
+          },
+          {
+            "latitude": -23.521,
+            "longitude": -46.606
+          },
+          {
+            "latitude": -23.5283,
+            "longitude": -46.5826
+          },
+          {
+            "latitude": -23.527,
+            "longitude": -46.584
+          },
+          {
+            "latitude": -23.528,
+            "longitude": -46.587
+          }
+        ]
+      }
+    ],
+    "status": {
+      "name": "CALCULATED",
+      "description": "Roads inside restriction zone calculated",
+      "calculated": true
+    }
+  }
+]

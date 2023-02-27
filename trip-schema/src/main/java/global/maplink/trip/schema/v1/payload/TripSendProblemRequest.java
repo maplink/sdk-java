@@ -14,6 +14,7 @@ import global.maplink.trip.schema.v2.features.crossedBorders.CrossedBordersReque
 import global.maplink.trip.schema.v2.problem.CalculationMode;
 import global.maplink.trip.schema.v2.problem.SitePoint;
 import global.maplink.trip.schema.v2.problem.TollRequest;
+import global.maplink.trip.schema.v2.problem.TripProblem;
 import global.maplink.validations.ValidationViolation;
 import lombok.*;
 
@@ -25,32 +26,44 @@ import java.util.function.Function;
 import static global.maplink.http.request.Request.post;
 import static global.maplink.trip.schema.v1.exception.TripErrorType.*;
 
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
-@Builder
-public class TripSendProblemRequest implements MapLinkServiceRequest<TripSolutionId> {
+@Getter
+@ToString
+@EqualsAndHashCode(callSuper = true)
+@NoArgsConstructor(force = true)
+public class TripSendProblemRequest extends TripProblem implements MapLinkServiceRequest<TripSolutionId> {
     public static final String PATH = "trip/v1/problems";
     private static final int MINIMUM_POINTS = 2;
 
-    private String clientId;
-    private String profileName;
-    @Singular
-    private List<SitePoint> points;
-    private CalculationMode calculationMode;
-    @Singular
-    private List<SpeedPreference> speedPreferences;
-    private VehicleSpecification vehicleSpecification;
-    @Singular
-    private Set<String> restrictionZones;
-    @Singular
-    private Set<AvoidanceType> avoidanceTypes;
-    private Callback callback;
-    private TollRequest toll;
-    private CrossedBordersRequest crossedBorders;
-    private FreightCalculationRequest freight;
-    private EmissionRequest emission;
-    private PlaceRouteRequest place;
+    private final String clientId;
+    private final String profileName;
+    private final List<SpeedPreference> speedPreferences;
+    private final VehicleSpecification vehicleSpecification;
+    private final Callback callback;
+
+    @Builder
+    public TripSendProblemRequest(
+            @Singular List<SitePoint> points,
+            CalculationMode calculationMode,
+            @Singular Set<String> restrictionZones,
+            @Singular Set<AvoidanceType> avoidanceTypes,
+            TollRequest toll,
+            CrossedBordersRequest crossedBorders,
+            FreightCalculationRequest freight,
+            EmissionRequest emission,
+            PlaceRouteRequest place,
+            String clientId,
+            String profileName,
+            @Singular List<SpeedPreference> speedPreferences,
+            VehicleSpecification vehicleSpecification,
+            Callback callback
+    ) {
+        super(points, calculationMode, restrictionZones, avoidanceTypes, toll, crossedBorders, freight, emission, place);
+        this.clientId = clientId;
+        this.profileName = profileName;
+        this.speedPreferences = speedPreferences;
+        this.vehicleSpecification = vehicleSpecification;
+        this.callback = callback;
+    }
 
     @Override
     public Request asHttpRequest(Environment environment, JsonMapper mapper) {

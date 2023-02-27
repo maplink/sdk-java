@@ -10,6 +10,7 @@ import java.util.Random;
 
 import static java.util.stream.IntStream.range;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 class MaplinkPointsTest {
 
@@ -48,6 +49,31 @@ class MaplinkPointsTest {
                     -46.65615
             }
     };
+
+    @Test
+    void shouldBeFillableFromDoubleArray() {
+        MaplinkPoints points = MaplinkPoints.from(
+                -23.56649,
+                -46.6538,
+                -23.5658,
+                -46.65313,
+                -23.56486,
+                -46.65221,
+                -23.56486,
+                -46.65221,
+                -23.56161,
+                -46.65613,
+                -23.56162,
+                -46.65615
+        );
+
+        assertThatMatchWithSample(points);
+    }
+
+    @Test
+    void shouldFailWhenInvalidDoubleArrayIsPassed() {
+        assertThatThrownBy(() -> MaplinkPoints.from(-23.56649, -46.6538, -23.5658)).isInstanceOf(IllegalArgumentException.class);
+    }
 
     @Test
     void shouldSerializeAsValidPolyline() {
