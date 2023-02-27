@@ -14,6 +14,7 @@ jobs:
       - name: Build and Test
         uses: qcastel/github-actions-maven-cmd@master
         env:
+          JAVA_HOME: /usr/lib/jvm/java-11-openjdk/
           MAPLINK_CLIENT_ID: ${{ secrets.MAPLINK_CLIENT_ID }}
           MAPLINK_SECRET: ${{ secrets.MAPLINK_SECRET }}
         with:
