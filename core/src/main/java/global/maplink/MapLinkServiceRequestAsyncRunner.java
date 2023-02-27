@@ -7,12 +7,12 @@ import global.maplink.json.JsonMapper;
 import global.maplink.token.TokenProvider;
 import lombok.RequiredArgsConstructor;
 
-import java.lang.invoke.MethodHandles;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
 import java.util.concurrent.CompletableFuture;
 
+import static global.maplink.helpers.ProxyHelper.handleFor;
 import static java.lang.String.format;
 import static java.lang.System.identityHashCode;
 
@@ -56,8 +56,6 @@ public interface MapLinkServiceRequestAsyncRunner {
 
         private final MapLinkServiceRequestAsyncRunner runner;
 
-        private final MethodHandles.Lookup lookup = MethodHandles.lookup();
-
         @Override
         public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
             if (method.isDefault()) {
@@ -80,8 +78,7 @@ public interface MapLinkServiceRequestAsyncRunner {
         }
 
         private Object invokeDefault(Object proxy, Method method, Object[] args) throws Throwable {
-            return lookup
-                    .unreflectSpecial(method, method.getDeclaringClass())
+            return handleFor(method)
                     .bindTo(proxy)
                     .invokeWithArguments(args);
         }
