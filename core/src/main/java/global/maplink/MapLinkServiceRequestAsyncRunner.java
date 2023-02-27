@@ -43,7 +43,7 @@ public interface MapLinkServiceRequestAsyncRunner {
     ) {
         MapLinkServiceRequestAsyncRunner runner = createRunner(environment, http, mapper, tokenProvider, credentials);
         return (T) Proxy.newProxyInstance(
-                apiClass.getClassLoader(),
+                Thread.currentThread().getContextClassLoader(),
                 new Class[]{apiClass},
                 new ProxyApiImpl<>(apiClass, runner)
         );
