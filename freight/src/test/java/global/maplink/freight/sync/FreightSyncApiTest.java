@@ -10,11 +10,13 @@ import lombok.val;
 import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 
 import static global.maplink.env.EnvironmentCatalog.HOMOLOG;
 import static global.maplink.freight.common.Defaults.DEFAULT_CLIENT_ID;
 import static global.maplink.freight.common.Defaults.DEFAULT_SECRET;
 import static global.maplink.freight.schema.GoodsType.GRANEL_SOLIDO;
+import static global.maplink.freight.schema.OperationType.A;
 import static global.maplink.freight.utils.EnvCredentialsHelper.withEnvCredentials;
 import static java.time.LocalDate.now;
 import static java.util.Collections.singleton;
@@ -34,7 +36,7 @@ class FreightSyncApiTest {
     void mustFailWithInvalidCredentials() {
         configureWith(MapLinkCredentials.ofKey(DEFAULT_CLIENT_ID, DEFAULT_SECRET));
         val instance = FreightSyncAPI.getInstance();
-        assertThatThrownBy(() -> instance.calculate(FreightCalculationRequest.builder().build()))
+        assertThatThrownBy(() -> instance.calculate(validRequest()))
                 .isInstanceOf(InvalidCredentialsException.class);
     }
 
@@ -43,9 +45,18 @@ class FreightSyncApiTest {
         withEnvCredentials(credentials -> {
             configureWith(credentials);
             val instance = FreightSyncAPI.getInstance(() -> "https://maplink.global");
-            assertThatThrownBy(() -> instance.calculate(FreightCalculationRequest.builder().build()))
+            assertThatThrownBy(() -> instance.calculate(validRequest()))
                     .isInstanceOf(MapLinkHttpException.class);
         });
+    }
+
+    private static FreightCalculationRequest validRequest() {
+        return FreightCalculationRequest.builder()
+                .date(LocalDate.now())
+                .operationType(singleton(A))
+                .axis(singleton(4))
+                .goodsType(singleton(GRANEL_SOLIDO))
+                .build();
     }
 
     @Test

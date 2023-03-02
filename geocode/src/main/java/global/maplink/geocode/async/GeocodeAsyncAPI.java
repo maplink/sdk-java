@@ -14,6 +14,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 
+import static global.maplink.MapLinkServiceRequestAsyncRunner.createRunner;
 import static java.util.Arrays.asList;
 
 public interface GeocodeAsyncAPI {
@@ -57,11 +58,10 @@ public interface GeocodeAsyncAPI {
     static GeocodeAsyncAPI getInstance(Environment environment) {
         MapLinkSDK sdk = MapLinkSDK.getInstance();
         return new GeocodeAsyncApiImpl(
-                Optional.ofNullable(environment).orElse(sdk.getEnvironment()),
-                sdk.getHttp(),
-                sdk.getJsonMapper(),
-                sdk.getTokenProvider(),
-                sdk.getCredentials(),
+                createRunner(
+                        Optional.ofNullable(environment).orElse(sdk.getEnvironment()),
+                        sdk
+                ),
                 GeocodeExtensionManager.from(sdk.getExtensions())
         );
     }

@@ -8,6 +8,8 @@ import global.maplink.freight.schema.FreightCalculationResponse;
 import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 
+import static global.maplink.MapLinkServiceRequestAsyncRunner.proxyFor;
+
 public interface FreightAsyncAPI {
 
     CompletableFuture<FreightCalculationResponse> calculate(FreightCalculationRequest request);
@@ -18,12 +20,10 @@ public interface FreightAsyncAPI {
 
     static FreightAsyncAPI getInstance(Environment environment) {
         MapLinkSDK sdk = MapLinkSDK.getInstance();
-        return new FreightAsyncApiImpl(
+        return proxyFor(
+                FreightAsyncAPI.class,
                 Optional.ofNullable(environment).orElse(sdk.getEnvironment()),
-                sdk.getHttp(),
-                sdk.getJsonMapper(),
-                sdk.getTokenProvider(),
-                sdk.getCredentials()
+                sdk
         );
     }
 }

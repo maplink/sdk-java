@@ -2,6 +2,7 @@ package global.maplink;
 
 import global.maplink.credentials.MapLinkCredentials;
 import global.maplink.env.Environment;
+import global.maplink.extensions.SdkExtension;
 import global.maplink.http.HttpAsyncEngine;
 import global.maplink.json.JsonMapper;
 import global.maplink.token.TokenProvider;
@@ -10,6 +11,7 @@ import lombok.RequiredArgsConstructor;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
+import java.util.Collection;
 import java.util.concurrent.CompletableFuture;
 
 import static global.maplink.helpers.ProxyHelper.handleFor;
@@ -24,24 +26,61 @@ public interface MapLinkServiceRequestAsyncRunner {
 
     static MapLinkServiceRequestAsyncRunner createRunner(
             Environment environment,
+            MapLinkSDK sdk
+    ) {
+        return createRunner(
+                environment,
+                sdk.getHttp(),
+                sdk.getJsonMapper(),
+                sdk.getTokenProvider(),
+                sdk.getCredentials(),
+                sdk.getExtensions()
+        );
+    }
+
+    static MapLinkServiceRequestAsyncRunner createRunner(
+            Environment environment,
             HttpAsyncEngine http,
             JsonMapper mapper,
             TokenProvider tokenProvider,
-            MapLinkCredentials credentials
+            MapLinkCredentials credentials,
+            Collection<SdkExtension> extensions
     ) {
-        return new MapLinkServiceRequestAsyncRunnerImpl(environment, http, mapper, tokenProvider, credentials);
+        return new MapLinkServiceRequestAsyncRunnerImpl(
+                environment,
+                http,
+                mapper,
+                tokenProvider,
+                credentials,
+                extensions
+        );
     }
 
-    @SuppressWarnings("unchecked")
+    static <T> T proxyFor(
+            Class<T> apiClass,
+            Environment environment,
+            MapLinkSDK sdk
+    ) {
+        return proxyFor(apiClass, createRunner(environment, sdk));
+    }
+
     static <T> T proxyFor(
             Class<T> apiClass,
             Environment environment,
             HttpAsyncEngine http,
             JsonMapper mapper,
             TokenProvider tokenProvider,
-            MapLinkCredentials credentials
+            MapLinkCredentials credentials,
+            Collection<SdkExtension> extensions
     ) {
-        MapLinkServiceRequestAsyncRunner runner = createRunner(environment, http, mapper, tokenProvider, credentials);
+        return proxyFor(apiClass, createRunner(environment, http, mapper, tokenProvider, credentials, extensions));
+    }
+
+    @SuppressWarnings("unchecked")
+    static <T> T proxyFor(
+            Class<T> apiClass,
+            MapLinkServiceRequestAsyncRunner runner
+    ) {
         return (T) Proxy.newProxyInstance(
                 Thread.currentThread().getContextClassLoader(),
                 new Class[]{apiClass},

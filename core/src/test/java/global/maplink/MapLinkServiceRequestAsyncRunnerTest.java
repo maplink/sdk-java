@@ -10,6 +10,7 @@ import org.junit.jupiter.api.Test;
 import java.time.Instant;
 
 import static global.maplink.MapLinkServiceRequestAsyncRunner.proxyFor;
+import static java.util.Collections.emptyList;
 import static java.util.concurrent.CompletableFuture.completedFuture;
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -25,7 +26,8 @@ class MapLinkServiceRequestAsyncRunnerTest {
                 new MockHttpAsyncEngine(),
                 new MockJsonMapper(),
                 (clientId, secret) -> completedFuture(new OAuthMapLinkTokenImpl("", Instant.MAX)),
-                MapLinkCredentials.ofKey("test", "test")
+                MapLinkCredentials.ofKey("test", "test"),
+                emptyList()
         );
         assertThat(proxy.getValue()).isEqualTo(EXPECTED);
     }
