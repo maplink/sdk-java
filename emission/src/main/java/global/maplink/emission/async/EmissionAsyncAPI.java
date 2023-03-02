@@ -11,6 +11,8 @@ import java.math.BigDecimal;
 import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 
+import static global.maplink.MapLinkServiceRequestAsyncRunner.proxyFor;
+
 public interface EmissionAsyncAPI {
 
     default CompletableFuture<EmissionResponse> calculate(
@@ -37,12 +39,10 @@ public interface EmissionAsyncAPI {
 
     static EmissionAsyncAPI getInstance(Environment environment) {
         MapLinkSDK sdk = MapLinkSDK.getInstance();
-        return new EmissionAsyncApiImpl(
+        return proxyFor(
+                EmissionAsyncAPI.class,
                 Optional.ofNullable(environment).orElse(sdk.getEnvironment()),
-                sdk.getHttp(),
-                sdk.getJsonMapper(),
-                sdk.getTokenProvider(),
-                sdk.getCredentials()
+                sdk
         );
     }
 }

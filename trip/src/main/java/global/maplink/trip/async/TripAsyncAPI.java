@@ -23,10 +23,7 @@ public interface TripAsyncAPI {
         return proxyFor(
                 TripAsyncAPI.class,
                 Optional.ofNullable(environment).orElse(sdk.getEnvironment()),
-                sdk.getHttp(),
-                sdk.getJsonMapper(),
-                sdk.getTokenProvider(),
-                sdk.getCredentials()
+                sdk
         );
     }
 }

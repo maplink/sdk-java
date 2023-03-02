@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 
+import static global.maplink.MapLinkServiceRequestAsyncRunner.proxyFor;
 import static java.util.Arrays.asList;
 
 public interface TollAsyncAPI {
@@ -48,12 +49,10 @@ public interface TollAsyncAPI {
 
     static TollAsyncAPI getInstance(Environment environment) {
         MapLinkSDK sdk = MapLinkSDK.getInstance();
-        return new TollAsyncApiImpl(
+        return proxyFor(
+                TollAsyncAPI.class,
                 Optional.ofNullable(environment).orElse(sdk.getEnvironment()),
-                sdk.getHttp(),
-                sdk.getJsonMapper(),
-                sdk.getTokenProvider(),
-                sdk.getCredentials()
+                sdk
         );
     }
 
