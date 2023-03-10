@@ -44,10 +44,7 @@ public interface PlaceAsyncAPI {
         return proxyFor(
                 PlaceAsyncAPI.class,
                 Optional.ofNullable(environment).orElse(sdk.getEnvironment()),
-                sdk.getHttp(),
-                sdk.getJsonMapper(),
-                sdk.getTokenProvider(),
-                sdk.getCredentials()
+                sdk
         );
     }
 }
