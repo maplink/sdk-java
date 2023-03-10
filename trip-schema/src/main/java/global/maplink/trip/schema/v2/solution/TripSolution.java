@@ -34,5 +34,5 @@ public class TripSolution {
     private final Address endAddress;
     private final String source;
     private final OffsetDateTime createdAt;
-    private final OffsetDateTime expireIn;
+    private final OffsetDateTime expiryIn;
 }

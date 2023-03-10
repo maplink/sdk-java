@@ -192,6 +192,6 @@ public class TripSolutionTest {
         assertEquals("maplink", tripSolution.getSource());
 
         assertThat(tripSolution.getCreatedAt()).isEqualTo("2022-10-26T00:00:00-03:00");
-        assertThat(tripSolution.getExpireIn()).isEqualTo("2023-10-26T00:00:00-03:00");
+        assertThat(tripSolution.getExpiryIn()).isEqualTo("2023-10-26T00:00:00-03:00");
     }
 }
