@@ -17,12 +17,14 @@ import static global.maplink.http.request.Request.get;
 @Builder
 @RequiredArgsConstructor
 @NoArgsConstructor(force = true)
-public class ListAllStatesRequest implements MapLinkServiceRequest<PlacePageResult> {
-    public static final String PATH = "place/v1/places/states";
+public class ListAllCitiesRequest implements MapLinkServiceRequest<PlacePageResult> {
+
+    private final String state;
+    public final String path = "place/v1/places/state/" + state + "/cities";
 
     @Override
     public Request asHttpRequest(Environment environment, JsonMapper mapper) {
-        return get(environment.withService(PATH));
+        return get(environment.withService(path));
     }
 
     @Override

@@ -3,7 +3,6 @@ package global.maplink.place.schema;
 import global.maplink.MapLinkServiceRequest;
 import global.maplink.env.Environment;
 import global.maplink.http.Response;
-import global.maplink.http.request.GetRequest;
 import global.maplink.http.request.Request;
 import global.maplink.json.JsonMapper;
 import lombok.*;
@@ -17,12 +16,15 @@ import static global.maplink.http.request.Request.get;
 @Builder
 @RequiredArgsConstructor
 @NoArgsConstructor(force = true)
-public class ListAllStatesRequest implements MapLinkServiceRequest<PlacePageResult> {
-    public static final String PATH = "place/v1/places/states";
+public class ListAllDistrictsRequest implements MapLinkServiceRequest<PlacePageResult> {
+
+    private final String state;
+    private final String city;
+    public final String path = "place/v1/places/state/" + state + "/city/" + city + "/districts";
 
     @Override
     public Request asHttpRequest(Environment environment, JsonMapper mapper) {
-        return get(environment.withService(PATH));
+        return get(environment.withService(path));
     }
 
     @Override

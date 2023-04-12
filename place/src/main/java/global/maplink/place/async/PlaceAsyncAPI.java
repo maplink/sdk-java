@@ -4,6 +4,7 @@ import global.maplink.MapLinkSDK;
 import global.maplink.env.Environment;
 import global.maplink.place.schema.*;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 
@@ -22,11 +23,14 @@ public interface PlaceAsyncAPI {
     CompletableFuture<PlacePageResult> listAll(ListAllPlacesRequest request);
 
     default CompletableFuture<PlacePageResult> listAll(int limit, int offset) {
-        return listAll(ListAllPlacesRequest.builder().limit(limit).offset(offset).build());//DEPURANDO: tenho de incluir os demais parametros state, city etc nesse método? ou sobrescrever mais vezes esse listAll?
+        return listAll(ListAllPlacesRequest.builder().limit(limit).offset(offset).build());
     }
 
-    //DEPURANDO: criar aqui os métodos listAllStates(ListAllStatesRequest ), listAllCities(ListAllCitiesRequest) e listAllDistrics(ListAllDistrictsRequest) que invocarão os respectivos endpoints na place-api
-    //DEPURANDO: esses métodos todos retornarão um CompletableFuture<List<String>>
+    CompletableFuture<List<String>> listAllStates(ListAllStatesRequest request);
+
+    CompletableFuture<List<String>> listAllCities(ListAllCitiesRequest request);
+
+    CompletableFuture<List<String>> listAllDistricts(ListAllDistrictsRequest request);
 
     default CompletableFuture<PlacePageResult> listAll() {
         return listAll(ListAllPlacesRequest.builder().build());

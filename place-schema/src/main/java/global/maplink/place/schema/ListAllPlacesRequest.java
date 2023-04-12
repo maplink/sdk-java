@@ -23,8 +23,12 @@ public class ListAllPlacesRequest implements MapLinkServiceRequest<PlacePageResu
 
     private final Integer offset;
     private final Integer limit;
-
-    //DEPURANDO incluir aqui os demais argumentos state, city, district, tags, center, radius
+    private final String state;
+    private final String city;
+    private final String district;
+    private final String tags;
+    private final String center;
+    private final String radius;
 
     @Override
     public Request asHttpRequest(Environment environment, JsonMapper mapper) {
@@ -37,8 +41,24 @@ public class ListAllPlacesRequest implements MapLinkServiceRequest<PlacePageResu
         if (limit != null && limit > 0) {
             request = request.withQuery("offset", limit.toString());
         }
-
-        //DEPURANDO incluir aqui um IF para cada um dos demais argumentos state, city, district, tags, center, radius
+        if (state != null && !state.isEmpty()) {
+            request = request.withQuery("state", state);
+        }
+        if (city != null && !city.isEmpty()) {
+            request = request.withQuery("city", city);
+        }
+        if (district != null && !district.isEmpty()) {
+            request = request.withQuery("district", district);
+        }
+        if (tags != null && !tags.isEmpty()) {
+            request = request.withQuery("tags", tags);
+        }
+        if (center != null && !center.isEmpty()) {
+            request = request.withQuery("center", center);
+        }
+        if (radius != null && !radius.isEmpty()) {
+            request = request.withQuery("radius", radius);
+        }
 
         return request;
     }
