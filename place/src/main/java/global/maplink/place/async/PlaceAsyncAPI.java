@@ -22,8 +22,11 @@ public interface PlaceAsyncAPI {
     CompletableFuture<PlacePageResult> listAll(ListAllPlacesRequest request);
 
     default CompletableFuture<PlacePageResult> listAll(int limit, int offset) {
-        return listAll(ListAllPlacesRequest.builder().limit(limit).offset(offset).build());
+        return listAll(ListAllPlacesRequest.builder().limit(limit).offset(offset).build());//DEPURANDO: tenho de incluir os demais parametros state, city etc nesse método? ou sobrescrever mais vezes esse listAll?
     }
+
+    //DEPURANDO: criar aqui os métodos listAllStates(ListAllStatesRequest ), listAllCities(ListAllCitiesRequest) e listAllDistrics(ListAllDistrictsRequest) que invocarão os respectivos endpoints na place-api
+    //DEPURANDO: esses métodos todos retornarão um CompletableFuture<List<String>>
 
     default CompletableFuture<PlacePageResult> listAll() {
         return listAll(ListAllPlacesRequest.builder().build());
