@@ -5,9 +5,17 @@ import global.maplink.credentials.InvalidCredentialsException;
 import global.maplink.credentials.MapLinkCredentials;
 import global.maplink.http.exceptions.MapLinkHttpException;
 import global.maplink.place.schema.*;
+import lombok.SneakyThrows;
 import lombok.val;
+import org.junit.jupiter.api.MethodOrderer;
+import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestMethodOrder;
 
+import java.math.BigDecimal;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 import java.util.concurrent.ExecutionException;
 
 import static global.maplink.env.EnvironmentCatalog.HOMOLOG;
@@ -18,7 +26,85 @@ import static global.maplink.place.utils.EnvCredentialsHelper.withEnvCredentials
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class PlaceAsyncApiTest {
+
+    private static final String LIST_ALL_STATES_EXPECTED_RESULT = "[AC, BA, DF, MA, MG, MT, PA, PB, PE, PR, RJ, RO, RS, SC, SE, SP, TO]";
+    private static final String LIST_ALL_DISTRICTS_EXPECTED_RESULT = "[Chico De Paula, Gonzaga, José Menino, Ponta Da Praia]";
+
+    @Order(1)
+    @Test
+    void shouldCreatePlacesInDatabase() {
+        Place placeSP1 = testPlaceCreator("Posto de teste 1", "1a2b3c", "SP", "Santos", "José Menino");
+        Place placeSP2 = testPlaceCreator("Posto de teste 2", "1a2b3d", "SP", "São Paulo", "Brooklin");
+        Place placeRJ1 = testPlaceCreator("Posto de teste 3", "1a2b3e", "RJ", "Rio de Janeiro", "Copacabana");
+
+        withEnvCredentials(credentials -> {
+            configureWith(credentials);
+            val instance = PlaceAsyncAPI.getInstance();
+
+            instance.create(placeSP1).get();
+            instance.create(placeSP2).get();
+            instance.create(placeRJ1).get();
+
+            Place placeSp1Read = instance.getByOriginId("1a2b3c").get().get();
+            Place placeSp2Read = instance.getByOriginId("1a2b3d").get().get();
+            Place placeRj1Read = instance.getByOriginId("1a2b3e").get().get();
+
+            assertThat(placeSp1Read.getName()).isEqualTo("Posto de teste 1");
+            assertThat(placeSp2Read.getName()).isEqualTo("Posto de teste 2");
+            assertThat(placeRj1Read.getName()).isEqualTo("Posto de teste 3");
+        });
+    }
+
+    @Order(2)
+    @Test
+    void shouldListAllStates() {
+        withEnvCredentials(credentials -> {
+            configureWith(credentials);
+            val instance = PlaceAsyncAPI.getInstance();
+
+            ListAllStatesRequest request = ListAllStatesRequest.builder().build();
+            List<String> statesResulted = instance.listAllStates(request).get();
+            assertThat(statesResulted.toString()).isEqualTo(LIST_ALL_STATES_EXPECTED_RESULT);
+        });
+    }
+
+    @Order(3)
+    @SneakyThrows
+    @Test
+    void shouldListAllCitiesFormSP() {
+        withEnvCredentials(credentials -> {
+            configureWith(credentials);
+            val instance = PlaceAsyncAPI.getInstance();
+
+            ListAllCitiesRequest request = ListAllCitiesRequest.builder()
+                    .state("SP")
+                    .build();
+            List<String> citiesResulted = instance.listAllCities(request).get();
+            assertThat(citiesResulted.toString()).contains("Santos");
+            assertThat(citiesResulted.toString()).contains("São Paulo");
+        });
+    }
+
+    @Order(4)
+    @Test
+    void shouldListAllDistrictsFromSantosSp() {
+        withEnvCredentials(credentials -> {
+            configureWith(credentials);
+            val instance = PlaceAsyncAPI.getInstance();
+
+            ListAllDistrictsRequest request = ListAllDistrictsRequest.builder()
+                    .state("SP")
+                    .city("Santos")
+                    .build();
+            List<String> districtsResulted = instance.listAllDistricts(request).get();
+            System.out.println("districtsResulted -->> " + districtsResulted.toString());
+            assertThat(districtsResulted.toString()).isEqualTo(LIST_ALL_DISTRICTS_EXPECTED_RESULT);
+        });
+    }
+
+    @Order(5)
     @Test
     void mustBeInstantiableWithGetInstance() {
         configureWith(MapLinkCredentials.ofKey(DEFAULT_CLIENT_ID, DEFAULT_SECRET));
@@ -26,6 +112,7 @@ class PlaceAsyncApiTest {
         assertThat(instance).isNotNull();
     }
 
+    @Order(6)
     @Test
     void mustFailWithInvalidCredentials() {
         configureWith(MapLinkCredentials.ofKey(DEFAULT_CLIENT_ID, DEFAULT_SECRET));
@@ -35,6 +122,7 @@ class PlaceAsyncApiTest {
                 .hasCauseInstanceOf(InvalidCredentialsException.class);
     }
 
+    @Order(7)
     @Test
     void mustFailOnInvalidRequest() {
         withEnvCredentials(credentials -> {
@@ -46,6 +134,7 @@ class PlaceAsyncApiTest {
         });
     }
 
+    @Order(8)
     @Test
     void mustResolveValidCalculationRequest() {
         withEnvCredentials(credentials -> {
@@ -55,11 +144,11 @@ class PlaceAsyncApiTest {
                     validRequest()
             ).get();
 
-            assertThat(result.getTotal()).isEqualTo(1);
+            assertThat(result.getTotal()).isEqualTo(4);
             assertThat(result.getLegs()).isNotEmpty().hasSize(1);
             LegResult firstLeg = result.getLegs().get(0);
-            assertThat(firstLeg.getTotal()).isEqualTo(1);
-            assertThat(firstLeg.getPlaces()).hasSize(1);
+            assertThat(firstLeg.getTotal()).isEqualTo(4);
+            assertThat(firstLeg.getPlaces()).hasSize(4);
             PlaceRoute firstPlace = firstLeg.getPlaces().get(0);
             assertThat(firstPlace.getId()).isNotNull().isNotEmpty();
             assertThat(firstPlace.getName()).isNotNull().isNotEmpty();
@@ -92,5 +181,41 @@ class PlaceAsyncApiTest {
                 .with(HOMOLOG)
                 .with(credentials)
                 .initialize();
+    }
+
+    private Place testPlaceCreator(String name, String id, String state, String city, String district) {
+        Point point = Point.builder()
+                .latitude(BigDecimal.valueOf(-23.368653161261896))
+                .longitude(BigDecimal.valueOf(-46.77969932556152))
+                .build();
+
+        Address address = Address.builder()
+                .state(state)
+                .city(city)
+                .district(district)
+                .street("Rua das Flores")
+                .number("23")
+                .zipcode("07700-000")
+                .point(point)
+                .build();
+
+        Set<String> phones = new HashSet<>();
+        phones.add("(11) 5080-5518");
+
+        Set<String> tags = new HashSet<>();
+        tags.add("abc123");
+        tags.add("good_place_to_live");
+
+        return Place.builder()
+                .id(id)
+                .name(name)
+                .documentNumber("444455")
+                .category(POSTOS_DE_COMBUSTIVEL)
+                .subCategory(SubCategory.POSTOS_DE_COMBUSTIVEL)
+                .address(address)
+                .phones(phones)
+                .tags(tags)
+                .active(true)
+                .build();
     }
 }

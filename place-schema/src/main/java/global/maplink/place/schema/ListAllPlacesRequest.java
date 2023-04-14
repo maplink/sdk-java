@@ -1,6 +1,7 @@
 package global.maplink.place.schema;
 
 import global.maplink.MapLinkServiceRequest;
+import global.maplink.domain.MaplinkPoint;
 import global.maplink.env.Environment;
 import global.maplink.http.Response;
 import global.maplink.http.request.GetRequest;
@@ -8,6 +9,7 @@ import global.maplink.http.request.Request;
 import global.maplink.json.JsonMapper;
 import lombok.*;
 
+import java.util.List;
 import java.util.function.Function;
 
 import static global.maplink.http.request.Request.get;
@@ -26,9 +28,10 @@ public class ListAllPlacesRequest implements MapLinkServiceRequest<PlacePageResu
     private final String state;
     private final String city;
     private final String district;
-    private final String tags;
-    private final String center;
-    private final String radius;
+    @Singular
+    private final List<String> tags;
+    private final MaplinkPoint center;
+    private final Integer radius;
 
     @Override
     public Request asHttpRequest(Environment environment, JsonMapper mapper) {
@@ -51,13 +54,13 @@ public class ListAllPlacesRequest implements MapLinkServiceRequest<PlacePageResu
             request = request.withQuery("district", district);
         }
         if (tags != null && !tags.isEmpty()) {
-            request = request.withQuery("tags", tags);
+            request = request.withQuery("tags", tags.toString());
         }
-        if (center != null && !center.isEmpty()) {
-            request = request.withQuery("center", center);
+        if ((center != null) && (center.getLatitude() > 0) && center.getLongitude() > 0) {
+            request = request.withQuery("center", center.toString());
         }
-        if (radius != null && !radius.isEmpty()) {
-            request = request.withQuery("radius", radius);
+        if (radius != null && radius > 0) {
+            request = request.withQuery("radius", radius.toString());
         }
 
         return request;
