@@ -5,6 +5,7 @@ import global.maplink.credentials.InvalidCredentialsException;
 import global.maplink.credentials.MapLinkCredentials;
 import global.maplink.http.exceptions.MapLinkHttpException;
 import global.maplink.place.schema.*;
+import global.maplink.place.utils.TestPlaceUtils;
 import lombok.SneakyThrows;
 import lombok.val;
 import org.junit.jupiter.api.MethodOrderer;
@@ -12,10 +13,7 @@ import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
 
-import java.math.BigDecimal;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 import java.util.concurrent.ExecutionException;
 
 import static global.maplink.env.EnvironmentCatalog.HOMOLOG;
@@ -28,16 +26,20 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class PlaceAsyncApiTest {
-
-    private static final String LIST_ALL_STATES_EXPECTED_RESULT = "[AC, BA, DF, MA, MG, MT, PA, PB, PE, PR, RJ, RO, RS, SC, SE, SP, TO]";
-    private static final String LIST_ALL_DISTRICTS_EXPECTED_RESULT = "[Chico De Paula, Gonzaga, José Menino, Ponta Da Praia]";
+    TestPlaceUtils testPlaceUtils = new TestPlaceUtils();
 
     @Order(1)
     @Test
     void shouldCreatePlacesInDatabase() {
-        Place placeSP1 = testPlaceCreator("Posto de teste 1", "1a2b3c", "SP", "Santos", "José Menino");
-        Place placeSP2 = testPlaceCreator("Posto de teste 2", "1a2b3d", "SP", "São Paulo", "Brooklin");
-        Place placeRJ1 = testPlaceCreator("Posto de teste 3", "1a2b3e", "RJ", "Rio de Janeiro", "Copacabana");
+        Place placeSP1 = testPlaceUtils.testPlaceCreator("Posto de teste 1", "1a2b3c", "SP", "Santos", "José Menino");
+        Place placeSP2 = testPlaceUtils.testPlaceCreator("Posto de teste 2", "1a2b3d", "SP", "São Paulo", "Brooklin");
+        Place placeRJ1 = testPlaceUtils.testPlaceCreator(
+                "Posto de teste 3",
+                "1a2b3e",
+                "RJ",
+                "Rio de Janeiro",
+                "Copacabana"
+        );
 
         withEnvCredentials(credentials -> {
             configureWith(credentials);
@@ -66,7 +68,7 @@ class PlaceAsyncApiTest {
 
             ListAllStatesRequest request = ListAllStatesRequest.builder().build();
             List<String> statesResulted = instance.listAllStates(request).get();
-            assertThat(statesResulted.toString()).isEqualTo(LIST_ALL_STATES_EXPECTED_RESULT);
+            assertThat(statesResulted.toString()).isEqualTo(TestPlaceUtils.LIST_ALL_STATES_EXPECTED_RESULT);
         });
     }
 
@@ -100,7 +102,7 @@ class PlaceAsyncApiTest {
                     .build();
             List<String> districtsResulted = instance.listAllDistricts(request).get();
             System.out.println("districtsResulted -->> " + districtsResulted.toString());
-            assertThat(districtsResulted.toString()).isEqualTo(LIST_ALL_DISTRICTS_EXPECTED_RESULT);
+            assertThat(districtsResulted.toString()).isEqualTo(TestPlaceUtils.LIST_ALL_DISTRICTS_EXPECTED_RESULT);
         });
     }
 
@@ -183,39 +185,39 @@ class PlaceAsyncApiTest {
                 .initialize();
     }
 
-    private Place testPlaceCreator(String name, String id, String state, String city, String district) {
-        Point point = Point.builder()
-                .latitude(BigDecimal.valueOf(-23.368653161261896))
-                .longitude(BigDecimal.valueOf(-46.77969932556152))
-                .build();
-
-        Address address = Address.builder()
-                .state(state)
-                .city(city)
-                .district(district)
-                .street("Rua das Flores")
-                .number("23")
-                .zipcode("07700-000")
-                .point(point)
-                .build();
-
-        Set<String> phones = new HashSet<>();
-        phones.add("(11) 5080-5518");
-
-        Set<String> tags = new HashSet<>();
-        tags.add("abc123");
-        tags.add("good_place_to_live");
-
-        return Place.builder()
-                .id(id)
-                .name(name)
-                .documentNumber("444455")
-                .category(POSTOS_DE_COMBUSTIVEL)
-                .subCategory(SubCategory.POSTOS_DE_COMBUSTIVEL)
-                .address(address)
-                .phones(phones)
-                .tags(tags)
-                .active(true)
-                .build();
-    }
+//    private Place testPlaceCreator(String name, String id, String state, String city, String district) {
+//        Point point = Point.builder()
+//                .latitude(BigDecimal.valueOf(-23.368653161261896))
+//                .longitude(BigDecimal.valueOf(-46.77969932556152))
+//                .build();
+//
+//        Address address = Address.builder()
+//                .state(state)
+//                .city(city)
+//                .district(district)
+//                .street("Rua das Flores")
+//                .number("23")
+//                .zipcode("07700-000")
+//                .point(point)
+//                .build();
+//
+//        Set<String> phones = new HashSet<>();
+//        phones.add("(11) 5080-5518");
+//
+//        Set<String> tags = new HashSet<>();
+//        tags.add("abc123");
+//        tags.add("good_place_to_live");
+//
+//        return Place.builder()
+//                .id(id)
+//                .name(name)
+//                .documentNumber("444455")
+//                .category(POSTOS_DE_COMBUSTIVEL)
+//                .subCategory(SubCategory.POSTOS_DE_COMBUSTIVEL)
+//                .address(address)
+//                .phones(phones)
+//                .tags(tags)
+//                .active(true)
+//                .build();
+//    }
 }

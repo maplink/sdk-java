@@ -5,8 +5,15 @@ import global.maplink.credentials.InvalidCredentialsException;
 import global.maplink.credentials.MapLinkCredentials;
 import global.maplink.http.exceptions.MapLinkHttpException;
 import global.maplink.place.schema.*;
+import global.maplink.place.utils.TestPlaceUtils;
+import lombok.SneakyThrows;
 import lombok.val;
+import org.junit.jupiter.api.MethodOrderer;
+import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestMethodOrder;
+
+import java.util.List;
 
 import static global.maplink.env.EnvironmentCatalog.HOMOLOG;
 import static global.maplink.place.common.Defaults.DEFAULT_CLIENT_ID;
@@ -16,7 +23,89 @@ import static global.maplink.place.utils.EnvCredentialsHelper.withEnvCredentials
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class PlaceSyncApiTest {
+    TestPlaceUtils testPlaceUtils = new TestPlaceUtils();
+
+    @Order(1)
+    @Test
+    void shouldCreatePlacesInDatabase() {
+        Place placeSP1 = testPlaceUtils.testPlaceCreator("Posto de teste 1", "1a2b3c", "SP", "Santos", "José Menino");
+        Place placeSP2 = testPlaceUtils.testPlaceCreator("Posto de teste 2", "1a2b3d", "SP", "São Paulo", "Brooklin");
+        Place placeRJ1 = testPlaceUtils.testPlaceCreator(
+                "Posto de teste 3",
+                "1a2b3e",
+                "RJ",
+                "Rio de Janeiro",
+                "Copacabana"
+        );
+
+        withEnvCredentials(credentials -> {
+            configureWith(credentials);
+            val instance = PlaceSyncAPI.getInstance();
+
+            instance.create(placeSP1);
+            instance.create(placeSP2);
+            instance.create(placeRJ1);
+
+            Place placeSp1Read = instance.getByOriginId("1a2b3c").get();
+            Place placeSp2Read = instance.getByOriginId("1a2b3d").get();
+            Place placeRj1Read = instance.getByOriginId("1a2b3e").get();
+
+            assertThat(placeSp1Read.getName()).isEqualTo("Posto de teste 1");
+            assertThat(placeSp2Read.getName()).isEqualTo("Posto de teste 2");
+            assertThat(placeRj1Read.getName()).isEqualTo("Posto de teste 3");
+        });
+    }
+
+    @Order(2)
+    @Test
+    void shouldListAllStates() {
+        withEnvCredentials(credentials -> {
+            configureWith(credentials);
+            val instance = PlaceSyncAPI.getInstance();
+
+            ListAllStatesRequest request = ListAllStatesRequest.builder().build();
+            List<String> statesResulted = instance.listAllStates(request);
+            assertThat(statesResulted.toString()).isEqualTo(TestPlaceUtils.LIST_ALL_STATES_EXPECTED_RESULT);
+        });
+    }
+
+    @Order(3)
+    @SneakyThrows
+    @Test
+    void shouldListAllCitiesFormSP() {
+        withEnvCredentials(credentials -> {
+            configureWith(credentials);
+            val instance = PlaceSyncAPI.getInstance();
+
+            ListAllCitiesRequest request = ListAllCitiesRequest.builder()
+                    .state("SP")
+                    .build();
+            List<String> citiesResulted = instance.listAllCities(request);
+            assertThat(citiesResulted.toString()).contains("Santos");
+            assertThat(citiesResulted.toString()).contains("São Paulo");
+        });
+    }
+
+    @Order(4)
+    @Test
+    void shouldListAllDistrictsFromSantosSp() {
+        withEnvCredentials(credentials -> {
+            configureWith(credentials);
+            val instance = PlaceSyncAPI.getInstance();
+
+            ListAllDistrictsRequest request = ListAllDistrictsRequest.builder()
+                    .state("SP")
+                    .city("Santos")
+                    .build();
+            List<String> districtsResulted = instance.listAllDistricts(request);
+            System.out.println("districtsResulted -->> " + districtsResulted.toString());
+            assertThat(districtsResulted.toString()).isEqualTo(TestPlaceUtils.LIST_ALL_DISTRICTS_EXPECTED_RESULT);
+        });
+    }
+
+    @Order(5)
     @Test
     void mustBeInstantiableWithGetInstance() {
         configureWith(MapLinkCredentials.ofKey(DEFAULT_CLIENT_ID, DEFAULT_SECRET));
@@ -24,6 +113,7 @@ class PlaceSyncApiTest {
         assertThat(instance).isNotNull();
     }
 
+    @Order(6)
     @Test
     void mustFailWithInvalidCredentials() {
         configureWith(MapLinkCredentials.ofKey(DEFAULT_CLIENT_ID, DEFAULT_SECRET));
@@ -32,6 +122,7 @@ class PlaceSyncApiTest {
                 .isInstanceOf(InvalidCredentialsException.class);
     }
 
+    @Order(7)
     @Test
     void mustFailOnInvalidRequest() {
         withEnvCredentials(credentials -> {
@@ -42,6 +133,7 @@ class PlaceSyncApiTest {
         });
     }
 
+    @Order(8)
     @Test
     void mustResolveValidCalculationRequest() {
         withEnvCredentials(credentials -> {
@@ -51,11 +143,11 @@ class PlaceSyncApiTest {
                     validRequest()
             );
 
-            assertThat(result.getTotal()).isEqualTo(1);
+            assertThat(result.getTotal()).isEqualTo(4);
             assertThat(result.getLegs()).isNotEmpty().hasSize(1);
             LegResult firstLeg = result.getLegs().get(0);
-            assertThat(firstLeg.getTotal()).isEqualTo(1);
-            assertThat(firstLeg.getPlaces()).hasSize(1);
+            assertThat(firstLeg.getTotal()).isEqualTo(4);
+            assertThat(firstLeg.getPlaces()).hasSize(4);
             PlaceRoute firstPlace = firstLeg.getPlaces().get(0);
             assertThat(firstPlace.getId()).isNotNull().isNotEmpty();
             assertThat(firstPlace.getName()).isNotNull().isNotEmpty();
