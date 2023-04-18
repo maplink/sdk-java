@@ -6,6 +6,8 @@ import java.util.List;
 
 public class PlacePageResult extends PageResult<Place> {
 
+    public PlacePageResult() {}
+
     public PlacePageResult(int total, List<Place> results) {
         super(total, results);
     }

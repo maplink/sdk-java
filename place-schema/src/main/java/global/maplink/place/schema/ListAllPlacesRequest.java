@@ -10,6 +10,7 @@ import global.maplink.json.JsonMapper;
 import lombok.*;
 
 import java.util.List;
+import java.util.Locale;
 import java.util.function.Function;
 
 import static global.maplink.http.request.Request.get;
@@ -31,7 +32,7 @@ public class ListAllPlacesRequest implements MapLinkServiceRequest<PlacePageResu
     @Singular
     private final List<String> tags;
     private final MaplinkPoint center;
-    private final Integer radius;
+    private final Double radius;
 
     @Override
     public Request asHttpRequest(Environment environment, JsonMapper mapper) {
@@ -42,7 +43,7 @@ public class ListAllPlacesRequest implements MapLinkServiceRequest<PlacePageResu
             request = request.withQuery("offset", offset.toString());
         }
         if (limit != null && limit > 0) {
-            request = request.withQuery("offset", limit.toString());
+            request = request.withQuery("limit", limit.toString());
         }
         if (state != null && !state.isEmpty()) {
             request = request.withQuery("state", state);
@@ -54,10 +55,10 @@ public class ListAllPlacesRequest implements MapLinkServiceRequest<PlacePageResu
             request = request.withQuery("district", district);
         }
         if (tags != null && !tags.isEmpty()) {
-            request = request.withQuery("tags", tags.toString());
+            request = request.withQuery("tags", String.join(",", tags));
         }
-        if ((center != null) && (center.getLatitude() > 0) && center.getLongitude() > 0) {
-            request = request.withQuery("center", center.toString());
+        if (center != null) {
+            request = request.withQuery("center", String.format(Locale.ENGLISH, "%f,%f", center.getLatitude(), center.getLongitude()));
         }
         if (radius != null && radius > 0) {
             request = request.withQuery("radius", radius.toString());

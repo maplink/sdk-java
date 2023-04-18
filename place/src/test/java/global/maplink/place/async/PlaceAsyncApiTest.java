@@ -3,11 +3,13 @@ package global.maplink.place.async;
 import global.maplink.MapLinkSDK;
 import global.maplink.credentials.InvalidCredentialsException;
 import global.maplink.credentials.MapLinkCredentials;
+import global.maplink.domain.MaplinkPoint;
 import global.maplink.http.exceptions.MapLinkHttpException;
 import global.maplink.place.schema.*;
 import global.maplink.place.utils.TestPlaceUtils;
 import lombok.SneakyThrows;
 import lombok.val;
+import lombok.var;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
@@ -33,13 +35,7 @@ class PlaceAsyncApiTest {
     void shouldCreatePlacesInDatabase() {
         Place placeSP1 = testPlaceUtils.testPlaceCreator("Posto de teste 1", "1a2b3c", "SP", "Santos", "José Menino");
         Place placeSP2 = testPlaceUtils.testPlaceCreator("Posto de teste 2", "1a2b3d", "SP", "São Paulo", "Brooklin");
-        Place placeRJ1 = testPlaceUtils.testPlaceCreator(
-                "Posto de teste 3",
-                "1a2b3e",
-                "RJ",
-                "Rio de Janeiro",
-                "Copacabana"
-        );
+        Place placeRJ1 = testPlaceUtils.testPlaceCreator("Posto de teste 3", "1a2b3e", "RJ", "Rio de Janeiro", "Copacabana");
 
         withEnvCredentials(credentials -> {
             configureWith(credentials);
@@ -166,6 +162,64 @@ class PlaceAsyncApiTest {
         });
     }
 
+    @Order(9)
+    @Test
+    void mustFilterPlacesByState_City_District_Tag() {
+        withEnvCredentials(credentials -> {
+            configureWith(credentials);
+            val instance = PlaceAsyncAPI.getInstance();
+
+            ListAllPlacesRequest request = ListAllPlacesRequest.builder()
+                    .state("SP")
+                    .city("São Paulo")
+                    .district("Brooklin")
+                    .tag("abc123")
+                    .tag("good_place_to_live")
+                    .build();
+
+            PlacePageResult placePageResult = instance.listAll(request).get();
+
+            val total = placePageResult.total;
+            assertThat(total).isEqualTo(1);
+
+            List<Place> results = placePageResult.results;
+            Place place = results.get(0);
+            assertThat(place.getName()).isEqualTo("Posto de teste 2");
+            assertThat(place.getId()).isEqualTo("1a2b3d");
+        });
+
+    }
+
+    @Order(10)
+    @Test
+    void mustFilterPlacesByState_City_Geofence() {
+        withEnvCredentials(credentials -> {
+            configureWith(credentials);
+            val instance = PlaceAsyncAPI.getInstance();
+
+            MaplinkPoint center = new MaplinkPoint(-23.407513, -46.751695);
+            var radius = 6000.0;
+
+            ListAllPlacesRequest request = ListAllPlacesRequest.builder()
+                    .state("SP")
+                    .city("São Paulo")
+                    .center(center)
+                    .radius(radius)
+                    .build();
+
+            PlacePageResult placePageResult = instance.listAll(request).get();
+
+            val total = placePageResult.total;
+            assertThat(total).isEqualTo(1);
+
+            List<Place> results = placePageResult.results;
+            Place place = results.get(0);
+            assertThat(place.getName()).isEqualTo("Posto de teste 2");
+            assertThat(place.getId()).isEqualTo("1a2b3d");
+        });
+
+    }
+
     private static PlaceRouteRequest validRequest() {
         return PlaceRouteRequest.builder()
                 .category(POSTOS_DE_COMBUSTIVEL)
@@ -185,39 +239,4 @@ class PlaceAsyncApiTest {
                 .initialize();
     }
 
-//    private Place testPlaceCreator(String name, String id, String state, String city, String district) {
-//        Point point = Point.builder()
-//                .latitude(BigDecimal.valueOf(-23.368653161261896))
-//                .longitude(BigDecimal.valueOf(-46.77969932556152))
-//                .build();
-//
-//        Address address = Address.builder()
-//                .state(state)
-//                .city(city)
-//                .district(district)
-//                .street("Rua das Flores")
-//                .number("23")
-//                .zipcode("07700-000")
-//                .point(point)
-//                .build();
-//
-//        Set<String> phones = new HashSet<>();
-//        phones.add("(11) 5080-5518");
-//
-//        Set<String> tags = new HashSet<>();
-//        tags.add("abc123");
-//        tags.add("good_place_to_live");
-//
-//        return Place.builder()
-//                .id(id)
-//                .name(name)
-//                .documentNumber("444455")
-//                .category(POSTOS_DE_COMBUSTIVEL)
-//                .subCategory(SubCategory.POSTOS_DE_COMBUSTIVEL)
-//                .address(address)
-//                .phones(phones)
-//                .tags(tags)
-//                .active(true)
-//                .build();
-//    }
 }
