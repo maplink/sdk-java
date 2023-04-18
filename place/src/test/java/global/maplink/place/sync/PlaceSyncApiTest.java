@@ -3,11 +3,13 @@ package global.maplink.place.sync;
 import global.maplink.MapLinkSDK;
 import global.maplink.credentials.InvalidCredentialsException;
 import global.maplink.credentials.MapLinkCredentials;
+import global.maplink.domain.MaplinkPoint;
 import global.maplink.http.exceptions.MapLinkHttpException;
 import global.maplink.place.schema.*;
 import global.maplink.place.utils.TestPlaceUtils;
 import lombok.SneakyThrows;
 import lombok.val;
+import lombok.var;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
@@ -32,13 +34,7 @@ class PlaceSyncApiTest {
     void shouldCreatePlacesInDatabase() {
         Place placeSP1 = testPlaceUtils.testPlaceCreator("Posto de teste 1", "1a2b3c", "SP", "Santos", "José Menino");
         Place placeSP2 = testPlaceUtils.testPlaceCreator("Posto de teste 2", "1a2b3d", "SP", "São Paulo", "Brooklin");
-        Place placeRJ1 = testPlaceUtils.testPlaceCreator(
-                "Posto de teste 3",
-                "1a2b3e",
-                "RJ",
-                "Rio de Janeiro",
-                "Copacabana"
-        );
+        Place placeRJ1 = testPlaceUtils.testPlaceCreator("Posto de teste 3", "1a2b3e", "RJ", "Rio de Janeiro", "Copacabana");
 
         withEnvCredentials(credentials -> {
             configureWith(credentials);
@@ -161,6 +157,64 @@ class PlaceSyncApiTest {
                     .isEqualTo(Point.of(-23.368653161261896, -46.77969932556152));
             assertThat(firstPlace.getPhones()).isNotEmpty();
         });
+    }
+
+    @Order(9)
+    @Test
+    void mustFilterPlacesByState_City_District_Tag() {
+        withEnvCredentials(credentials -> {
+            configureWith(credentials);
+            val instance = PlaceSyncAPI.getInstance();
+
+            ListAllPlacesRequest request = ListAllPlacesRequest.builder()
+                    .state("SP")
+                    .city("São Paulo")
+                    .district("Brooklin")
+                    .tag("abc123")
+                    .tag("good_place_to_live")
+                    .build();
+
+            PlacePageResult placePageResult = instance.listAll(request);
+
+            val total = placePageResult.total;
+            assertThat(total).isEqualTo(1);
+
+            List<Place> results = placePageResult.results;
+            Place place = results.get(0);
+            assertThat(place.getName()).isEqualTo("Posto de teste 2");
+            assertThat(place.getId()).isEqualTo("1a2b3d");
+        });
+
+    }
+
+    @Order(10)
+    @Test
+    void mustFilterPlacesByState_City_Geofence() {
+        withEnvCredentials(credentials -> {
+            configureWith(credentials);
+            val instance = PlaceSyncAPI.getInstance();
+
+            MaplinkPoint center = new MaplinkPoint(-23.407513, -46.751695);
+            var radius = 6000.0;
+
+            ListAllPlacesRequest request = ListAllPlacesRequest.builder()
+                    .state("SP")
+                    .city("São Paulo")
+                    .center(center)
+                    .radius(radius)
+                    .build();
+
+            PlacePageResult placePageResult = instance.listAll(request);
+
+            val total = placePageResult.total;
+            assertThat(total).isEqualTo(1);
+
+            List<Place> results = placePageResult.results;
+            Place place = results.get(0);
+            assertThat(place.getName()).isEqualTo("Posto de teste 2");
+            assertThat(place.getId()).isEqualTo("1a2b3d");
+        });
+
     }
 
     private static PlaceRouteRequest validRequest() {
