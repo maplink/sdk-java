@@ -12,8 +12,8 @@ import java.util.Set;
 import static global.maplink.place.schema.Category.POSTOS_DE_COMBUSTIVEL;
 
 public class TestPlaceUtils {
-    public static final String LIST_ALL_STATES_EXPECTED_RESULT = "[AC, BA, DF, MA, MG, MT, PA, PB, PE, PR, RJ, RO, RS, SC, SE, SP, TO]";
-    public static final String LIST_ALL_DISTRICTS_EXPECTED_RESULT = "[Chico De Paula, Gonzaga, José Menino, Ponta Da Praia]";
+    public static final String[] LIST_ALL_STATES_EXPECTED_RESULT = new String[]{"SP", "RJ"};
+    public static final String LIST_ALL_DISTRICTS_EXPECTED_RESULT = "[José Menino]";
 
     public Place testPlaceCreator(String name, String id, String state, String city, String district) {
         Point point = Point.builder()

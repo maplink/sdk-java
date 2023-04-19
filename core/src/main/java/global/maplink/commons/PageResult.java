@@ -5,6 +5,7 @@ import lombok.RequiredArgsConstructor;
 import java.util.List;
 
 import static java.util.Collections.emptyList;
+
 @RequiredArgsConstructor
 public class PageResult<T> {
 
