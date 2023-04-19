@@ -6,7 +6,6 @@ import global.maplink.credentials.MapLinkCredentials;
 import global.maplink.domain.MaplinkPoint;
 import global.maplink.http.exceptions.MapLinkHttpException;
 import global.maplink.place.schema.*;
-import global.maplink.place.utils.TestPlaceUtils;
 import lombok.SneakyThrows;
 import lombok.val;
 import lombok.var;
@@ -22,19 +21,19 @@ import static global.maplink.place.common.Defaults.DEFAULT_CLIENT_ID;
 import static global.maplink.place.common.Defaults.DEFAULT_SECRET;
 import static global.maplink.place.schema.Category.POSTOS_DE_COMBUSTIVEL;
 import static global.maplink.place.utils.EnvCredentialsHelper.withEnvCredentials;
+import static global.maplink.place.utils.TestPlaceUtils.*;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class PlaceSyncApiTest {
-    TestPlaceUtils testPlaceUtils = new TestPlaceUtils();
 
     @Order(1)
     @Test
     void shouldCreatePlacesInDatabase() {
-        Place placeSP1 = testPlaceUtils.testPlaceCreator("Posto de teste 1", "1a2b3c", "SP", "Santos", "José Menino");
-        Place placeSP2 = testPlaceUtils.testPlaceCreator("Posto de teste 2", "1a2b3d", "SP", "São Paulo", "Brooklin");
-        Place placeRJ1 = testPlaceUtils.testPlaceCreator("Posto de teste 3", "1a2b3e", "RJ", "Rio de Janeiro", "Copacabana");
+        Place placeSP1 = testPlaceCreator("Posto de teste 1", "1a2b3c", "SP", "Santos", "José Menino");
+        Place placeSP2 = testPlaceCreator("Posto de teste 2", "1a2b3d", "SP", "São Paulo", "Brooklin");
+        Place placeRJ1 = testPlaceCreator("Posto de teste 3", "1a2b3e", "RJ", "Rio de Janeiro", "Copacabana");
 
         withEnvCredentials(credentials -> {
             configureWith(credentials);
@@ -63,7 +62,7 @@ class PlaceSyncApiTest {
 
             ListAllStatesRequest request = ListAllStatesRequest.builder().build();
             List<String> statesResulted = instance.listAllStates(request);
-            assertThat(statesResulted).contains(TestPlaceUtils.LIST_ALL_STATES_EXPECTED_RESULT);
+            assertThat(statesResulted).contains(LIST_ALL_STATES_EXPECTED_RESULT);
         });
     }
 
@@ -96,7 +95,7 @@ class PlaceSyncApiTest {
                     .city("Santos")
                     .build();
             List<String> districtsResulted = instance.listAllDistricts(request);
-            assertThat(districtsResulted.toString()).contains(TestPlaceUtils.LIST_ALL_DISTRICTS_EXPECTED_RESULT);
+            assertThat(districtsResulted.toString()).contains(LIST_ALL_DISTRICTS_EXPECTED_RESULT);
         });
     }
 

@@ -15,7 +15,7 @@ public class TestPlaceUtils {
     public static final String[] LIST_ALL_STATES_EXPECTED_RESULT = new String[]{"SP", "RJ"};
     public static final String LIST_ALL_DISTRICTS_EXPECTED_RESULT = "[José Menino]";
 
-    public Place testPlaceCreator(String name, String id, String state, String city, String district) {
+    public static Place testPlaceCreator(String name, String id, String state, String city, String district) {
         Point point = Point.builder()
                 .latitude(BigDecimal.valueOf(-23.368653161261896))
                 .longitude(BigDecimal.valueOf(-46.77969932556152))
