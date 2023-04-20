@@ -79,8 +79,7 @@ class PlaceAsyncApiTest {
                     .state("SP")
                     .build();
             List<String> citiesResulted = instance.listAllCities(request).get();
-            assertThat(citiesResulted).contains("Santos");
-            assertThat(citiesResulted).contains("São Paulo");
+            assertThat(citiesResulted).contains("Santos", "São Paulo");
         });
     }
 
@@ -96,7 +95,7 @@ class PlaceAsyncApiTest {
                     .city("Santos")
                     .build();
             List<String> districtsResulted = instance.listAllDistricts(request).get();
-            assertThat(districtsResulted.toString()).contains(LIST_ALL_DISTRICTS_EXPECTED_RESULT);
+            assertThat(districtsResulted).contains(LIST_ALL_DISTRICTS_EXPECTED_RESULT);
         });
     }
 

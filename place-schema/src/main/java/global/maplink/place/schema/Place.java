@@ -3,10 +3,7 @@ package global.maplink.place.schema;
 import global.maplink.place.schema.exception.PlaceUpdateViolation;
 import global.maplink.validations.Validable;
 import global.maplink.validations.ValidationViolation;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
+import lombok.*;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -36,6 +33,7 @@ public class Place implements Validable {
     private final Set<String> phones;
     private final Map<String, String> additionalInfo;
     private final Set<SocialConnection> connections;
+    @Singular
     private final Set<String> tags;
     private final boolean active;
     private final String clientId;

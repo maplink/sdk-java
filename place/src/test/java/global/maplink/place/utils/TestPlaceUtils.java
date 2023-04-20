@@ -13,7 +13,7 @@ import static global.maplink.place.schema.Category.POSTOS_DE_COMBUSTIVEL;
 
 public class TestPlaceUtils {
     public static final String[] LIST_ALL_STATES_EXPECTED_RESULT = new String[]{"SP", "RJ"};
-    public static final String LIST_ALL_DISTRICTS_EXPECTED_RESULT = "[José Menino]";
+    public static final String LIST_ALL_DISTRICTS_EXPECTED_RESULT = "José Menino";
 
     public static Place testPlaceCreator(String name, String id, String state, String city, String district) {
         Point point = Point.builder()
@@ -34,10 +34,6 @@ public class TestPlaceUtils {
         Set<String> phones = new HashSet<>();
         phones.add("(11) 5080-5518");
 
-        Set<String> tags = new HashSet<>();
-        tags.add("abc123");
-        tags.add("good_place_to_live");
-
         return Place.builder()
                 .id(id)
                 .name(name)
@@ -46,7 +42,8 @@ public class TestPlaceUtils {
                 .subCategory(SubCategory.POSTOS_DE_COMBUSTIVEL)
                 .address(address)
                 .phones(phones)
-                .tags(tags)
+                .tag("abc123")
+                .tag("good_place_to_live")
                 .active(true)
                 .build();
     }
