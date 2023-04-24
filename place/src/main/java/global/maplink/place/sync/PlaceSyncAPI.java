@@ -4,7 +4,9 @@ import global.maplink.env.Environment;
 import global.maplink.place.async.PlaceAsyncAPI;
 import global.maplink.place.schema.*;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.CompletableFuture;
 
 public interface PlaceSyncAPI {
 
@@ -13,6 +15,12 @@ public interface PlaceSyncAPI {
     void create(CreatePlaceRequest request);
 
     void create(Place place);
+
+    List<String> listAllStates(ListAllStatesRequest request);
+
+    List<String> listAllCities(ListAllCitiesRequest request);
+
+    List<String> listAllDistricts(ListAllDistrictsRequest request);
 
     PlacePageResult listAll(ListAllPlacesRequest request);
 

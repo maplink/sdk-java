@@ -1,6 +1,7 @@
 package global.maplink.place.schema;
 
 import global.maplink.MapLinkServiceRequest;
+import global.maplink.domain.MaplinkPoint;
 import global.maplink.env.Environment;
 import global.maplink.http.Response;
 import global.maplink.http.request.GetRequest;
@@ -8,6 +9,8 @@ import global.maplink.http.request.Request;
 import global.maplink.json.JsonMapper;
 import lombok.*;
 
+import java.util.List;
+import java.util.Locale;
 import java.util.function.Function;
 
 import static global.maplink.http.request.Request.get;
@@ -23,6 +26,13 @@ public class ListAllPlacesRequest implements MapLinkServiceRequest<PlacePageResu
 
     private final Integer offset;
     private final Integer limit;
+    private final String state;
+    private final String city;
+    private final String district;
+    @Singular
+    private final List<String> tags;
+    private final MaplinkPoint center;
+    private final Double radius;
 
     @Override
     public Request asHttpRequest(Environment environment, JsonMapper mapper) {
@@ -33,8 +43,27 @@ public class ListAllPlacesRequest implements MapLinkServiceRequest<PlacePageResu
             request = request.withQuery("offset", offset.toString());
         }
         if (limit != null && limit > 0) {
-            request = request.withQuery("offset", limit.toString());
+            request = request.withQuery("limit", limit.toString());
         }
+        if (state != null && !state.isEmpty()) {
+            request = request.withQuery("state", state);
+        }
+        if (city != null && !city.isEmpty()) {
+            request = request.withQuery("city", city);
+        }
+        if (district != null && !district.isEmpty()) {
+            request = request.withQuery("district", district);
+        }
+        if (tags != null && !tags.isEmpty()) {
+            request = request.withQuery("tags", String.join(",", tags));
+        }
+        if (center != null) {
+            request = request.withQuery("center", String.format(Locale.ENGLISH, "%f,%f", center.getLatitude(), center.getLongitude()));
+        }
+        if (radius != null && radius > 0) {
+            request = request.withQuery("radius", radius.toString());
+        }
+
         return request;
     }
 

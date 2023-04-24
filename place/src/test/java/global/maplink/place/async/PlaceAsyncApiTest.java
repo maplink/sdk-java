@@ -3,11 +3,18 @@ package global.maplink.place.async;
 import global.maplink.MapLinkSDK;
 import global.maplink.credentials.InvalidCredentialsException;
 import global.maplink.credentials.MapLinkCredentials;
+import global.maplink.domain.MaplinkPoint;
 import global.maplink.http.exceptions.MapLinkHttpException;
 import global.maplink.place.schema.*;
+import lombok.SneakyThrows;
 import lombok.val;
+import lombok.var;
+import org.junit.jupiter.api.MethodOrderer;
+import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestMethodOrder;
 
+import java.util.List;
 import java.util.concurrent.ExecutionException;
 
 import static global.maplink.env.EnvironmentCatalog.HOMOLOG;
@@ -15,10 +22,84 @@ import static global.maplink.place.common.Defaults.DEFAULT_CLIENT_ID;
 import static global.maplink.place.common.Defaults.DEFAULT_SECRET;
 import static global.maplink.place.schema.Category.POSTOS_DE_COMBUSTIVEL;
 import static global.maplink.place.utils.EnvCredentialsHelper.withEnvCredentials;
+import static global.maplink.place.utils.TestPlaceUtils.*;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class PlaceAsyncApiTest {
+
+    @Order(1)
+    @Test
+    void shouldCreatePlacesInDatabase() {
+        Place placeSP1 = testPlaceCreator("Posto de teste 1", "1a2b3c", "SP", "Santos", "José Menino");
+        Place placeSP2 = testPlaceCreator("Posto de teste 2", "1a2b3d", "SP", "São Paulo", "Brooklin");
+        Place placeRJ1 = testPlaceCreator("Posto de teste 3", "1a2b3e", "RJ", "Rio de Janeiro", "Copacabana");
+
+        withEnvCredentials(credentials -> {
+            configureWith(credentials);
+            val instance = PlaceAsyncAPI.getInstance();
+
+            instance.create(placeSP1).get();
+            instance.create(placeSP2).get();
+            instance.create(placeRJ1).get();
+
+            Place placeSp1Read = instance.getByOriginId("1a2b3c").get().get();
+            Place placeSp2Read = instance.getByOriginId("1a2b3d").get().get();
+            Place placeRj1Read = instance.getByOriginId("1a2b3e").get().get();
+
+            assertThat(placeSp1Read.getName()).isEqualTo("Posto de teste 1");
+            assertThat(placeSp2Read.getName()).isEqualTo("Posto de teste 2");
+            assertThat(placeRj1Read.getName()).isEqualTo("Posto de teste 3");
+        });
+    }
+
+    @Order(2)
+    @Test
+    void shouldListAllStates() {
+        withEnvCredentials(credentials -> {
+            configureWith(credentials);
+            val instance = PlaceAsyncAPI.getInstance();
+
+            ListAllStatesRequest request = ListAllStatesRequest.builder().build();
+            List<String> statesResulted = instance.listAllStates(request).get();
+            assertThat(statesResulted).contains(LIST_ALL_STATES_EXPECTED_RESULT);
+        });
+    }
+
+    @Order(3)
+    @SneakyThrows
+    @Test
+    void shouldListAllCitiesFormSP() {
+        withEnvCredentials(credentials -> {
+            configureWith(credentials);
+            val instance = PlaceAsyncAPI.getInstance();
+
+            ListAllCitiesRequest request = ListAllCitiesRequest.builder()
+                    .state("SP")
+                    .build();
+            List<String> citiesResulted = instance.listAllCities(request).get();
+            assertThat(citiesResulted).contains("Santos", "São Paulo");
+        });
+    }
+
+    @Order(4)
+    @Test
+    void shouldListAllDistrictsFromSantosSp() {
+        withEnvCredentials(credentials -> {
+            configureWith(credentials);
+            val instance = PlaceAsyncAPI.getInstance();
+
+            ListAllDistrictsRequest request = ListAllDistrictsRequest.builder()
+                    .state("SP")
+                    .city("Santos")
+                    .build();
+            List<String> districtsResulted = instance.listAllDistricts(request).get();
+            assertThat(districtsResulted).contains(LIST_ALL_DISTRICTS_EXPECTED_RESULT);
+        });
+    }
+
+    @Order(5)
     @Test
     void mustBeInstantiableWithGetInstance() {
         configureWith(MapLinkCredentials.ofKey(DEFAULT_CLIENT_ID, DEFAULT_SECRET));
@@ -26,6 +107,7 @@ class PlaceAsyncApiTest {
         assertThat(instance).isNotNull();
     }
 
+    @Order(6)
     @Test
     void mustFailWithInvalidCredentials() {
         configureWith(MapLinkCredentials.ofKey(DEFAULT_CLIENT_ID, DEFAULT_SECRET));
@@ -35,6 +117,7 @@ class PlaceAsyncApiTest {
                 .hasCauseInstanceOf(InvalidCredentialsException.class);
     }
 
+    @Order(7)
     @Test
     void mustFailOnInvalidRequest() {
         withEnvCredentials(credentials -> {
@@ -46,6 +129,7 @@ class PlaceAsyncApiTest {
         });
     }
 
+    @Order(8)
     @Test
     void mustResolveValidCalculationRequest() {
         withEnvCredentials(credentials -> {
@@ -55,11 +139,11 @@ class PlaceAsyncApiTest {
                     validRequest()
             ).get();
 
-            assertThat(result.getTotal()).isEqualTo(1);
+            assertThat(result.getTotal()).isGreaterThanOrEqualTo(3);
             assertThat(result.getLegs()).isNotEmpty().hasSize(1);
             LegResult firstLeg = result.getLegs().get(0);
-            assertThat(firstLeg.getTotal()).isEqualTo(1);
-            assertThat(firstLeg.getPlaces()).hasSize(1);
+            assertThat(firstLeg.getTotal()).isGreaterThanOrEqualTo(3);
+            assertThat(firstLeg.getPlaces()).hasSizeGreaterThanOrEqualTo(3);
             PlaceRoute firstPlace = firstLeg.getPlaces().get(0);
             assertThat(firstPlace.getId()).isNotNull().isNotEmpty();
             assertThat(firstPlace.getName()).isNotNull().isNotEmpty();
@@ -73,6 +157,64 @@ class PlaceAsyncApiTest {
                     .isEqualTo(Point.of(-23.368653161261896, -46.77969932556152));
             assertThat(firstPlace.getPhones()).isNotEmpty();
         });
+    }
+
+    @Order(9)
+    @Test
+    void mustFilterPlacesByState_City_District_Tag() {
+        withEnvCredentials(credentials -> {
+            configureWith(credentials);
+            val instance = PlaceAsyncAPI.getInstance();
+
+            ListAllPlacesRequest request = ListAllPlacesRequest.builder()
+                    .state("SP")
+                    .city("São Paulo")
+                    .district("Brooklin")
+                    .tag("abc123")
+                    .tag("good_place_to_live")
+                    .build();
+
+            PlacePageResult placePageResult = instance.listAll(request).get();
+
+            val total = placePageResult.total;
+            assertThat(total).isGreaterThanOrEqualTo(1);
+
+            List<Place> results = placePageResult.results;
+            Place place = results.get(0);
+            assertThat(place.getName()).isEqualTo("Posto de teste 2");
+            assertThat(place.getId()).isEqualTo("1a2b3d");
+        });
+
+    }
+
+    @Order(10)
+    @Test
+    void mustFilterPlacesByState_City_Geofence() {
+        withEnvCredentials(credentials -> {
+            configureWith(credentials);
+            val instance = PlaceAsyncAPI.getInstance();
+
+            MaplinkPoint center = new MaplinkPoint(-23.407513, -46.751695);
+            var radius = 6000.0;
+
+            ListAllPlacesRequest request = ListAllPlacesRequest.builder()
+                    .state("SP")
+                    .city("São Paulo")
+                    .center(center)
+                    .radius(radius)
+                    .build();
+
+            PlacePageResult placePageResult = instance.listAll(request).get();
+
+            val total = placePageResult.total;
+            assertThat(total).isGreaterThanOrEqualTo(1);
+
+            List<Place> results = placePageResult.results;
+            Place place = results.get(0);
+            assertThat(place.getName()).isEqualTo("Posto de teste 2");
+            assertThat(place.getId()).isEqualTo("1a2b3d");
+        });
+
     }
 
     private static PlaceRouteRequest validRequest() {
@@ -93,4 +235,5 @@ class PlaceAsyncApiTest {
                 .with(credentials)
                 .initialize();
     }
+
 }

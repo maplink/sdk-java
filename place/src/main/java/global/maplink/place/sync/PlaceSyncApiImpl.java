@@ -4,6 +4,7 @@ import global.maplink.place.async.PlaceAsyncAPI;
 import global.maplink.place.schema.*;
 import lombok.RequiredArgsConstructor;
 
+import java.util.List;
 import java.util.Optional;
 
 import static global.maplink.helpers.FutureHelper.await;
@@ -26,6 +27,21 @@ public class PlaceSyncApiImpl implements PlaceSyncAPI {
     @Override
     public void create(Place place) {
         await(delegate.create(place));
+    }
+
+    @Override
+    public List<String> listAllStates(ListAllStatesRequest request) {
+        return await(delegate.listAllStates(request));
+    }
+
+    @Override
+    public List<String> listAllCities(ListAllCitiesRequest request) {
+        return await(delegate.listAllCities(request));
+    }
+
+    @Override
+    public List<String> listAllDistricts(ListAllDistrictsRequest request) {
+        return await(delegate.listAllDistricts(request));
     }
 
     @Override

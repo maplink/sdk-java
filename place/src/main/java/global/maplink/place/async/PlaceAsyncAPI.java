@@ -4,6 +4,7 @@ import global.maplink.MapLinkSDK;
 import global.maplink.env.Environment;
 import global.maplink.place.schema.*;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 
@@ -24,6 +25,12 @@ public interface PlaceAsyncAPI {
     default CompletableFuture<PlacePageResult> listAll(int limit, int offset) {
         return listAll(ListAllPlacesRequest.builder().limit(limit).offset(offset).build());
     }
+
+    CompletableFuture<List<String>> listAllStates(ListAllStatesRequest request);
+
+    CompletableFuture<List<String>> listAllCities(ListAllCitiesRequest request);
+
+    CompletableFuture<List<String>> listAllDistricts(ListAllDistrictsRequest request);
 
     default CompletableFuture<PlacePageResult> listAll() {
         return listAll(ListAllPlacesRequest.builder().build());
