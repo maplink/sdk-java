@@ -17,6 +17,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
+import static global.maplink.trip.testUtils.Defaults.POINT_OFFSET;
 import static global.maplink.trip.testUtils.SolutionSampleFiles.SOLUTION_LEG;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
@@ -76,8 +77,8 @@ public class SolutionLegTest {
         assertEquals("SP", placeRoute.getAddress().getState());
         assertEquals("01404-100", placeRoute.getAddress().getZipcode());
         assertEquals("9th floor", placeRoute.getAddress().getComplement());
-        assertEquals(0, new BigDecimal("-23.5666499").compareTo(placeRoute.getAddress().getPoint().getLatitude()));
-        assertEquals(0, new BigDecimal("-46.6557755").compareTo(placeRoute.getAddress().getPoint().getLongitude()));
+        assertThat(placeRoute.getAddress().getPoint().getLatitude()).isCloseTo(-23.5666499, POINT_OFFSET);
+        assertThat(placeRoute.getAddress().getPoint().getLongitude()).isCloseTo(-46.6557755, POINT_OFFSET);
 
         assertNotNull(solutionLeg.getTollCalculation());
         global.maplink.toll.schema.result.LegResult tollCalculation = solutionLeg.getTollCalculation();

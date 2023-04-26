@@ -6,13 +6,13 @@ import lombok.val;
 import org.junit.jupiter.api.Test;
 import org.junit.platform.commons.util.StringUtils;
 
-import java.math.BigDecimal;
 import java.time.DayOfWeek;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import static global.maplink.place.schema.PaymentMethod.*;
+import static global.maplink.place.testUtils.Defaults.POINT_OFFSET;
 import static global.maplink.place.testUtils.SampleFiles.PLACE;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
@@ -71,8 +71,8 @@ public class PlaceTest {
         assertEquals("SP", place.getAddress().getState());
         assertEquals("01404-100", place.getAddress().getZipcode());
         assertEquals("9th floor", place.getAddress().getComplement());
-        assertEquals(0, new BigDecimal("-23.5666499").compareTo(place.getAddress().getPoint().getLatitude()));
-        assertEquals(0, new BigDecimal("-46.6557755").compareTo(place.getAddress().getPoint().getLongitude()));
+        assertThat(place.getAddress().getPoint().getLatitude()).isCloseTo(-23.5666499, POINT_OFFSET);
+        assertThat(place.getAddress().getPoint().getLongitude()).isCloseTo(-46.6557755, POINT_OFFSET);
         assertThat(place.validate()).isEmpty();
         place.throwIfInvalid();
     }

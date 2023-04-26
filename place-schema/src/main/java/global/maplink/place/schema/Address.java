@@ -1,5 +1,6 @@
 package global.maplink.place.schema;
 
+import global.maplink.domain.MaplinkPoint;
 import global.maplink.place.schema.exception.PlaceUpdateViolation;
 import global.maplink.validations.Validable;
 import global.maplink.validations.ValidationViolation;
@@ -26,7 +27,7 @@ public class Address implements Validable {
     private final String state;
     private final String zipcode;
     private final String complement;
-    private final Point point;
+    private final MaplinkPoint point;
 
     @Override
     public List<ValidationViolation> validate() {

@@ -5,10 +5,10 @@ import global.maplink.place.schema.exception.PlaceCalculationRequestException;
 import global.maplink.validations.ValidationException;
 import org.junit.jupiter.api.Test;
 
-import java.math.BigDecimal;
 import java.util.Arrays;
 
 import static global.maplink.place.schema.SubCategory.*;
+import static global.maplink.place.testUtils.Defaults.POINT_OFFSET;
 import static global.maplink.place.testUtils.SampleFiles.PLACEROUTEREQUEST;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
@@ -35,12 +35,17 @@ public class PlaceRouteRequestTest {
         assertEquals(3, placeRouteRequest.getLegs().get(0).getPoints().size());
 
         Leg leg = placeRouteRequest.getLegs().get(0);
-        assertEquals(0, new BigDecimal("-23.5666499").compareTo(leg.getPoints().get(0).getLatitude()));
-        assertEquals(0, new BigDecimal("-46.6557755").compareTo(leg.getPoints().get(0).getLongitude()));
-        assertEquals(0, new BigDecimal("-23.5688742").compareTo(leg.getPoints().get(1).getLatitude()));
-        assertEquals(0, new BigDecimal("-46.6638823").compareTo(leg.getPoints().get(1).getLongitude()));
-        assertEquals(0, new BigDecimal("-23.5757982").compareTo(leg.getPoints().get(2).getLatitude()));
-        assertEquals(0, new BigDecimal("-46.6779297").compareTo(leg.getPoints().get(2).getLongitude()));
+        assertEquals(3, leg.getPoints().size());
+        int i = 0;
+        assertThat(leg.getPoints().get(i).getLatitude()).isCloseTo(-23.5666499, POINT_OFFSET);
+        assertThat(leg.getPoints().get(i++).getLongitude()).isCloseTo(-46.6557755, POINT_OFFSET);
+
+        assertThat(leg.getPoints().get(i).getLatitude()).isCloseTo(-23.5688742, POINT_OFFSET);
+        assertThat(leg.getPoints().get(i++).getLongitude()).isCloseTo(-46.6638823, POINT_OFFSET);
+
+        assertThat(leg.getPoints().get(i).getLatitude()).isCloseTo(-23.5757982, POINT_OFFSET);
+        assertThat(leg.getPoints().get(i).getLongitude()).isCloseTo(-46.6779297, POINT_OFFSET);
+
         assertThat(placeRouteRequest.validate()).isEmpty();
         assertThatCode(placeRouteRequest::throwIfInvalid).doesNotThrowAnyException();
         assertThatCode(placeRouteRequest::validateWithLegs).doesNotThrowAnyException();

@@ -1,9 +1,10 @@
 package global.maplink.place.schema;
 
-import lombok.*;
-
-import java.util.ArrayList;
-import java.util.List;
+import global.maplink.domain.MaplinkPoints;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 
 import static lombok.AccessLevel.PRIVATE;
 
@@ -12,18 +13,9 @@ import static lombok.AccessLevel.PRIVATE;
 @RequiredArgsConstructor
 @NoArgsConstructor(force = true, access = PRIVATE)
 public class Leg {
-    @Singular
-    private final List<Point> points;
+    private final MaplinkPoints points;
 
-    public static Leg of(double latitude, double longitude, double... points) {
-        if (points.length % 2 != 0) {
-            throw new IllegalArgumentException("Leg.points requires pairs of lat long");
-        }
-        List<Point> list = new ArrayList<>(points.length / 2);
-        list.add(Point.of(latitude, longitude));
-        for (int i = 0; i < points.length; i += 2) {
-            list.add(Point.of(points[i], points[i + 1]));
-        }
-        return new Leg(list);
+    public static Leg of(double... points) {
+        return new Leg(MaplinkPoints.from(points));
     }
 }
