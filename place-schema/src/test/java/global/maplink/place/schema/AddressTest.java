@@ -5,8 +5,7 @@ import global.maplink.validations.ValidationException;
 import lombok.val;
 import org.junit.jupiter.api.Test;
 
-import java.math.BigDecimal;
-
+import static global.maplink.place.testUtils.Defaults.POINT_OFFSET;
 import static global.maplink.place.testUtils.SampleFiles.ADDRESS;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
@@ -26,8 +25,8 @@ public class AddressTest {
         assertEquals("SP", address.getState());
         assertEquals("01404-100", address.getZipcode());
         assertEquals("9th floor", address.getComplement());
-        assertEquals(0, new BigDecimal("-23.5666499").compareTo(address.getPoint().getLatitude()));
-        assertEquals(0, new BigDecimal("-46.6557755").compareTo(address.getPoint().getLongitude()));
+        assertThat(address.getPoint().getLatitude()).isCloseTo(-23.5666499, POINT_OFFSET);
+        assertThat(address.getPoint().getLongitude()).isCloseTo(-46.6557755, POINT_OFFSET);
         assertThat(address.validate()).isEmpty();
     }
 

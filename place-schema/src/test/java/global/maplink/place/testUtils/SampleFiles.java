@@ -22,7 +22,6 @@ public enum SampleFiles {
     PLACEROUTE("place/json/placeRoute.json"),
     PLACEROUTEREQUEST("place/json/placeRouteRequest.json"),
     PLACEROUTERESPONSE("place/json/placeRouteResponse.json"),
-    POINT("place/json/point.json"),
     SOCIALCONNECTION("place/json/socialConnection.json");
 
     private final String filePath;

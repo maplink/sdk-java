@@ -15,6 +15,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 import static global.maplink.env.EnvironmentCatalog.HOMOLOG;
 import static global.maplink.place.common.Defaults.DEFAULT_CLIENT_ID;
@@ -43,9 +44,9 @@ class PlaceSyncApiTest {
             instance.create(placeSP2);
             instance.create(placeRJ1);
 
-            Place placeSp1Read = instance.getByOriginId("1a2b3c").get();
-            Place placeSp2Read = instance.getByOriginId("1a2b3d").get();
-            Place placeRj1Read = instance.getByOriginId("1a2b3e").get();
+            Place placeSp1Read = instance.getByOriginId("1a2b3c").orElseThrow(NoSuchElementException::new);
+            Place placeSp2Read = instance.getByOriginId("1a2b3d").orElseThrow(NoSuchElementException::new);
+            Place placeRj1Read = instance.getByOriginId("1a2b3e").orElseThrow(NoSuchElementException::new);
 
             assertThat(placeSp1Read.getName()).isEqualTo("Posto de teste 1");
             assertThat(placeSp2Read.getName()).isEqualTo("Posto de teste 2");
@@ -151,7 +152,7 @@ class PlaceSyncApiTest {
                     .extracting(Address::getZipcode).isNotNull();
             assertThat(firstPlace.getAddress().getPoint())
                     .isNotNull()
-                    .isEqualTo(Point.of(-23.368653161261896, -46.77969932556152));
+                    .isEqualTo(new MaplinkPoint(-23.368653161261896, -46.77969932556152));
             assertThat(firstPlace.getPhones()).isNotEmpty();
         });
     }

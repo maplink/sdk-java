@@ -1,14 +1,12 @@
 package global.maplink.place.schema;
 
 import global.maplink.json.JsonMapper;
-import global.maplink.place.testUtils.SampleFiles;
 import org.junit.jupiter.api.Test;
 
-import java.math.BigDecimal;
-
+import static global.maplink.place.testUtils.Defaults.POINT_OFFSET;
 import static global.maplink.place.testUtils.SampleFiles.PLACEROUTERESPONSE;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class PlaceRouteResponseTest {
 
@@ -47,7 +45,7 @@ public class PlaceRouteResponseTest {
         assertEquals("SP", placeRoute.getAddress().getState());
         assertEquals("01404-100", placeRoute.getAddress().getZipcode());
         assertEquals("9th floor", placeRoute.getAddress().getComplement());
-        assertEquals(0, new BigDecimal("-23.5666499").compareTo(placeRoute.getAddress().getPoint().getLatitude()));
-        assertEquals(0, new BigDecimal("-46.6557755").compareTo(placeRoute.getAddress().getPoint().getLongitude()));
+        assertThat(placeRoute.getAddress().getPoint().getLatitude()).isCloseTo(-23.5666499, POINT_OFFSET);
+        assertThat(placeRoute.getAddress().getPoint().getLongitude()).isCloseTo(-46.6557755, POINT_OFFSET);
     }
 }

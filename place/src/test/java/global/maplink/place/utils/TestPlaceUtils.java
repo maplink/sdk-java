@@ -1,11 +1,10 @@
 package global.maplink.place.utils;
 
+import global.maplink.domain.MaplinkPoint;
 import global.maplink.place.schema.Address;
 import global.maplink.place.schema.Place;
-import global.maplink.place.schema.Point;
 import global.maplink.place.schema.SubCategory;
 
-import java.math.BigDecimal;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -16,10 +15,7 @@ public class TestPlaceUtils {
     public static final String LIST_ALL_DISTRICTS_EXPECTED_RESULT = "José Menino";
 
     public static Place testPlaceCreator(String name, String id, String state, String city, String district) {
-        Point point = Point.builder()
-                .latitude(BigDecimal.valueOf(-23.368653161261896))
-                .longitude(BigDecimal.valueOf(-46.77969932556152))
-                .build();
+        MaplinkPoint point = new MaplinkPoint(-23.368653161261896,-46.77969932556152);
 
         Address address = Address.builder()
                 .state(state)

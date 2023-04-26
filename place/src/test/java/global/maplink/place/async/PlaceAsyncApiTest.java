@@ -15,9 +15,11 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.concurrent.ExecutionException;
 
 import static global.maplink.env.EnvironmentCatalog.HOMOLOG;
+import static global.maplink.helpers.FutureHelper.await;
 import static global.maplink.place.common.Defaults.DEFAULT_CLIENT_ID;
 import static global.maplink.place.common.Defaults.DEFAULT_SECRET;
 import static global.maplink.place.schema.Category.POSTOS_DE_COMBUSTIVEL;
@@ -44,9 +46,9 @@ class PlaceAsyncApiTest {
             instance.create(placeSP2).get();
             instance.create(placeRJ1).get();
 
-            Place placeSp1Read = instance.getByOriginId("1a2b3c").get().get();
-            Place placeSp2Read = instance.getByOriginId("1a2b3d").get().get();
-            Place placeRj1Read = instance.getByOriginId("1a2b3e").get().get();
+            Place placeSp1Read = await(instance.getByOriginId("1a2b3c")).orElseThrow(NoSuchElementException::new);
+            Place placeSp2Read = await(instance.getByOriginId("1a2b3d")).orElseThrow(NoSuchElementException::new);
+            Place placeRj1Read = await(instance.getByOriginId("1a2b3e")).orElseThrow(NoSuchElementException::new);
 
             assertThat(placeSp1Read.getName()).isEqualTo("Posto de teste 1");
             assertThat(placeSp2Read.getName()).isEqualTo("Posto de teste 2");
@@ -154,7 +156,7 @@ class PlaceAsyncApiTest {
                     .extracting(Address::getZipcode).isNotNull();
             assertThat(firstPlace.getAddress().getPoint())
                     .isNotNull()
-                    .isEqualTo(Point.of(-23.368653161261896, -46.77969932556152));
+                    .isEqualTo(new MaplinkPoint(-23.368653161261896, -46.77969932556152));
             assertThat(firstPlace.getPhones()).isNotEmpty();
         });
     }
