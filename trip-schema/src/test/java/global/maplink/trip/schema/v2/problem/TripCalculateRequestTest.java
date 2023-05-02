@@ -12,7 +12,9 @@ import static global.maplink.trip.schema.v1.payload.AvoidanceType.BRIDGES;
 import static global.maplink.trip.schema.v1.payload.AvoidanceType.TUNNELS;
 import static global.maplink.trip.schema.v2.features.crossedBorders.CrossedBorderLevel.CITY;
 import static global.maplink.trip.schema.v2.features.reverseGeocode.ReverseGeocodePointsMode.START_END;
-import static global.maplink.trip.testUtils.ProblemSampleFiles.TRIP_REQUEST;
+import static global.maplink.trip.schema.v2.problem.CalculationMode.THE_FASTEST;
+import static global.maplink.trip.schema.v2.problem.CalculationMode.THE_SHORTEST;
+import static global.maplink.trip.testUtils.ProblemSampleFiles.*;
 import static java.util.Arrays.asList;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
@@ -47,5 +49,21 @@ public class TripCalculateRequestTest {
         assertEquals(START_END, crossedBordersRequest.getReverseGeocode());
 
         assertThat(tripRequest.getExpireIn()).isEqualTo("2022-12-25T00:00:00-03:00");
+    }
+
+    @Test
+    public void shouldDeserializeCalculationModeDefault() {
+        TripCalculateRequest tripRequest = mapper.fromJson(TRIP_REQUEST_DEFAULT.load(), TripCalculateRequest.class);
+
+        assertEquals(THE_FASTEST, tripRequest.getCalculationMode());
+
+    }
+
+    @Test
+    public void shouldDeserializeCalculationModeTheShortest() {
+        TripCalculateRequest tripRequest = mapper.fromJson(TRIP_REQUEST_THE_SHORTEST.load(), TripCalculateRequest.class);
+
+        assertEquals(THE_SHORTEST, tripRequest.getCalculationMode());
+
     }
 }

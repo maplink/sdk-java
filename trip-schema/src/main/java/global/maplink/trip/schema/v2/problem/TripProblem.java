@@ -20,7 +20,6 @@ import static java.util.Optional.ofNullable;
 @Getter
 @ToString
 @EqualsAndHashCode
-@NoArgsConstructor(force = true)
 public class TripProblem {
 
     protected final List<SitePoint> points;
@@ -53,6 +52,18 @@ public class TripProblem {
         this.freight = freight;
         this.emission = emission;
         this.place = place;
+    }
+
+    public TripProblem() {
+        this.points = null;
+        this.calculationMode = THE_FASTEST;
+        this.restrictionZones = emptySet();
+        this.avoidanceTypes = emptySet();
+        this.toll = null;
+        this.crossedBorders = null;
+        this.freight = null;
+        this.emission = null;
+        this.place = null;
     }
 }
 
