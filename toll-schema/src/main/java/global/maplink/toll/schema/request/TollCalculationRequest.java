@@ -10,8 +10,7 @@ import global.maplink.toll.schema.Billing;
 import global.maplink.toll.schema.result.TollCalculationResult;
 import lombok.*;
 
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.function.Function;
 
 import static global.maplink.http.request.Request.post;
@@ -29,7 +28,8 @@ public class TollCalculationRequest implements MapLinkServiceRequest<TollCalcula
     @Builder.Default
     private final Billing billing = Billing.DEFAULT;
 
-    private final Set<String> transponderOperators;
+    @Builder.Default
+    private final Set<String> transponderOperators = new HashSet<>(Collections.singletonList("SEM_PARAR"));
 
     @Override
     public Request asHttpRequest(Environment environment, JsonMapper mapper) {
