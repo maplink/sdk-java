@@ -7,6 +7,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 
+import java.util.Set;
+
 import static lombok.AccessLevel.PRIVATE;
 
 @Data
@@ -16,4 +18,6 @@ import static lombok.AccessLevel.PRIVATE;
 public class TollRequest {
     private final TollVehicleType vehicleType;
     private final Billing billing;
+    private final Set<String> transponderOperators;
+
 }
