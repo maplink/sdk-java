@@ -17,6 +17,7 @@ public enum SampleFiles {
     TOLL_CONDITION("toll/json/tollCondition.json"),
     TOLL_SERVICE_TYPE("toll/json/tollServiceType.json"),
     CALCULATION_REQUEST("toll/json/calculationRequest.json"),
+    CALCULATION_REQUEST_CONECTCAR("toll/json/calculationRequest_Conectcar.json"),
     CALCULATION_RESULT("toll/json/calculationResult.json");
 
     private final String filePath;

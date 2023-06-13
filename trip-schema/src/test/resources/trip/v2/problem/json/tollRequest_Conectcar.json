@@ -1,0 +1,5 @@
+{
+  "vehicleType": "TRUCK_WITH_TWO_SINGLE_AXIS",
+  "billing": "FREE_FLOW",
+  "transponderOperators": ["CONECTCAR"]
+}

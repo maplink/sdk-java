@@ -1,13 +1,18 @@
 package global.maplink.toll.schema.request;
 
+import global.maplink.commons.TransponderOperator;
 import global.maplink.json.JsonMapper;
 import global.maplink.toll.schema.Coordinates;
 import lombok.val;
 import org.junit.jupiter.api.Test;
 
+import java.util.Collections;
+import java.util.HashSet;
+
 import static global.maplink.toll.schema.Billing.FREE_FLOW;
 import static global.maplink.toll.schema.TollVehicleType.CAR;
 import static global.maplink.toll.testUtils.SampleFiles.CALCULATION_REQUEST;
+import static global.maplink.toll.testUtils.SampleFiles.CALCULATION_REQUEST_CONECTCAR;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.offset;
 
@@ -16,12 +21,23 @@ class TollCalculationRequestTest {
     private final JsonMapper mapper = JsonMapper.loadDefault();
 
     @Test
-    void shouldDeserialize() {
+    void shouldDeserializeWithDefaultTransponderOperator() {
         val data = mapper.fromJson(CALCULATION_REQUEST.load(), TollCalculationRequest.class);
+        assertThat(data.getBilling()).isEqualTo(FREE_FLOW);
+        assertThat(data.getLegs())
+                .hasSize(1);
+        assertThat(data.getTransponderOperators()).isEqualTo(new HashSet<>(Collections.singletonList(TransponderOperator.SEM_PARAR)));
+    }
+
+    @Test
+    void shouldDeserialize() {
+        val data = mapper.fromJson(CALCULATION_REQUEST_CONECTCAR.load(), TollCalculationRequest.class);
         assertThat(data.getBilling()).isEqualTo(FREE_FLOW);
 
         assertThat(data.getLegs())
                 .hasSize(1);
+
+        assertThat(data.getTransponderOperators()).isEqualTo(new HashSet<>(Collections.singletonList(TransponderOperator.CONECTCAR)));
 
         val firstLeg = data.getLegs().get(0);
         assertThat(firstLeg.getVehicleType()).isEqualTo(CAR);
