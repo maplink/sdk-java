@@ -11,8 +11,6 @@ import java.util.List;
 @AllArgsConstructor
 @Getter
 public enum TransponderOperator {
-    SEM_PARAR(Arrays.asList("Via Facil", "SemPararPay")),
-    CONECTCAR(Arrays.asList("Conectcar"));
-
-    private final List<String> tags;
+    SEM_PARAR,
+    CONECTCAR;
 }

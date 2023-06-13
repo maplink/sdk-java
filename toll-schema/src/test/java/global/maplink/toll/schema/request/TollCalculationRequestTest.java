@@ -1,6 +1,5 @@
 package global.maplink.toll.schema.request;
 
-import global.maplink.commons.TransponderOperator;
 import global.maplink.json.JsonMapper;
 import global.maplink.toll.schema.Coordinates;
 import lombok.val;
@@ -9,6 +8,8 @@ import org.junit.jupiter.api.Test;
 import java.util.Collections;
 import java.util.HashSet;
 
+import static global.maplink.commons.TransponderOperator.CONECTCAR;
+import static global.maplink.commons.TransponderOperator.SEM_PARAR;
 import static global.maplink.toll.schema.Billing.FREE_FLOW;
 import static global.maplink.toll.schema.TollVehicleType.CAR;
 import static global.maplink.toll.testUtils.SampleFiles.CALCULATION_REQUEST;
@@ -26,7 +27,7 @@ class TollCalculationRequestTest {
         assertThat(data.getBilling()).isEqualTo(FREE_FLOW);
         assertThat(data.getLegs())
                 .hasSize(1);
-        assertThat(data.getTransponderOperators()).isEqualTo(new HashSet<>(Collections.singletonList(TransponderOperator.SEM_PARAR)));
+        assertThat(data.getTransponderOperators()).isEqualTo(new HashSet<>(Collections.singletonList(SEM_PARAR)));
     }
 
     @Test
@@ -37,7 +38,7 @@ class TollCalculationRequestTest {
         assertThat(data.getLegs())
                 .hasSize(1);
 
-        assertThat(data.getTransponderOperators()).isEqualTo(new HashSet<>(Collections.singletonList(TransponderOperator.CONECTCAR)));
+        assertThat(data.getTransponderOperators()).isEqualTo(new HashSet<>(Collections.singletonList(CONECTCAR)));
 
         val firstLeg = data.getLegs().get(0);
         assertThat(firstLeg.getVehicleType()).isEqualTo(CAR);
