@@ -13,6 +13,7 @@ public enum ProblemSampleFiles {
     CROSSED_BORDERS_REQUEST("trip/v2/problem/json/crossedBordersRequest.json"),
     SITE_POINT("trip/v2/problem/json/sitePoint.json"),
     TOLL_REQUEST("trip/v2/problem/json/tollRequest.json"),
+    TOLL_REQUEST_CONECTCAR("trip/v2/problem/json/tollRequest_Conectcar.json"),
     TRIP_REQUEST("trip/v2/problem/json/tripRequest.json"),
     TRIP_REQUEST_DEFAULT("trip/v2/problem/json/tripRequestCalculationModeDefault.json"),
     TRIP_REQUEST_THE_SHORTEST("trip/v2/problem/json/tripRequestCalculationModeTheShortest.json");

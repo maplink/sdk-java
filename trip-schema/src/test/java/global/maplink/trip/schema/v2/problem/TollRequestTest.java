@@ -5,7 +5,13 @@ import global.maplink.toll.schema.Billing;
 import global.maplink.toll.schema.TollVehicleType;
 import org.junit.jupiter.api.Test;
 
+import java.util.Collections;
+import java.util.HashSet;
+
+import static global.maplink.commons.TransponderOperator.CONECTCAR;
+import static global.maplink.commons.TransponderOperator.SEM_PARAR;
 import static global.maplink.trip.testUtils.ProblemSampleFiles.TOLL_REQUEST;
+import static global.maplink.trip.testUtils.ProblemSampleFiles.TOLL_REQUEST_CONECTCAR;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TollRequestTest {
@@ -14,8 +20,17 @@ public class TollRequestTest {
 
     @Test
     public void shouldDeserialize() {
+        TollRequest tollRequest = mapper.fromJson(TOLL_REQUEST_CONECTCAR.load(), TollRequest.class);
+        assertEquals(TollVehicleType.TRUCK_WITH_TWO_SINGLE_AXIS, tollRequest.getVehicleType());
+        assertEquals(Billing.FREE_FLOW, tollRequest.getBilling());
+        assertEquals(new HashSet<>(Collections.singletonList(CONECTCAR)), tollRequest.getTransponderOperators());
+    }
+
+    @Test
+    public void shouldDeserializeWithDefaultTransponderOperator() {
         TollRequest tollRequest = mapper.fromJson(TOLL_REQUEST.load(), TollRequest.class);
         assertEquals(TollVehicleType.TRUCK_WITH_TWO_SINGLE_AXIS, tollRequest.getVehicleType());
         assertEquals(Billing.FREE_FLOW, tollRequest.getBilling());
+        assertEquals(new HashSet<>(Collections.singletonList(SEM_PARAR)), tollRequest.getTransponderOperators());
     }
 }
