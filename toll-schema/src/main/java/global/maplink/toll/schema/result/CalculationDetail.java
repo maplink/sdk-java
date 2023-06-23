@@ -25,6 +25,7 @@ public class CalculationDetail {
     private final String concession;
     private final TollDirection direction;
     private final Coordinates coordinates;
+    private final TollVehicleType vehicleType;
     private final List<TollServiceType> serviceTypes;
     private final BigDecimal price;
     private final List<TollCondition> conditions;
