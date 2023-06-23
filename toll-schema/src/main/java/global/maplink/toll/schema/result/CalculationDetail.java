@@ -14,7 +14,7 @@ import static lombok.AccessLevel.PRIVATE;
 @Data
 @Builder
 @RequiredArgsConstructor
-@NoArgsConstructor(force = true, access = PRIVATE
+@NoArgsConstructor(force = true, access = PRIVATE)
 public class CalculationDetail {
     private final String id;
     private final String name;
