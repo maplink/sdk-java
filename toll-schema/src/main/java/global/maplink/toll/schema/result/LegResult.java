@@ -1,5 +1,6 @@
 package global.maplink.toll.schema.result;
 
+import global.maplink.toll.schema.TollVehicleType;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -17,4 +18,5 @@ import static lombok.AccessLevel.PRIVATE;
 public class LegResult {
     private final List<CalculationDetail> tolls;
     private final BigDecimal legTotalCost;
+    private final TollVehicleType vehicleType;
 }
