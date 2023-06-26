@@ -37,5 +37,6 @@
       ]
     }
   ],
-  "legTotalCost": 209.5
+  "legTotalCost": 209.5,
+  "vehicleType": "CAR"
 }

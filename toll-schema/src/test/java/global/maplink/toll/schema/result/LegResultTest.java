@@ -23,6 +23,7 @@ public class LegResultTest {
 
         assertEquals(1, legResult.getTolls().size());
         assertEquals(0, new BigDecimal("209.5").compareTo(legResult.getLegTotalCost()));
+        assertEquals(TollVehicleType.CAR, legResult.getVehicleType());
 
         CalculationDetail calculationDetail = legResult.getTolls().get(0);
 
