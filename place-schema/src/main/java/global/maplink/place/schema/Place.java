@@ -58,7 +58,7 @@ public class Place implements Validable {
         }
 
         if (isNull(address)) {
-            violations.add(PlaceUpdateViolation.of("subCategory"));
+            violations.add(PlaceUpdateViolation.of("address"));
         } else {
             violations.addAll(address.validate());
         }
