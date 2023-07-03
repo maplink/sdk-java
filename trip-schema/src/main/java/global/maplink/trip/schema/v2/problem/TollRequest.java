@@ -20,7 +20,8 @@ import static lombok.AccessLevel.PRIVATE;
 @NoArgsConstructor(force = true, access = PRIVATE)
 public class TollRequest {
     private final TollVehicleType vehicleType;
-    private final Billing billing;
+    @Builder.Default
+    private final Billing billing = Billing.DEFAULT;
     @Builder.Default
     private final Set<TransponderOperator> transponderOperators = new HashSet<>(Collections.singletonList(TransponderOperator.SEM_PARAR));
 }
