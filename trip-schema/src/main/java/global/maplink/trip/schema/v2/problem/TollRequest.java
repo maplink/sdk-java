@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import static lombok.AccessLevel.PRIVATE;
@@ -24,4 +25,5 @@ public class TollRequest {
     private final Billing billing = Billing.DEFAULT;
     @Builder.Default
     private final Set<TransponderOperator> transponderOperators = new HashSet<>(Collections.singletonList(TransponderOperator.SEM_PARAR));
+    private final List<LegVariableAxles> variableAxles;
 }
