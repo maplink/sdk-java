@@ -3,10 +3,7 @@ package global.maplink.trip.schema.v2.problem;
 import global.maplink.commons.TransponderOperator;
 import global.maplink.toll.schema.Billing;
 import global.maplink.toll.schema.TollVehicleType;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
+import lombok.*;
 
 import java.util.Collections;
 import java.util.HashSet;
@@ -26,4 +23,12 @@ public class TollRequest {
     @Builder.Default
     private final Set<TransponderOperator> transponderOperators = new HashSet<>(Collections.singletonList(TransponderOperator.SEM_PARAR));
     private final List<LegVariableAxles> variableAxles;
+
+    public void validate(final List<String> errors, final List<SitePoint> sites) {
+        var variableAxlesValidator = new VariableAxlesValidator();
+        variableAxlesValidator.checkNotNull(errors, "vehicleType", vehicleType);
+        variableAxlesValidator.checkNotNull(errors, "billing", billing);
+        variableAxlesValidator.checkNotNull(errors, "transponderOperators", transponderOperators);
+        variableAxlesValidator.checkVariableAxles(errors, sites, variableAxles);
+    }
 }
