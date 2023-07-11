@@ -3,20 +3,27 @@ package global.maplink.trip.schema.v2.problem;
 import global.maplink.commons.TransponderOperator;
 import global.maplink.toll.schema.Billing;
 import global.maplink.toll.schema.TollVehicleType;
+import global.maplink.validations.Validable;
+import global.maplink.validations.ValidationViolation;
 import lombok.*;
 
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
+import java.util.stream.Collectors;
 
+import static global.maplink.trip.schema.v1.exception.TripErrorType.*;
+import static java.util.Objects.isNull;
 import static lombok.AccessLevel.PRIVATE;
 
 @Data
 @Builder
 @RequiredArgsConstructor
 @NoArgsConstructor(force = true, access = PRIVATE)
-public class TollRequest {
+public class TollRequest implements Validable {
+    private static final String SITE_NOT_USED = "site not used";
+    private static final String SITE_USED_AS_FROM_SITE_ID = "site used as fromSiteId";
+    private static final String SITE_USED_AS_TO_SITE_ID = "site used as toSiteId";
+    private static final String SITE_USED_AS_MIDDLE_SITE = "site used as middle site";
+
     private final TollVehicleType vehicleType;
     @Builder.Default
     private final Billing billing = Billing.DEFAULT;
@@ -24,11 +31,129 @@ public class TollRequest {
     private final Set<TransponderOperator> transponderOperators = new HashSet<>(Collections.singletonList(TransponderOperator.SEM_PARAR));
     private final List<LegVariableAxles> variableAxles;
 
-    public void validate(final List<String> errors, final List<SitePoint> sites) {
-        var variableAxlesValidator = new VariableAxlesValidator();
-        variableAxlesValidator.checkNotNull(errors, "vehicleType", vehicleType);
-        variableAxlesValidator.checkNotNull(errors, "billing", billing);
-        variableAxlesValidator.checkNotNull(errors, "transponderOperators", transponderOperators);
-        variableAxlesValidator.checkVariableAxles(errors, sites, variableAxles);
+    @Override
+    public List<ValidationViolation> validate() {
+        List<ValidationViolation> errors = new ArrayList<>();
+        if (vehicleType == null) {
+            errors.add(TOLL_PARAMETERS_DOES_NOT_HAVE_VEHICLE_TYPE);
+        }
+        return errors;
     }
+
+    public List<ValidationViolation> validateVariableAxles(final List<SitePoint> sites){
+        List<ValidationViolation> errors = new ArrayList<>();
+
+        if (variableAxles == null || sites.isEmpty()) {
+            return errors;
+        }
+
+        List<String> problemSites = getProblemSites(sites);
+        Map<String, String> sitesStatusMap = createVirginSitesStatusMap(problemSites);
+
+        for (LegVariableAxles legVariableAxles : variableAxles) {
+            String fromSiteId = legVariableAxles.getFromSiteId();
+            String toSiteId = legVariableAxles.getToSiteId();
+
+            if (isNull(fromSiteId)){
+                errors.add(VARIABLE_AXLES_FROMSITEID_EMPTY);
+                return errors;
+            }
+
+            if (!problemSites.contains(fromSiteId)) {
+                errors.add(MSG_SITEID_NOT_FOUND_IN_PROBLEM.addToMessage(fromSiteId));
+            }
+
+            if (isNull(toSiteId)){
+                errors.add(VARIABLE_AXLES_TOSITEID_EMPTY);
+                return errors;
+            }
+
+            if (!problemSites.contains(toSiteId)) {
+                errors.add(MSG_SITEID_NOT_FOUND_IN_PROBLEM.addToMessage(toSiteId));
+            }
+
+            if (fromSiteId.equalsIgnoreCase(problemSites.get(problemSites.size() - 1))) {
+                errors.add(VARIABLE_AXLES_FROMSITEID_POINTING_TO_LAST_SITE);
+                return errors;
+            }
+
+            if (fromSiteId.equalsIgnoreCase(toSiteId)) {
+                errors.add(VARIABLE_AXLES_FROMSITEID_SAME_AS_TOSITEID.addToMessage(fromSiteId));
+                return errors;
+            }
+
+            List<String> TOLL_VEHICLE_TYPES = Arrays.stream(TollVehicleType.values())
+                    .map(Enum::name)
+                    .collect(Collectors.toList());
+
+            if (!TOLL_VEHICLE_TYPES.contains(String.valueOf(legVariableAxles.getNewVehicleType()))){
+                errors.add(MSG_CONTAINED_IN.addToMessage(TOLL_VEHICLE_TYPES.toString()));
+            }
+
+            List<String> legSites = getLegSites(fromSiteId, toSiteId, problemSites);
+
+            if (existsOverlap(fromSiteId, toSiteId, legSites, sitesStatusMap)) {
+                val leg = fromSiteId + " to " + toSiteId;
+                errors.add(VARIABLE_AXLES_OVERLAP_FOUND.addToMessage(leg));
+                return errors;
+            } else {
+                sitesStatusMap.put(fromSiteId, SITE_USED_AS_FROM_SITE_ID);
+                sitesStatusMap.put(toSiteId, SITE_USED_AS_TO_SITE_ID);
+                for (int i = 1; i < legSites.size() - 1; i++) {
+                    sitesStatusMap.put(legSites.get(i), SITE_USED_AS_MIDDLE_SITE);
+                }
+            }
+        }
+        return errors;
+    }
+
+    private List<String> getProblemSites(final List<SitePoint> sites) {
+        return sites.stream()
+                .filter(sp -> sp != null && sp.getSiteId() != null)
+                .map(SitePoint::getSiteId)
+                .collect(Collectors.toList());
+    }
+
+    private Map<String, String> createVirginSitesStatusMap(List<String> problemSites) {
+        Map<String, String> map = new HashMap<>();
+        for (String site : problemSites) {
+            map.put(site, SITE_NOT_USED);
+        }
+        return map;
+    }
+
+    private List<String> getLegSites(String fromSiteId, String toSiteId, List<String> problemSites) {
+        return problemSites.subList(problemSites.indexOf(fromSiteId), problemSites.indexOf(toSiteId) + 1);
+    }
+
+    private boolean existsOverlap(
+            String fromSiteId,
+            String toSiteId,
+            List<String> legSites,
+            Map<String, String> sitesStatusMap
+    ) {
+        for (String site : legSites) {
+            if (site.equalsIgnoreCase(fromSiteId) && sitesStatusMap.get(site)
+                    .equalsIgnoreCase(SITE_USED_AS_MIDDLE_SITE)) {
+                return true;
+            }
+
+            if (site.equalsIgnoreCase(toSiteId) && sitesStatusMap.get(site)
+                    .equalsIgnoreCase(SITE_USED_AS_MIDDLE_SITE)) {
+                return true;
+            }
+
+            if (site.equalsIgnoreCase(fromSiteId) && sitesStatusMap.get(site)
+                    .equalsIgnoreCase(SITE_USED_AS_FROM_SITE_ID)) {
+                return true;
+            }
+
+            if (!site.equalsIgnoreCase(fromSiteId) && !site.equalsIgnoreCase(toSiteId) && !sitesStatusMap.get(site)
+                    .equalsIgnoreCase(SITE_NOT_USED)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
 }
