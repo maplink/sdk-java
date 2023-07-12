@@ -12,6 +12,7 @@ import lombok.Getter;
 import lombok.ToString;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
@@ -70,7 +71,7 @@ public class TripProblem implements Validable {
 
     @Override
     public List<ValidationViolation> validate() {
-        List<ValidationViolation> errors = new ArrayList<>();
+        List<ValidationViolation> errors = new LinkedList<>();
         if (toll != null){
             errors.addAll(toll.validate());
             errors.addAll(toll.validateVariableAxles(points));

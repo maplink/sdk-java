@@ -7,10 +7,7 @@ import global.maplink.trip.schema.v1.exception.violations.VariableAxlesOverlappi
 import global.maplink.trip.schema.v1.exception.violations.VariableAxlesSiteIdNotFoundInProblem;
 import global.maplink.validations.Validable;
 import global.maplink.validations.ValidationViolation;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
+import lombok.*;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -35,6 +32,7 @@ public class TollRequest implements Validable {
     private final Billing billing = Billing.DEFAULT;
     @Builder.Default
     private final Set<TransponderOperator> transponderOperators = new HashSet<>(Collections.singletonList(TransponderOperator.SEM_PARAR));
+    @Singular
     private final List<LegVariableAxles> variableAxles;
 
     @Override
@@ -98,14 +96,16 @@ public class TollRequest implements Validable {
     }
 
     private List<String> getProblemSites(final List<SitePoint> sites) {
+
         return sites.stream()
-                .filter(sp -> sp != null && sp.getSiteId() != null)
+                .filter(Objects::nonNull)
                 .map(SitePoint::getSiteId)
+                .filter(Objects::nonNull)
                 .collect(Collectors.toList());
     }
 
     private Map<String, String> createVirginSitesStatusMap(List<String> problemSites) {
-        Map<String, String> map = new HashMap<>();
+        Map<String, String> map = new HashMap<>(problemSites.size());
         for (String site : problemSites) {
             map.put(site, SITE_NOT_USED);
         }

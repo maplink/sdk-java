@@ -22,8 +22,4 @@ public enum TripErrorType implements ValidationViolation {
     TRIP_PROFILE_NOT_FOUND("Trip profile does not exist");
 
     private final String message;
-
-    public String getMessage(){
-        return this.message;
-    }
 }

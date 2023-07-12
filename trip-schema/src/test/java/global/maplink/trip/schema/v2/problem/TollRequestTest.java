@@ -23,14 +23,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class TollRequestTest {
 
     private final JsonMapper mapper = JsonMapper.loadDefault();
-    private List<ValidationViolation> errors;
-    private List<SitePoint> sites;
-    private List<LegVariableAxles> variableAxles;
-
-    @BeforeEach
-    public void init() {
-        errors = new ArrayList<>();
-    }
 
     @Test
     public void shouldDeserialize() {
@@ -51,10 +43,10 @@ public class TollRequestTest {
     @Test
     public void should_pass_for_valid_variableAxles() {
         TripProblem problem = mapper.fromJson(PROBLEM_VARIABLE_AXLES.load(), TripProblem.class);
-        sites = problem.getPoints();
+        val sites = problem.getPoints();
         val toll = problem.getToll();
-        variableAxles = toll.getVariableAxles();
-        errors = toll.validateVariableAxles(sites);
+        val variableAxles = toll.getVariableAxles();
+        val errors = toll.validateVariableAxles(sites);
 
         assertThat(errors.size()).isEqualTo(0);
     }
@@ -62,11 +54,11 @@ public class TollRequestTest {
     @Test
     public void should_fail_on_siteId_not_in_trip_problem() {
         TripProblem problem = mapper.fromJson(PROBLEM_VARIABLE_AXLES.load(), TripProblem.class);
-        sites = problem.getPoints();
+        val sites = problem.getPoints();
         val toll = problem.getToll();
-        variableAxles = toll.getVariableAxles();
+        val variableAxles = toll.getVariableAxles();
         variableAxles.get(0).setFromSiteId("INVALID SITEID");
-        errors = toll.validateVariableAxles(sites);
+        val errors = toll.validateVariableAxles(sites);
 
         assertThat(errors.size()).isEqualTo(1);
         assertThat(errors.get(0).getMessage()).isEqualTo("siteId INVALID SITEID not found in trip problem sites.");
@@ -75,11 +67,11 @@ public class TollRequestTest {
     @Test
     public void should_fail_on_missing_fromSiteId() {
         TripProblem problem = mapper.fromJson(PROBLEM_VARIABLE_AXLES.load(), TripProblem.class);
-        sites = problem.getPoints();
+        val sites = problem.getPoints();
         val toll = problem.getToll();
-        variableAxles = toll.getVariableAxles();
+        val variableAxles = toll.getVariableAxles();
         variableAxles.get(0).setFromSiteId(null);
-        errors = toll.validateVariableAxles(sites);
+        val errors = toll.validateVariableAxles(sites);
 
         assertThat(errors.size()).isEqualTo(1);
         assertThat(errors.get(0).getMessage()).contains(TripErrorType.VARIABLE_AXLES_FROMSITEID_EMPTY.getMessage());
@@ -88,11 +80,11 @@ public class TollRequestTest {
     @Test
     public void should_fail_on_missing_toSiteId() {
         TripProblem problem = mapper.fromJson(PROBLEM_VARIABLE_AXLES.load(), TripProblem.class);
-        sites = problem.getPoints();
+        val sites = problem.getPoints();
         val toll = problem.getToll();
-        variableAxles = toll.getVariableAxles();
+        val variableAxles = toll.getVariableAxles();
         variableAxles.get(0).setToSiteId(null);
-        errors = toll.validateVariableAxles(sites);
+        val errors = toll.validateVariableAxles(sites);
 
         assertThat(errors.size()).isEqualTo(1);
         assertThat(errors.get(0).getMessage()).contains(TripErrorType.VARIABLE_AXLES_TOSITEID_EMPTY.getMessage());
@@ -101,11 +93,11 @@ public class TollRequestTest {
     @Test
     public void should_fail_on_fromSiteId_equal_to_toSiteId() {
         TripProblem problem = mapper.fromJson(PROBLEM_VARIABLE_AXLES.load(), TripProblem.class);
-        sites = problem.getPoints();
+        val sites = problem.getPoints();
         val toll = problem.getToll();
-        variableAxles = toll.getVariableAxles();
+        val variableAxles = toll.getVariableAxles();
         variableAxles.get(0).setToSiteId(variableAxles.get(0).getFromSiteId());
-        errors = toll.validateVariableAxles(sites);
+        val errors = toll.validateVariableAxles(sites);
 
         assertThat(errors.size()).isEqualTo(1);
         assertThat(errors.get(0).getMessage()).isEqualTo("fromSiteId JUNDIAI and toSiteId JUNDIAI cannot be the same");
@@ -114,11 +106,11 @@ public class TollRequestTest {
     @Test
     public void should_fail_on_lastSite_as_fromSiteId() {
         TripProblem problem = mapper.fromJson(PROBLEM_VARIABLE_AXLES.load(), TripProblem.class);
-        sites = problem.getPoints();
+        val sites = problem.getPoints();
         val toll = problem.getToll();
-        variableAxles = toll.getVariableAxles();
+        val variableAxles = toll.getVariableAxles();
         variableAxles.get(0).setFromSiteId(sites.get(sites.size()-1).getSiteId());
-        errors = toll.validateVariableAxles(sites);
+        val errors = toll.validateVariableAxles(sites);
 
         assertThat(errors.size()).isEqualTo(1);
         assertThat(errors.get(0).getMessage()).contains(TripErrorType.VARIABLE_AXLES_FROMSITEID_POINTING_TO_LAST_SITE.getMessage());
@@ -127,10 +119,9 @@ public class TollRequestTest {
     @Test
     public void should_detect_Overlap_on_variableAxles() {
         TripProblem problem = mapper.fromJson(PROBLEM_VARIABLE_AXLES_OVERLAPPING.load(), TripProblem.class);
-        sites = problem.getPoints();
+        val sites = problem.getPoints();
         val toll = problem.getToll();
-        variableAxles = toll.getVariableAxles();
-        errors = toll.validateVariableAxles(sites);
+        val errors = toll.validateVariableAxles(sites);
 
         assertThat(errors.size()).isEqualTo(1);
         assertThat(errors.get(0).getMessage()).isEqualTo("VariableAxles leg overlap found on leg from CAMPINAS to SÃO CARLOS.");
@@ -139,10 +130,9 @@ public class TollRequestTest {
     @Test
     public void should_detect_Overlap_on_variableAxles_when_leg_ends_on_middle() {
         TripProblem problem = mapper.fromJson(PROBLEM_VARIABLE_AXLES_OVERLAPPING_ENDING_ON_MIDDLE.load(), TripProblem.class);
-        sites = problem.getPoints();
+        val sites = problem.getPoints();
         val toll = problem.getToll();
-        variableAxles = toll.getVariableAxles();
-        errors = toll.validateVariableAxles(sites);
+        val errors = toll.validateVariableAxles(sites);
 
         assertThat(errors.size()).isEqualTo(1);
         assertThat(errors.get(0).getMessage()).isEqualTo("VariableAxles leg overlap found on leg from SP to CAMPINAS.");
@@ -151,10 +141,9 @@ public class TollRequestTest {
     @Test
     public void should_detect_Overlap_on_variableAxles_when_middle_overlapping() {
         TripProblem problem = mapper.fromJson(PROBLEM_VARIABLE_AXLES_OVERLAPPING_MIDDLE.load(), TripProblem.class);
-        sites = problem.getPoints();
+        val sites = problem.getPoints();
         val toll = problem.getToll();
-        variableAxles = toll.getVariableAxles();
-        errors = toll.validateVariableAxles(sites);
+        val errors = toll.validateVariableAxles(sites);
 
         assertThat(errors.size()).isEqualTo(1);
         assertThat(errors.get(0).getMessage()).isEqualTo("VariableAxles leg overlap found on leg from SP to MATÃO.");
