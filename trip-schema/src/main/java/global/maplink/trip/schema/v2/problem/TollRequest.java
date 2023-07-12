@@ -3,14 +3,20 @@ package global.maplink.trip.schema.v2.problem;
 import global.maplink.commons.TransponderOperator;
 import global.maplink.toll.schema.Billing;
 import global.maplink.toll.schema.TollVehicleType;
+import global.maplink.trip.schema.v1.exception.violations.VariableAxlesOverlappingViolation;
+import global.maplink.trip.schema.v1.exception.violations.VariableAxlesSiteIdNotFoundInProblem;
 import global.maplink.validations.Validable;
 import global.maplink.validations.ValidationViolation;
-import lombok.*;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 
 import java.util.*;
 import java.util.stream.Collectors;
 
-import static global.maplink.trip.schema.v1.exception.TripErrorType.*;
+import static global.maplink.trip.schema.v1.exception.TripErrorType.TOLL_PARAMETERS_DOES_NOT_HAVE_VEHICLE_TYPE;
+import static global.maplink.trip.schema.v1.exception.TripErrorType.VARIABLE_AXLES_FROMSITEID_POINTING_TO_LAST_SITE;
 import static java.util.Objects.isNull;
 import static lombok.AccessLevel.PRIVATE;
 
@@ -54,22 +60,20 @@ public class TollRequest implements Validable {
             String fromSiteId = legVariableAxles.getFromSiteId();
             String toSiteId = legVariableAxles.getToSiteId();
 
-            if (isNull(fromSiteId)){
-                errors.add(VARIABLE_AXLES_FROMSITEID_EMPTY);
+            errors.addAll(legVariableAxles.validate());
+
+            if (isNull(fromSiteId) || isNull(toSiteId)) {
                 return errors;
             }
 
             if (!problemSites.contains(fromSiteId)) {
-                errors.add(MSG_SITEID_NOT_FOUND_IN_PROBLEM.addToMessage(fromSiteId));
-            }
-
-            if (isNull(toSiteId)){
-                errors.add(VARIABLE_AXLES_TOSITEID_EMPTY);
+                errors.add(new VariableAxlesSiteIdNotFoundInProblem(fromSiteId));
                 return errors;
             }
 
             if (!problemSites.contains(toSiteId)) {
-                errors.add(MSG_SITEID_NOT_FOUND_IN_PROBLEM.addToMessage(toSiteId));
+                errors.add(new VariableAxlesSiteIdNotFoundInProblem(toSiteId));
+                return errors;
             }
 
             if (fromSiteId.equalsIgnoreCase(problemSites.get(problemSites.size() - 1))) {
@@ -77,24 +81,10 @@ public class TollRequest implements Validable {
                 return errors;
             }
 
-            if (fromSiteId.equalsIgnoreCase(toSiteId)) {
-                errors.add(VARIABLE_AXLES_FROMSITEID_SAME_AS_TOSITEID.addToMessage(fromSiteId));
-                return errors;
-            }
-
-            List<String> TOLL_VEHICLE_TYPES = Arrays.stream(TollVehicleType.values())
-                    .map(Enum::name)
-                    .collect(Collectors.toList());
-
-            if (!TOLL_VEHICLE_TYPES.contains(String.valueOf(legVariableAxles.getNewVehicleType()))){
-                errors.add(MSG_CONTAINED_IN.addToMessage(TOLL_VEHICLE_TYPES.toString()));
-            }
-
             List<String> legSites = getLegSites(fromSiteId, toSiteId, problemSites);
 
             if (existsOverlap(fromSiteId, toSiteId, legSites, sitesStatusMap)) {
-                val leg = fromSiteId + " to " + toSiteId;
-                errors.add(VARIABLE_AXLES_OVERLAP_FOUND.addToMessage(leg));
+                errors.add(new VariableAxlesOverlappingViolation(fromSiteId, toSiteId));
                 return errors;
             } else {
                 sitesStatusMap.put(fromSiteId, SITE_USED_AS_FROM_SITE_ID);

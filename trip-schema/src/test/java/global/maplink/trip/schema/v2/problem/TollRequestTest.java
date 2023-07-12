@@ -60,6 +60,19 @@ public class TollRequestTest {
     }
 
     @Test
+    public void should_fail_on_siteId_not_in_trip_problem() {
+        TripProblem problem = mapper.fromJson(PROBLEM_VARIABLE_AXLES.load(), TripProblem.class);
+        sites = problem.getPoints();
+        val toll = problem.getToll();
+        variableAxles = toll.getVariableAxles();
+        variableAxles.get(0).setFromSiteId("INVALID SITEID");
+        errors = toll.validateVariableAxles(sites);
+
+        assertThat(errors.size()).isEqualTo(1);
+        assertThat(errors.get(0).getMessage()).isEqualTo("siteId INVALID SITEID not found in trip problem sites.");
+    }
+
+    @Test
     public void should_fail_on_missing_fromSiteId() {
         TripProblem problem = mapper.fromJson(PROBLEM_VARIABLE_AXLES.load(), TripProblem.class);
         sites = problem.getPoints();
@@ -95,7 +108,7 @@ public class TollRequestTest {
         errors = toll.validateVariableAxles(sites);
 
         assertThat(errors.size()).isEqualTo(1);
-        assertThat(errors.get(0).getMessage()).contains(TripErrorType.VARIABLE_AXLES_FROMSITEID_SAME_AS_TOSITEID.getMessage());
+        assertThat(errors.get(0).getMessage()).isEqualTo("fromSiteId JUNDIAI and toSiteId JUNDIAI cannot be the same");
     }
 
     @Test
@@ -120,7 +133,7 @@ public class TollRequestTest {
         errors = toll.validateVariableAxles(sites);
 
         assertThat(errors.size()).isEqualTo(1);
-        assertThat(errors.get(0).getMessage()).contains("VariableAxles leg overlap found on CAMPINAS to SÃO CARLOS");
+        assertThat(errors.get(0).getMessage()).isEqualTo("VariableAxles leg overlap found on leg from CAMPINAS to SÃO CARLOS.");
     }
 
     @Test
@@ -132,7 +145,7 @@ public class TollRequestTest {
         errors = toll.validateVariableAxles(sites);
 
         assertThat(errors.size()).isEqualTo(1);
-        assertThat(errors.get(0).getMessage()).contains("VariableAxles leg overlap found on SP to CAMPINAS");
+        assertThat(errors.get(0).getMessage()).isEqualTo("VariableAxles leg overlap found on leg from SP to CAMPINAS.");
     }
 
     @Test
@@ -144,7 +157,7 @@ public class TollRequestTest {
         errors = toll.validateVariableAxles(sites);
 
         assertThat(errors.size()).isEqualTo(1);
-        assertThat(errors.get(0).getMessage()).contains("VariableAxles leg overlap found on SP to MATÃO");
+        assertThat(errors.get(0).getMessage()).isEqualTo("VariableAxles leg overlap found on leg from SP to MATÃO.");
     }
 
 }

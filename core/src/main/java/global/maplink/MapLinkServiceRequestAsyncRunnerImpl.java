@@ -52,7 +52,6 @@ public class MapLinkServiceRequestAsyncRunnerImpl implements MapLinkServiceReque
                 .collect(toList());
     }
 
-
     @Override
     public <T> CompletableFuture<T> run(MapLinkServiceRequest<T> request) {
         request.throwIfInvalid();
