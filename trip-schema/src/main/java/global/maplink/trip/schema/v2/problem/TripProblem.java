@@ -5,11 +5,14 @@ import global.maplink.freight.schema.FreightCalculationRequest;
 import global.maplink.place.schema.PlaceRouteRequest;
 import global.maplink.trip.schema.v1.payload.AvoidanceType;
 import global.maplink.trip.schema.v2.features.crossedBorders.CrossedBordersRequest;
+import global.maplink.validations.Validable;
+import global.maplink.validations.ValidationViolation;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.ToString;
 
+import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
@@ -20,7 +23,7 @@ import static java.util.Optional.ofNullable;
 @Getter
 @ToString
 @EqualsAndHashCode
-public class TripProblem {
+public class TripProblem implements Validable {
 
     protected final List<SitePoint> points;
     protected final CalculationMode calculationMode;
@@ -64,6 +67,16 @@ public class TripProblem {
         this.freight = null;
         this.emission = null;
         this.place = null;
+    }
+
+    @Override
+    public List<ValidationViolation> validate() {
+        List<ValidationViolation> errors = new LinkedList<>();
+        if (toll != null){
+            errors.addAll(toll.validate());
+            errors.addAll(toll.validateVariableAxles(points));
+        }
+        return errors;
     }
 }
 

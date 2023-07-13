@@ -8,6 +8,10 @@ import lombok.Getter;
 @AllArgsConstructor
 public enum TripErrorType implements ValidationViolation {
     ROUTE_POINTS_LESS_THAN_TWO("The route must contain at least two site points"),
+    VARIABLE_AXLES_FROMSITEID_EMPTY("fromSiteId should not be empty"),
+    VARIABLE_AXLES_TOSITEID_EMPTY("toSiteId should not be empty"),
+    VARIABLE_AXLES_FROMSITEID_POINTING_TO_LAST_SITE("fromSiteId cannot be equal to the last site in trip problem"),
+    MSG_CONTAINED_IN("does not have a valid value. Allowed values: "),
     PROFILE_NAME_EMPTY("Field profileName should not be empty"),
     CALCULATION_MODE_FIELD_EMPTY("Field calculationMode should not be empty"),
     CALLBACK_DOES_NOT_HAVE_URL("Callback parameters must have an url"),
