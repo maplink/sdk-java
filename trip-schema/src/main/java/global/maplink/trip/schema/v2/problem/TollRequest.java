@@ -33,7 +33,7 @@ public class TollRequest implements Validable {
     @Builder.Default
     private final Set<TransponderOperator> transponderOperators = new HashSet<>(Collections.singletonList(TransponderOperator.SEM_PARAR));
     @Singular
-    private final List<LegVariableAxles> variableAxles;
+    private final List<LegVariableAxles> variableAxles = Collections.emptyList();
 
     @Override
     public List<ValidationViolation> validate() {

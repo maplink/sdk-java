@@ -52,6 +52,17 @@ public class TollRequestTest {
     }
 
     @Test
+    public void should_pass_for_missing_variableAxles() {
+        TripProblem problem = mapper.fromJson(PROBLEM_MISSING_VARIABLE_AXLES.load(), TripProblem.class);
+        val sites = problem.getPoints();
+        val toll = problem.getToll();
+        val variableAxles = toll.getVariableAxles();
+        val errors = toll.validateVariableAxles(sites);
+
+        assertThat(errors.size()).isEqualTo(0);
+    }
+
+    @Test
     public void should_fail_on_siteId_not_in_trip_problem() {
         TripProblem problem = mapper.fromJson(PROBLEM_VARIABLE_AXLES.load(), TripProblem.class);
         val sites = problem.getPoints();
