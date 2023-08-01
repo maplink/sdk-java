@@ -4,15 +4,11 @@ import global.maplink.json.JsonMapper;
 import global.maplink.toll.schema.Billing;
 import global.maplink.toll.schema.TollVehicleType;
 import global.maplink.trip.schema.v1.exception.TripErrorType;
-import global.maplink.validations.ValidationViolation;
 import lombok.val;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
-import java.util.List;
 
 import static global.maplink.commons.TransponderOperator.CONECTCAR;
 import static global.maplink.commons.TransponderOperator.SEM_PARAR;
@@ -45,7 +41,16 @@ public class TollRequestTest {
         TripProblem problem = mapper.fromJson(PROBLEM_VARIABLE_AXLES.load(), TripProblem.class);
         val sites = problem.getPoints();
         val toll = problem.getToll();
-        val variableAxles = toll.getVariableAxles();
+        val errors = toll.validateVariableAxles(sites);
+
+        assertThat(errors.size()).isEqualTo(0);
+    }
+
+    @Test
+    public void should_pass_for_missing_variableAxles() {
+        TripProblem problem = mapper.fromJson(PROBLEM_MISSING_VARIABLE_AXLES.load(), TripProblem.class);
+        val sites = problem.getPoints();
+        val toll = problem.getToll();
         val errors = toll.validateVariableAxles(sites);
 
         assertThat(errors.size()).isEqualTo(0);

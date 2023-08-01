@@ -1,0 +1,43 @@
+{
+    "points":[
+        {
+            "latitude": -23.555771,
+            "longitude": -46.639557,
+            "siteId": "SP"
+        },
+        {
+            "latitude": -23.18567,
+            "longitude": -46.88926,
+            "siteId": "JUNDIAI"
+        },
+        {
+            "latitude": -22.905082,
+            "longitude": -47.061333,
+            "siteId": "CAMPINAS"
+        },
+        {
+            "latitude": -22.410765,
+            "longitude": -47.559621,
+            "siteId": "RIO CLARO"
+        },
+        {
+            "latitude": -22.017056,
+            "longitude": -47.889687,
+            "siteId": "SÃO CARLOS"
+        },
+        {
+            "latitude": -21.779084,
+            "longitude": -48.179264,
+            "siteId": "ARARAQUARA"
+        },
+        {
+            "latitude": -21.605827,
+            "longitude": -48.362041,
+            "siteId": "MATÃO"
+        }
+    ],
+    "toll": {
+        "vehicleType": "TRUCK_WITH_FOUR_DOUBLE_AXLES",
+        "billing": "FREE_FLOW"
+    }
+}
