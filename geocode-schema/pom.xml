@@ -4,7 +4,7 @@
     <parent>
         <artifactId>sdk</artifactId>
         <groupId>global.maplink</groupId>
-        <version>1.4.20</version>
+        <version>1.4.21-SNAPSHOT</version>
     </parent>
 
     <artifactId>geocode-schema</artifactId>
