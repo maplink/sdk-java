@@ -11,6 +11,8 @@ public enum TripErrorType implements ValidationViolation {
     VARIABLE_AXLES_FROMSITEID_EMPTY("fromSiteId should not be empty"),
     VARIABLE_AXLES_TOSITEID_EMPTY("toSiteId should not be empty"),
     VARIABLE_AXLES_FROMSITEID_POINTING_TO_LAST_SITE("fromSiteId cannot be equal to the last site in trip problem"),
+    TOSITEID_BEFORE_FROMSITEID("toSiteId cannot come before fromSiteId in problem sites"),
+    MISSING_NEW_VEHICLE_TYPE("variableAxles leg must have a newVehicleType"),
     MSG_CONTAINED_IN("does not have a valid value. Allowed values: "),
     PROFILE_NAME_EMPTY("Field profileName should not be empty"),
     CALCULATION_MODE_FIELD_EMPTY("Field calculationMode should not be empty"),

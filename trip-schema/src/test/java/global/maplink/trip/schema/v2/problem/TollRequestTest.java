@@ -96,6 +96,32 @@ public class TollRequestTest {
     }
 
     @Test
+    public void should_fail_on_missing_newVehicleType() {
+        TripProblem problem = mapper.fromJson(PROBLEM_VARIABLE_AXLES.load(), TripProblem.class);
+        val sites = problem.getPoints();
+        val toll = problem.getToll();
+        val variableAxles = toll.getVariableAxles();
+        variableAxles.get(0).setNewVehicleType(null);
+        val errors = toll.validateVariableAxles(sites);
+
+        assertThat(errors.size()).isEqualTo(1);
+        assertThat(errors.get(0).getMessage()).contains(TripErrorType.MISSING_NEW_VEHICLE_TYPE.getMessage());
+    }
+
+    @Test
+    public void should_fail_when_toSiteId_comes_before_fromSiteId() {
+        TripProblem problem = mapper.fromJson(PROBLEM_VARIABLE_AXLES.load(), TripProblem.class);
+        val sites = problem.getPoints();
+        val toll = problem.getToll();
+        val variableAxles = toll.getVariableAxles();
+        variableAxles.get(0).setToSiteId("SP");
+        val errors = toll.validateVariableAxles(sites);
+
+        assertThat(errors.size()).isEqualTo(1);
+        assertThat(errors.get(0).getMessage()).contains(TripErrorType.TOSITEID_BEFORE_FROMSITEID.getMessage());
+    }
+
+    @Test
     public void should_fail_on_fromSiteId_equal_to_toSiteId() {
         TripProblem problem = mapper.fromJson(PROBLEM_VARIABLE_AXLES.load(), TripProblem.class);
         val sites = problem.getPoints();

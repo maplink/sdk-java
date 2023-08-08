@@ -12,8 +12,7 @@ import lombok.*;
 import java.util.*;
 import java.util.stream.Collectors;
 
-import static global.maplink.trip.schema.v1.exception.TripErrorType.TOLL_PARAMETERS_DOES_NOT_HAVE_VEHICLE_TYPE;
-import static global.maplink.trip.schema.v1.exception.TripErrorType.VARIABLE_AXLES_FROMSITEID_POINTING_TO_LAST_SITE;
+import static global.maplink.trip.schema.v1.exception.TripErrorType.*;
 import static java.util.Objects.isNull;
 import static lombok.AccessLevel.PRIVATE;
 
@@ -57,10 +56,16 @@ public class TollRequest implements Validable {
         for (LegVariableAxles legVariableAxles : variableAxles) {
             String fromSiteId = legVariableAxles.getFromSiteId();
             String toSiteId = legVariableAxles.getToSiteId();
+            TollVehicleType newVehicleType = legVariableAxles.getNewVehicleType();
 
             errors.addAll(legVariableAxles.validate());
 
             if (isNull(fromSiteId) || isNull(toSiteId)) {
+                return errors;
+            }
+
+            if (newVehicleType == null){
+                errors.add(MISSING_NEW_VEHICLE_TYPE);
                 return errors;
             }
 
@@ -79,6 +84,11 @@ public class TollRequest implements Validable {
                 return errors;
             }
 
+            if (isToSiteIdBeforeFromSiteId(fromSiteId, toSiteId, problemSites)){
+                errors.add(TOSITEID_BEFORE_FROMSITEID);
+                return errors;
+            }
+
             List<String> legSites = getLegSites(fromSiteId, toSiteId, problemSites);
 
             if (existsOverlap(fromSiteId, toSiteId, legSites, sitesStatusMap)) {
@@ -93,6 +103,13 @@ public class TollRequest implements Validable {
             }
         }
         return errors;
+    }
+
+    private boolean isToSiteIdBeforeFromSiteId(String fromSiteId, String toSiteId, List<String> problemSites){
+        int fromSiteIdIndex = problemSites.indexOf(fromSiteId);
+        int toSiteIdIndex = problemSites.indexOf(toSiteId);
+
+        return  toSiteIdIndex < fromSiteIdIndex;
     }
 
     private List<String> getProblemSites(final List<SitePoint> sites) {
