@@ -3,6 +3,7 @@ package global.maplink.geocode.async;
 import global.maplink.MapLinkSDK;
 import global.maplink.credentials.InvalidCredentialsException;
 import global.maplink.credentials.MapLinkCredentials;
+import global.maplink.geocode.schema.cities.CitiesByStateRequest;
 import global.maplink.geocode.schema.reverse.ReverseRequest.Entry;
 import global.maplink.geocode.schema.structured.StructuredRequest;
 import global.maplink.http.exceptions.MapLinkHttpException;
@@ -98,6 +99,20 @@ public class GeocodeAsyncApiTest {
             assertThat(result.getResults()).hasSizeGreaterThan(1);
             assertThat(result.getFound()).isGreaterThan(1);
             assertThat(result.getById("sp")).isNotEmpty();
+        });
+    }
+
+    @Test
+    void mustReturnSuggestionsOnCitiesByState() {
+        withEnvCredentials(credentials -> {
+            configureWith(credentials);
+            val instance = GeocodeAsyncAPI.getInstance();
+            val result = instance.citiesByState(
+                    new CitiesByStateRequest("SC")
+            ).get();
+            assertThat(result.getResults()).hasSizeGreaterThan(1);
+            assertThat(result.getFound()).isGreaterThanOrEqualTo(200);
+            assertThat(result.getResults().get(0).getAddress().getState().getName()).isEqualTo("SANTA CATARINA");
         });
     }
 
