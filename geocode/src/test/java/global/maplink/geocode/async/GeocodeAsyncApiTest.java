@@ -108,8 +108,20 @@ public class GeocodeAsyncApiTest {
             configureWith(credentials);
             val instance = GeocodeAsyncAPI.getInstance();
             val result = instance.citiesByState(
-                    new CitiesByStateRequest("SC")
+                    CitiesByStateRequest.builder().state("SC").build()
             ).get();
+            assertThat(result.getResults()).hasSizeGreaterThan(1);
+            assertThat(result.getFound()).isGreaterThanOrEqualTo(200);
+            assertThat(result.getResults().get(0).getAddress().getState().getName()).isEqualTo("SANTA CATARINA");
+        });
+    }
+
+    @Test
+    void mustReturnSuggestionsOnCitiesByStateDefault() {
+        withEnvCredentials(credentials -> {
+            configureWith(credentials);
+            val instance = GeocodeAsyncAPI.getInstance();
+            val result = instance.citiesByState("SC").get();
             assertThat(result.getResults()).hasSizeGreaterThan(1);
             assertThat(result.getFound()).isGreaterThanOrEqualTo(200);
             assertThat(result.getResults().get(0).getAddress().getState().getName()).isEqualTo("SANTA CATARINA");

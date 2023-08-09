@@ -30,6 +30,10 @@ public interface GeocodeAsyncAPI {
 
     CompletableFuture<SuggestionsResult> suggestions(SuggestionsRequest request);
 
+    default CompletableFuture<SuggestionsResult> citiesByState(String state) {
+        return citiesByState(CitiesByStateRequest.builder().state(state).build());
+    }
+
     CompletableFuture<SuggestionsResult> citiesByState(CitiesByStateRequest request);
 
     CompletableFuture<SuggestionsResult> structured(StructuredRequest request);
