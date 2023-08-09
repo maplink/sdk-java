@@ -66,7 +66,7 @@ public class TollRequestTest {
         val errors = toll.validateVariableAxles(sites);
 
         assertThat(errors.size()).isEqualTo(1);
-        assertThat(errors.get(0).getMessage()).isEqualTo("siteId INVALID SITEID not found in trip problem sites.");
+        assertThat(errors.get(0).getMessage()).isEqualTo("siteId INVALID SITEID not found in trip points list.");
     }
 
     @Test
