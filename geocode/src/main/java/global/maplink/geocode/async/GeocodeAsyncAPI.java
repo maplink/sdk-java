@@ -4,6 +4,7 @@ import global.maplink.MapLinkSDK;
 import global.maplink.env.Environment;
 import global.maplink.geocode.extensions.GeocodeExtensionManager;
 import global.maplink.geocode.schema.Type;
+import global.maplink.geocode.schema.cities.CitiesByStateRequest;
 import global.maplink.geocode.schema.crossCities.CrossCitiesRequest;
 import global.maplink.geocode.schema.reverse.ReverseRequest;
 import global.maplink.geocode.schema.structured.StructuredRequest;
@@ -28,6 +29,12 @@ public interface GeocodeAsyncAPI {
     }
 
     CompletableFuture<SuggestionsResult> suggestions(SuggestionsRequest request);
+
+    default CompletableFuture<SuggestionsResult> citiesByState(String state) {
+        return citiesByState(CitiesByStateRequest.builder().state(state).build());
+    }
+
+    CompletableFuture<SuggestionsResult> citiesByState(CitiesByStateRequest request);
 
     CompletableFuture<SuggestionsResult> structured(StructuredRequest request);
 
