@@ -3,8 +3,6 @@ package global.maplink.emission.async;
 import global.maplink.MapLinkSDK;
 import global.maplink.emission.schema.EmissionRequest;
 import global.maplink.emission.schema.EmissionResponse;
-import global.maplink.emission.schema.Fuel;
-import global.maplink.emission.schema.Source;
 import global.maplink.env.Environment;
 
 import java.math.BigDecimal;
@@ -16,16 +14,16 @@ import static global.maplink.MapLinkServiceRequestAsyncRunner.proxyFor;
 public interface EmissionAsyncAPI {
 
     default CompletableFuture<EmissionResponse> calculate(
-            Source source,
-            Fuel fuelType,
-            BigDecimal averageComsumption,
+            String source,
+            String fuelType,
+            BigDecimal autonomy,
             BigDecimal fuelPrice,
             Integer distance
     ) {
         return calculate(EmissionRequest.builder()
                 .source(source)
                 .fuelType(fuelType)
-                .averageConsumption(averageComsumption)
+                .autonomy(autonomy)
                 .fuelPrice(fuelPrice)
                 .totalDistance(distance)
                 .build());

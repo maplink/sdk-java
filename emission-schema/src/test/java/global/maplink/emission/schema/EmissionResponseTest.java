@@ -15,8 +15,8 @@ public class EmissionResponseTest {
     @Test
     void shouldSerializeJsonFileToEmissionResponseTest(){
         EmissionResponse emissionResponse = mapper.fromJson(EMISSION_RESPONSE.load(), EmissionResponse.class);
-        assertEquals(Source.LASTROP_ESALQ, emissionResponse.getSource());
-        assertEquals(Fuel.BIODIESEL, emissionResponse.getFuelType());
+        assertEquals(0, "LASTROP_ESALQ".compareTo(emissionResponse.getSource()));
+        assertEquals(0, "BIODIESEL".compareTo(emissionResponse.getFuelType()));
         assertEquals(0, new BigDecimal("7.08").compareTo(emissionResponse.getFuelConsumed()));
         assertEquals(0, new BigDecimal("34.69").compareTo(emissionResponse.getTotalFuelPrice()));
         assertEquals(0, new BigDecimal("15.146").compareTo(emissionResponse.getTotalEmission()));

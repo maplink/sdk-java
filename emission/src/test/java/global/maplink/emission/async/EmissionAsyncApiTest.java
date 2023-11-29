@@ -13,8 +13,6 @@ import java.util.concurrent.ExecutionException;
 
 import static global.maplink.emission.common.Defaults.DEFAULT_CLIENT_ID;
 import static global.maplink.emission.common.Defaults.DEFAULT_SECRET;
-import static global.maplink.emission.schema.Fuel.BR_GASOLINE;
-import static global.maplink.emission.schema.Source.LASTROP_ESALQ;
 import static global.maplink.emission.utils.EnvCredentialsHelper.withEnvCredentials;
 import static global.maplink.env.EnvironmentCatalog.HOMOLOG;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -55,14 +53,14 @@ class EmissionAsyncApiTest {
             configureWith(credentials);
             val instance = EmissionAsyncAPI.getInstance();
             val result = instance.calculate(
-                    LASTROP_ESALQ,
-                    BR_GASOLINE,
+                    "LASTROP_ESALQ",
+                    "BR_GASOLINE",
                     BigDecimal.valueOf(11.3),
                     BigDecimal.valueOf(4.9),
                     80_000
             ).get();
-            assertThat(result.getSource()).isEqualTo(LASTROP_ESALQ);
-            assertThat(result.getFuelType()).isEqualTo(BR_GASOLINE);
+            assertThat(result.getSource()).isEqualTo("LASTROP_ESALQ");
+            assertThat(result.getFuelType()).isEqualTo("BR_GASOLINE");
             assertThat(result.getFuelConsumed()).isNotNull().isNotZero();
             assertThat(result.getTotalFuelPrice()).isNotNull().isNotZero();
             assertThat(result.getTotalEmission()).isNotNull().isNotZero();

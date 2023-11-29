@@ -5,18 +5,13 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 
-import java.math.BigDecimal;
-
 import static lombok.AccessLevel.PRIVATE;
 
 @Data
 @Builder
 @RequiredArgsConstructor
 @NoArgsConstructor(force = true, access = PRIVATE)
-public final class EmissionResponse {
-    private final String fuelType;
-    private final String source;
-    private final BigDecimal fuelConsumed;
-    private final BigDecimal totalFuelPrice;
-    private final BigDecimal totalEmission;
+public class FractionedEmission {
+    private final String name;
+    private final int percentage;
 }

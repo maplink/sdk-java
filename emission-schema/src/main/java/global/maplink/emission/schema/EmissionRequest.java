@@ -24,9 +24,9 @@ import static lombok.AccessLevel.PRIVATE;
 public final class EmissionRequest implements MapLinkServiceRequest<EmissionResponse> {
     public static final String PATH = "emission/v1/calculations";
 
-    private final Source source;
-    private final Fuel fuelType;
-    private final BigDecimal averageConsumption;
+    private final String source;
+    private final String fuelType;
+    private final BigDecimal autonomy;
     private final BigDecimal fuelPrice;
     private final Integer totalDistance;
 
