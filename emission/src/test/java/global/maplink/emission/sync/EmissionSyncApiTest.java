@@ -53,8 +53,10 @@ class EmissionSyncApiTest {
                     "LASTROP_ESALQ",
                     "BR_GASOLINE",
                     BigDecimal.valueOf(11.3),
+                    BigDecimal.valueOf(0),
                     BigDecimal.valueOf(4.9),
-                    80_000
+                    80_000,
+                    null
             );
             assertThat(result.getSource()).isEqualTo("LASTROP_ESALQ");
             assertThat(result.getFuelType()).isEqualTo("BR_GASOLINE");

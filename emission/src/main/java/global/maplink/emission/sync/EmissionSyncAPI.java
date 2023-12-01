@@ -3,9 +3,11 @@ package global.maplink.emission.sync;
 import global.maplink.emission.async.EmissionAsyncAPI;
 import global.maplink.emission.schema.EmissionRequest;
 import global.maplink.emission.schema.EmissionResponse;
+import global.maplink.emission.schema.FractionedEmission;
 import global.maplink.env.Environment;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 public interface EmissionSyncAPI {
 
@@ -13,15 +15,19 @@ public interface EmissionSyncAPI {
             String source,
             String fuelType,
             BigDecimal autonomy,
+            BigDecimal averageConsumption,
             BigDecimal fuelPrice,
-            Integer distance
+            Integer distance,
+            List<FractionedEmission> fractionedEmissions
     ) {
         return calculate(EmissionRequest.builder()
                 .source(source)
                 .fuelType(fuelType)
                 .autonomy(autonomy)
+                .averageConsumption(averageConsumption)
                 .fuelPrice(fuelPrice)
                 .totalDistance(distance)
+                .fractionedEmissions(fractionedEmissions)
                 .build());
     }
 

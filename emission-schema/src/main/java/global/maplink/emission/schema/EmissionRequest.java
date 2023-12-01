@@ -12,6 +12,7 @@ import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 
 import java.math.BigDecimal;
+import java.util.List;
 import java.util.function.Function;
 
 import static global.maplink.http.request.Request.put;
@@ -27,8 +28,10 @@ public final class EmissionRequest implements MapLinkServiceRequest<EmissionResp
     private final String source;
     private final String fuelType;
     private final BigDecimal autonomy;
+    private final BigDecimal averageConsumption;
     private final BigDecimal fuelPrice;
     private final Integer totalDistance;
+    private final List<FractionedEmission> fractionedEmissions;
 
     @Override
     public Request asHttpRequest(Environment environment, JsonMapper mapper) {
