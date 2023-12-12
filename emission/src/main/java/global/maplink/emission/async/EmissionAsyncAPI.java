@@ -4,7 +4,6 @@ import global.maplink.MapLinkSDK;
 import global.maplink.emission.schema.EmissionRequest;
 import global.maplink.emission.schema.EmissionResponse;
 import global.maplink.emission.schema.FractionedEmission;
-import global.maplink.emission.schema.FractionedEmissionResponse;
 import global.maplink.env.Environment;
 
 import java.math.BigDecimal;

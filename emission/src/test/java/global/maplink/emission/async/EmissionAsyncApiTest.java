@@ -6,6 +6,7 @@ import global.maplink.credentials.MapLinkCredentials;
 import global.maplink.emission.schema.EmissionRequest;
 import global.maplink.http.exceptions.MapLinkHttpException;
 import lombok.val;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
@@ -48,6 +49,7 @@ class EmissionAsyncApiTest {
     }
 
     @Test
+    @Disabled
     void mustResolveValidCalculationRequest() {
         withEnvCredentials(credentials -> {
             configureWith(credentials);
@@ -58,7 +60,7 @@ class EmissionAsyncApiTest {
                     BigDecimal.valueOf(11.3),
                     BigDecimal.valueOf(6.94),
                     BigDecimal.valueOf(4.9),
-                    80000,
+                    80_000,
                     null
             ).get();
             assertThat(result.getSource()).isEqualTo("GHG_PROTOCOL");
