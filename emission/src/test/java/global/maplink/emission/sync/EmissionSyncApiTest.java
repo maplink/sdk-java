@@ -53,7 +53,7 @@ class EmissionSyncApiTest {
                     "GHG_PROTOCOL",
                     "BR_GASOLINE",
                     BigDecimal.valueOf(11.3),
-                    BigDecimal.valueOf(0),
+                    BigDecimal.valueOf(6.94),
                     BigDecimal.valueOf(4.9),
                     80_000,
                     null
