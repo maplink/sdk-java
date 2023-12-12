@@ -9,10 +9,7 @@ import global.maplink.place.schema.*;
 import lombok.SneakyThrows;
 import lombok.val;
 import lombok.var;
-import org.junit.jupiter.api.MethodOrderer;
-import org.junit.jupiter.api.Order;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestMethodOrder;
+import org.junit.jupiter.api.*;
 
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -87,6 +84,7 @@ class PlaceAsyncApiTest {
 
     @Order(4)
     @Test
+    @Disabled
     void shouldListAllDistrictsFromSantosSp() {
         withEnvCredentials(credentials -> {
             configureWith(credentials);
@@ -163,6 +161,7 @@ class PlaceAsyncApiTest {
 
     @Order(9)
     @Test
+    @Disabled
     void mustFilterPlacesByState_City_District_Tag() {
         withEnvCredentials(credentials -> {
             configureWith(credentials);

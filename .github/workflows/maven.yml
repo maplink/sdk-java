@@ -8,6 +8,10 @@ on:
     branches: [ "master" ]
   pull_request:
     branches: [ "master" ]
+    
+permissions:
+  actions: write
+  contents: write
 
 jobs:
   build:

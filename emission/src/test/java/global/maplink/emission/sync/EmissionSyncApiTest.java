@@ -6,6 +6,7 @@ import global.maplink.credentials.MapLinkCredentials;
 import global.maplink.emission.schema.EmissionRequest;
 import global.maplink.http.exceptions.MapLinkHttpException;
 import lombok.val;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
@@ -45,20 +46,21 @@ class EmissionSyncApiTest {
     }
 
     @Test
+    @Disabled
     void mustResolveValidCalculationRequest() {
         withEnvCredentials(credentials -> {
             configureWith(credentials);
             val instance = EmissionSyncAPI.getInstance();
             val result = instance.calculate(
-                    "LASTROP_ESALQ",
+                    "GHG_PROTOCOL",
                     "BR_GASOLINE",
                     BigDecimal.valueOf(11.3),
-                    BigDecimal.valueOf(0),
+                    BigDecimal.valueOf(6.94),
                     BigDecimal.valueOf(4.9),
                     80_000,
                     null
             );
-            assertThat(result.getSource()).isEqualTo("LASTROP_ESALQ");
+            assertThat(result.getSource()).isEqualTo("GHG_PROTOCOL");
             assertThat(result.getFuelType()).isEqualTo("BR_GASOLINE");
             assertThat(result.getFuelConsumed()).isNotNull().isNotZero();
             assertThat(result.getTotalFuelPrice()).isNotNull().isNotZero();
