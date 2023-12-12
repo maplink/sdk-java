@@ -50,7 +50,7 @@ class EmissionSyncApiTest {
             configureWith(credentials);
             val instance = EmissionSyncAPI.getInstance();
             val result = instance.calculate(
-                    "LASTROP_ESALQ",
+                    "GHG_PROTOCOL",
                     "BR_GASOLINE",
                     BigDecimal.valueOf(11.3),
                     BigDecimal.valueOf(0),
@@ -58,7 +58,7 @@ class EmissionSyncApiTest {
                     80_000,
                     null
             );
-            assertThat(result.getSource()).isEqualTo("LASTROP_ESALQ");
+            assertThat(result.getSource()).isEqualTo("GHG_PROTOCOL");
             assertThat(result.getFuelType()).isEqualTo("BR_GASOLINE");
             assertThat(result.getFuelConsumed()).isNotNull().isNotZero();
             assertThat(result.getTotalFuelPrice()).isNotNull().isNotZero();
