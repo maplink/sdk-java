@@ -55,7 +55,7 @@ class EmissionSyncApiTest {
                     BigDecimal.valueOf(11.3),
                     BigDecimal.valueOf(6.94),
                     BigDecimal.valueOf(4.9),
-                    80000,
+                    80_000,
                     null
             );
             assertThat(result.getSource()).isEqualTo("GHG_PROTOCOL");
