@@ -58,7 +58,7 @@ class EmissionAsyncApiTest {
                     BigDecimal.valueOf(11.3),
                     BigDecimal.valueOf(6.94),
                     BigDecimal.valueOf(4.9),
-                    80_000,
+                    80000,
                     null
             ).get();
             assertThat(result.getSource()).isEqualTo("GHG_PROTOCOL");
