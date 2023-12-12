@@ -157,7 +157,7 @@ class PlaceSyncApiTest {
 
     @Order(9)
     @Test
-    @Disabled
+    @Disabled //cris
     void mustFilterPlacesByState_City_District_Tag() {
         withEnvCredentials(credentials -> {
             configureWith(credentials);
