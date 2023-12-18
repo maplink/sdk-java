@@ -3,6 +3,7 @@ package global.maplink.geocode.sync;
 import global.maplink.MapLinkSDK;
 import global.maplink.credentials.MapLinkCredentials;
 import global.maplink.geocode.async.GeocodeAsyncAPI;
+import global.maplink.geocode.schema.cities.CitiesByStateRequest;
 import global.maplink.geocode.schema.crossCities.CrossCitiesRequest;
 import global.maplink.geocode.schema.reverse.ReverseRequest;
 import global.maplink.geocode.schema.structured.StructuredRequest;
@@ -72,6 +73,21 @@ public class GeocodeSyncApiTest {
                 .build());
         assertThat(asList(result1, result2, result3)).doesNotContainNull();
         verify(async, times(3)).suggestions(any(SuggestionsRequest.class));
+    }
+
+    @Test
+    public void mustDelegateAllCitiesByStateToAsync() {
+        val async = mock(GeocodeAsyncAPI.class);
+        when(async.citiesByState(any(String.class))).thenCallRealMethod();
+        when(async.citiesByState(any(CitiesByStateRequest.class))).thenReturn(completedFuture(new SuggestionsResult()));
+        val sync = new GeocodeSyncApiImpl(async);
+        val result1 = sync.citiesByState("SC");
+        val result2 = sync.citiesByState(CitiesByStateRequest.builder()
+                .state("SC")
+                .build());
+        assertThat(result1).doesNotContainNull();
+        assertThat(result2).doesNotContainNull();
+        verify(async, times(2)).citiesByState(any(CitiesByStateRequest.class));
     }
 
     @Test
