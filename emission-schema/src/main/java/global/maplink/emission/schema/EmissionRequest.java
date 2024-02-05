@@ -16,6 +16,7 @@ import java.util.List;
 import java.util.function.Function;
 
 import static global.maplink.http.request.Request.put;
+import static java.util.Objects.isNull;
 import static lombok.AccessLevel.PRIVATE;
 
 @Data
@@ -44,5 +45,11 @@ public final class EmissionRequest implements MapLinkServiceRequest<EmissionResp
     @Override
     public Function<Response, EmissionResponse> getResponseParser(JsonMapper mapper) {
         return r -> r.parseBodyObject(mapper, EmissionResponse.class);
+    }
+
+    public boolean isValid(){
+        return getTotalDistance() != null &&
+                (!isNull(getAutonomy()) || !isNull(getAverageConsumption()))
+                && !isNull(getFuelType());
     }
 }
