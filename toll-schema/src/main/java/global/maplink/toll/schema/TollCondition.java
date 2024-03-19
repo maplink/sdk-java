@@ -14,7 +14,7 @@ import static lombok.AccessLevel.PRIVATE;
 @Data
 @Builder
 @RequiredArgsConstructor
-@NoArgsConstructor(force = true, access = PRIVATE)
+@NoArgsConstructor(force = true)
 public class TollCondition {
     private final Set<DayOfWeek> daysOfWeek;
     private final Set<TollConditionPeriod> periods;
