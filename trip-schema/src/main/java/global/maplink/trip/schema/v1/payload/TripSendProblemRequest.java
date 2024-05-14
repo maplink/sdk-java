@@ -10,6 +10,7 @@ import global.maplink.http.request.RequestBody;
 import global.maplink.json.JsonMapper;
 import global.maplink.place.schema.PlaceRouteRequest;
 import global.maplink.trip.schema.v1.exception.TripCalculationRequestException;
+import global.maplink.trip.schema.v2.features.avoidance.AvoidanceBehavior;
 import global.maplink.trip.schema.v2.features.crossedBorders.CrossedBordersRequest;
 import global.maplink.trip.schema.v2.problem.CalculationMode;
 import global.maplink.trip.schema.v2.problem.SitePoint;
@@ -46,6 +47,7 @@ public class TripSendProblemRequest extends TripProblem implements MapLinkServic
             CalculationMode calculationMode,
             @Singular Set<String> restrictionZones,
             @Singular Set<AvoidanceType> avoidanceTypes,
+            AvoidanceBehavior avoidanceBehavior,
             TollRequest toll,
             CrossedBordersRequest crossedBorders,
             FreightCalculationRequest freight,
@@ -57,7 +59,7 @@ public class TripSendProblemRequest extends TripProblem implements MapLinkServic
             VehicleSpecification vehicleSpecification,
             Callback callback
     ) {
-        super(points, calculationMode, restrictionZones, avoidanceTypes, toll, crossedBorders, freight, emission, place);
+        super(points, calculationMode, restrictionZones, avoidanceTypes, avoidanceBehavior, toll, crossedBorders, freight, emission, place);
         this.clientId = clientId;
         this.profileName = profileName;
         this.speedPreferences = speedPreferences;
@@ -84,10 +86,6 @@ public class TripSendProblemRequest extends TripProblem implements MapLinkServic
 
         if (profileName == null || profileName.isEmpty()) {
             errors.add(PROFILE_NAME_EMPTY);
-        }
-
-        if (calculationMode == null) {
-            errors.add(CALCULATION_MODE_FIELD_EMPTY);
         }
 
         if (callback != null && callback.getUrl() == null) {

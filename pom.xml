@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>global.maplink</groupId>
     <artifactId>sdk</artifactId>
@@ -16,13 +17,13 @@
         <lombok.version>1.18.24</lombok.version>
         <lombok.plugin.version>1.18.20.0</lombok.plugin.version>
         <slf4j.version>2.0.6</slf4j.version>
-        <logback.version>1.4.5</logback.version>
-        <jackson.version>2.14.1</jackson.version>
+        <logback.version>1.5.6</logback.version>
+        <jackson.version>2.17.1</jackson.version>
         <geohash.version>1.4.0</geohash.version>
         <junit.version>5.9.1</junit.version>
         <mockito.version>4.10.0</mockito.version>
         <assertj.version>3.23.1</assertj.version>
-        <wiremock.version>2.35.0</wiremock.version>
+        <wiremock.version>3.5.4</wiremock.version>
         <delombok.output>${project.build.directory}/delombok</delombok.output>
     </properties>
 
@@ -219,8 +220,8 @@
                 <version>${assertj.version}</version>
             </dependency>
             <dependency>
-                <groupId>com.github.tomakehurst</groupId>
-                <artifactId>wiremock-jre8</artifactId>
+                <groupId>org.wiremock</groupId>
+                <artifactId>wiremock</artifactId>
                 <version>${wiremock.version}</version>
             </dependency>
             <dependency>
@@ -236,7 +237,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.10.1</version>
+                <version>3.13.0</version>
                 <configuration>
                     <source>${maven.compiler.source}</source>
                     <target>${maven.compiler.target}</target>
@@ -251,16 +252,16 @@
             </plugin>
             <plugin>
                 <artifactId>maven-surefire-plugin</artifactId>
-                <version>2.22.2</version>
+                <version>3.2.5</version>
             </plugin>
             <plugin>
                 <artifactId>maven-failsafe-plugin</artifactId>
-                <version>2.22.2</version>
+                <version>3.2.5</version>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-release-plugin</artifactId>
-                <version>3.0.0-M6</version>
+                <version>3.0.1</version>
                 <configuration>
                     <allowTimestampedSnapshots>true</allowTimestampedSnapshots>
                     <autoVersionSubmodules>true</autoVersionSubmodules>
@@ -272,7 +273,7 @@
             <plugin>
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
-                <version>0.8.8</version>
+                <version>0.8.12</version>
                 <executions>
                     <execution>
                         <id>pre-unit-test</id>
@@ -312,7 +313,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-source-plugin</artifactId>
-                <version>3.2.1</version>
+                <version>3.3.1</version>
                 <executions>
                     <execution>
                         <id>attach-sources</id>
@@ -325,7 +326,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
-                <version>3.4.1</version>
+                <version>3.6.3</version>
                 <configuration>
                     <sourcepath>${delombok.output}</sourcepath>
                 </configuration>
@@ -352,7 +353,7 @@
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-gpg-plugin</artifactId>
-                        <version>3.0.1</version>
+                        <version>3.2.4</version>
                         <executions>
                             <execution>
                                 <id>sign-artifacts</id>
@@ -366,7 +367,7 @@
                     <plugin>
                         <groupId>org.sonatype.plugins</groupId>
                         <artifactId>nexus-staging-maven-plugin</artifactId>
-                        <version>1.6.7</version>
+                        <version>1.6.13</version>
                         <extensions>true</extensions>
                         <configuration>
                             <serverId>ossrh</serverId>
@@ -388,12 +389,12 @@
 
     <distributionManagement>
         <snapshotRepository>
-            <id>maplink-libs-snapshots</id>
-            <url>http://nexus.apontador.com.br:8081/nexus/content/repositories/snapshots/</url>
+            <id>lbs-nexus</id>
+            <url>https://infra.lbslocal.com/nexus/repository/snapshots/</url>
         </snapshotRepository>
         <repository>
-            <id>maplink-nexus-snapshot</id>
-            <url>http://nexus.apontador.com.br:8081/nexus/content/repositories/releases/</url>
+            <id>lbs-nexus</id>
+            <url>https://infra.lbslocal.com/nexus/repository/releases/</url>
         </repository>
     </distributionManagement>
     <licenses>

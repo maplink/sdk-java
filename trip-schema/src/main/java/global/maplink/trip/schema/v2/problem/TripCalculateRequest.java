@@ -10,6 +10,7 @@ import global.maplink.http.request.RequestBody;
 import global.maplink.json.JsonMapper;
 import global.maplink.place.schema.PlaceRouteRequest;
 import global.maplink.trip.schema.v1.payload.AvoidanceType;
+import global.maplink.trip.schema.v2.features.avoidance.AvoidanceBehavior;
 import global.maplink.trip.schema.v2.features.crossedBorders.CrossedBordersRequest;
 import global.maplink.trip.schema.v2.solution.TripSolution;
 import lombok.*;
@@ -35,6 +36,7 @@ public class TripCalculateRequest extends TripProblem implements MapLinkServiceR
             CalculationMode calculationMode,
             @Singular Set<String> restrictionZones,
             @Singular Set<AvoidanceType> avoidanceTypes,
+            AvoidanceBehavior avoidanceBehavior,
             TollRequest toll,
             CrossedBordersRequest crossedBorders,
             FreightCalculationRequest freight,
@@ -42,7 +44,7 @@ public class TripCalculateRequest extends TripProblem implements MapLinkServiceR
             PlaceRouteRequest place,
             OffsetDateTime expireIn
     ) {
-        super(points, calculationMode, restrictionZones, avoidanceTypes, toll, crossedBorders, freight, emission, place);
+        super(points, calculationMode, restrictionZones, avoidanceTypes, avoidanceBehavior, toll, crossedBorders, freight, emission, place);
         this.expireIn = expireIn;
     }
 
