@@ -5,6 +5,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import static global.maplink.planning.schema.problem.CompartmentType.FIXED;
 import static lombok.AccessLevel.PRIVATE;
 
 @Builder
@@ -15,7 +16,7 @@ public class Compartment {
 
     private final String name;
     @Builder.Default
-    private final String type = CompartmentType.FIXED.toString();
+    private final String type = FIXED.toString();
     private final Double minimumCapacity;
     private final Double maximumCapacity;
     private final Double increment;

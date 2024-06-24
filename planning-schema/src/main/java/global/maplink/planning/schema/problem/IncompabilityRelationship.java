@@ -11,16 +11,11 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor(force = true)
 @Builder
-
 public class IncompabilityRelationship {
 
     private final String name;
-
     private final String incompabilityGroup1;
-
     private final String incompabilityGroup2;
-
     private final String type;
-
     private final List<String> vehicles;
 }

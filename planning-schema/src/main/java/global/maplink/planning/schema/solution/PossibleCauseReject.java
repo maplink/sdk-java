@@ -14,6 +14,5 @@ import static lombok.AccessLevel.PRIVATE;
 public class PossibleCauseReject {
 
     private final String code;
-
     private final String message;
 }

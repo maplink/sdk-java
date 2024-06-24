@@ -14,8 +14,6 @@ import static lombok.AccessLevel.PRIVATE;
 public class CompartmentSolution {
 
     private final String compartment;
-
     private final double capacityWeightUsed;
-
     private final double capacityVolumeUsed;
 }

@@ -12,6 +12,5 @@ import lombok.NoArgsConstructor;
 public class LogisticZone {
 
     private final String name;
-
     private final String zonePriority;
 }

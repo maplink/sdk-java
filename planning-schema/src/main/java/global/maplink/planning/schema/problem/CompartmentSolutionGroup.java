@@ -13,10 +13,8 @@ import static lombok.AccessLevel.PRIVATE;
 @Builder
 @AllArgsConstructor(access = PRIVATE)
 @NoArgsConstructor(force = true)
-
 public class CompartmentSolutionGroup {
 
     private final String groupId;
-
     private final List<CompartmentSolution> compartmentSolutions;
 }

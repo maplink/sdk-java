@@ -19,21 +19,14 @@ import static global.maplink.trip.schema.v1.exception.TripErrorType.ROUTE_POINTS
 @AllArgsConstructor
 @NoArgsConstructor(force = true)
 @Builder
-
 public class ProblemTrip {
 
     private static final int MINIMUM_POINTS = 2;
-
     private final String profileName;
-
     private final CalculationMode calculationMode;
-
     private final Long startDate;
-
     private final TollRequest toll;
-
     private final CrossedBordersRequest crossedBoarders;
-
     private final FreightCalculationRequest freight;
 
     public void isValid(Problem problem){

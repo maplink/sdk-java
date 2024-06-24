@@ -13,32 +13,25 @@ import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
+import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_EMPTY;
+import static com.fasterxml.jackson.annotation.JsonProperty.Access.WRITE_ONLY;
 import static lombok.AccessLevel.PRIVATE;
-
 
 @Data
 @Builder
 @AllArgsConstructor(access = PRIVATE)
 @NoArgsConstructor(force = true)
-
 public class Solution {
 
-
     private final String clientId;
-
     private final List<VehicleRoute> vehicleRoutes;
-
     private final List<String> rejectOperations;
-
     @JsonIgnore
     private final Set<PossibleCauseRejectGroup> possibleCauseOfRejectOperationsGroup;
-
     private final Indicators indicators;
-
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-    @JsonInclude(JsonInclude.Include.NON_EMPTY)
+    @JsonProperty(access = WRITE_ONLY)
+    @JsonInclude(NON_EMPTY)
     private final PendingTasks pendingTasks;
-
     @JsonIgnore
     private final Date createdAt;
 }

@@ -11,10 +11,8 @@ import static lombok.AccessLevel.PRIVATE;
 @Builder
 @AllArgsConstructor(access = PRIVATE)
 @NoArgsConstructor(force = true)
-
 public class Coordinates {
 
     private final Double longitude;
-
     private final Double latitude;
 }

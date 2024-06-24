@@ -14,5 +14,4 @@ import static lombok.AccessLevel.PRIVATE;
 public class ViolationConstraint {
 
     private final String message;
-
 }

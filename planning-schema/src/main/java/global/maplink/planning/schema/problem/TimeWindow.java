@@ -14,6 +14,5 @@ import static lombok.AccessLevel.PRIVATE;
 public class TimeWindow {
 
     private final Long start;
-
     private final Long end;
 }

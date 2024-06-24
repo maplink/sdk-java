@@ -5,6 +5,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 import static lombok.AccessLevel.PRIVATE;
 
 @Data
@@ -14,6 +16,5 @@ import static lombok.AccessLevel.PRIVATE;
 public class CompartmentConfiguration {
 
     private final String name;
-
-    private final Compartment[] compartments;
+    private final List<String> compartments;
 }

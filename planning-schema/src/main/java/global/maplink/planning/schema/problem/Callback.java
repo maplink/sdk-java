@@ -9,14 +9,10 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor(force = true)
 @Builder
-
 public class Callback {
 
     private final String jobId;
-
     private final String url;
-
     private final String user;
-
     private final String password;
 }

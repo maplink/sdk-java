@@ -14,14 +14,9 @@ import static lombok.AccessLevel.PRIVATE;
 public class AvailablePeriod {
 
     private final TimeWindow timeWindow;
-
     private final String departureSite;
-
     private final String arrivalSite;
-
     private final Integer maxRoutesNumber;
-
     private final Integer maxWorkingTime;
-
     private final Integer maxDrivingTime;
 }
