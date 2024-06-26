@@ -5,10 +5,12 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import static lombok.AccessLevel.PRIVATE;
+
 @Data
-@AllArgsConstructor
-@NoArgsConstructor(force = true)
 @Builder
+@AllArgsConstructor(access = PRIVATE)
+@NoArgsConstructor(force = true)
 public class LogisticConstraint {
 
     private final String name;

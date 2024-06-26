@@ -8,7 +8,6 @@ import lombok.NoArgsConstructor;
 import static lombok.AccessLevel.PRIVATE;
 
 @Data
-@Builder
 @AllArgsConstructor(access = PRIVATE)
 @NoArgsConstructor(force = true)
 public class ViolationConstraint {

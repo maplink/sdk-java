@@ -7,9 +7,11 @@ import lombok.NoArgsConstructor;
 
 import java.util.List;
 
+import static lombok.AccessLevel.PRIVATE;
+
 @Data
 @Builder
-@AllArgsConstructor
+@AllArgsConstructor(access = PRIVATE)
 @NoArgsConstructor(force = true)
 public class Site {
 

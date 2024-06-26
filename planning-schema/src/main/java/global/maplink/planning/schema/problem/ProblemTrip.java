@@ -14,11 +14,12 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import static global.maplink.trip.schema.v1.exception.TripErrorType.ROUTE_POINTS_LESS_THAN_TWO;
+import static lombok.AccessLevel.PRIVATE;
 
 @Data
-@AllArgsConstructor
-@NoArgsConstructor(force = true)
 @Builder
+@AllArgsConstructor(access = PRIVATE)
+@NoArgsConstructor(force = true)
 public class ProblemTrip {
 
     private static final int MINIMUM_POINTS = 2;
@@ -29,30 +30,31 @@ public class ProblemTrip {
     private final CrossedBordersRequest crossedBoarders;
     private final FreightCalculationRequest freight;
 
-    public void isValid(Problem problem){
+    public void isValid(Problem problem) {
         validateWithPoints(problem.getSites(), problem.getDepots());
         validatePointsEquality(problem.getSites(), problem.getDepots());
     }
 
-    private void validateWithPoints(List<Site> sites,List<Site> depots){
+    private void validateWithPoints(List<Site> sites, List<Site> depots) {
         var points = Stream.concat(sites.stream(), depots.stream()).count();
-        if(points < MINIMUM_POINTS){
+        if (points < MINIMUM_POINTS) {
             throw new TripCalculationRequestException(ROUTE_POINTS_LESS_THAN_TWO);
         }
     }
 
-    private void validatePointsEquality(List<Site> sites, List<Site> depots){
-        if(checkPointsEquality(sites, depots)){
+    private void validatePointsEquality(List<Site> sites, List<Site> depots) {
+        if (checkPointsEquality(sites, depots)) {
             throw new TripCalculationRequestException(ROUTE_POINTS_LESS_THAN_TWO);
         }
     }
 
-    private boolean checkPointsEquality(List<Site> sites, List<Site> depots){
-        var allCoordinates = Stream.concat(sites.stream().map(Site::getCoordinates),depots.stream().map(Site::getCoordinates)).collect(
+    private boolean checkPointsEquality(List<Site> sites, List<Site> depots) {
+        var allCoordinates = Stream.concat(sites.stream().map(Site::getCoordinates),
+                depots.stream().map(Site::getCoordinates)).collect(
                 Collectors.toList());
 
-        for(int i = 0; i < allCoordinates.size() - 1; i++){
-            if(!allCoordinates.get(i).equals(allCoordinates.get(i+1))){
+        for (int i = 0; i < allCoordinates.size() - 1; i++) {
+            if (!allCoordinates.get(i).equals(allCoordinates.get(i + 1))) {
                 return false;
             }
         }

@@ -1,5 +1,6 @@
 package global.maplink.planning.schema.solution;
 
+import global.maplink.planning.schema.problem.Activity;
 import global.maplink.planning.schema.problem.ViolationConstraint;
 import lombok.*;
 

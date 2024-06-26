@@ -4,10 +4,12 @@ import lombok.*;
 
 import java.util.List;
 
+import static lombok.AccessLevel.PRIVATE;
+
 @Data
-@AllArgsConstructor
-@NoArgsConstructor(force = true)
 @Builder
+@AllArgsConstructor(access = PRIVATE)
+@NoArgsConstructor(force = true)
 public class Operation {
 
     private final String id;

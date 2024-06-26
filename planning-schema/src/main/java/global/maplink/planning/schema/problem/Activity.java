@@ -5,7 +5,6 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import static lombok.AccessLevel.PRIVATE;
@@ -30,13 +29,4 @@ public class Activity {
     private final Integer nominalDuration;
     private final String positioningType;
     private final List<CompartmentSolutionGroup> operationCompartments;
-
-    public List<String> getOperations() {
-
-        if (this.operations == null) {
-            return new ArrayList<>();
-        }
-
-        return this.operations;
-    }
 }

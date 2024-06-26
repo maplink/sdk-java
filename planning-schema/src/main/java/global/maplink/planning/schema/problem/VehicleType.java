@@ -7,9 +7,11 @@ import lombok.NoArgsConstructor;
 
 import java.util.List;
 
+import static lombok.AccessLevel.PRIVATE;
+
 @Data
 @Builder
-@AllArgsConstructor
+@AllArgsConstructor(access = PRIVATE)
 @NoArgsConstructor(force = true)
 public class VehicleType {
 
@@ -22,4 +24,5 @@ public class VehicleType {
     private final String compartmentAccessMode;
     private final List<CompartmentConfiguration> compartmentConfigurations;
     private final ProblemTrip trip;
+
 }

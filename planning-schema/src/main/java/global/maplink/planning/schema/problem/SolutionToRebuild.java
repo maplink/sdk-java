@@ -5,14 +5,16 @@ import lombok.*;
 import java.util.List;
 
 import static global.maplink.planning.schema.problem.OptimizationType.CUSTOM;
+import static lombok.AccessLevel.PRIVATE;
 
 @Data
 @Builder
-@AllArgsConstructor
+@AllArgsConstructor(access = PRIVATE)
 @NoArgsConstructor(force = true)
 public class SolutionToRebuild {
 
     @Singular
     private final List<VehicleRoute> vehicleRoutes;
-    private final String optimizationType = CUSTOM.toString();
+    @Builder.Default
+    private final OptimizationType optimizationType = CUSTOM;
 }
