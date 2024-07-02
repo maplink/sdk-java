@@ -1,0 +1,171 @@
+{
+  "optimizationProfile": "CHILE46",
+  "tripsProfile": "MAPLINK",
+  "startDate": 1671685200000,
+  "legislationProfiles": [
+    {
+      "name": "DEFAULT"
+    }
+  ],
+  "logisticConstraints": [
+    {
+      "name": "P1Pickup",
+      "siteLoadingFixedTime": 900
+    },
+    {
+      "name": "P1Delivery",
+      "siteUnloadingFixedTime": 1800
+    }
+  ],
+  "products": [
+    {
+      "name": "DEFAULT"
+    }
+  ],
+  "sites": [
+    {
+      "name": "ROM FLORIDA CENTER",
+      "coordinates": {
+        "latitude": -33.51044309232031,
+        "longitude": -70.6090823119648
+      },
+      "logisticConstraints": "P1Delivery"
+    }
+  ],
+  "depots": [
+    {
+      "name": "Empresa Javier",
+      "coordinates": {
+        "latitude": -33.4425551,
+        "longitude": -70.62586929999999
+      },
+      "logisticConstraints": "P1Pickup"
+    }
+  ],
+  "vehicleTypes": [
+    {
+      "name": "4097",
+      "maxVolume": 500,
+      "maxWeight": 1500,
+      "size": 1
+    },
+    {
+      "name": "4244",
+      "maxVolume": 300,
+      "maxWeight": 1500,
+      "size": 1
+    },
+    {
+      "name": "4834",
+      "maxVolume": 10,
+      "maxWeight": 800,
+      "size": 1
+    },
+    {
+      "name": "4835",
+      "maxVolume": 10,
+      "maxWeight": 10,
+      "size": 1
+    },
+    {
+      "name": "4836",
+      "maxVolume": 12,
+      "maxWeight": 10,
+      "size": 1
+    }
+  ],
+  "vehicles": [
+    {
+      "name": "LLGG11",
+      "vehicleType": "4097",
+      "legislationProfile": "DEFAULT",
+      "availablePeriods": [
+        {
+          "departureSite": "Empresa Javier",
+          "arrivalSite": "Empresa Javier",
+          "timeWindow": {
+            "start": 1671685200000,
+            "end": 1671746400000
+          }
+        }
+      ]
+    },
+    {
+      "name": "KLFS10",
+      "vehicleType": "4244",
+      "legislationProfile": "DEFAULT",
+      "availablePeriods": [
+        {
+          "departureSite": "Empresa Javier",
+          "arrivalSite": "Empresa Javier",
+          "timeWindow": {
+            "start": 1671685200000,
+            "end": 1671746400000
+          }
+        }
+      ]
+    },
+    {
+      "name": "hptr95",
+      "vehicleType": "4834",
+      "legislationProfile": "DEFAULT",
+      "availablePeriods": [
+        {
+          "departureSite": "Empresa Javier",
+          "arrivalSite": "Empresa Javier",
+          "timeWindow": {
+            "start": 1671685200000,
+            "end": 1671746400000
+          }
+        }
+      ]
+    },
+    {
+      "name": "AAAA12",
+      "vehicleType": "4835",
+      "legislationProfile": "DEFAULT",
+      "availablePeriods": [
+        {
+          "departureSite": "Empresa Javier",
+          "arrivalSite": "Empresa Javier",
+          "timeWindow": {
+            "start": 1671685200000,
+            "end": 1671746400000
+          }
+        }
+      ]
+    },
+    {
+      "name": "NENE12",
+      "vehicleType": "4836",
+      "legislationProfile": "DEFAULT",
+      "availablePeriods": [
+        {
+          "departureSite": "Empresa Javier",
+          "arrivalSite": "Empresa Javier",
+          "timeWindow": {
+            "start": 1671685200000,
+            "end": 1671746400000
+          }
+        }
+      ]
+    }
+  ],
+  "operations": [
+    {
+      "id": "P1",
+      "weight": 100,
+      "volume": 3,
+      "product": "DEFAULT",
+      "type": "DELIVERY",
+      "depotSite": "Empresa Javier",
+      "customerSite": "ROM FLORIDA CENTER",
+      "customerTimeWindows": [
+        {
+          "start": 1671685200000,
+          "end": 1671746400000
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "name": "exemplo1",
+  "compartmentAccessMode": "exemplo2",
+  "size": 10,
+  "maxSitesNumber": 11,
+  "maxWeight": 20.0,
+  "maxVolume": 21.0,
+  "characteristics": [
+    "ex1",
+    "ex2"
+  ],
+  "compartmentConfigurations": [
+    {
+      "name": "name1",
+      "compartments": [
+        "ex1",
+        "ex2"
+      ]
+    }
+  ]
+}
