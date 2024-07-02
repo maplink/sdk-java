@@ -1,0 +1,58 @@
+{
+  "vehicleRoutes": [
+    {
+      "vehicle": "vehicle1",
+      "period": {
+          "departureSite": "departure1",
+          "arrivalSite": "arrival1",
+          "maxRoutesNumber": 10,
+          "maxWorkingTime": 11,
+          "maxDrivingTime": 12
+
+        },
+      "routes": [
+        {
+          "id": "id1",
+          "status": "status1",
+          "tripId": "tripId1",
+          "compartmentConfiguration": "compartment1",
+          "activities": [
+            {
+              "activity": "activity1",
+              "timeWindow": {
+                "start": 123,
+                "end": 456
+              },
+              "type": "type1",
+              "site": "site1",
+              "fixedTimeSite": 10,
+              "volume": 20.0,
+              "weight": 30.0,
+              "operations": [
+                "ex1",
+                "ex2"
+              ],
+              "arrivalSite": "arrival1",
+              "departureSite": "departure1",
+              "distance": 15,
+              "nominalDuration": 25,
+              "positioningType": "positioning1",
+              "operationCompartments": [
+                {
+                  "groupId": "ex1",
+                  "compartmentSolutions": [
+                    {
+                      "compartment": "compartment1",
+                      "capacityWeightUsed": 11.0,
+                      "capacityVolumeUsed": 12.0
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

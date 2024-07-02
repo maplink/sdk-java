@@ -1,0 +1,110 @@
+{
+  "optimizationProfile": "BRAZIL46",
+  "tripsProfile": "MAPLINK",
+  "startDate": 1671516600000,
+  "legislationProfiles": [
+    {
+      "name": "DEFAULT"
+    }
+  ],
+  "logisticConstraints": [
+    {
+      "name": "P1Pickup",
+      "siteLoadingFixedTime": 900
+    },
+    {
+      "name": "P1Delivery",
+      "siteUnloadingFixedTime": 600
+    }
+  ],
+  "products": [
+    {
+      "name": "DEFAULT"
+    }
+  ],
+  "sites": [
+    {
+      "name": "Cliente1",
+      "coordinates": {
+        "latitude": -23.507608,
+        "longitude": -46.587145
+      },
+      "logisticConstraints": "P1Pickup"
+    },
+    {
+      "name": "Cliente2",
+      "coordinates": {
+        "latitude": -23.621059,
+        "longitude": -46.756193
+      },
+      "logisticConstraints": "P1Pickup"
+    }
+  ],
+  "depots": [
+    {
+      "name": "CD",
+      "coordinates": {
+        "latitude": -23.503939,
+        "longitude": -46.498419
+      },
+      "logisticConstraints": "P1Delivery"
+    }
+  ],
+  "vehicleTypes": [
+    {
+      "name": "VUC",
+      "maxVolume": 20,
+      "maxWeight": 1200,
+      "size": 1
+    }
+  ],
+  "vehicles": [
+    {
+      "name": "VUC_1",
+      "vehicleType": "VUC",
+      "legislationProfile": "DEFAULT",
+      "availablePeriods": [
+        {
+          "departureSite": "CD",
+          "arrivalSite": "CD",
+          "timeWindow": {
+            "start": 1671519600000,
+            "end": 1671562800000
+          }
+        }
+      ]
+    }
+  ],
+  "operations": [
+    {
+      "id": "P1",
+      "weight": 100,
+      "volume": 2,
+      "product": "DEFAULT",
+      "type": "COLLECTION",
+      "depotSite": "CD",
+      "customerSite": "Cliente1",
+      "customerTimeWindows": [
+        {
+          "start": 1671523200000,
+          "end": 1671537600000
+        }
+      ]
+    },
+    {
+      "id": "P2",
+      "weight": 250,
+      "volume": 5,
+      "product": "DEFAULT",
+      "type": "COLLECTION",
+      "depotSite": "CD",
+      "customerSite": "Cliente2",
+      "customerTimeWindows": [
+        {
+          "start": 1671523200000,
+          "end": 1671537600000
+        }
+      ]
+    }
+  ]
+}

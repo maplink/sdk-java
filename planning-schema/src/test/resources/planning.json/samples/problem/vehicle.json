@@ -1,0 +1,25 @@
+{
+  "name": "exemplo1",
+  "vehicleType": "exemplo2",
+  "legislationProfile": "exemplo3",
+  "priority": 10,
+  "logisticZones": [
+    "ex1",
+    "ex2"
+  ],
+  "availablePeriods": [
+    {
+      "timeWindow":
+      {
+        "start": 1702897200000,
+        "end": 1703538000000
+      }
+    ,
+      "departureSite": "exemplo1",
+      "arrivalSite": "exemplo2",
+      "maxRoutesNumber": 20,
+      "maxWorkingTime": 3,
+      "maxDrivingTime": 4
+    }
+  ]
+}

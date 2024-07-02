@@ -47,6 +47,7 @@
         <module>toll</module>
         <module>toll-schema</module>
         <module>tracking-schema</module>
+        <module>planning-schema</module>
     </modules>
 
     <dependencyManagement>
@@ -164,6 +165,13 @@
             <dependency>
                 <groupId>${project.groupId}</groupId>
                 <artifactId>tracking-schema</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <!-- Planning -->
+            <dependency>
+                <groupId>${project.groupId}</groupId>
+                <artifactId>planning-schema</artifactId>
                 <version>${project.version}</version>
             </dependency>
 

@@ -1,0 +1,115 @@
+{
+  "optimizationProfile": "BRAZIL46",
+  "tripsProfile": "MAPLINK",
+  "startDate": 1695726000000,
+  "legislationProfiles": [
+    {
+      "name": "DEFAULT"
+    }
+  ],
+  "logisticConstraints": [
+    {
+      "name": "Visita",
+      "siteUnloadingFixedTime": 3600,
+      "siteLoadingFixedTime": 7200
+    }
+  ],
+  "products": [
+    {
+      "name": "DEFAULT"
+    }
+  ],
+  "sites": [
+    {
+      "name": "1 - SERVOPA MARIO TOURINHO - CELSO LUIZ DE RAMOS",
+      "coordinates": {
+        "latitude": -25.4733117,
+        "longitude": -49.31011119999999
+      },
+      "logisticConstraints": "Visita"
+    },
+    {
+      "name": "2 - SERVOPA PGO OFICINA - CARLOS ROBERTO PACHECO",
+      "coordinates": {
+        "latitude": -25.099019,
+        "longitude": -50.1429924
+      },
+      "logisticConstraints": "Visita"
+    },
+    {
+      "name": "4 - SERVOPA PGO OFICINA - PATRICIA DE FATIMA VAZ MERCEARIA",
+      "coordinates": {
+        "latitude": -25.2761135,
+        "longitude": -50.2293214
+      },
+      "logisticConstraints": "Visita"
+    },
+    {
+      "name": "5 - SERVOPA PGO OFICINA - BECKER SERVICOS MEDICOS LTDA",
+      "coordinates": {
+        "latitude": -26.3028172,
+        "longitude": -48.8511776
+      },
+      "logisticConstraints": "Visita"
+    }
+  ],
+  "depots": [
+    {
+      "name": "Servopa Rockfeller",
+      "coordinates": {
+        "latitude": -25.44775660685663,
+        "longitude": -49.2615056635465
+      },
+      "logisticConstraints": "Visita"
+    },
+    {
+      "name": "SERVOPA MATRIZ - TOP LINE LOCADORA DE VEICULOS LTDA",
+      "coordinates": {
+        "latitude": -25.4873524,
+        "longitude": -49.2460288
+      },
+      "logisticConstraints": "Visita"
+    }
+  ],
+  "vehicleTypes": [
+    {
+      "name": "Vendedor",
+      "maxWeight": 1000.0,
+      "maxVolume": 1000.0,
+      "size": 25
+    }
+  ],
+  "vehicles": [
+    {
+      "name": "Vendedor 1",
+      "vehicleType": "Vendedor",
+      "legislationProfile": "DEFAULT",
+      "availablePeriods": [
+        {
+          "timeWindow": {
+            "start": 1695726000000,
+            "end": 1695747600000
+          },
+          "arrivalSite": "SERVOPA MATRIZ - TOP LINE LOCADORA DE VEICULOS LTDA"
+        }
+      ]
+    }
+  ],
+  "operations": [
+    {
+      "id": "Visita 1 - 0",
+      "weight": 1,
+      "volume": 1,
+      "product": "DEFAULT",
+      "type": "DELIVERY",
+      "depotSite": "Servopa Rockfeller",
+      "customerSite": "1 - SERVOPA MARIO TOURINHO - CELSO LUIZ DE RAMOS",
+      "customerTimeWindows": [
+        {
+          "start": 1695726000000,
+          "end": 1695747600000
+        }
+      ]
+    }
+  ]
+}

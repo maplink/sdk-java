@@ -1,0 +1,9 @@
+{
+  "name": "exemplo1",
+  "type": "exemplo2",
+  "incompabilityGroup": "exemplo3",
+  "packagings": [
+    "ex1",
+    "ex2"
+  ]
+}

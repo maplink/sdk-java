@@ -1,0 +1,13 @@
+{
+  "name": "exemplo1",
+  "loadingPositionInTimeWindow": "exemplo2",
+  "unloadingPositionInTimeWindow": "exemplo3",
+  "loadingPositionInRoute": "exemplo4",
+  "unloadingPositionInRoute": "exemplo5",
+  "siteUnloadingFixedTime": 10,
+  "siteLoadingFixedTime": 11,
+  "loadingMaxSize": 12,
+  "unloadingMaxSize": 13,
+  "loadingTimeFlow": 14.0,
+  "unloadingTimeFlow": 15.0
+}
