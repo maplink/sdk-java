@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 import static global.maplink.planning.testUtils.SampleFiles.PROBLEM_RESPONSE;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class ProblemResponseTest {
+class ProblemResponseTest {
 
     private final JsonMapper mapper = JsonMapper.loadDefault();
 

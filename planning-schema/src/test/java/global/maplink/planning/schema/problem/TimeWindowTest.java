@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 import static global.maplink.planning.testUtils.SampleFiles.TIME_WINDOW;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class TimeWindowTest {
+class TimeWindowTest {
 
     private final JsonMapper mapper = JsonMapper.loadDefault();
 

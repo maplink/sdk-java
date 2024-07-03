@@ -7,7 +7,7 @@ import static global.maplink.planning.testUtils.SampleFiles.COMPARTMENT_SOLUTION
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class CompartmentSolutionGroupTest {
+class CompartmentSolutionGroupTest {
 
     private final JsonMapper mapper = JsonMapper.loadDefault();
 

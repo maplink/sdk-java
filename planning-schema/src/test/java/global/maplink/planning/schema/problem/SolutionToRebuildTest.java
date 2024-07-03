@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test;
 import static global.maplink.planning.testUtils.SampleFiles.SOLUTION_TO_REBUILD;
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class SolutionToRebuildTest {
+class SolutionToRebuildTest {
 
     private final JsonMapper mapper = JsonMapper.loadDefault();
 

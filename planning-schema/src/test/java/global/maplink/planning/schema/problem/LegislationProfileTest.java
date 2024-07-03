@@ -7,7 +7,7 @@ import static global.maplink.planning.testUtils.SampleFiles.LEGISLATION_PROFILE;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 
-public class LegislationProfileTest {
+class LegislationProfileTest {
 
     private final JsonMapper mapper = JsonMapper.loadDefault();
 

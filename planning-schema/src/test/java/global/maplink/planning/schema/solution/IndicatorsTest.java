@@ -37,6 +37,6 @@ class IndicatorsTest {
         assertThat(indicators.getAverageOccupancyRateVolume()).isEqualTo(17.0);
         assertThat(indicators.getAverageOccupancyRateWeight()).isEqualTo(18.0);
         BigDecimal bigDecimalTest = BigDecimal.valueOf(19);
-        assertThat(indicators.getTollCosts().compareTo(bigDecimalTest)).isEqualTo(0);
+        assertThat(indicators.getTollCosts().compareTo(bigDecimalTest)).isZero();
     }
 }

@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 import static global.maplink.planning.testUtils.SampleFiles.LOGISTIC_CONSTRAINT;
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class LogisticConstraintTest {
+class LogisticConstraintTest {
 
     private final JsonMapper mapper = JsonMapper.loadDefault();
 

@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 import static global.maplink.planning.testUtils.SampleFiles.COMPARTMENT_SOLUTION;
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class CompartmentSolutionTest {
+class CompartmentSolutionTest {
 
     private final JsonMapper mapper = JsonMapper.loadDefault();
 

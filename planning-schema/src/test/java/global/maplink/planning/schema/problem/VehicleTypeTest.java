@@ -7,7 +7,7 @@ import static global.maplink.planning.testUtils.SampleFiles.VEHICLE_TYPE;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class VehicleTypeTest {
+class VehicleTypeTest {
 
     private final JsonMapper mapper = JsonMapper.loadDefault();
 

@@ -7,7 +7,7 @@ import static global.maplink.planning.testUtils.SampleFiles.PROBLEM;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class ProblemTest {
+class ProblemTest {
 
     private final JsonMapper mapper = JsonMapper.loadDefault();
 

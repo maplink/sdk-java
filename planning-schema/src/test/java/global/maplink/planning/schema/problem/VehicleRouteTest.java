@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 import static global.maplink.planning.testUtils.SampleFiles.VEHICLE_ROUTE;
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class VehicleRouteTest {
+class VehicleRouteTest {
 
     private final JsonMapper mapper = JsonMapper.loadDefault();
 

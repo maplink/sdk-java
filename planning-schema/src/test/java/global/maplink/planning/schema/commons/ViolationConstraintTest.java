@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 import static global.maplink.planning.testUtils.SampleFiles.VIOLATION_CONSTRAINT;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class ViolationConstraintTest {
+class ViolationConstraintTest {
 
     private final JsonMapper mapper = JsonMapper.loadDefault();
 
