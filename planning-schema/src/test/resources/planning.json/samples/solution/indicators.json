@@ -1,0 +1,21 @@
+{
+  "totalServiceTime": 1,
+  "totalDeliveringTime": 2,
+  "dayWorkingTotalTime": 3,
+  "nightWorkingTotalTime": 4,
+  "totalUnloadingTime": 5,
+  "totalWorkingTime": 6,
+  "totalCollectingTime": 7,
+  "timeWindowNumber": 8,
+  "totalDrivingTime": 9,
+  "totalLoadingTime": 10,
+  "totalTime": 11,
+  "totalDistance": 12,
+  "rejectOperationsNumber": 13,
+  "totalWaitingTime": 14,
+  "totalRestTime": 15,
+  "routesNumber": 16,
+  "averageOccupancyRateVolume": 17.0,
+  "averageOccupancyRateWeight": 18.0,
+  "tollCosts": 19
+}

@@ -1,5 +1,6 @@
 package global.maplink.planning.schema.problem;
 
+import global.maplink.planning.schema.commons.CompartmentSolutionGroup;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

@@ -1,6 +1,7 @@
 package global.maplink.planning.schema.problem;
 
 import global.maplink.json.JsonMapper;
+import global.maplink.planning.schema.commons.Route;
 import org.junit.jupiter.api.Test;
 
 import static global.maplink.planning.testUtils.SampleFiles.SOLUTION_TO_REBUILD;

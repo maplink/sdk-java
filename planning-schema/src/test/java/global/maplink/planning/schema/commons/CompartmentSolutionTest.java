@@ -1,4 +1,4 @@
-package global.maplink.planning.schema.problem;
+package global.maplink.planning.schema.commons;
 
 import global.maplink.json.JsonMapper;
 import org.junit.jupiter.api.Test;

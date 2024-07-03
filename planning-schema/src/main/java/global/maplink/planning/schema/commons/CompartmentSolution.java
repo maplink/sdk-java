@@ -1,4 +1,4 @@
-package global.maplink.planning.schema.problem;
+package global.maplink.planning.schema.commons;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -8,9 +8,12 @@ import lombok.NoArgsConstructor;
 import static lombok.AccessLevel.PRIVATE;
 
 @Data
+@Builder
 @AllArgsConstructor(access = PRIVATE)
 @NoArgsConstructor(force = true)
-public class ViolationConstraint {
+public class CompartmentSolution {
 
-    private final String message;
+    private final String compartment;
+    private final double capacityWeightUsed;
+    private final double capacityVolumeUsed;
 }

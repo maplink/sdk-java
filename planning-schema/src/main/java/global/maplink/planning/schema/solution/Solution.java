@@ -11,7 +11,6 @@ import lombok.NoArgsConstructor;
 
 import java.util.Date;
 import java.util.List;
-import java.util.Set;
 
 import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_EMPTY;
 import static com.fasterxml.jackson.annotation.JsonProperty.Access.WRITE_ONLY;
@@ -27,7 +26,7 @@ public class Solution {
     private final List<VehicleRoute> vehicleRoutes;
     private final List<String> rejectOperations;
     @JsonIgnore
-    private final Set<PossibleCauseRejectGroup> possibleCauseOfRejectOperationsGroup;
+    private final List<PossibleCauseRejectGroup> possibleCauseOfRejectOperationsGroup;
     private final Indicators indicators;
     @JsonProperty(access = WRITE_ONLY)
     @JsonInclude(NON_EMPTY)

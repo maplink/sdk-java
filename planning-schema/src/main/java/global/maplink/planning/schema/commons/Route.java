@@ -1,7 +1,6 @@
-package global.maplink.planning.schema.solution;
+package global.maplink.planning.schema.commons;
 
 import global.maplink.planning.schema.problem.Activity;
-import global.maplink.planning.schema.problem.ViolationConstraint;
 import lombok.*;
 
 import java.util.List;
@@ -13,7 +12,7 @@ import static lombok.AccessLevel.PRIVATE;
 @AllArgsConstructor(access = PRIVATE)
 @NoArgsConstructor(force = true)
 public class Route {
-    
+
     private final String id;
     @Singular
     private final List<Activity> activities;

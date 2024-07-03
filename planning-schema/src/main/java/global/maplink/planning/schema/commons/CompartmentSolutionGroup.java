@@ -1,9 +1,11 @@
-package global.maplink.planning.schema.problem;
+package global.maplink.planning.schema.commons;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.List;
 
 import static lombok.AccessLevel.PRIVATE;
 
@@ -11,9 +13,8 @@ import static lombok.AccessLevel.PRIVATE;
 @Builder
 @AllArgsConstructor(access = PRIVATE)
 @NoArgsConstructor(force = true)
-public class CompartmentSolution {
+public class CompartmentSolutionGroup {
 
-    private final String compartment;
-    private final double capacityWeightUsed;
-    private final double capacityVolumeUsed;
+    private final String groupId;
+    private final List<CompartmentSolution> compartmentSolutions;
 }

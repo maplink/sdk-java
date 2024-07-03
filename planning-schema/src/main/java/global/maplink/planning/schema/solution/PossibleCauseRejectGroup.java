@@ -5,7 +5,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.Set;
+import java.util.List;
 
 import static lombok.AccessLevel.PRIVATE;
 
@@ -16,5 +16,5 @@ import static lombok.AccessLevel.PRIVATE;
 public class PossibleCauseRejectGroup {
 
     private final String groupId;
-    private final Set<PossibleCauseReject> possibleCauseRejects;
+    private final List<PossibleCauseReject> possibleCauseRejects;
 }

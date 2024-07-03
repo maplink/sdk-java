@@ -1,0 +1,9 @@
+{
+  "groupId": "exemplo1",
+  "possibleCauseRejects": [
+    {
+    "code": "exemplo1",
+    "message": "exemplo2"
+    }
+  ]
+}
