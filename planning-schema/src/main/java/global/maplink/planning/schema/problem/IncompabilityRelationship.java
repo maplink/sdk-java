@@ -18,6 +18,6 @@ public class IncompabilityRelationship {
     private final String name;
     private final String incompabilityGroup1;
     private final String incompabilityGroup2;
-    private final String type;
+    private final IncompatibilityType type;
     private final List<String> vehicles;
 }

@@ -1,12 +1,12 @@
 {
-  "activity": "exemplo1",
+  "activity": "LOADING",
   "timeWindow":
     {
       "start": 1702897200000,
       "end": 1703538000000
     }
   ,
-  "type": "type1",
+  "type": "SITE",
   "site": "site1",
   "fixedTimeSite": 5,
   "volume": 20.0,
@@ -15,7 +15,7 @@
   "departureSite": "site3",
   "distance": 10,
   "nominalDuration": 3,
-  "positioningType": "positioning1",
+  "positioningType": "TO_OPTIMIZE",
 
   "operations": [
     "ex1",

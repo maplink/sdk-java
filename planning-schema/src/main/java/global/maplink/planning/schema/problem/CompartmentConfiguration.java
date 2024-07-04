@@ -16,5 +16,5 @@ import static lombok.AccessLevel.PRIVATE;
 public class CompartmentConfiguration {
 
     private final String name;
-    private final List<String> compartments;
+    private final List<Compartment> compartments;
 }

@@ -1,5 +1,6 @@
 package global.maplink.planning.schema.problem;
 
+import global.maplink.freight.schema.OperationType;
 import lombok.*;
 
 import java.util.List;
@@ -18,7 +19,7 @@ public class Operation {
     private final Double volume;
     private final Double quantity;
     private final String product;
-    private final String type;
+    private final OperationType type;
     private final Integer priority;
     private final String depotSize;
     private final String customerSite;
@@ -28,7 +29,7 @@ public class Operation {
     private final List<TimeWindow> depotTimeWindows;
     private final String preAllocatedVehicleName;
     private final Integer depotHandlingDuration;
-    private final String status;
+    private final OperationStatus status;
     private final Boolean depotTimeWindowBlocked;
     private final Boolean customerTimeWindowBlocked;
     private final List<String> characteristics;

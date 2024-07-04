@@ -44,5 +44,5 @@ public class Problem {
     private final List<LogisticZone> logisticZones;
     private final Set<String> restrictionZones;
     private final ProblemTrip trip;
-    private final String calculationMode;
+    private final CalculationMode calculationMode;
 }

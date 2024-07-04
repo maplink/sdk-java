@@ -25,8 +25,7 @@ class VehicleTypeTest {
         assertThat(vehicleType.getCharacteristics()).hasSize(2);
         assertThat(vehicleType.getCharacteristics()).containsExactlyInAnyOrder("ex1", "ex2");
         assertThat(vehicleType.getCompartmentConfigurations().get(0).getName()).isEqualTo("name1");
-        assertThat(vehicleType.getCompartmentConfigurations().get(0).getCompartments()).hasSize(2);
-        assertThat(vehicleType.getCompartmentConfigurations().get(0).getCompartments()).containsExactlyInAnyOrder("ex1", "ex2");
+        assertThat(vehicleType.getCompartmentConfigurations().get(0).getCompartments()).hasSize(1);
     }
 }
 

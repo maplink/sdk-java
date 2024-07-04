@@ -16,18 +16,18 @@ import static lombok.AccessLevel.PRIVATE;
 public class LegislationProfile {
 
     private final String name;
-    private final Integer maxContinuousDrivingTime;
-    private final Integer drivingPauseDuration;
-    private final List<Integer> drivingPauseDurationCuts;
-    private final Integer maxContinuousWorkingTime;
-    private final Integer workingPauseDuration;
-    private final List<Integer> workingPauseDurationCuts;
-    private final Integer maxDrivingTimeBetweenTwoRests;
-    private final Integer drivingRestDuration;
-    private final List<Integer> drivingRestDurationCuts;
-    private final Integer maxWorkingTimeBetweenTwoRests;
-    private final Integer workingRestDuration;
-    private final List<Integer> workingRestDurationCuts;
-    private final Integer maxWaitingTime;
-    private final boolean waitingIsWorking = false;
+    private final Integer maxContinuousDrivingTime; //shortBreakDrivingThreshold
+    private final Integer drivingPauseDuration; //shortBreakDrivingDuration
+    private final List<Integer> drivingPauseDurationCuts; //shortBreakDrivingCuts
+    private final Integer maxContinuousWorkingTime; //shortBreakWorkingThreshold
+    private final Integer workingPauseDuration; //shortBreakWorkingDuration
+    private final List<Integer> workingPauseDurationCuts; //shortBreakWorkingCuts
+    private final Integer maxDrivingTimeBetweenTwoRests; //longBreakDrivingThreshold
+    private final Integer drivingRestDuration; //longBreakDrivingDuration
+    private final List<Integer> drivingRestDurationCuts; //longBreakDrivingCuts
+    private final Integer maxWorkingTimeBetweenTwoRests; //longBreakWorkingThreshold
+    private final Integer workingRestDuration; //longBreakWorkingDuration
+    private final List<Integer> workingRestDurationCuts; //longBreakWorkingCuts
+    private final Integer maxWaitingTime; //maxWaitingTime
+    private final boolean waitingIsWorking = false; //waitingIsWorking
 }

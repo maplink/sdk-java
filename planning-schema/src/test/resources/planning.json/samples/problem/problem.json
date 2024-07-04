@@ -3,7 +3,7 @@
   "optimizationProfile": "optimization1",
   "tripsProfile": "trips1",
   "defaultDepot": "default1",
-  "calculationMode": "calculation1",
+  "calculationMode": "THE_FASTEST",
   "startEnd": 10,
   "hasSolution": true,
   "sites": [
@@ -85,8 +85,18 @@
         {
           "name": "name1",
           "compartments": [
-            "ex1",
-            "ex2"
+            {
+              "name": "exemplo1",
+              "minimumCapacity": 10.0,
+              "maximumCapacity": 20.0,
+              "increment": 30.0,
+              "loadingRule": "exemplo2",
+
+              "allowedPackagings": [
+                "exemplo1",
+                "exemplo2"
+              ]
+            }
           ]
         }
       ]
@@ -201,7 +211,7 @@
       "name": "exemplo1",
       "incompabilityGroup1": "exemplo2",
       "incompabilityGroup2": "exemplo3",
-      "type": "type1",
+      "type": "ORDERED",
       "vehicles": [
         "vehicle1",
         "vehicle2",
@@ -212,7 +222,7 @@
   "logisticZones": [
     {
       "name": "exemplo1",
-      "zonePriority": "exemplo2"
+      "zonePriority": "PRIORITARY"
     }
   ],
   "restrictionZones": [

@@ -2,7 +2,7 @@
   "name": "exemplo1",
   "incompabilityGroup1": "exemplo2",
   "incompabilityGroup2": "exemplo3",
-  "type": "type1",
+  "type": "ORDERED",
   "vehicles": [
     "vehicle1",
     "vehicle2",

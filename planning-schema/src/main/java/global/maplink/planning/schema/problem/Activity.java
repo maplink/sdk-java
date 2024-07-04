@@ -1,6 +1,9 @@
 package global.maplink.planning.schema.problem;
 
 import global.maplink.planning.schema.commons.CompartmentSolutionGroup;
+import global.maplink.planning.schema.solution.ActivityType;
+import global.maplink.planning.schema.solution.PositioningType;
+import global.maplink.planning.schema.solution.SequenceType;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -16,9 +19,9 @@ import static lombok.AccessLevel.PRIVATE;
 @NoArgsConstructor(force = true)
 public class Activity {
 
-    private final String activity;
+    private final ActivityType activity;
     private final TimeWindow timeWindow;
-    private final String type;
+    private final SequenceType type;
     private final String site;
     private final Integer fixedTimeSite;
     private final Double volume;
@@ -28,6 +31,6 @@ public class Activity {
     private final String departureSite;
     private final Integer distance;
     private final Integer nominalDuration;
-    private final String positioningType;
+    private final PositioningType positioningType;
     private final List<CompartmentSolutionGroup> operationCompartments;
 }

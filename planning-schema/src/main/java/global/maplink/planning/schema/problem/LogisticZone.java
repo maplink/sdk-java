@@ -14,5 +14,5 @@ import static lombok.AccessLevel.PRIVATE;
 public class LogisticZone {
 
     private final String name;
-    private final String zonePriority;
+    private final LogisticZoneType zonePriority;
 }

@@ -16,8 +16,11 @@ class CompartmentConfigurationTest {
         CompartmentConfiguration compartmentConfiguration = mapper.fromJson(COMPARTMENT_CONFIGURATION.load(), CompartmentConfiguration.class);
 
         assertThat(compartmentConfiguration.getName()).isEqualTo("exemplo1");
-        assertThat(compartmentConfiguration.getCompartments()).hasSize(2);
-        assertThat(compartmentConfiguration.getCompartments().get(0)).isEqualTo("exemplo1");
-        assertThat(compartmentConfiguration.getCompartments().get(1)).isEqualTo("exemplo2");
+        assertThat(compartmentConfiguration.getCompartments()).hasSize(1);
+        assertThat(compartmentConfiguration.getCompartments().get(0).getName()).isEqualTo("exemplo1");
+        assertThat(compartmentConfiguration.getCompartments().get(0).getMinimumCapacity()).isEqualTo(10.0);
+        assertThat(compartmentConfiguration.getCompartments().get(0).getMaximumCapacity()).isEqualTo(20.0);
+        assertThat(compartmentConfiguration.getCompartments().get(0).getIncrement()).isEqualTo(30.0);
+        assertThat(compartmentConfiguration.getCompartments().get(0).getLoadingRule()).isEqualTo("exemplo2");
     }
 }
