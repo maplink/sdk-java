@@ -19,12 +19,12 @@
       "tripId": "exemplo4",
       "activities": [
         {
-          "activity": "activity1",
+          "activity": "DELIVERY",
           "timeWindow": {
             "start": 123,
             "end": 456
           },
-          "type": "type1",
+          "type": "SITE",
           "site": "site1",
           "fixedTimeSite": 10,
           "volume": 20.0,
@@ -37,7 +37,7 @@
           "departureSite": "departure1",
           "distance": 15,
           "nominalDuration": 25,
-          "positioningType": "positioning1",
+          "positioningType": "TO_OPTIMIZE",
           "operationCompartments": [
             {
               "groupId": "ex1",

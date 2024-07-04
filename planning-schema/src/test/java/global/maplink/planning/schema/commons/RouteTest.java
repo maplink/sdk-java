@@ -3,6 +3,9 @@ package global.maplink.planning.schema.commons;
 import global.maplink.json.JsonMapper;
 import org.junit.jupiter.api.Test;
 
+import static global.maplink.planning.schema.solution.ActivityType.DELIVERY;
+import static global.maplink.planning.schema.solution.PositioningType.TO_OPTIMIZE;
+import static global.maplink.planning.schema.solution.SequenceType.SITE;
 import static global.maplink.planning.testUtils.SampleFiles.ROUTE;
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -22,10 +25,10 @@ class RouteTest {
         assertThat(route.getViolationConstraints()).hasSize(1);
         assertThat(route.getViolationConstraints().get(0).getMessage()).isEqualTo("message1");
 
-        assertThat(route.getActivities().get(0).getActivity()).isEqualTo("activity1");
+        assertThat(route.getActivities().get(0).getActivity()).isEqualTo(DELIVERY);
         assertThat(route.getActivities().get(0).getTimeWindow().getStart()).isEqualTo(123);
         assertThat(route.getActivities().get(0).getTimeWindow().getEnd()).isEqualTo(456);
-        assertThat(route.getActivities().get(0).getType()).isEqualTo("type1");
+        assertThat(route.getActivities().get(0).getType()).isEqualTo(SITE);
         assertThat(route.getActivities().get(0).getSite()).isEqualTo("site1");
         assertThat(route.getActivities().get(0).getFixedTimeSite()).isEqualTo(10);
         assertThat(route.getActivities().get(0).getVolume()).isEqualTo(20.0);
@@ -36,7 +39,7 @@ class RouteTest {
         assertThat(route.getActivities().get(0).getDepartureSite()).isEqualTo("departure1");
         assertThat(route.getActivities().get(0).getDistance()).isEqualTo(15);
         assertThat(route.getActivities().get(0).getNominalDuration()).isEqualTo(25);
-        assertThat(route.getActivities().get(0).getPositioningType()).isEqualTo("positioning1");
+        assertThat(route.getActivities().get(0).getPositioningType()).isEqualTo(TO_OPTIMIZE);
         assertThat(route.getActivities().get(0).getOperationCompartments().get(0).getGroupId()).isEqualTo("ex1");
 
         CompartmentSolution compartmentSolution = route.getActivities()
