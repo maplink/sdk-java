@@ -43,7 +43,7 @@ class LegislationProfileTest {
         assertThat(legislationProfile.getDrivingRestDurationCuts().get(2)).isEqualTo(17);
         assertThat(legislationProfile.getDrivingRestDurationCuts().get(3)).isEqualTo(22);
 
-        assertThat(legislationProfile.getWorkingPauseDurationCuts().size()).isEqualTo(1);
+        assertThat(legislationProfile.getWorkingPauseDurationCuts().size()).isEqualTo(2);
         assertThat(legislationProfile.getWorkingRestDurationCuts().get(0)).isEqualTo(8);
     }
 }
