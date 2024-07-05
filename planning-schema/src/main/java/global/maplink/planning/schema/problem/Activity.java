@@ -19,6 +19,7 @@ import static lombok.AccessLevel.PRIVATE;
 @NoArgsConstructor(force = true)
 public class Activity {
 
+    //Test
     private final ActivityType activity;
     private final TimeWindow timeWindow;
     private final SequenceType type;
