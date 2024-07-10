@@ -3,10 +3,9 @@ package global.maplink.planning.schema.problem;
 import global.maplink.json.JsonMapper;
 import org.junit.jupiter.api.Test;
 
-import static global.maplink.planning.schema.problem.CalculationMode.THE_FASTEST;
-import static global.maplink.planning.testUtils.SampleFiles.PROBLEM;
+import static global.maplink.planning.testUtils.ProblemSampleFiles.PROBLEM;
+import static global.maplink.trip.schema.v2.problem.CalculationMode.THE_FASTEST;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class ProblemTest {
 
@@ -23,7 +22,7 @@ class ProblemTest {
         assertThat(problem.getDefaultDepot()).isEqualTo("default1");
         assertThat(problem.getCalculationMode()).isEqualTo(THE_FASTEST);
         assertThat(problem.getStartEnd()).isEqualTo(10);
-        assertTrue(problem.getHasSolution());
+        assertThat(problem.getHasSolution()).isTrue();
     }
 }
 

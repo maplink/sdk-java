@@ -1,4 +1,4 @@
-package global.maplink.planning.schema.problem;
+package global.maplink.planning.schema.solution;
 
 import global.maplink.json.JsonMapper;
 import global.maplink.planning.schema.commons.CompartmentSolution;
@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test;
 
 import static global.maplink.planning.schema.solution.ActivityType.LOADING;
 import static global.maplink.planning.schema.solution.SequenceType.SITE;
-import static global.maplink.planning.testUtils.SampleFiles.ACTIVITY;
+import static global.maplink.planning.testUtils.SolutionSampleFiles.ACTIVITY;
 import static org.assertj.core.api.Assertions.assertThat;
 
 

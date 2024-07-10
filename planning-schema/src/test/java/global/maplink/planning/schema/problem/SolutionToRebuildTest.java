@@ -4,7 +4,7 @@ import global.maplink.json.JsonMapper;
 import global.maplink.planning.schema.commons.Route;
 import org.junit.jupiter.api.Test;
 
-import static global.maplink.planning.testUtils.SampleFiles.SOLUTION_TO_REBUILD;
+import static global.maplink.planning.testUtils.ProblemSampleFiles.SOLUTION_TO_REBUILD;
 import static org.assertj.core.api.Assertions.assertThat;
 
 class SolutionToRebuildTest {

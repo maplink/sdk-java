@@ -11,7 +11,7 @@ public interface TestFiles {
     String getFilePath();
 
     default byte[] load() {
-        URL resource = SampleFiles.class.getClassLoader().getResource(getFilePath());
+        URL resource = ProblemSampleFiles.class.getClassLoader().getResource(getFilePath());
         try {
             assert resource != null;
             return Files.readAllBytes(Paths.get(resource.toURI()));

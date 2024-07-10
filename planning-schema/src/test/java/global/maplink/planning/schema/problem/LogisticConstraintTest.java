@@ -3,7 +3,7 @@ package global.maplink.planning.schema.problem;
 import global.maplink.json.JsonMapper;
 import org.junit.jupiter.api.Test;
 
-import static global.maplink.planning.testUtils.SampleFiles.LOGISTIC_CONSTRAINT;
+import static global.maplink.planning.testUtils.ProblemSampleFiles.LOGISTIC_CONSTRAINT;
 import static org.assertj.core.api.Assertions.assertThat;
 
 class LogisticConstraintTest {

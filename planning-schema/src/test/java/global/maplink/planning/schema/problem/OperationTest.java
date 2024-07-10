@@ -5,9 +5,8 @@ import org.junit.jupiter.api.Test;
 
 import static global.maplink.freight.schema.OperationType.C;
 import static global.maplink.planning.schema.problem.OperationStatus.FREE;
-import static global.maplink.planning.testUtils.SampleFiles.OPERATION;
+import static global.maplink.planning.testUtils.ProblemSampleFiles.OPERATION;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 
 class OperationTest {
 
@@ -31,8 +30,8 @@ class OperationTest {
         assertThat(operation.getQuantity()).isEqualTo(12.0);
         assertThat(operation.getPriority()).isEqualTo(13);
         assertThat(operation.getDepotHandlingDuration()).isEqualTo(14);
-        assertFalse(operation.getCustomerTimeWindowBlocked());
-        assertTrue(operation.getDepotTimeWindowBlocked());
+        assertThat(operation.getCustomerTimeWindowBlocked()).isFalse();
+        assertThat(operation.getDepotTimeWindowBlocked()).isTrue();
 
         assertThat(operation.getCharacteristics()).hasSize(2);
         assertThat(operation.getCharacteristics()).containsExactlyInAnyOrder("ex1", "ex2");

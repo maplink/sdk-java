@@ -1,9 +1,7 @@
-package global.maplink.planning.schema.problem;
+package global.maplink.planning.schema.solution;
 
 import global.maplink.planning.schema.commons.CompartmentSolutionGroup;
-import global.maplink.planning.schema.solution.ActivityType;
-import global.maplink.planning.schema.solution.PositioningType;
-import global.maplink.planning.schema.solution.SequenceType;
+import global.maplink.planning.schema.problem.TimeWindow;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

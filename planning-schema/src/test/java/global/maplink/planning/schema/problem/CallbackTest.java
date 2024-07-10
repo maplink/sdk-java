@@ -3,7 +3,7 @@ package global.maplink.planning.schema.problem;
 import global.maplink.json.JsonMapper;
 import org.junit.jupiter.api.Test;
 
-import static global.maplink.planning.testUtils.SampleFiles.CALLBACK;
+import static global.maplink.planning.testUtils.ProblemSampleFiles.CALLBACK;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 

@@ -3,7 +3,7 @@ package global.maplink.planning.schema.commons;
 import global.maplink.json.JsonMapper;
 import org.junit.jupiter.api.Test;
 
-import static global.maplink.planning.testUtils.SampleFiles.VIOLATION_CONSTRAINT;
+import static global.maplink.planning.testUtils.CommonSampleFiles.VIOLATION_CONSTRAINT;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class ViolationConstraintTest {

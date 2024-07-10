@@ -1,6 +1,6 @@
 package global.maplink.planning.schema.commons;
 
-import global.maplink.planning.schema.problem.Activity;
+import global.maplink.planning.schema.solution.Activity;
 import lombok.*;
 
 import java.util.List;

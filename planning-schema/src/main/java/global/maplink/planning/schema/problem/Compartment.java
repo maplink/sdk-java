@@ -5,7 +5,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
+import java.util.Set;
 
 import static global.maplink.planning.schema.problem.CompartmentType.FIXED;
 import static lombok.AccessLevel.PRIVATE;
@@ -22,7 +22,7 @@ public class Compartment {
     private final Double minimumCapacity;
     private final Double maximumCapacity;
     private final Double increment;
-    private final String loadingRule;
-    private final List<String> allowedPackagings;
+    private final CompartmentLoadingRule loadingRule;
+    private final Set<String> allowedPackagings;
 
 }

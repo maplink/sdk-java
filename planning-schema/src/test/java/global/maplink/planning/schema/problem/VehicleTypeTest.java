@@ -3,9 +3,8 @@ package global.maplink.planning.schema.problem;
 import global.maplink.json.JsonMapper;
 import org.junit.jupiter.api.Test;
 
-import static global.maplink.planning.testUtils.SampleFiles.VEHICLE_TYPE;
+import static global.maplink.planning.testUtils.ProblemSampleFiles.VEHICLE_TYPE;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class VehicleTypeTest {
 
@@ -16,12 +15,12 @@ class VehicleTypeTest {
 
         VehicleType vehicleType = mapper.fromJson(VEHICLE_TYPE.load(), VehicleType.class);
 
-        assertEquals("exemplo1", vehicleType.getName());
-        assertEquals("exemplo2", vehicleType.getCompartmentAccessMode());
-        assertEquals(10, vehicleType.getSize());
-        assertEquals(11, vehicleType.getMaxSitesNumber());
-        assertEquals(20.0, vehicleType.getMaxWeight());
-        assertEquals(21.0, vehicleType.getMaxVolume());
+        assertThat(vehicleType.getName()).isEqualTo("exemplo1");
+        assertThat(vehicleType.getCompartmentAccessMode()).isEqualTo("exemplo2");
+        assertThat(vehicleType.getSize()).isEqualTo(10);
+        assertThat(vehicleType.getMaxSitesNumber()).isEqualTo(11);
+        assertThat(vehicleType.getMaxWeight()).isEqualTo(20.0);
+        assertThat(vehicleType.getMaxVolume()).isEqualTo(21.0);
         assertThat(vehicleType.getCharacteristics()).hasSize(2);
         assertThat(vehicleType.getCharacteristics()).containsExactlyInAnyOrder("ex1", "ex2");
         assertThat(vehicleType.getCompartmentConfigurations().get(0).getName()).isEqualTo("name1");

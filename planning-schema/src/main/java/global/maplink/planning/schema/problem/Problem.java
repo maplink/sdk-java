@@ -5,6 +5,7 @@ import lombok.*;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
+import global.maplink.trip.schema.v2.problem.CalculationMode;
 
 import static lombok.AccessLevel.PRIVATE;
 

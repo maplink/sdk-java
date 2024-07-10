@@ -3,9 +3,8 @@ package global.maplink.planning.schema.problem;
 import global.maplink.json.JsonMapper;
 import org.junit.jupiter.api.Test;
 
-import static global.maplink.planning.testUtils.SampleFiles.LEGISLATION_PROFILE;
+import static global.maplink.planning.testUtils.ProblemSampleFiles.LEGISLATION_PROFILE;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.assertFalse;
 
 class LegislationProfileTest {
 
@@ -26,7 +25,7 @@ class LegislationProfileTest {
         assertThat(legislationProfile.getMaxWorkingTimeBetweenTwoRests()).isEqualTo(16);
         assertThat(legislationProfile.getWorkingRestDuration()).isEqualTo(17);
         assertThat(legislationProfile.getMaxWaitingTime()).isEqualTo(18);
-        assertFalse(legislationProfile.isWaitingIsWorking());
+        assertThat(legislationProfile.isWaitingIsWorking()).isFalse();
 
         assertThat(legislationProfile.getDrivingPauseDurationCuts().size()).isEqualTo(3);
         assertThat(legislationProfile.getDrivingPauseDurationCuts().get(0)).isEqualTo(5);

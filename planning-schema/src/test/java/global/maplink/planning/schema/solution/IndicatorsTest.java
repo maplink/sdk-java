@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
 
-import static global.maplink.planning.testUtils.SampleFiles.INDICATORS;
+import static global.maplink.planning.testUtils.SolutionSampleFiles.INDICATORS;
 import static org.assertj.core.api.Assertions.assertThat;
 
 
@@ -36,7 +36,6 @@ class IndicatorsTest {
         assertThat(indicators.getRoutesNumber()).isEqualTo(16);
         assertThat(indicators.getAverageOccupancyRateVolume()).isEqualTo(17.0);
         assertThat(indicators.getAverageOccupancyRateWeight()).isEqualTo(18.0);
-        BigDecimal bigDecimalTest = BigDecimal.valueOf(19);
-        assertThat(indicators.getTollCosts().compareTo(bigDecimalTest)).isZero();
+        assertThat(indicators.getTollCosts().compareTo(BigDecimal.valueOf(19))).isZero();
     }
 }

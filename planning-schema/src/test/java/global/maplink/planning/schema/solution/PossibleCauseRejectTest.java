@@ -3,7 +3,7 @@ package global.maplink.planning.schema.solution;
 import global.maplink.json.JsonMapper;
 import org.junit.jupiter.api.Test;
 
-import static global.maplink.planning.testUtils.SampleFiles.POSSIBLE_CAUSE_REJECT;
+import static global.maplink.planning.testUtils.SolutionSampleFiles.POSSIBLE_CAUSE_REJECT;
 import static org.assertj.core.api.Assertions.assertThat;
 
 

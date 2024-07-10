@@ -4,7 +4,7 @@ import global.maplink.json.JsonMapper;
 import org.junit.jupiter.api.Test;
 
 import static global.maplink.planning.schema.problem.LogisticZoneType.PRIORITARY;
-import static global.maplink.planning.testUtils.SampleFiles.LOGISTIC_ZONE;
+import static global.maplink.planning.testUtils.ProblemSampleFiles.LOGISTIC_ZONE;
 import static org.assertj.core.api.Assertions.assertThat;
 
 class LogisticZoneTest {

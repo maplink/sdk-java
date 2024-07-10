@@ -3,6 +3,7 @@ package global.maplink.planning.schema.problem;
 import global.maplink.freight.schema.FreightCalculationRequest;
 import global.maplink.trip.schema.v1.exception.TripCalculationRequestException;
 import global.maplink.trip.schema.v2.features.crossedBorders.CrossedBordersRequest;
+import global.maplink.trip.schema.v2.problem.CalculationMode;
 import global.maplink.trip.schema.v2.problem.TollRequest;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

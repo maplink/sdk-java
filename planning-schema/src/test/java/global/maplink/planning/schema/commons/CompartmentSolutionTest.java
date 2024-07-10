@@ -3,7 +3,7 @@ package global.maplink.planning.schema.commons;
 import global.maplink.json.JsonMapper;
 import org.junit.jupiter.api.Test;
 
-import static global.maplink.planning.testUtils.SampleFiles.COMPARTMENT_SOLUTION;
+import static global.maplink.planning.testUtils.CommonSampleFiles.COMPARTMENT_SOLUTION;
 import static org.assertj.core.api.Assertions.assertThat;
 
 class CompartmentSolutionTest {

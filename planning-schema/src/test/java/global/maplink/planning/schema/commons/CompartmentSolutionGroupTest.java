@@ -3,9 +3,8 @@ package global.maplink.planning.schema.commons;
 import global.maplink.json.JsonMapper;
 import org.junit.jupiter.api.Test;
 
-import static global.maplink.planning.testUtils.SampleFiles.COMPARTMENT_SOLUTION_GROUP;
+import static global.maplink.planning.testUtils.CommonSampleFiles.COMPARTMENT_SOLUTION_GROUP;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class CompartmentSolutionGroupTest {
 
@@ -22,12 +21,12 @@ class CompartmentSolutionGroupTest {
         assertThat(compartmentSolutionGroup.getGroupId()).isEqualTo("exemplo1");
         assertThat(compartmentSolutionGroup.getCompartmentSolutions()).hasSize(2);
 
-        assertEquals("exemplo1", compartmentSolutionChild0.getCompartment());
-        assertEquals(10.0, compartmentSolutionChild0.getCapacityWeightUsed());
-        assertEquals(20.0, compartmentSolutionChild0.getCapacityVolumeUsed());
+        assertThat(compartmentSolutionChild0.getCompartment()).isEqualTo("exemplo1");
+        assertThat(compartmentSolutionChild0.getCapacityWeightUsed()).isEqualTo(10.0);
+        assertThat(compartmentSolutionChild0.getCapacityVolumeUsed()).isEqualTo(20.0);
 
-        assertEquals("exemplo2", compartmentSolutionChild1.getCompartment());
-        assertEquals(11.0, compartmentSolutionChild1.getCapacityWeightUsed());
-        assertEquals(21.0, compartmentSolutionChild1.getCapacityVolumeUsed());
+        assertThat(compartmentSolutionChild1.getCompartment()).isEqualTo("exemplo2");
+        assertThat(compartmentSolutionChild1.getCapacityWeightUsed()).isEqualTo(11.0);
+        assertThat(compartmentSolutionChild1.getCapacityVolumeUsed()).isEqualTo(21.0);
     }
 }

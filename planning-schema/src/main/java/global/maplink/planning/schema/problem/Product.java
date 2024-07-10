@@ -5,7 +5,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
+import java.util.Set;
 
 import static lombok.AccessLevel.PRIVATE;
 
@@ -18,5 +18,5 @@ public class Product {
     private final String name;
     private final String type;
     private final String incompabilityGroup;
-    private final List<String> packagings;
+    private final Set<String> packagings;
 }

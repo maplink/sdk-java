@@ -1,12 +1,13 @@
 package global.maplink.planning.schema.commons;
 
 import global.maplink.json.JsonMapper;
+import global.maplink.planning.schema.solution.Activity;
 import org.junit.jupiter.api.Test;
 
 import static global.maplink.planning.schema.solution.ActivityType.DELIVERY;
 import static global.maplink.planning.schema.solution.PositioningType.TO_OPTIMIZE;
 import static global.maplink.planning.schema.solution.SequenceType.SITE;
-import static global.maplink.planning.testUtils.SampleFiles.ROUTE;
+import static global.maplink.planning.testUtils.CommonSampleFiles.ROUTE;
 import static org.assertj.core.api.Assertions.assertThat;
 
 class RouteTest {
@@ -25,22 +26,24 @@ class RouteTest {
         assertThat(route.getViolationConstraints()).hasSize(1);
         assertThat(route.getViolationConstraints().get(0).getMessage()).isEqualTo("message1");
 
-        assertThat(route.getActivities().get(0).getActivity()).isEqualTo(DELIVERY);
-        assertThat(route.getActivities().get(0).getTimeWindow().getStart()).isEqualTo(123);
-        assertThat(route.getActivities().get(0).getTimeWindow().getEnd()).isEqualTo(456);
-        assertThat(route.getActivities().get(0).getType()).isEqualTo(SITE);
-        assertThat(route.getActivities().get(0).getSite()).isEqualTo("site1");
-        assertThat(route.getActivities().get(0).getFixedTimeSite()).isEqualTo(10);
-        assertThat(route.getActivities().get(0).getVolume()).isEqualTo(20.0);
-        assertThat(route.getActivities().get(0).getWeight()).isEqualTo(30.0);
-        assertThat(route.getActivities().get(0).getOperations()).hasSize(2);
-        assertThat(route.getActivities().get(0).getOperations()).containsExactlyInAnyOrder("ex1", "ex2");
-        assertThat(route.getActivities().get(0).getArrivalSite()).isEqualTo("arrival1");
-        assertThat(route.getActivities().get(0).getDepartureSite()).isEqualTo("departure1");
-        assertThat(route.getActivities().get(0).getDistance()).isEqualTo(15);
-        assertThat(route.getActivities().get(0).getNominalDuration()).isEqualTo(25);
-        assertThat(route.getActivities().get(0).getPositioningType()).isEqualTo(TO_OPTIMIZE);
-        assertThat(route.getActivities().get(0).getOperationCompartments().get(0).getGroupId()).isEqualTo("ex1");
+        Activity activity = route.getActivities().get(0);
+
+        assertThat(activity.getActivity()).isEqualTo(DELIVERY);
+        assertThat(activity.getTimeWindow().getStart()).isEqualTo(123);
+        assertThat(activity.getTimeWindow().getEnd()).isEqualTo(456);
+        assertThat(activity.getType()).isEqualTo(SITE);
+        assertThat(activity.getSite()).isEqualTo("site1");
+        assertThat(activity.getFixedTimeSite()).isEqualTo(10);
+        assertThat(activity.getVolume()).isEqualTo(20.0);
+        assertThat(activity.getWeight()).isEqualTo(30.0);
+        assertThat(activity.getOperations()).hasSize(2);
+        assertThat(activity.getOperations()).containsExactlyInAnyOrder("ex1", "ex2");
+        assertThat(activity.getArrivalSite()).isEqualTo("arrival1");
+        assertThat(activity.getDepartureSite()).isEqualTo("departure1");
+        assertThat(activity.getDistance()).isEqualTo(15);
+        assertThat(activity.getNominalDuration()).isEqualTo(25);
+        assertThat(activity.getPositioningType()).isEqualTo(TO_OPTIMIZE);
+        assertThat(activity.getOperationCompartments().get(0).getGroupId()).isEqualTo("ex1");
 
         CompartmentSolution compartmentSolution = route.getActivities()
                 .get(0)

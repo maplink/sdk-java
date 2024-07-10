@@ -3,7 +3,7 @@ package global.maplink.planning.schema.solution;
 import global.maplink.json.JsonMapper;
 import org.junit.jupiter.api.Test;
 
-import static global.maplink.planning.testUtils.SampleFiles.PENDING_TASKS;
+import static global.maplink.planning.testUtils.SolutionSampleFiles.PENDING_TASKS;
 import static org.assertj.core.api.Assertions.assertThat;
 
 

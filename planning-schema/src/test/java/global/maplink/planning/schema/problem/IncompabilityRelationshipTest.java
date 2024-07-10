@@ -4,7 +4,7 @@ import global.maplink.json.JsonMapper;
 import org.junit.jupiter.api.Test;
 
 import static global.maplink.planning.schema.problem.IncompatibilityType.ORDERED;
-import static global.maplink.planning.testUtils.SampleFiles.INCOMPABILITY_RELATIONSHIP;
+import static global.maplink.planning.testUtils.ProblemSampleFiles.INCOMPABILITY_RELATIONSHIP;
 import static org.assertj.core.api.Assertions.assertThat;
 
 class IncompabilityRelationshipTest {
