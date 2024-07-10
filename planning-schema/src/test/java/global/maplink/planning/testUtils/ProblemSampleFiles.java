@@ -26,6 +26,7 @@ public enum ProblemSampleFiles implements TestFiles {
     TIME_WINDOW("planning.json/samples/problem/timeWindow.json"),
     VEHICLE("planning.json/samples/problem/vehicle.json"),
     VEHICLE_ROUTE("planning.json/samples/problem/vehicleRoute.json"),
-    VEHICLE_TYPE("planning.json/samples/problem/vehicleType.json");
+    VEHICLE_TYPE("planning.json/samples/problem/vehicleType.json"),
+    PROBLEM_TRIP("planning.json/samples/problem/problemTrip.json");
     private final String filePath;
 }
