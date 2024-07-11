@@ -1,0 +1,233 @@
+{
+  "clientId": "client1",
+  "optimizationProfile": null,
+  "tripsProfile": "",
+  "defaultDepot": "default1",
+  "calculationMode": "THE_FASTEST",
+  "startEnd": 10,
+  "hasSolution": true,
+  "sites": [
+    {
+      "site": "site1",
+      "coordiinates": [
+        {
+          "longitude": 10.0,
+          "latitude": 20.0
+        }
+      ],
+      "logisticConstraints": "logistic1",
+      "logisticZones": [
+        "ex1",
+        "ex2"
+      ]
+    }
+  ],
+  "depots": [
+    {
+      "site": "site1",
+      "coordiinates": [
+        {
+          "longitude": 10.0,
+          "latitude": 20.0
+        }
+      ],
+      "logisticConstraints": "logistic1",
+      "logisticZones": [
+        "ex1",
+        "ex2"
+      ]
+    }
+  ],
+  "id": "exemplo1",
+  "group": "exemplo2",
+  "product": "exemplo3",
+  "type": "exemplo4",
+  "depotSize": "exemplo5",
+  "customerSite": "exemplo6",
+  "preAllocatedVehicleName": "exemplo7",
+  "status": "exemplo8",
+  "weight": 10.0,
+  "volume": 11.0,
+  "quantity": 12.0,
+  "priority": 13,
+  "depotHandlingDuration": 14,
+  "customerTimeWindowBlocked": false,
+  "depotTimeWindowBlocked": true,
+  "characteristics": [
+    "ex1",
+    "ex2"
+  ],
+  "customerTimeWindows": [
+    {
+      "start": 123,
+      "end": 456
+    }
+  ],
+  "depotTimeWindows": [
+    {
+      "start": 111,
+      "end": 222
+    }
+  ],
+  "vehicleTypes": [
+    {
+      "name": "exemplo1",
+      "compartmentAccessMode": "exemplo2",
+      "size": 10,
+      "maxSitesNumber": 11,
+      "maxWeight": 20.0,
+      "maxVolume": 21.0,
+      "characteristics": [
+        "ex1",
+        "ex2"
+      ],
+      "compartmentConfigurations": [
+        {
+          "name": "name1",
+          "compartments": [
+            {
+              "name": "exemplo1",
+              "minimumCapacity": 10.0,
+              "maximumCapacity": 20.0,
+              "increment": 30.0,
+              "loadingRule": "NONE",
+
+              "allowedPackagings": [
+                "exemplo1",
+                "exemplo2"
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "vehicle": [
+    {
+      "name": "exemplo1",
+      "vehicleType": "exemplo2",
+      "legislationProfile": "exemplo3",
+      "priority": 10,
+      "logisticZones": [
+        "ex1",
+        "ex2"
+      ],
+      "availablePeriods": [
+        {
+          "timeWindow":
+          {
+            "start": 1702897200000,
+            "end": 1703538000000
+          }
+        ,
+          "departureSite": "exemplo1",
+          "arrivalSite": "exemplo2",
+          "maxRoutesNumber": 20,
+          "maxWorkingTime": 3,
+          "maxDrivingTime": 4
+        }
+      ]
+    }
+  ],
+  "products": [
+    {
+      "name": "exemplo1",
+      "type": "exemplo2",
+      "incompabilityGroup": "exemplo3",
+      "packagings": [
+        "ex1",
+        "ex2"
+      ]
+    }
+  ],
+  "legislationProfiles": [
+    {
+      "name": "exemplo1",
+      "maxContinuousDrivingTime": 10,
+      "drivingPauseDuration": 11,
+      "maxContinuousWorkingTime": 12,
+      "workingPauseDuration": 13,
+      "maxDrivingTimeBetweenTwoRests": 14,
+      "drivingRestDuration": 15,
+      "maxWorkingTimeBetweenTwoRests": 16,
+      "workingRestDuration": 17,
+      "maxWaitingTime": 18,
+      "waitingIsWorking": false,
+      "drivingPauseDurationCuts": [
+        5,
+        10,
+        15
+      ],
+      "workingPauseDurationCuts": [
+        6,
+        11
+      ],
+      "drivingRestDurationCuts": [
+        7,
+        12,
+        17,
+        22
+      ],
+      "workingRestDurationCuts": [
+        8
+      ]
+    }
+  ],
+  "logisticConstraints": [
+    {
+      "name": "exemplo1",
+      "maxContinuousDrivingTime": 10,
+      "drivingPauseDuration": 11,
+      "maxContinuousWorkingTime": 12,
+      "workingPauseDuration": 13,
+      "maxDrivingTimeBetweenTwoRests": 14,
+      "drivingRestDuration": 15,
+      "maxWorkingTimeBetweenTwoRests": 16,
+      "workingRestDuration": 17,
+      "maxWaitingTime": 18,
+      "waitingIsWorking": false,
+      "drivingPauseDurationCuts": [
+        5,
+        10,
+        15
+      ],
+      "workingPauseDurationCuts": [
+        6,
+        11
+      ],
+      "drivingRestDurationCuts": [
+        7,
+        12,
+        17,
+        22
+      ],
+      "workingRestDurationCuts": [
+        8
+      ]
+    }
+  ],
+  "incompabilityRelationships": [
+    {
+      "name": "exemplo1",
+      "incompabilityGroup1": "exemplo2",
+      "incompabilityGroup2": "exemplo3",
+      "type": "ORDERED",
+      "vehicles": [
+        "vehicle1",
+        "vehicle2",
+        "vehicle3"
+      ]
+    }
+  ],
+  "logisticZones": [
+    {
+      "name": "exemplo1",
+      "zonePriority": "PRIORITARY"
+    }
+  ],
+  "restrictionZones": [
+    "SP_BR381_90_km_Alt_Esq_5_3_Cen_5_45_Dir_5_6",
+    "SP_BR381_87_km_Alt_Esq_6_7_Cen_6_7_Dir_6_7"
+  ]
+
+}
