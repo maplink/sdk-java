@@ -20,7 +20,6 @@ public class Vehicle implements Validable {
     private final String name;
     private final String vehicleType;
     private final String legislationProfile;
-    @Singular
     private final List<AvailablePeriod> availablePeriods;
     private final Integer priority;
     private final List<String> logisticZones;
