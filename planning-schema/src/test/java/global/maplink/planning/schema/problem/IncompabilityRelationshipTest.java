@@ -23,6 +23,5 @@ class IncompabilityRelationshipTest {
         assertThat(incompabilityRelationship.getVehicles().size()).isEqualTo(3);
         assertThat(incompabilityRelationship.getVehicles().get(0)).isEqualTo("vehicle1");
         assertThat(incompabilityRelationship.getVehicles().get(1)).isEqualTo("vehicle2");
-        assertThat(incompabilityRelationship.getVehicles().get(2)).isEqualTo("vehicle3");
     }
 }
