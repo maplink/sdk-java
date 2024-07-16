@@ -1,22 +1,20 @@
 package global.maplink.planning.schema.problem;
 
-import global.maplink.place.schema.exception.PlaceUpdateViolation;
-import global.maplink.validations.Validable;
-import global.maplink.validations.ValidationViolation;
+import global.maplink.trip.schema.v2.problem.CalculationMode;
 import lombok.*;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.Set;
 
-import global.maplink.trip.schema.v2.problem.CalculationMode;
-
-import static java.util.Objects.isNull;
 import static lombok.AccessLevel.PRIVATE;
 
 @Data
 @Builder
 @AllArgsConstructor(access = PRIVATE)
 @NoArgsConstructor(force = true)
-public class Problem implements Validable {
+public class Problem {
 
     private final String clientId;
     @Singular
@@ -112,22 +110,5 @@ public class Problem implements Validable {
             logisticConstraints = new ArrayList<>();
         }
         return logisticConstraints;
-    }
-
-    public List<ValidationViolation> validate() {
-        List<ValidationViolation> violations = new LinkedList<>();
-        if (isInvalid(optimizationProfile)) {
-            violations.add(PlaceUpdateViolation.of("problem.optimizationProfile"));
-        }
-
-        if (isInvalid(tripsProfile)) {
-            violations.add(PlaceUpdateViolation.of("problem.tripsProfile"));
-        }
-
-        return violations;
-    }
-
-    private boolean isInvalid(final String value) {
-        return isNull(value) || value.trim().isEmpty();
     }
 }
