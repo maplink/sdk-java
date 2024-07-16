@@ -1,0 +1,8 @@
+{
+  "site": "exemplo1",
+  "logisticConstraints": "exemplo2",
+  "logisticZones": [
+    "ex1",
+    "ex2"
+  ]
+}

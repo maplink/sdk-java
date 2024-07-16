@@ -1,0 +1,42 @@
+{
+  "activity": "LOADING",
+  "timeWindow":
+    {
+      "start": 1702897200000,
+      "end": 1703538000000
+    }
+  ,
+  "type": "SITE",
+  "site": "site1",
+  "fixedTimeSite": 5,
+  "volume": 20.0,
+  "weight": 40.0,
+  "arrivalSite": "site2",
+  "departureSite": "site3",
+  "distance": 10,
+  "nominalDuration": 3,
+  "positioningType": "TO_OPTIMIZE",
+
+  "operations": [
+    "ex1",
+    "ex2"
+  ],
+
+  "operationCompartments": [
+    {
+      "groupId": "exemplo",
+      "compartmentSolutions": [
+        {
+          "compartment": "exemplo1",
+          "capacityWeightUsed": 10.0,
+          "capacityVolumeUsed": 20.0
+        },
+        {
+          "compartment": "exemplo2",
+          "capacityWeightUsed": 11.0,
+          "capacityVolumeUsed": 21.0
+        }
+      ]
+    }
+  ]
+}

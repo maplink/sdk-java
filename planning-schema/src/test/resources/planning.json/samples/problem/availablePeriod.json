@@ -1,0 +1,13 @@
+{
+  "timeWindow":
+  {
+    "start": 1702897200000,
+    "end": 1703538000000
+  }
+,
+  "departureSite": "exemplo1",
+  "arrivalSite": "exemplo2",
+  "maxRoutesNumber": 20,
+  "maxWorkingTime": 3,
+  "maxDrivingTime": 4
+}

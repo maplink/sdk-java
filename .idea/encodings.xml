@@ -31,6 +31,10 @@
     <file url="file://$PROJECT_DIR$/place-schema/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/place/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/place/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/planning-schema/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/planning-schema/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/planning/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/planning/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/restriction-zone-schema/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/restriction-zone-schema/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main/java" charset="UTF-8" />

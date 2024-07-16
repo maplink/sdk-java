@@ -1,0 +1,17 @@
+{
+  "name": "exemplo1",
+  "compartments": [
+    {
+      "name": "exemplo1",
+      "minimumCapacity": 10.0,
+      "maximumCapacity": 20.0,
+      "increment": 30.0,
+      "loadingRule": "NONE",
+
+      "allowedPackagings": [
+        "exemplo1",
+        "exemplo2"
+      ]
+    }
+  ]
+}

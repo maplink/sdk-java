@@ -1,0 +1,33 @@
+{
+  "id": "exemplo1",
+  "group": "exemplo2",
+  "product": "exemplo3",
+  "type": "C",
+  "depotSize": "exemplo5",
+  "customerSite": "exemplo6",
+  "preAllocatedVehicleName": "exemplo7",
+  "status": "FREE",
+  "weight": 10.0,
+  "volume": 11.0,
+  "quantity": 12.0,
+  "priority": 13,
+  "depotHandlingDuration": 14,
+  "customerTimeWindowBlocked": false,
+  "depotTimeWindowBlocked": true,
+  "characteristics": [
+    "ex1",
+    "ex2"
+  ],
+  "customerTimeWindows": [
+    {
+      "start": 123,
+      "end": 456
+    }
+  ],
+  "depotTimeWindows": [
+    {
+      "start": 111,
+      "end": 222
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "groupId": "exemplo1",
+  "compartmentSolutions": [
+    {
+      "compartment": "exemplo1",
+      "capacityWeightUsed": 10.0,
+      "capacityVolumeUsed": 20.0
+    },
+    {
+      "compartment": "exemplo2",
+      "capacityWeightUsed": 11.0,
+      "capacityVolumeUsed": 21.0
+    }
+  ]
+}

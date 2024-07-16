@@ -1,0 +1,31 @@
+{
+  "name": "exemplo1",
+  "maxContinuousDrivingTime": 10,
+  "drivingPauseDuration": 11,
+  "maxContinuousWorkingTime": 12,
+  "workingPauseDuration": 13,
+  "maxDrivingTimeBetweenTwoRests": 14,
+  "drivingRestDuration": 15,
+  "maxWorkingTimeBetweenTwoRests": 16,
+  "workingRestDuration": 17,
+  "maxWaitingTime": 18,
+  "waitingIsWorking": false,
+  "drivingPauseDurationCuts": [
+    5,
+    10,
+    15
+  ],
+  "workingPauseDurationCuts": [
+    6,
+    11
+  ],
+  "drivingRestDurationCuts": [
+    7,
+    12,
+    17,
+    22
+  ],
+  "workingRestDurationCuts": [
+    8
+  ]
+}
