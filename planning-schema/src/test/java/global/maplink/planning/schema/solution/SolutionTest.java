@@ -30,10 +30,6 @@ class SolutionTest {
         assertThat(solution.getRejectOperations()).hasSize(2);
         assertThat(solution.getRejectOperations()).containsExactlyInAnyOrder("ex1", "ex2");
 
-        //assertThat(solution.getPossibleCauseOfRejectOperationsGroup().get(0).getGroupId()).isEqualTo("ex1");
-        //assertThat(solution.getPossibleCauseOfRejectOperationsGroup().get(0).getPossibleCauseRejects().get(0).getCode()).isEqualTo("exemplo1");
-        //assertThat(solution.getPossibleCauseOfRejectOperationsGroup().get(0).getPossibleCauseRejects().get(0).getMessage()).isEqualTo("exemplo2");
-
         assertThat(solution.getPossibleCauseOfRejectOperationsGroup()).isNull();
     }
 }

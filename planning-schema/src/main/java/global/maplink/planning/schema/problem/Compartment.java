@@ -39,8 +39,4 @@ public class Compartment implements Validable {
 
         return violations;
     }
-
-    private boolean isInvalid(final String value) {
-        return isNull(value) || value.trim().isEmpty();
-    }
 }

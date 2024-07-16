@@ -29,5 +29,5 @@ public class LegislationProfile {
     private final Integer workingRestDuration; //longBreakWorkingDuration
     private final List<Integer> workingRestDurationCuts; //longBreakWorkingCuts
     private final Integer maxWaitingTime; //maxWaitingTime
-    private final boolean waitingIsWorking = false; //waitingIsWorking
+    private final static boolean waitingIsWorking = false; //waitingIsWorking
 }
