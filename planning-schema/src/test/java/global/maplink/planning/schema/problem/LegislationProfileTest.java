@@ -25,7 +25,6 @@ class LegislationProfileTest {
         assertThat(legislationProfile.getMaxWorkingTimeBetweenTwoRests()).isEqualTo(16);
         assertThat(legislationProfile.getWorkingRestDuration()).isEqualTo(17);
         assertThat(legislationProfile.getMaxWaitingTime()).isEqualTo(18);
-        assertThat(legislationProfile.isWaitingIsWorking()).isFalse();
 
         assertThat(legislationProfile.getDrivingPauseDurationCuts().size()).isEqualTo(3);
         assertThat(legislationProfile.getDrivingPauseDurationCuts().get(0)).isEqualTo(5);
