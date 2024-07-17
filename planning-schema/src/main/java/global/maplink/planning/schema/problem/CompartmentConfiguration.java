@@ -1,16 +1,15 @@
 package global.maplink.planning.schema.problem;
 
 import global.maplink.planning.schema.exception.PlanningUpdateViolation;
+import global.maplink.planning.schema.validator.FieldValidator;
 import global.maplink.validations.ValidationViolation;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
-import static java.util.Objects.isNull;
 import static lombok.AccessLevel.PRIVATE;
 
 @Data
@@ -25,14 +24,29 @@ public class CompartmentConfiguration {
     public List<ValidationViolation> validate() {
         List<ValidationViolation> violations = new LinkedList<>();
 
-        if(isNullOrEmpty(name)){
+        if(FieldValidator.isInvalid(name)){
             violations.add(PlanningUpdateViolation.of("compartmentConfiguration.name"));
         }
 
+        //invocar validaçao do compartment
         return violations;
     }
 
-    private boolean isNullOrEmpty(final String value) {
-        return isNull(value) || value.trim().isEmpty();
+    private void validateCompartments(List<String> errors, String fieldPath, Compartment[] compartments) {
+
+        Set<String> namesUsed = new HashSet<>();
+        for (int i = 0; i < compartments.length; i++) {
+            //Compartment.isValid(errors, fieldPath + "[" + i + "].", compartments[i], namesUsed);
+            this.compartments.get(i).validate(namesUsed);
+        }
+
+//        for (Compartment compartment : this.compartments) {
+//            compartment.validate();
+//        }
+
+
+       // this.compartments.forEach(compartment -> compartment.validate());
+
+        //this.compartments.forEach(Compartment::validate);
     }
 }

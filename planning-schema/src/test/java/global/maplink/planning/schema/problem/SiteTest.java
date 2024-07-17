@@ -15,7 +15,7 @@ class SiteTest {
 
         Site site = mapper.fromJson(SITE.load(), Site.class);
 
-        assertThat(site.getSite()).isEqualTo("exemplo1");
+        assertThat(site.getName()).isEqualTo("exemplo1");
         assertThat(site.getLogisticConstraints()).isEqualTo("exemplo2");
         assertThat(site.getLogisticZones()).hasSize(2);
         assertThat(site.getLogisticZones()).containsExactlyInAnyOrder("ex1", "ex2");

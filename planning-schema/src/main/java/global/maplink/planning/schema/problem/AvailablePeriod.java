@@ -1,6 +1,7 @@
 package global.maplink.planning.schema.problem;
 
 import global.maplink.planning.schema.exception.PlanningUpdateViolation;
+import global.maplink.planning.schema.validator.FieldValidator;
 import global.maplink.validations.ValidationViolation;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -29,23 +30,23 @@ public class AvailablePeriod {
     public List<ValidationViolation> validate() {
         List<ValidationViolation> violations = new LinkedList<>();
 
-        if(isNullOrEmpty(departureSite)){
+        if(FieldValidator.isInvalid(departureSite)){
             violations.add(PlanningUpdateViolation.of("availablePeriod.departureSite"));
         }
 
-        if(isNullOrEmpty(arrivalSite)){
+        if(FieldValidator.isInvalid(arrivalSite)){
             violations.add(PlanningUpdateViolation.of("availablePeriod.arrivalSite"));
         }
 
-        if(isNullOrNegative(maxRoutesNumber)){
+        if(FieldValidator.isNotNegative(maxRoutesNumber)){
             violations.add(PlanningUpdateViolation.of("availablePeriod.maxRoutesNumber"));
         }
 
-        if(isNullOrNegative(maxWorkingTime)){
+        if(FieldValidator.isNotNegative(maxWorkingTime)){
             violations.add(PlanningUpdateViolation.of("availablePeriod.maxWorkingTime"));
         }
 
-        if(isNullOrNegative(maxDrivingTime)){
+        if(FieldValidator.isNotNegative(maxDrivingTime)){
             violations.add(PlanningUpdateViolation.of("availablePeriod.maxDrivingTime"));
         }
 
@@ -53,11 +54,9 @@ public class AvailablePeriod {
             violations.add(PlanningUpdateViolation.of("availablePeriod.timeWindow"));
         }
 
-        return violations;
-    }
+        this.getTimeWindow().validate();
 
-    private boolean isNullOrNegative(final Integer value) {
-        return isNull(value) || value < 0;
+        return violations;
     }
 
     private boolean isNullOrEmpty(final String value) {

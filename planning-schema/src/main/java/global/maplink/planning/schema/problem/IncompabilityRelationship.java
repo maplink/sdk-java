@@ -1,6 +1,7 @@
 package global.maplink.planning.schema.problem;
 
 import global.maplink.planning.schema.exception.PlanningUpdateViolation;
+import global.maplink.planning.schema.validator.FieldValidator;
 import global.maplink.validations.ValidationViolation;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -10,7 +11,6 @@ import lombok.NoArgsConstructor;
 import java.util.LinkedList;
 import java.util.List;
 
-import static java.util.Objects.isNull;
 import static lombok.AccessLevel.PRIVATE;
 
 @Data
@@ -28,19 +28,19 @@ public class IncompabilityRelationship {
     public List<ValidationViolation> validate() {
         List<ValidationViolation> violations = new LinkedList<>();
 
-        if(isNullOrEmpty(name)){
+        if(FieldValidator.isInvalid(name)){
             violations.add(PlanningUpdateViolation.of("incompabilityRelationship.name"));
         }
 
-        if(isNullOrEmpty(incompabilityGroup1)){
+        if(FieldValidator.isInvalid(incompabilityGroup1)){
             violations.add(PlanningUpdateViolation.of("incompabilityRelationship.incompabilityGroup1"));
         }
 
-        if(isNullOrEmpty(incompabilityGroup2)){
+        if(FieldValidator.isInvalid(incompabilityGroup2)){
             violations.add(PlanningUpdateViolation.of("incompabilityRelationship.incompabilityGroup2"));
         }
 
-        if(isNullOrEmpty(type.toString())){
+        if(FieldValidator.isInvalid(type.toString())){
             violations.add(PlanningUpdateViolation.of("incompabilityRelationship.type"));
         }
 
@@ -49,9 +49,5 @@ public class IncompabilityRelationship {
         }
 
         return violations;
-    }
-
-    private boolean isNullOrEmpty(final String value) {
-        return isNull(value) || value.trim().isEmpty();
     }
 }

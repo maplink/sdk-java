@@ -1,13 +1,15 @@
 package global.maplink.planning.schema.problem;
 
+import global.maplink.planning.schema.exception.PlanningUpdateViolation;
+import global.maplink.trip.schema.v1.exception.TripCalculationRequestException;
 import global.maplink.trip.schema.v2.problem.CalculationMode;
+import global.maplink.validations.ValidationViolation;
 import lombok.*;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Set;
+import java.io.IOException;
+import java.util.*;
 
+import static java.util.Objects.isNull;
 import static lombok.AccessLevel.PRIVATE;
 
 @Data
@@ -47,6 +49,44 @@ public class Problem {
     private final Set<String> restrictionZones;
     private final ProblemTrip trip;
     private final CalculationMode calculationMode;
+
+    public List<ValidationViolation> validate() {
+        List<ValidationViolation> violations = new LinkedList<>();
+
+        if(sites.isEmpty()){
+            violations.add(PlanningUpdateViolation.of("problem.sites"));
+        }
+
+        if(depots.isEmpty()){
+            violations.add(PlanningUpdateViolation.of("problem.sites"));
+        }
+
+        if(operations.isEmpty()){
+            violations.add(PlanningUpdateViolation.of("problem.sites"));
+        }
+
+        if(vehicleTypes.isEmpty()){
+            violations.add(PlanningUpdateViolation.of("problem.sites"));
+        }
+
+        if(vehicles.isEmpty()){
+            violations.add(PlanningUpdateViolation.of("problem.sites"));
+        }
+
+        if(products.isEmpty()){
+            violations.add(PlanningUpdateViolation.of("problem.sites"));
+        }
+
+        if(legislationProfiles.isEmpty()){
+            violations.add(PlanningUpdateViolation.of("problem.sites"));
+        }
+
+        if(logisticConstraints.isEmpty()){
+            violations.add(PlanningUpdateViolation.of("problem.sites"));
+        }
+
+        return violations;
+    }
 
     public List<Site> getSites() {
 

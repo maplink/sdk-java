@@ -14,6 +14,7 @@ import java.util.Objects;
 
 import static global.maplink.planning.schema.exception.PlanningErrorType.START_EQUALS_END;
 import static global.maplink.planning.schema.exception.PlanningErrorType.START_IS_BIGGER_THAN_END;
+import static java.util.Objects.isNull;
 import static lombok.AccessLevel.PRIVATE;
 
 @Data
@@ -28,11 +29,11 @@ public class TimeWindow implements Validable {
     public List<ValidationViolation> validate() {
         List<ValidationViolation> violations = new LinkedList<>();
 
-        if(Objects.isNull(start)){
+        if(isNull(start)){
             violations.add(PlanningUpdateViolation.of("timeWindow.start"));
         }
 
-        if(Objects.isNull(end)){
+        if(isNull(end)){
             violations.add(PlanningUpdateViolation.of("timeWindow.end"));
         }
 

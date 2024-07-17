@@ -1,6 +1,7 @@
 package global.maplink.planning.schema.problem;
 
 import global.maplink.planning.schema.exception.PlanningUpdateViolation;
+import global.maplink.planning.schema.validator.FieldValidator;
 import global.maplink.validations.ValidationViolation;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -27,16 +28,8 @@ public class Callback {
     public List<ValidationViolation> validate() {
         List<ValidationViolation> violations = new LinkedList<>();
 
-        if(isNullOrEmpty(jobId)){
-            violations.add(PlanningUpdateViolation.of("Callback.jobId"));
-        }
-
-        if(isNullOrEmpty(user)){
-            violations.add(PlanningUpdateViolation.of("Callback.user"));
-        }
-
-        if(isNullOrEmpty(password)){
-            violations.add(PlanningUpdateViolation.of("Callback.password"));
+        if(isNull(url)){
+            violations.add(PlanningUpdateViolation.of("Callback.url"));
         }
 
         validateURL(violations);
@@ -44,15 +37,10 @@ public class Callback {
         return violations;
     }
 
-    private boolean isNullOrEmpty(final String value) {
-        return isNull(value) || value.trim().isEmpty();
-    }
-
     private void validateURL(List<ValidationViolation> violations) {
         final String REGEX_URL_PATTERN = "(https?://[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\\.[^\\s]{2,}|" + "(https?://)?localhost(:\\d+)?(/[a-zA-Z0-9]+)*/?)";
 
         if(isNull(url)){
-            violations.add(PlanningUpdateViolation.of("Callback.urlNull"));
             return;
         }
 

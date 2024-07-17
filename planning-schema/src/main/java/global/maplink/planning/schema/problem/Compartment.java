@@ -1,12 +1,14 @@
 package global.maplink.planning.schema.problem;
 
 import global.maplink.planning.schema.exception.PlanningUpdateViolation;
+import global.maplink.planning.schema.validator.FieldValidator;
 import global.maplink.validations.ValidationViolation;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
@@ -30,18 +32,22 @@ public class Compartment {
     private final CompartmentLoadingRule loadingRule;
     private final Set<String> allowedPackagings;
 
-    public List<ValidationViolation> validate() {
+    public List<ValidationViolation> validate(Set<String> namesUsed) {
         List<ValidationViolation> violations = new LinkedList<>();
 
-        if(isNullOrNegative(minimumCapacity)){
+        if(isNull(name)){
+            violations.add(PlanningUpdateViolation.of("compartment.name"));
+        }
+
+        if(FieldValidator.isNullOrNegative(minimumCapacity)){
             violations.add(PlanningUpdateViolation.of("compartment.minimumCapacity"));
         }
 
-        if(isNullOrNegative(maximumCapacity)){
+        if(FieldValidator.isNullOrNegative(maximumCapacity)){
             violations.add(PlanningUpdateViolation.of("compartment.maximumCapacity"));
         }
 
-        if(isNullOrNegative(increment)){
+        if(FieldValidator.isNullOrNegative(increment)){
             violations.add(PlanningUpdateViolation.of("compartment.increment"));
         }
 
@@ -53,10 +59,39 @@ public class Compartment {
             violations.add(PlanningUpdateViolation.of("compartment.allowedPackagings"));
         }
 
+        checkNameUnique(violations, name, namesUsed);
+
         return violations;
     }
 
-    private boolean isNullOrNegative(final Double value) {
-        return isNull(value) || value < 0;
+    private void checkNameUnique(List<ValidationViolation> violations, String name, Set<String> namesUsed) {
+
+        if (isNull(name) || isNull(namesUsed)) {
+            return;
+        }
+
+        if (namesUsed.contains(name)) {
+            violations.add(PlanningUpdateViolation.of("compartment.checkNameUnique"));
+        }
+        namesUsed.add(name);
+    }
+
+    private void validateVariableCompartment(List<ValidationViolation> violations, Compartment compartment) {
+
+        if (compartment.getType() == null) {
+            return;
+        }
+
+        if (!compartment.getType().equals(CompartmentType.VARIABLE)) {
+            return;
+        }
+
+        if (FieldValidator.isNullOrNegative(compartment.minimumCapacity)) {
+            violations.add(PlanningUpdateViolation.of("compartment.minimumCapacity"));
+        }
+
+        if (FieldValidator.isNullOrNegative(compartment.increment)) {
+            violations.add(PlanningUpdateViolation.of("compartment.increment"));
+        }
     }
 }

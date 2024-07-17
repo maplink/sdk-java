@@ -1,5 +1,5 @@
 {
-  "site": "exemplo1",
+  "name": "exemplo1",
   "logisticConstraints": "exemplo2",
   "logisticZones": [
     "ex1",
