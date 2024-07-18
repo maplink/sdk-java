@@ -10,8 +10,6 @@ import lombok.NoArgsConstructor;
 
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 import static java.util.Objects.isNull;
 import static lombok.AccessLevel.PRIVATE;
@@ -69,16 +67,12 @@ public class VehicleType {
             }
         }
 
-        if(trip != null){
-            if(!isNull(FIELD_TRIP_CALCULATION_MODE)){
+        if(trip != null && !isNull(FIELD_TRIP_CALCULATION_MODE)){
                 violations.add(PlanningUpdateViolation.of("vehicleType.FIELD_TRIP_CALCULATION_MODE"));
-            }
         }
 
-        if(trip != null && trip.getToll() != null){
-            if(!isNull(FIELD_TRIP_TOLL_VEHICLE_TYPE)){
+        if(trip != null && trip.getToll() != null && !isNull(FIELD_TRIP_TOLL_VEHICLE_TYPE)){
                 violations.add(PlanningUpdateViolation.of("vehicleType.FIELD_TRIP_TOLL_VEHICLE_TYPE"));
-            }
         }
 
         validateCompartmentConfigurations(violations, compartmentConfigurations);
@@ -93,7 +87,7 @@ public class VehicleType {
         }
 
         for (int i = 0; i < compartmentConfigurations.size(); i++) {
-            this.compartmentConfigurations.get(i).validate();
+            this.compartmentConfigurations.get(i).validate(violations);
         }
 
     }

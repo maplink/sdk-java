@@ -8,7 +8,6 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
@@ -60,6 +59,8 @@ public class Compartment {
         }
 
         checkNameUnique(violations, name, namesUsed);
+
+        validateVariableCompartment(violations, this);
 
         return violations;
     }

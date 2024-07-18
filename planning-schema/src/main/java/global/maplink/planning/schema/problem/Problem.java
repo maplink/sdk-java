@@ -1,15 +1,12 @@
 package global.maplink.planning.schema.problem;
 
 import global.maplink.planning.schema.exception.PlanningUpdateViolation;
-import global.maplink.trip.schema.v1.exception.TripCalculationRequestException;
 import global.maplink.trip.schema.v2.problem.CalculationMode;
 import global.maplink.validations.ValidationViolation;
 import lombok.*;
 
-import java.io.IOException;
 import java.util.*;
 
-import static java.util.Objects.isNull;
 import static lombok.AccessLevel.PRIVATE;
 
 @Data

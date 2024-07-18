@@ -58,8 +58,4 @@ public class AvailablePeriod {
 
         return violations;
     }
-
-    private boolean isNullOrEmpty(final String value) {
-        return isNull(value) || value.trim().isEmpty();
-    }
 }

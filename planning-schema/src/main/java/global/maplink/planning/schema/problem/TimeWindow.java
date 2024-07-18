@@ -10,7 +10,6 @@ import lombok.NoArgsConstructor;
 
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Objects;
 
 import static global.maplink.planning.schema.exception.PlanningErrorType.START_EQUALS_END;
 import static global.maplink.planning.schema.exception.PlanningErrorType.START_IS_BIGGER_THAN_END;

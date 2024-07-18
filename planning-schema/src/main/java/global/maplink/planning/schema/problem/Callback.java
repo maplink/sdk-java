@@ -1,7 +1,6 @@
 package global.maplink.planning.schema.problem;
 
 import global.maplink.planning.schema.exception.PlanningUpdateViolation;
-import global.maplink.planning.schema.validator.FieldValidator;
 import global.maplink.validations.ValidationViolation;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -38,7 +37,8 @@ public class Callback {
     }
 
     private void validateURL(List<ValidationViolation> violations) {
-        final String REGEX_URL_PATTERN = "(https?://[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\\.[^\\s]{2,}|" + "(https?://)?localhost(:\\d+)?(/[a-zA-Z0-9]+)*/?)";
+        final String REGEX_URL_PATTERN = "(https?://[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\\.[^\\s]{2,}|"
+                + "(https?://)?localhost(:\\d+)?(/[a-zA-Z0-9]+)*/?)";
 
         if(isNull(url)){
             return;

@@ -21,8 +21,7 @@ public class CompartmentConfiguration {
     private final String name;
     private final List<Compartment> compartments;
 
-    public List<ValidationViolation> validate() {
-        List<ValidationViolation> violations = new LinkedList<>();
+    public List<ValidationViolation> validate(List<ValidationViolation> violations) {
 
         if(FieldValidator.isInvalid(name)){
             violations.add(PlanningUpdateViolation.of("compartmentConfiguration.name"));
@@ -32,21 +31,12 @@ public class CompartmentConfiguration {
         return violations;
     }
 
-    private void validateCompartments(List<String> errors, String fieldPath, Compartment[] compartments) {
+    private void validateCompartments(List<String> errors, Compartment[] compartments) {
 
         Set<String> namesUsed = new HashSet<>();
         for (int i = 0; i < compartments.length; i++) {
             //Compartment.isValid(errors, fieldPath + "[" + i + "].", compartments[i], namesUsed);
             this.compartments.get(i).validate(namesUsed);
         }
-
-//        for (Compartment compartment : this.compartments) {
-//            compartment.validate();
-//        }
-
-
-       // this.compartments.forEach(compartment -> compartment.validate());
-
-        //this.compartments.forEach(Compartment::validate);
     }
 }

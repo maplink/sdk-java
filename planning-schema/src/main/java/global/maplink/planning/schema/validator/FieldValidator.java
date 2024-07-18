@@ -9,6 +9,10 @@ import static java.util.Objects.isNull;
 
 public class FieldValidator {
 
+    private FieldValidator() {
+        throw new IllegalStateException("Utility class");
+    }
+
     public static boolean isInvalid(final String value) {
         return isNull(value) || value.trim().isEmpty();
     }
