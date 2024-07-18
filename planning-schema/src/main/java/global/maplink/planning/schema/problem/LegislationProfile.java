@@ -59,19 +59,19 @@ public class LegislationProfile {
         }
 
         if(!FieldValidator.isNotNegative(drivingRestDuration)){
-            violations.add(PlanningUpdateViolation.of("legislationProfile.maxDrivingTimeBetweenTwoRests"));
+            violations.add(PlanningUpdateViolation.of("legislationProfile.drivingRestDuration"));
         }
 
         if(!FieldValidator.isNotNegative(maxWorkingTimeBetweenTwoRests)){
-            violations.add(PlanningUpdateViolation.of("legislationProfile.maxDrivingTimeBetweenTwoRests"));
+            violations.add(PlanningUpdateViolation.of("legislationProfile.maxWorkingTimeBetweenTwoRests"));
         }
 
         if(!FieldValidator.isNotNegative(workingRestDuration)){
-            violations.add(PlanningUpdateViolation.of("legislationProfile.maxDrivingTimeBetweenTwoRests"));
+            violations.add(PlanningUpdateViolation.of("legislationProfile.workingRestDuration"));
         }
 
         if(!FieldValidator.isNotNegative(maxWaitingTime)){
-            violations.add(PlanningUpdateViolation.of("legislationProfile.maxDrivingTimeBetweenTwoRests"));
+            violations.add(PlanningUpdateViolation.of("legislationProfile.maxWaitingTime"));
         }
 
         sumOfCutsEqualToDrivingPauseDuration(violations, drivingPauseDuration, drivingPauseDurationCuts);

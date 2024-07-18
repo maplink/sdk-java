@@ -55,31 +55,31 @@ public class Problem {
         }
 
         if(depots.isEmpty()){
-            violations.add(PlanningUpdateViolation.of("problem.sites"));
+            violations.add(PlanningUpdateViolation.of("problem.depots"));
         }
 
         if(operations.isEmpty()){
-            violations.add(PlanningUpdateViolation.of("problem.sites"));
+            violations.add(PlanningUpdateViolation.of("problem.operations"));
         }
 
         if(vehicleTypes.isEmpty()){
-            violations.add(PlanningUpdateViolation.of("problem.sites"));
+            violations.add(PlanningUpdateViolation.of("problem.vehicleTypes"));
         }
 
         if(vehicles.isEmpty()){
-            violations.add(PlanningUpdateViolation.of("problem.sites"));
+            violations.add(PlanningUpdateViolation.of("problem.vehicles"));
         }
 
         if(products.isEmpty()){
-            violations.add(PlanningUpdateViolation.of("problem.sites"));
+            violations.add(PlanningUpdateViolation.of("problem.products"));
         }
 
         if(legislationProfiles.isEmpty()){
-            violations.add(PlanningUpdateViolation.of("problem.sites"));
+            violations.add(PlanningUpdateViolation.of("problem.legislationProfiles"));
         }
 
         if(logisticConstraints.isEmpty()){
-            violations.add(PlanningUpdateViolation.of("problem.sites"));
+            violations.add(PlanningUpdateViolation.of("problem.logisticConstraints"));
         }
 
         return violations;
