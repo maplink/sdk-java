@@ -8,7 +8,6 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
@@ -31,8 +30,7 @@ public class Compartment {
     private final CompartmentLoadingRule loadingRule;
     private final Set<String> allowedPackagings;
 
-    public List<ValidationViolation> validate(Set<String> namesUsed) {
-        List<ValidationViolation> violations = new LinkedList<>();
+    public List<ValidationViolation> validate(List<ValidationViolation> violations, Set<String> namesUsed) {
 
         if(isNull(name)){
             violations.add(PlanningUpdateViolation.of("compartment.name"));

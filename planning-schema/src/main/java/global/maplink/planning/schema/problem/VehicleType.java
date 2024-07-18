@@ -61,10 +61,8 @@ public class VehicleType {
             violations.add(PlanningUpdateViolation.of("vehicleType.maxSitesNumber"));
         }
 
-        if(compartmentConfigurations != null){
-            if(!isNull(compartmentAccessMode)){
+        if(compartmentConfigurations != null && !isNull(compartmentAccessMode)){
                 violations.add(PlanningUpdateViolation.of("vehicleType.compartmentAcessMode"));
-            }
         }
 
         if(trip != null && !isNull(FIELD_TRIP_CALCULATION_MODE)){
@@ -76,7 +74,6 @@ public class VehicleType {
         }
 
         validateCompartmentConfigurations(violations, compartmentConfigurations);
-        //invocar validateCompartmentConfigurations
 
         return violations;
     }

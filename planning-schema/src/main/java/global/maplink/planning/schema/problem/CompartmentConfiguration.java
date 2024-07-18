@@ -31,12 +31,11 @@ public class CompartmentConfiguration {
         return violations;
     }
 
-    private void validateCompartments(List<String> errors, Compartment[] compartments) {
+    private void validateCompartments(List<ValidationViolation> violations, Compartment[] compartments) {
 
         Set<String> namesUsed = new HashSet<>();
         for (int i = 0; i < compartments.length; i++) {
-            //Compartment.isValid(errors, fieldPath + "[" + i + "].", compartments[i], namesUsed);
-            this.compartments.get(i).validate(namesUsed);
+            this.compartments.get(i).validate(violations, namesUsed);
         }
     }
 }
