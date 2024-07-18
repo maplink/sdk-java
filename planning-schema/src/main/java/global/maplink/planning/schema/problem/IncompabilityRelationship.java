@@ -25,6 +25,8 @@ public class IncompabilityRelationship {
     private final IncompatibilityType type;
     private final List<String> vehicles;
 
+    private final FieldValidator fieldValidator;
+
     public List<ValidationViolation> validate() {
         List<ValidationViolation> violations = new LinkedList<>();
 
@@ -47,6 +49,8 @@ public class IncompabilityRelationship {
         if(vehicles.isEmpty()){
             violations.add(PlanningUpdateViolation.of("incompabilityRelationship.vehicles"));
         }
+
+        fieldValidator.isContainedIn(violations, type);
 
         return violations;
     }

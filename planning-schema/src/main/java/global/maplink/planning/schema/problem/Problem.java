@@ -1,6 +1,7 @@
 package global.maplink.planning.schema.problem;
 
 import global.maplink.planning.schema.exception.PlanningUpdateViolation;
+import global.maplink.trip.schema.v1.exception.TripCalculationRequestException;
 import global.maplink.trip.schema.v2.problem.CalculationMode;
 import global.maplink.validations.ValidationViolation;
 import lombok.*;
@@ -82,7 +83,20 @@ public class Problem {
             violations.add(PlanningUpdateViolation.of("problem.logisticConstraints"));
         }
 
+        if (trip != null) {
+            validateTripProblem(violations, this);
+        }
+
         return violations;
+    }
+
+
+    private void validateTripProblem(final List<ValidationViolation> violations, Problem problem) {
+        try {
+            trip.isValid(this);
+        } catch (final TripCalculationRequestException e) {
+            violations.add(PlanningUpdateViolation.of("problem.validateTripProblem"));
+        }
     }
 
     public List<Site> getSites() {

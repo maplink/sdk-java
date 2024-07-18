@@ -27,8 +27,12 @@ public class Vehicle {
     private final Integer priority;
     private final List<String> logisticZones;
 
-    public List<ValidationViolation> validate() {
+    public void validate() {
         List<ValidationViolation> violations = new LinkedList<>();
+
+        if(this == null){
+            return;
+        }
 
         if(FieldValidator.isInvalid(name)){
             violations.add(PlanningUpdateViolation.of("vehicle.name"));
@@ -53,7 +57,5 @@ public class Vehicle {
         if(FieldValidator.isNotNegative(priority)){
             violations.add(PlanningUpdateViolation.of("vehicle.priority"));
         }
-
-        return violations;
     }
 }

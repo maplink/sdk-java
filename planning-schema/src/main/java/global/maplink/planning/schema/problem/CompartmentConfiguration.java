@@ -27,14 +27,15 @@ public class CompartmentConfiguration {
             violations.add(PlanningUpdateViolation.of("compartmentConfiguration.name"));
         }
 
-        //invocar validaçao do compartment
+        assert compartments != null;
+        validateCompartments(violations, compartments);
         return violations;
     }
 
-    private void validateCompartments(List<ValidationViolation> violations, Compartment[] compartments) {
+    private void validateCompartments(List<ValidationViolation> violations, List<Compartment> compartments) {
 
         Set<String> namesUsed = new HashSet<>();
-        for (int i = 0; i < compartments.length; i++) {
+        for (int i = 0; i < compartments.size(); i++) {
             this.compartments.get(i).validate(violations, namesUsed);
         }
     }

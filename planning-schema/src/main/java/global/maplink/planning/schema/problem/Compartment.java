@@ -30,6 +30,8 @@ public class Compartment {
     private final CompartmentLoadingRule loadingRule;
     private final Set<String> allowedPackagings;
 
+    private final FieldValidator fieldValidator;
+
     public List<ValidationViolation> validate(List<ValidationViolation> violations, Set<String> namesUsed) {
 
         if(isNull(name)){
@@ -56,6 +58,8 @@ public class Compartment {
             violations.add(PlanningUpdateViolation.of("compartment.allowedPackagings"));
         }
 
+        fieldValidator.isContainedIn(violations, loadingRule);
+
         checkNameUnique(violations, name, namesUsed);
 
         validateVariableCompartment(violations, this);
@@ -77,11 +81,7 @@ public class Compartment {
 
     private void validateVariableCompartment(List<ValidationViolation> violations, Compartment compartment) {
 
-        if (compartment.getType() == null) {
-            return;
-        }
-
-        if (!compartment.getType().equals(CompartmentType.VARIABLE)) {
+        if (compartment.getType() == null || !compartment.getType().equals(CompartmentType.VARIABLE)) {
             return;
         }
 

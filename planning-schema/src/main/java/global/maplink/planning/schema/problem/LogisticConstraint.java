@@ -31,6 +31,8 @@ public class LogisticConstraint {
     private final Double loadingTimeFlow;
     private final Double unloadingTimeFlow;
 
+    private final FieldValidator fieldValidator;
+
     public List<ValidationViolation> validate() {
         List<ValidationViolation> violations = new LinkedList<>();
 
@@ -53,6 +55,11 @@ public class LogisticConstraint {
         if(!FieldValidator.isNotNegative(unloadingTimeFlow)){
             violations.add(PlanningUpdateViolation.of("logisticConstraint.unloadingTimeFlow"));
         }
+
+        fieldValidator.isContainedIn(violations, loadingPositionInTimeWindow);
+        fieldValidator.isContainedIn(violations, unloadingPositionInTimeWindow);
+        fieldValidator.isContainedIn(violations, loadingPositionInRoute);
+        fieldValidator.isContainedIn(violations, unloadingPositionInRoute);
 
         return violations;
     }

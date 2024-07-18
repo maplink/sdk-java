@@ -11,7 +11,6 @@ import lombok.NoArgsConstructor;
 import java.util.LinkedList;
 import java.util.List;
 
-import static java.util.Objects.isNull;
 import static lombok.AccessLevel.PRIVATE;
 
 @Data
@@ -23,6 +22,8 @@ public class LogisticZone {
     private final String name;
     private final LogisticZoneType zonePriority;
 
+    private final FieldValidator fieldValidator;
+
     public List<ValidationViolation> validate() {
         List<ValidationViolation> violations = new LinkedList<>();
 
@@ -30,9 +31,11 @@ public class LogisticZone {
             violations.add(PlanningUpdateViolation.of("logisticZone.name"));
         }
 
-        if(isNull(zonePriority)){
+        if(FieldValidator.isInvalid(String.valueOf(zonePriority))){
             violations.add(PlanningUpdateViolation.of("logisticZone.zonePriority"));
         }
+
+        fieldValidator.isContainedIn(violations, zonePriority);
 
         return violations;
     }

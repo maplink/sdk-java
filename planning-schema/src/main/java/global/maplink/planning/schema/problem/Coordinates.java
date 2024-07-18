@@ -7,7 +7,6 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.LinkedList;
 import java.util.List;
 
 import static java.util.Objects.isNull;
@@ -22,8 +21,7 @@ public class Coordinates {
     private final Double longitude;
     private final Double latitude;
 
-    public List<ValidationViolation> validate() {
-        List<ValidationViolation> violations = new LinkedList<>();
+    public List<ValidationViolation> validate(List<ValidationViolation> violations, Coordinates coordinates) {
 
         if(isNull(longitude) || longitude > 180 || longitude < -180){
             violations.add(PlanningUpdateViolation.of("coordinates.longitude"));

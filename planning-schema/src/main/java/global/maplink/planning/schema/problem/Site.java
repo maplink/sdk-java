@@ -25,6 +25,9 @@ public class Site {
     private final String logisticConstraints;
     private final List<String> logisticZones;
 
+    private final Coordinates coordinatesValidator;
+
+
     private final int maxSites;
 
     public List<ValidationViolation> validate() {
@@ -41,6 +44,8 @@ public class Site {
         if(FieldValidator.isInvalid(logisticConstraints)){
             violations.add(PlanningUpdateViolation.of("site.coordinates"));
         }
+
+        coordinatesValidator.validate(violations, coordinates);
 
         return violations;
     }

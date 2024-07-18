@@ -34,8 +34,14 @@ public class VehicleType {
     private static final String FIELD_TRIP_TOLL_VEHICLE_TYPE = "trip.toll.vehicleType";
     private static final Integer VEHICLETYPE_DEFAULT_SIZE_FIELD = 0;
 
-    public List<ValidationViolation> validate() {
+    private final FieldValidator fieldValidator;
+
+    public void validate() {
         List<ValidationViolation> violations = new LinkedList<>();
+
+        if (this == null) {
+            return;
+        }
 
         if(size == null){
             size = VEHICLETYPE_DEFAULT_SIZE_FIELD;
@@ -61,8 +67,11 @@ public class VehicleType {
             violations.add(PlanningUpdateViolation.of("vehicleType.maxSitesNumber"));
         }
 
-        if(compartmentConfigurations != null && !isNull(compartmentAccessMode)){
-                violations.add(PlanningUpdateViolation.of("vehicleType.compartmentAcessMode"));
+        if(isNull(compartmentConfigurations)){
+            if(isNull(compartmentAccessMode)){
+                violations.add(PlanningUpdateViolation.of("vehicleType.compartmentAccessMode"));
+            }
+            fieldValidator.isContainedIn(violations, compartmentAccessMode);
         }
 
         if(trip != null && !isNull(FIELD_TRIP_CALCULATION_MODE)){
@@ -74,8 +83,6 @@ public class VehicleType {
         }
 
         validateCompartmentConfigurations(violations, compartmentConfigurations);
-
-        return violations;
     }
 
     private void validateCompartmentConfigurations(List<ValidationViolation> violations, List<CompartmentConfiguration> compartmentConfigurations) {

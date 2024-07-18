@@ -22,12 +22,16 @@ public class SolutionToRebuild {
     @Builder.Default
     private final OptimizationType optimizationType = CUSTOM;
 
+    private final FieldValidator fieldValidator;
+
     public List<ValidationViolation> validate() {
         List<ValidationViolation> violations = new LinkedList<>();
 
         if(FieldValidator.isInvalid(vehicleRoutes)){
             violations.add(PlanningUpdateViolation.of("solutionToRebuild.vehicleRoutes"));
         }
+
+        fieldValidator.isContainedIn(violations, optimizationType);
 
         return violations;
     }

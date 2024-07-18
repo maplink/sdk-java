@@ -39,6 +39,8 @@ public class Operation {
     private final Boolean customerTimeWindowBlocked;
     private final List<String> characteristics;
 
+    private final FieldValidator fieldValidator;
+
     public List<ValidationViolation> validate() {
         List<ValidationViolation> violations = new LinkedList<>();
 
@@ -82,10 +84,31 @@ public class Operation {
             violations.add(PlanningUpdateViolation.of("operation.priority"));
         }
 
-        if(FieldValidator.isEmpty(customerTimeWindows)){
+        if(!isNull(customerTimeWindows) && FieldValidator.isEmpty(customerTimeWindows)){
             violations.add(PlanningUpdateViolation.of("operation.customerTimeWindows"));
         }
 
+        fieldValidator.isContainedIn(violations, status);
+        fieldValidator.isContainedIn(violations, type);
+
         return violations;
+    }
+
+    private void isThereAtLeastOneTimeWindowsWithEndAfterStartDate(List<ValidationViolation> violations, List<TimeWindow> tws, Long startDate) {
+        if (tws == null || startDate == null) {
+            return;
+        }
+
+        if (tws.stream().noneMatch(tw -> isTimeWindowEndAfterStartDate(startDate, tw))) {
+            violations.add(PlanningUpdateViolation.of("operation.isThereAtLeastOneTimeWindowsWithEndAfterStartDate"));
+        }
+    }
+
+    private boolean isTimeWindowEndAfterStartDate(Long startDate, TimeWindow tw) {
+        if (tw == null || tw.getEnd() == null) {
+            return false;
+        }
+
+        return startDate < tw.getEnd();
     }
 }
