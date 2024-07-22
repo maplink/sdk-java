@@ -47,6 +47,7 @@ public class Problem {
     private final Set<String> restrictionZones;
     private final ProblemTrip trip;
     private final CalculationMode calculationMode;
+    private Long startDate;
 
     public List<ValidationViolation> validate() {
         List<ValidationViolation> violations = new LinkedList<>();
