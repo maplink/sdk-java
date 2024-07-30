@@ -47,7 +47,7 @@ public final class EmissionRequest implements MapLinkServiceRequest<EmissionResp
         return r -> r.parseBodyObject(mapper, EmissionResponse.class);
     }
 
-    public boolean isValid(){
+    public boolean isValidate() {
         return getTotalDistance() != null &&
                 (!isNull(getAutonomy()) || !isNull(getAverageConsumption()))
                 && !isNull(getFuelType());
