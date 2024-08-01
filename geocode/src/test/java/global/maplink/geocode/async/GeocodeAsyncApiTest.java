@@ -200,7 +200,7 @@ public class GeocodeAsyncApiTest {
                             .state("pr")
                             .city("ponta grossa")
                             .road("rua citrino")
-                            .number(176)
+                            .number(82)
                             .build()
             );
             multiRequest.setLastMile(true);
@@ -210,7 +210,7 @@ public class GeocodeAsyncApiTest {
                     assertEquals("75", spResult.getAddress().getNumber())
             );
             result.getById("pr").ifPresent(prResult ->
-                    assertEquals("176", prResult.getAddress().getNumber())
+                    assertEquals("82", prResult.getAddress().getNumber())
             );
         });
     }
