@@ -64,6 +64,7 @@ public interface StructuredRequest extends GeocodeSplittableRequest {
     @EqualsAndHashCode
     class Single implements StructuredRequest {
         public static final String PATH = "geocode/v1/geocode";
+        private static final String LAST_MILE = "lastMile";
         private String id;
         private String road;
         private Integer number;
@@ -73,6 +74,7 @@ public interface StructuredRequest extends GeocodeSplittableRequest {
         private String state;
         private String acronym;
         private Type type;
+        private boolean lastMile;
 
         @Override
         public List<Single> split() {
@@ -84,18 +86,21 @@ public interface StructuredRequest extends GeocodeSplittableRequest {
             return post(
                     environment.withService(PATH),
                     RequestBody.Json.of(this, mapper)
-            );
+            ).withQuery(LAST_MILE, Boolean.toString(lastMile));
         }
     }
 
     @RequiredArgsConstructor
     @Getter
     @ToString
+    @Data
     class Multi implements StructuredRequest {
         public static final String PATH = "geocode/v1/multi-geocode";
         public static final int REQ_LIMIT = 200;
+        private static final String LAST_MILE = "lastMile";
 
         private final Single[] requests;
+        private boolean lastMile;
 
         @Override
         public List<Multi> split() {
@@ -117,7 +122,7 @@ public interface StructuredRequest extends GeocodeSplittableRequest {
             return post(
                     environment.withService(PATH),
                     RequestBody.Json.of(requests, mapper)
-            );
+            ).withQuery(LAST_MILE, Boolean.toString(lastMile));
         }
     }
 }

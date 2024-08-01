@@ -20,10 +20,12 @@ public class SuggestionsRequest implements GeocodeServiceRequest {
     public static final String PATH = "geocode/v1/suggestions";
     private static final String PARAM_QUERY = "q";
     private static final String PARAM_TYPE = "type";
+    private static final String LAST_MILE = "lastMile";
 
     private final String query;
 
     private Type type;
+    private boolean lastMile;
 
     @Override
     public Request asHttpRequest(Environment environment, JsonMapper mapper) {
@@ -32,6 +34,9 @@ public class SuggestionsRequest implements GeocodeServiceRequest {
         Optional.ofNullable(type)
                 .map(Type::name)
                 .ifPresent(v -> httpRequest.withQuery(PARAM_TYPE, v));
+
+        httpRequest.withQuery(LAST_MILE, Boolean.toString(lastMile));
+
         return httpRequest;
     }
 }
