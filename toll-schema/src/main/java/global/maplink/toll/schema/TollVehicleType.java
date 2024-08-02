@@ -1,6 +1,6 @@
 package global.maplink.toll.schema;
 
-import java.util.Arrays;
+import static java.util.Arrays.stream;
 
 public enum TollVehicleType {
     CAR,
@@ -23,7 +23,7 @@ public enum TollVehicleType {
     TRUCK_WITH_TEN_DOUBLE_AXLES;
 
     public static String[] arrayOfNames() {
-        return Arrays.stream(TollVehicleType.values())
+        return stream(TollVehicleType.values())
                 .map(Enum::name)
                 .toArray(String[]::new);
     }
