@@ -6,6 +6,7 @@ import global.maplink.credentials.MapLinkCredentials;
 import global.maplink.geocode.schema.cities.CitiesByStateRequest;
 import global.maplink.geocode.schema.reverse.ReverseRequest.Entry;
 import global.maplink.geocode.schema.structured.StructuredRequest;
+import global.maplink.geocode.schema.suggestions.SuggestionsRequest;
 import global.maplink.http.exceptions.MapLinkHttpException;
 import lombok.extern.slf4j.Slf4j;
 import lombok.val;
@@ -28,6 +29,7 @@ import static java.util.stream.Collectors.toList;
 import static java.util.stream.IntStream.range;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @Slf4j
 public class GeocodeAsyncApiTest {
@@ -78,6 +80,19 @@ public class GeocodeAsyncApiTest {
     }
 
     @Test
+    void mustReturnAutocompleteExactlyNumberWithLastMileQuery() {
+        withEnvCredentials(credentials -> {
+            configureWith(credentials);
+            val instance = GeocodeAsyncAPI.getInstance();
+            val result = instance.suggestions(SuggestionsRequest.builder()
+                    .query("Alameda Campinas, 579 - Jardim Paulista")
+                    .lastMile(true)
+                    .build()).get();
+            assertEquals("579", result.getResults().get(0).getAddress().getNumber());
+        });
+    }
+
+    @Test
     void mustReturnAutocompleteWithoutTypeQueryCorrectly() {
         withEnvCredentials(credentials -> {
             configureWith(credentials);
@@ -99,6 +114,22 @@ public class GeocodeAsyncApiTest {
             assertThat(result.getResults()).hasSizeGreaterThan(1);
             assertThat(result.getFound()).isGreaterThan(1);
             assertThat(result.getById("sp")).isNotEmpty();
+        });
+    }
+
+    @Test
+    void mustReturnExactlyNumberWithLastMileQueryByRequestInSingleGeocode() {
+        withEnvCredentials(credentials -> {
+            configureWith(credentials);
+            val instance = GeocodeAsyncAPI.getInstance();
+            val result = instance.structured(StructuredRequest.of("reqId")
+                    .state("sp")
+                    .city("sao paulo")
+                    .road("alameda campinas")
+                    .number(579)
+                    .lastMile(true)
+                    .build()).get();
+            assertEquals("579", result.getResults().get(0).getAddress().getNumber());
         });
     }
 
@@ -150,6 +181,37 @@ public class GeocodeAsyncApiTest {
             assertThat(result.getById("sp")).isNotEmpty();
             assertThat(result.getById("pr")).isNotEmpty();
             assertThat(result.getById("addr")).isNotEmpty();
+        });
+    }
+
+    @Test
+    void mustReturnExactlyNumberWithLastMileQueryByRequestInMultiGeocode() {
+        withEnvCredentials(credentials -> {
+            configureWith(credentials);
+            val instance = GeocodeAsyncAPI.getInstance();
+            val multiRequest = StructuredRequest.multi(
+                    StructuredRequest.of("sc")
+                            .state("sc")
+                            .city("itajai")
+                            .road("rua leopoldo hess")
+                            .number(75)
+                            .build(),
+                    StructuredRequest.of("pr")
+                            .state("pr")
+                            .city("ponta grossa")
+                            .road("rua citrino")
+                            .number(82)
+                            .build()
+            );
+            multiRequest.setLastMile(true);
+
+            val result = instance.structured(multiRequest).get();
+            result.getById("sc").ifPresent(spResult ->
+                    assertEquals("75", spResult.getAddress().getNumber())
+            );
+            result.getById("pr").ifPresent(prResult ->
+                    assertEquals("82", prResult.getAddress().getNumber())
+            );
         });
     }
 
