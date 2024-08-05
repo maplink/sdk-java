@@ -42,7 +42,7 @@ The `Suggestion` object contains:
 
 ### Suggestions
 
-This service aims to fetch an address and coordinates based on an input string with optional arguments for the type of desired return and a focus on last mile results.
+This service aims to fetch an address and coordinates based on an input string, with optional arguments for the type of desired return and last mile results.
 Could be used in following ways:
 
     api.suggestions("sao paulo")
