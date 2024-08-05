@@ -42,8 +42,8 @@ The `Suggestion` object contains:
 
 ### Suggestions
 
-This service aims to fetch an address and coordinates based on input string
-with an optional argument of type of desired return. Could be used in following ways:
+This service aims to fetch an address and coordinates based on input string.
+Could be used in following ways:
 
     api.suggestions("sao paulo")
 
@@ -51,7 +51,6 @@ with an optional argument of type of desired return. Could be used in following 
 
     api.suggestions(SuggestionsRequest.builder()
                         .query("sao paulo")
-                        .type(Type.CITY)
                         .build()
     )
 
@@ -106,6 +105,55 @@ Could be used in following ways:
                         .point(new BigDecimal("-24.6100581"), new BigDecimal("-52.4423937"))
                         .build()
     )
+
+## Optional Parameters
+
+### Type
+
+type parameter can be specified to indicate the type of desired return.
+
+    api.suggestions(SuggestionsRequest.builder()
+                        .query("sao paulo")
+                        .type(Type.CITY)
+                        .build()
+    )
+
+### Last Mile
+
+lastMile parameter can be included in suggestions,
+as well as in single and multi structured queries, to focus the search on last mile results.
+
+#### Example for Suggestions
+
+    api.suggestions(SuggestionsRequest.builder()
+                        .query("alameda campinas, 579, sao paulo - sp")
+                        .lastMile(true)
+                        .build()
+    )
+
+#### Example for Single Structured
+
+    api.structured(StructuredRequest.of("reqId")
+                        .city("sao paulo")
+                        .road("alameda campinas")
+                        .number("579")
+                        .lastMile(true)
+                        .build()
+    )
+
+#### Example for Multi Structured
+
+    val multiRequest = StructuredRequest.multi(
+                    StructuredRequest.ofCity("reqId1", "sao paulo", "sp"),
+                    StructuredRequest.of("reqId2")
+                        .city("sao paulo")
+                        .road("alameda campinas")
+                        .number("579")
+                        .build()
+    );
+    multiRequest.setLastMile(true);
+
+    api.structured(multiRequest)
 
 ## Extension List
 
