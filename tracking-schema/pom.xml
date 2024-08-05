@@ -5,7 +5,7 @@
     <parent>
         <artifactId>sdk</artifactId>
         <groupId>global.maplink</groupId>
-        <version>1.5.10-SNAPSHOT</version>
+        <version>1.5.10</version>
     </parent>
 
     <artifactId>tracking-schema</artifactId>
