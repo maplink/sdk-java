@@ -42,8 +42,8 @@ The `Suggestion` object contains:
 
 ### Suggestions
 
-This service aims to fetch an address and coordinates based on input string
-with an optional argument of type of desired return. Could be used in following ways:
+This service aims to fetch an address and coordinates based on an input string with optional arguments for the type of desired return and a focus on last mile results.
+Could be used in following ways:
 
     api.suggestions("sao paulo")
 
@@ -54,6 +54,8 @@ with an optional argument of type of desired return. Could be used in following 
                         .type(Type.CITY)
                         .build()
     )
+
+The search will focus on last mile results only if the .lastMile parameter is passed.
 
 ### Structured
 
@@ -66,18 +68,24 @@ Could be used to single or multi query. Could be used in following ways:
 
     api.structured(StructuredRequest.of("reqId")
                         .city("sao paulo")
+                        .lastMile(true)
                         .build()
     )
 
 #### Multi Structured queries
 
-    api.structured(StructuredRequest.multi(
-                    StructuredRequest.ofCity("reqId1", "sao paulo", "sp")
-                    StructuredRequest.ofState("reqId2", "sp")
+    val multiRequest = StructuredRequest.multi(
+                    StructuredRequest.ofCity("reqId1", "sao paulo", "sp"),
+                    StructuredRequest.ofState("reqId2", "sp"),
                     StructuredRequest.of("reqId3")
                         .city("sao paulo")
                         .build()
-    )
+    );
+    multiRequest.setLastMile(true);
+
+    api.structured(multiRequest)
+
+If you want to focus on last mile results, just pass lastMile as true in either single or multi structured queries.
 
 ### Reverse
 
