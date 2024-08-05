@@ -59,7 +59,7 @@ public class GeocodeAsyncApiTest {
     void mustFailOnInvalidRequest() {
         withEnvCredentials(credentials -> {
             configureWith(credentials);
-            val instance = GeocodeAsyncAPI.getInstance(() -> "https://maplink.global");
+            val instance = GeocodeAsyncAPI.getInstance(() -> "https://pre-api.maplink.global/fakepath/");
             assertThatThrownBy(() ->
                     instance.suggestions("São Paulo", ZIPCODE).get()
             ).isInstanceOf(ExecutionException.class)
