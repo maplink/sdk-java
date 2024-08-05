@@ -4,7 +4,7 @@
     <parent>
         <artifactId>sdk-geocode-extensions-parent</artifactId>
         <groupId>global.maplink</groupId>
-        <version>1.5.8</version>
+        <version>1.5.9-SNAPSHOT</version>
     </parent>
 
     <artifactId>sdk-geocode-google-maps-extension</artifactId>
