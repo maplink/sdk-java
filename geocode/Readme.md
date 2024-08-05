@@ -108,9 +108,19 @@ Could be used in following ways:
 
 ## Optional Parameters
 
+### Type
+
+type parameter can be specified to indicate the type of desired return.
+
+    api.suggestions(SuggestionsRequest.builder()
+                        .query("sao paulo")
+                        .type(Type.CITY)
+                        .build()
+    )
+
 ### Last Mile
 
-The lastMile parameter is optional and can be included in suggestions,
+lastMile parameter can be included in suggestions,
 as well as in single and multi structured queries, to focus the search on last mile results.
 
 #### Example for Suggestions
