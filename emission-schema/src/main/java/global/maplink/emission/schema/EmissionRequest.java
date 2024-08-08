@@ -1,17 +1,20 @@
 package global.maplink.emission.schema;
 
 import global.maplink.MapLinkServiceRequest;
+import global.maplink.emission.schema.exception.EmissionUpdateViolation;
 import global.maplink.env.Environment;
 import global.maplink.http.Response;
 import global.maplink.http.request.Request;
 import global.maplink.http.request.RequestBody;
 import global.maplink.json.JsonMapper;
+import global.maplink.validations.ValidationViolation;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 
 import java.math.BigDecimal;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.function.Function;
 
@@ -47,9 +50,29 @@ public final class EmissionRequest implements MapLinkServiceRequest<EmissionResp
         return r -> r.parseBodyObject(mapper, EmissionResponse.class);
     }
 
-    public boolean isValid() {
-        return getTotalDistance() != null &&
-                (!isNull(getAutonomy()) || !isNull(getAverageConsumption()))
-                && !isNull(getFuelType());
+//    public boolean isValid(){
+//        return getTotalDistance() != null &&
+//                (!isNull(getAutonomy()) || !isNull(getAverageConsumption()))
+//                && !isNull(getFuelType());
+//    }
+    public List<ValidationViolation> validate() {
+        List<ValidationViolation> violations = new LinkedList<>();
+        if(isNull(totalDistance) || totalDistance < 0){
+            violations.add(EmissionUpdateViolation.of("emission.getTotalDistance"));
+        }
+
+        if(isNull(fuelType)){
+            violations.add(EmissionUpdateViolation.of("emission.getFuelType"));
+        }
+
+        if(isNull(autonomy) || isNull(averageConsumption)){
+            violations.add(EmissionUpdateViolation.of("emission.getAutonomyOrGetAverageConsumption"));
+        }
+
+        return violations;
     }
+
+//    private boolean isInvalid(final String value) {
+//        return isNull(value);
+//    }
 }
