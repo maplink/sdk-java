@@ -12,6 +12,9 @@ import java.nio.file.Paths;
 public enum SampleFiles {
 
     EMISSION_REQUEST("emission/json/emissionRequest.json"),
+    EMISSION_REQUEST_WITH_NULL_GET_FUEL_TYPE("emission/json/emissionRequestWithNullGetFuelType.json"),
+    EMISSION_REQUEST_WITH_NULL_GET_TOTAL_DISTANCE("emission/json/emissionRequestWithNullGetTotalDistance.json"),
+    EMISSION_REQUEST_WITH_NULL_GET_AUTONOMY("emission/json/emissionRequestWithNullGetAutonomy.json"),
     EMISSION_RESPONSE("emission/json/emissionResponse.json");
 
     private final String filePath;
