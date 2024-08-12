@@ -32,7 +32,13 @@ class EmissionAsyncApiTest {
     void mustFailWithInvalidCredentials() {
         configureWith(MapLinkCredentials.ofKey(DEFAULT_CLIENT_ID, DEFAULT_SECRET));
         val instance = EmissionAsyncAPI.getInstance();
-        assertThatThrownBy(() -> instance.calculate(EmissionRequest.builder().build()).get())
+        assertThatThrownBy(() -> instance.calculate(EmissionRequest.builder()
+                .autonomy(BigDecimal.TEN)
+                .source("LASTROP_ESALQ")
+                .fuelType("BIODIESEL")
+                .totalDistance(15)
+                .fuelPrice(BigDecimal.ONE)
+                .build()).get())
                 .isInstanceOf(ExecutionException.class)
                 .hasCauseInstanceOf(InvalidCredentialsException.class);
     }
