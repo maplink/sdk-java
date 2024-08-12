@@ -29,13 +29,11 @@ public class EmissionRequestTest {
     @Test
     void shouldValidate() {
         EmissionRequest emissionRequest = mapper.fromJson(EMISSION_REQUEST.load(), EmissionRequest.class);
-        assertThat(emissionRequest.validate()).isNotEmpty().hasSize(1);
-        assertThatThrownBy(emissionRequest::throwIfInvalid).isInstanceOf(ValidationException.class);
-        assertTrue(emissionRequest.validate().get(0).getMessage().equals("Required valid field: emission.fractionedEmissions"));
+        assertThat(emissionRequest.validate()).isEmpty();
     }
 
     @Test
-    void shouldValidateFractionedRequests() {
+    void shouldValidateFractionedRequestNull() {
         EmissionRequest emissionRequest = mapper.fromJson(EMISSION_REQUEST_WITH_FRACTIONS.load(), EmissionRequest.class);
         assertThat(emissionRequest.validate()).isEmpty();
     }
@@ -75,13 +73,13 @@ public class EmissionRequestTest {
     }
 
     @Test
-    void shouldValidateFractionedEmissionsNull() {
+    void shouldValidateFractionedEmissionsBiggerThan100() {
         EmissionRequest emissionRequest = mapper.fromJson(
                 EMISSION_REQUEST_WITH_WRONG_PERCENTAGES.load(),
                 EmissionRequest.class
         );
         assertThatThrownBy(emissionRequest::throwIfInvalid).isInstanceOf(ValidationException.class);
         assertThat(emissionRequest.validate()).isNotEmpty().hasSize(1);
-        assertTrue(emissionRequest.validate().get(0).getMessage().equals("Required valid field: emission.fractionedEmissionsBiggerThan100"));
+        assertThat(emissionRequest.validate().get(0).getMessage().equals("Required valid field: emission.fractionedEmissionsBiggerThan100"));
     }
 }

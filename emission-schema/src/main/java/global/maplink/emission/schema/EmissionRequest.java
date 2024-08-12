@@ -50,11 +50,6 @@ public final class EmissionRequest implements MapLinkServiceRequest<EmissionResp
         return r -> r.parseBodyObject(mapper, EmissionResponse.class);
     }
 
-//    public boolean isValid(){
-//        return getTotalDistance() != null &&
-//                (!isNull(getAutonomy()) || !isNull(getAverageConsumption()))
-//                && !isNull(getFuelType());
-//    }
     public List<ValidationViolation> validate() {
         List<ValidationViolation> violations = new LinkedList<>();
         if(isNull(totalDistance) || totalDistance < 0){
@@ -69,24 +64,15 @@ public final class EmissionRequest implements MapLinkServiceRequest<EmissionResp
             violations.add(EmissionViolation.of("emission.autonomyOrAverageConsumption"));
         }
 
-        if(isNull(fractionedEmissions)){
-            violations.add(EmissionViolation.of("emission.fractionedEmissions"));
-        } else{
+        if(!isNull(fractionedEmissions)){
             int sum = 0;
-            for(int index = 0; index < fractionedEmissions.size(); index++){
-                sum += fractionedEmissions.get(index).getPercentage();
+            for(FractionedEmission index : fractionedEmissions){
+                sum += index.getPercentage();
             }
             if(sum > 100){
                 violations.add(EmissionViolation.of("emission.fractionedEmissionsBiggerThan100"));
             }
         }
-
-
-
         return violations;
     }
-
-//    private boolean isInvalid(final String value) {
-//        return isNull(value);
-//    }
 }
