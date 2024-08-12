@@ -3,5 +3,15 @@
   "fuelType": "BIODIESEL",
   "autonomy": null,
   "totalDistance": 80000,
-  "fuelPrice": 4.9
+  "fuelPrice": 4.9,
+  "fractionedEmissions": [
+    {
+      "name":"Cliente",
+      "percentage": 20
+    },
+    {
+      "name":"Transportadora",
+      "percentage": 80
+    }
+  ]
 }

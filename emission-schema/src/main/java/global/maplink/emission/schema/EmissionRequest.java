@@ -1,7 +1,7 @@
 package global.maplink.emission.schema;
 
 import global.maplink.MapLinkServiceRequest;
-import global.maplink.emission.schema.exception.EmissionUpdateViolation;
+import global.maplink.emission.schema.exception.EmissionViolation;
 import global.maplink.env.Environment;
 import global.maplink.http.Response;
 import global.maplink.http.request.Request;
@@ -58,16 +58,30 @@ public final class EmissionRequest implements MapLinkServiceRequest<EmissionResp
     public List<ValidationViolation> validate() {
         List<ValidationViolation> violations = new LinkedList<>();
         if(isNull(totalDistance) || totalDistance < 0){
-            violations.add(EmissionUpdateViolation.of("emission.getTotalDistance"));
+            violations.add(EmissionViolation.of("emission.totalDistance"));
         }
 
         if(isNull(fuelType)){
-            violations.add(EmissionUpdateViolation.of("emission.getFuelType"));
+            violations.add(EmissionViolation.of("emission.fuelType"));
         }
 
-        if(isNull(autonomy) || isNull(averageConsumption)){
-            violations.add(EmissionUpdateViolation.of("emission.getAutonomyOrGetAverageConsumption"));
+        if(isNull(autonomy) && isNull(averageConsumption)){
+            violations.add(EmissionViolation.of("emission.autonomyOrAverageConsumption"));
         }
+
+        if(isNull(fractionedEmissions)){
+            violations.add(EmissionViolation.of("emission.fractionedEmissions"));
+        } else{
+            int sum = 0;
+            for(int index = 0; index < fractionedEmissions.size(); index++){
+                sum += fractionedEmissions.get(index).getPercentage();
+            }
+            if(sum > 100){
+                violations.add(EmissionViolation.of("emission.fractionedEmissionsBiggerThan100"));
+            }
+        }
+
+
 
         return violations;
     }

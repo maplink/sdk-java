@@ -6,16 +6,16 @@ import lombok.ToString;
 
 @Getter
 @ToString
-public class EmissionUpdateViolation implements ValidationViolation {
+public class EmissionViolation implements ValidationViolation {
 
     private final String message;
 
-    private EmissionUpdateViolation(final String field) {
+    private EmissionViolation(final String field) {
         this.message = String.format("%s: %s", EmissionErrorType.REQUIRED_FIELDS_INVALID.getMessage(), field);
     }
 
-    public static EmissionUpdateViolation of(final String field) {
-        return new EmissionUpdateViolation(field);
+    public static EmissionViolation of(final String field) {
+        return new EmissionViolation(field);
     }
 
 }

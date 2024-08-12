@@ -2,7 +2,6 @@ package global.maplink.emission.schema;
 
 import global.maplink.json.JsonMapper;
 import global.maplink.validations.ValidationException;
-import lombok.val;
 import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
@@ -11,6 +10,7 @@ import static global.maplink.emission.testUtils.SampleFiles.*;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class EmissionRequestTest {
 
@@ -28,39 +28,60 @@ public class EmissionRequestTest {
 
     @Test
     void shouldValidate() {
-        val emissionRequest = EmissionRequest.builder().build();
-        assertThat(emissionRequest.validate()).isNotEmpty().hasSize(3);
-
+        EmissionRequest emissionRequest = mapper.fromJson(EMISSION_REQUEST.load(), EmissionRequest.class);
+        assertThat(emissionRequest.validate()).isNotEmpty().hasSize(1);
         assertThatThrownBy(emissionRequest::throwIfInvalid).isInstanceOf(ValidationException.class);
+        assertTrue(emissionRequest.validate().get(0).getMessage().equals("Required valid field: emission.fractionedEmissions"));
     }
 
     @Test
-    void shouldNotValidateFuelType() {
-        EmissionRequest emissionRequest = mapper.fromJson(
-                EMISSION_REQUEST_WITH_NULL_GET_FUEL_TYPE.load(),
-                EmissionRequest.class
-        );
-        assertThatThrownBy(emissionRequest::throwIfInvalid).isInstanceOf(ValidationException.class);
-        assertThat(emissionRequest.validate()).isNotEmpty().hasSize(2);
+    void shouldValidateFractionedRequests() {
+        EmissionRequest emissionRequest = mapper.fromJson(EMISSION_REQUEST_WITH_FRACTIONS.load(), EmissionRequest.class);
+        assertThat(emissionRequest.validate()).isEmpty();
     }
 
     @Test
-    void shouldNotValidateGetTotalDistance() {
+    void shouldValidateFuelTypeNull() {
         EmissionRequest emissionRequest = mapper.fromJson(
-                EMISSION_REQUEST_WITH_NULL_GET_TOTAL_DISTANCE.load(),
-                EmissionRequest.class
-        );
-        assertThatThrownBy(emissionRequest::throwIfInvalid).isInstanceOf(ValidationException.class);
-        assertThat(emissionRequest.validate()).isNotEmpty().hasSize(2);
-    }
-
-    @Test
-    void shouldNotValidateGetAutonomy() {
-        EmissionRequest emissionRequest = mapper.fromJson(
-                EMISSION_REQUEST_WITH_NULL_GET_AUTONOMY.load(),
+                EMISSION_REQUEST_WITH_NULL_FUEL_TYPE.load(),
                 EmissionRequest.class
         );
         assertThatThrownBy(emissionRequest::throwIfInvalid).isInstanceOf(ValidationException.class);
         assertThat(emissionRequest.validate()).isNotEmpty().hasSize(1);
+        assertTrue(emissionRequest.validate().get(0).getMessage().equals("Required valid field: emission.fuelType"));
+    }
+
+    @Test
+    void shouldValidateTotalDistanceNull() {
+        EmissionRequest emissionRequest = mapper.fromJson(
+                EMISSION_REQUEST_WITH_NULL_TOTAL_DISTANCE.load(),
+                EmissionRequest.class
+        );
+        assertThatThrownBy(emissionRequest::throwIfInvalid).isInstanceOf(ValidationException.class);
+        assertThat(emissionRequest.validate()).isNotEmpty().hasSize(1);
+        assertTrue(emissionRequest.validate().get(0).getMessage().equals("Required valid field: emission.totalDistance"));
+    }
+
+    @Test
+    void shouldValidateAutonomyNull() {
+        EmissionRequest emissionRequest = mapper.fromJson(
+                EMISSION_REQUEST_WITH_NULL_AUTONOMY.load(),
+                EmissionRequest.class
+        );
+        assertThatThrownBy(emissionRequest::throwIfInvalid).isInstanceOf(ValidationException.class);
+        assertThat(emissionRequest.validate()).isNotEmpty().hasSize(1);
+        assertTrue(emissionRequest.validate().get(0).getMessage().equals("Required valid field: emission.autonomyOrAverageConsumption"));
+
+    }
+
+    @Test
+    void shouldValidateFractionedEmissionsNull() {
+        EmissionRequest emissionRequest = mapper.fromJson(
+                EMISSION_REQUEST_WITH_WRONG_PERCENTAGES.load(),
+                EmissionRequest.class
+        );
+        assertThatThrownBy(emissionRequest::throwIfInvalid).isInstanceOf(ValidationException.class);
+        assertThat(emissionRequest.validate()).isNotEmpty().hasSize(1);
+        assertTrue(emissionRequest.validate().get(0).getMessage().equals("Required valid field: emission.fractionedEmissionsBiggerThan100"));
     }
 }
