@@ -35,7 +35,7 @@ public final class EmissionRequest implements MapLinkServiceRequest<EmissionResp
     private final BigDecimal averageConsumption;
     private final BigDecimal fuelPrice;
     private final Integer totalDistance;
-    private final List<FractionedEmission> fractionedEmissions;
+    private final List<FractionedEmission> fractionedEmission;
 
     @Override
     public Request asHttpRequest(Environment environment, JsonMapper mapper) {
@@ -64,9 +64,9 @@ public final class EmissionRequest implements MapLinkServiceRequest<EmissionResp
             violations.add(EmissionViolation.of("emission.autonomyOrAverageConsumption"));
         }
 
-        if(!isNull(fractionedEmissions)){
+        if(!isNull(fractionedEmission)){
             int sum = 0;
-            for(FractionedEmission index : fractionedEmissions){
+            for(FractionedEmission index : fractionedEmission){
                 sum += index.getPercentage();
             }
             if(sum > 100){

@@ -4,7 +4,7 @@
   "totalDistance": 95610,
   "autonomy": 5.6,
   "fuelPrice": 6.94,
-  "fractionedEmissions": [
+  "fractionedEmission": [
     {
       "name":"Cliente",
       "percentage": 20
