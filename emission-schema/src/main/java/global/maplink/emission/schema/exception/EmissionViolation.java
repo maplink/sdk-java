@@ -10,12 +10,12 @@ public class EmissionViolation implements ValidationViolation {
 
     private final String message;
 
-    private EmissionViolation(final String field) {
-        this.message = String.format("%s: %s", EmissionErrorType.REQUIRED_FIELDS_INVALID.getMessage(), field);
+    private EmissionViolation(final String field, final EmissionErrorType errorType) {
+        this.message = String.format("%s: %s", errorType.getMessage(), field);
     }
 
-    public static EmissionViolation of(final String field) {
-        return new EmissionViolation(field);
+    public static EmissionViolation of(final String field, EmissionErrorType errorType) {
+        return new EmissionViolation(field, errorType);
     }
 
 }

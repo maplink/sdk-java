@@ -46,7 +46,7 @@ public class EmissionRequestTest {
         );
         assertThatThrownBy(emissionRequest::throwIfInvalid).isInstanceOf(ValidationException.class);
         assertThat(emissionRequest.validate()).isNotEmpty().hasSize(1);
-        assertTrue(emissionRequest.validate().get(0).getMessage().equals("Required valid field: emission.fuelType"));
+        assertThat(emissionRequest.validate().get(0).getMessage()).isEqualTo("Required field must not be null: emission.fuelType");
     }
 
     @Test
@@ -57,7 +57,8 @@ public class EmissionRequestTest {
         );
         assertThatThrownBy(emissionRequest::throwIfInvalid).isInstanceOf(ValidationException.class);
         assertThat(emissionRequest.validate()).isNotEmpty().hasSize(1);
-        assertTrue(emissionRequest.validate().get(0).getMessage().equals("Required valid field: emission.totalDistance"));
+        assertThat(emissionRequest.validate().get(0).getMessage()).isEqualTo("Required field must not be null: emission.totalDistance");
+
     }
 
     @Test
@@ -68,7 +69,8 @@ public class EmissionRequestTest {
         );
         assertThatThrownBy(emissionRequest::throwIfInvalid).isInstanceOf(ValidationException.class);
         assertThat(emissionRequest.validate()).isNotEmpty().hasSize(1);
-        assertTrue(emissionRequest.validate().get(0).getMessage().equals("Required valid field: emission.autonomyOrAverageConsumption"));
+        assertThat(emissionRequest.validate().get(0).getMessage()).isEqualTo("Required field must not be null: emission.autonomyOrAverageConsumption");
+
 
     }
 
@@ -80,6 +82,18 @@ public class EmissionRequestTest {
         );
         assertThatThrownBy(emissionRequest::throwIfInvalid).isInstanceOf(ValidationException.class);
         assertThat(emissionRequest.validate()).isNotEmpty().hasSize(1);
-        assertThat(emissionRequest.validate().get(0).getMessage().equals("Required valid field: emission.fractionedEmissionsBiggerThan100"));
+        assertThat(emissionRequest.validate().get(0).getMessage()).isEqualTo("Field value must not be bigger than 100: emission.fractionedEmission");
+
+    }
+
+    @Test
+    void shouldValidateTotalDistanceNegative() {
+        EmissionRequest emissionRequest = mapper.fromJson(
+                EMISSION_REQUEST_WITH_NEGATIVE_TOTAL_DISTANCE.load(),
+                EmissionRequest.class
+        );
+        assertThatThrownBy(emissionRequest::throwIfInvalid).isInstanceOf(ValidationException.class);
+        assertThat(emissionRequest.validate()).isNotEmpty().hasSize(1);
+        assertThat(emissionRequest.validate().get(0).getMessage()).isEqualTo("Field value must not be negative: emission.totalDistance");
     }
 }
