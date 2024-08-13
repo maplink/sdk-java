@@ -4,7 +4,7 @@ import global.maplink.MapLinkSDK;
 import global.maplink.credentials.InvalidCredentialsException;
 import global.maplink.credentials.MapLinkCredentials;
 import global.maplink.emission.schema.EmissionRequest;
-import global.maplink.http.exceptions.MapLinkHttpException;
+import global.maplink.validations.ValidationException;
 import lombok.val;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
@@ -47,7 +47,7 @@ class EmissionSyncApiTest {
             configureWith(credentials);
             val instance = EmissionSyncAPI.getInstance(() -> "https://maplink.global");
             assertThatThrownBy(() -> instance.calculate(EmissionRequest.builder().build()))
-                    .isInstanceOf(MapLinkHttpException.class);
+                    .isInstanceOf(ValidationException.class);
         });
     }
 
