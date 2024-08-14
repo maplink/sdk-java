@@ -1,0 +1,17 @@
+{
+  "source": "LASTROP_ESALQ",
+  "fuelType": "BIODIESEL",
+  "autonomy": 11.3,
+  "totalDistance": 80000,
+  "fuelPrice": 4.9,
+  "fractionedEmission": [
+    {
+      "name":"Cliente",
+      "percentage": 20
+    },
+    {
+      "name":"Transportadora",
+      "percentage": 80
+    }
+  ]
+}

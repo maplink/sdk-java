@@ -27,7 +27,7 @@ public interface EmissionSyncAPI {
                 .averageConsumption(averageConsumption)
                 .fuelPrice(fuelPrice)
                 .totalDistance(distance)
-                .fractionedEmissions(fractionedEmissions)
+                .fractionedEmission(fractionedEmissions)
                 .build());
     }
 

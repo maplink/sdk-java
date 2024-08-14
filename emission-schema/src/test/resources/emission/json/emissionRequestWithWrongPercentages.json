@@ -1,0 +1,17 @@
+{
+  "source": "GHG_PROTOCOL",
+  "fuelType": "DIESEL",
+  "totalDistance": 95610,
+  "autonomy": 5.6,
+  "fuelPrice": 6.94,
+  "fractionedEmission": [
+    {
+      "name":"Cliente",
+      "percentage": 20
+    },
+    {
+      "name":"Transportadora",
+      "percentage": 81
+    }
+  ]
+}
