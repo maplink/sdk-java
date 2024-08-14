@@ -1,6 +1,5 @@
 package global.maplink.emission.schema.exception;
 
-
 import global.maplink.validations.ValidationViolation;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

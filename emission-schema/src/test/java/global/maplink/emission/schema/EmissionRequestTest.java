@@ -58,7 +58,6 @@ public class EmissionRequestTest {
         assertThatThrownBy(emissionRequest::throwIfInvalid).isInstanceOf(ValidationException.class);
         assertThat(emissionRequest.validate()).isNotEmpty().hasSize(1);
         assertThat(emissionRequest.validate().get(0).getMessage()).isEqualTo("Required field must not be null: emission.totalDistance");
-
     }
 
     @Test
@@ -70,8 +69,6 @@ public class EmissionRequestTest {
         assertThatThrownBy(emissionRequest::throwIfInvalid).isInstanceOf(ValidationException.class);
         assertThat(emissionRequest.validate()).isNotEmpty().hasSize(1);
         assertThat(emissionRequest.validate().get(0).getMessage()).isEqualTo("Required field must not be null: emission.autonomyOrAverageConsumption");
-
-
     }
 
     @Test
@@ -83,7 +80,6 @@ public class EmissionRequestTest {
         assertThatThrownBy(emissionRequest::throwIfInvalid).isInstanceOf(ValidationException.class);
         assertThat(emissionRequest.validate()).isNotEmpty().hasSize(1);
         assertThat(emissionRequest.validate().get(0).getMessage()).isEqualTo("Field value must not be bigger than 100: emission.fractionedEmission");
-
     }
 
     @Test

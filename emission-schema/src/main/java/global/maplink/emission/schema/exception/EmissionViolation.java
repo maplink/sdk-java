@@ -14,7 +14,7 @@ public class EmissionViolation implements ValidationViolation {
         this.message = String.format("%s: %s", errorType.getMessage(), field);
     }
 
-    public static EmissionViolation of(final String field, EmissionErrorType errorType) {
+    public static EmissionViolation of(final String field, final EmissionErrorType errorType) {
         return new EmissionViolation(field, errorType);
     }
 

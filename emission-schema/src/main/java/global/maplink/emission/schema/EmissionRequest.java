@@ -51,6 +51,7 @@ public final class EmissionRequest implements MapLinkServiceRequest<EmissionResp
         return r -> r.parseBodyObject(mapper, EmissionResponse.class);
     }
 
+    @Override
     public List<ValidationViolation> validate() {
         List<ValidationViolation> violations = new LinkedList<>();
         if(isNull(totalDistance)) {
@@ -68,10 +69,8 @@ public final class EmissionRequest implements MapLinkServiceRequest<EmissionResp
         }
 
         if(!isNull(fractionedEmission)){
-            int sum = 0;
-            for(FractionedEmission index : fractionedEmission){
-                sum += index.getPercentage();
-            }
+            int sum = fractionedEmission.stream().map(FractionedEmission::getPercentage)
+                    .reduce(0, Integer::sum);
             if(sum > 100){
                 violations.add(EmissionViolation.of("emission.fractionedEmission", FRACTIONED_EMISSION_BIGGER_THAN_100));
             }
