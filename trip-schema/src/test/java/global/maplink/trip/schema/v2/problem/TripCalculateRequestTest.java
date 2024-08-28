@@ -12,6 +12,7 @@ import static global.maplink.trip.schema.v1.payload.AvoidanceType.BRIDGES;
 import static global.maplink.trip.schema.v1.payload.AvoidanceType.TUNNELS;
 import static global.maplink.trip.schema.v2.features.crossedBorders.CrossedBorderLevel.CITY;
 import static global.maplink.trip.schema.v2.features.reverseGeocode.ReverseGeocodePointsMode.START_END;
+import static global.maplink.trip.schema.v2.features.turnByTurn.Languages.PT_BR;
 import static global.maplink.trip.schema.v2.problem.CalculationMode.THE_FASTEST;
 import static global.maplink.trip.schema.v2.problem.CalculationMode.THE_SHORTEST;
 import static global.maplink.trip.testUtils.ProblemSampleFiles.*;
@@ -65,5 +66,12 @@ public class TripCalculateRequestTest {
 
         assertEquals(THE_SHORTEST, tripRequest.getCalculationMode());
 
+    }
+
+    @Test
+    public void shouldDeserializeTripWithTurnByTurn() {
+        TripCalculateRequest tripRequest = mapper.fromJson(TRIP_REQUEST_WITH_TURN_BY_TURN.load(), TripCalculateRequest.class);
+
+        assertEquals(PT_BR, tripRequest.getTurnByTurn().getLanguage());
     }
 }

@@ -4,6 +4,7 @@ import global.maplink.emission.schema.EmissionResponse;
 import global.maplink.freight.schema.FreightCalculationResponse;
 import global.maplink.geocode.schema.Address;
 import global.maplink.trip.schema.v2.features.crossedBorders.CrossedBorderResponse;
+import global.maplink.trip.schema.v2.features.turnByTurn.TurnByTurnResponse;
 import lombok.*;
 
 import java.math.BigDecimal;
@@ -32,6 +33,7 @@ public class TripSolution {
     private final EmissionResponse emission;
     private final Address startAddress;
     private final Address endAddress;
+    private final List<TurnByTurnResponse> turnByTurn;
     private final String source;
     private final OffsetDateTime createdAt;
     private final OffsetDateTime expiryIn;

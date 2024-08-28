@@ -10,6 +10,7 @@ import global.maplink.place.schema.SubCategory;
 import global.maplink.toll.schema.*;
 import global.maplink.toll.schema.result.CalculationDetail;
 import global.maplink.trip.schema.v2.features.crossedBorders.CrossedBorderResponse;
+import global.maplink.trip.schema.v2.features.turnByTurn.TurnByTurnResponse;
 import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
@@ -18,6 +19,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
+import static global.maplink.trip.schema.v2.features.turnByTurn.Instructions.fromInstruction;
 import static global.maplink.trip.testUtils.Defaults.POINT_OFFSET;
 import static global.maplink.trip.testUtils.SolutionSampleFiles.TRIP_RESPONSE;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -189,6 +191,24 @@ public class TripSolutionTest {
         assertNotNull(address.getMainLocation());
         assertEquals(0, new BigDecimal("-23.566649").compareTo(endAddress.getMainLocation().getLat()));
         assertEquals(0, new BigDecimal("-46.6557755").compareTo(endAddress.getMainLocation().getLon()));
+
+        assertNotNull(tripSolution.getTurnByTurn());
+        List<TurnByTurnResponse> turnByTurn = tripSolution.getTurnByTurn();
+        assertEquals( 703.632, turnByTurn.get(0).getDistance());
+        assertEquals(fromInstruction(0),turnByTurn.get(0).getType());
+        assertThat(turnByTurn.get(0).getPoints())
+                .first()
+                .isEqualTo(new MaplinkPoint(-23.5666499, -46.6557755));
+        assertEquals("Continue na Avenida Paulista", turnByTurn.get(0).getText());
+        assertEquals(61185, turnByTurn.get(0).getDuration());
+
+        assertEquals( 0.0, turnByTurn.get(1).getDistance());
+        assertEquals(fromInstruction(4),turnByTurn.get(1).getType());
+        assertThat(turnByTurn.get(1).getPoints())
+                .first()
+                .isEqualTo(new MaplinkPoint(-23.5666499, -46.6557755));
+        assertEquals("Destino alcançado!", turnByTurn.get(1).getText());
+        assertEquals(0, turnByTurn.get(1).getDuration());
 
         assertEquals("maplink", tripSolution.getSource());
 
