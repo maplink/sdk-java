@@ -4,7 +4,6 @@ import global.maplink.emission.schema.EmissionResponse;
 import global.maplink.freight.schema.FreightCalculationResponse;
 import global.maplink.geocode.schema.Address;
 import global.maplink.trip.schema.v2.features.crossedBorders.CrossedBorderResponse;
-import global.maplink.trip.schema.v2.features.turnByTurn.TurnByTurnResponse;
 import lombok.*;
 
 import java.math.BigDecimal;
