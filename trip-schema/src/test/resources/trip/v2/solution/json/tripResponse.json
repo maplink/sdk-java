@@ -21,6 +21,32 @@
           "longitude": "-46.6504"
         }
       ],
+      "turnByTurn": [
+        {
+          "distance": 703.632,
+          "type": "CONTINUE_ON_STREET",
+          "points": [
+            {
+              "latitude": "-23.5666499",
+              "longitude": "-46.6557755"
+            }
+          ],
+          "text": "Continue na Avenida Paulista",
+          "duration": 61185
+        },
+        {
+          "distance": 0.0,
+          "type": "LAST_POINT",
+          "points": [
+            {
+              "latitude": "-23.5666499",
+              "longitude": "-46.6557755"
+            }
+          ],
+          "text": "Destino alcançado!",
+          "duration": 0
+        }
+      ],
       "firstPointAddress": {
         "road": "Rua Doutor Otávio Teixeira Mendes",
         "district": "Cidade Alta",
@@ -147,32 +173,6 @@
       "lon": -46.6557755
     }
   },
-  "turnByTurn": [
-    {
-      "distance": 703.632,
-      "type": "CONTINUE_ON_STREET",
-      "points": [
-        {
-          "latitude": "-23.5666499",
-          "longitude": "-46.6557755"
-        }
-      ],
-      "text": "Continue na Avenida Paulista",
-      "duration": 61185
-    },
-    {
-      "distance": 0.0,
-      "type": "LAST_POINT",
-      "points": [
-        {
-          "latitude": "-23.5666499",
-          "longitude": "-46.6557755"
-        }
-      ],
-      "text": "Destino alcançado!",
-      "duration": 0
-    }
-  ],
   "source": "maplink",
   "createdAt": "2022-10-26T00:00:00-03:00",
   "expiryIn": "2023-10-26T00:00:00-03:00"

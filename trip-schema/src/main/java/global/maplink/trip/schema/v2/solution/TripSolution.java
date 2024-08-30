@@ -33,7 +33,6 @@ public class TripSolution {
     private final EmissionResponse emission;
     private final Address startAddress;
     private final Address endAddress;
-    private final List<TurnByTurnResponse> turnByTurn;
     private final String source;
     private final OffsetDateTime createdAt;
     private final OffsetDateTime expiryIn;

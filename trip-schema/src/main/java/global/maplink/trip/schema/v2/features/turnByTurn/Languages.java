@@ -1,10 +1,8 @@
 package global.maplink.trip.schema.v2.features.turnByTurn;
 
 import com.fasterxml.jackson.annotation.JsonValue;
-import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
-@Getter
 @RequiredArgsConstructor
 public enum Languages {
 
@@ -14,9 +12,8 @@ public enum Languages {
 
     private final String language;
 
-    @Override
     @JsonValue
-    public String toString() {
+    public String getLanguage() {
         return language;
     }
 }

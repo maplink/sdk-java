@@ -20,11 +20,11 @@ import static java.util.Arrays.asList;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 
-public class TripCalculateRequestTest {
+class TripCalculateRequestTest {
     private final JsonMapper mapper = JsonMapper.loadDefault();
 
     @Test
-    public void shouldDeserialize() {
+    void shouldDeserialize() {
         TripCalculateRequest tripRequest = mapper.fromJson(TRIP_REQUEST.load(), TripCalculateRequest.class);
         assertEquals(1, tripRequest.getPoints().size());
         assertEquals("36cdd555-41b6-4327-ac83-04ac74cff915", tripRequest.getPoints().get(0).getSiteId());
@@ -53,7 +53,7 @@ public class TripCalculateRequestTest {
     }
 
     @Test
-    public void shouldDeserializeCalculationModeDefault() {
+    void shouldDeserializeCalculationModeDefault() {
         TripCalculateRequest tripRequest = mapper.fromJson(TRIP_REQUEST_DEFAULT.load(), TripCalculateRequest.class);
 
         assertEquals(THE_FASTEST, tripRequest.getCalculationMode());
@@ -61,7 +61,7 @@ public class TripCalculateRequestTest {
     }
 
     @Test
-    public void shouldDeserializeCalculationModeTheShortest() {
+    void shouldDeserializeCalculationModeTheShortest() {
         TripCalculateRequest tripRequest = mapper.fromJson(TRIP_REQUEST_THE_SHORTEST.load(), TripCalculateRequest.class);
 
         assertEquals(THE_SHORTEST, tripRequest.getCalculationMode());
@@ -69,7 +69,7 @@ public class TripCalculateRequestTest {
     }
 
     @Test
-    public void shouldDeserializeTripWithTurnByTurn() {
+    void shouldDeserializeTripWithTurnByTurn() {
         TripCalculateRequest tripRequest = mapper.fromJson(TRIP_REQUEST_WITH_TURN_BY_TURN.load(), TripCalculateRequest.class);
 
         assertEquals(PT_BR, tripRequest.getTurnByTurn().getLanguage());

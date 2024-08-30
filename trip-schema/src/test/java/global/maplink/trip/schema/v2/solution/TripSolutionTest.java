@@ -25,11 +25,11 @@ import static global.maplink.trip.testUtils.SolutionSampleFiles.TRIP_RESPONSE;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 
-public class TripSolutionTest {
+class TripSolutionTest {
     private final JsonMapper mapper = JsonMapper.loadDefault();
 
     @Test
-    public void shouldDeserialize() {
+    void shouldDeserialize() {
         TripSolution tripSolution = mapper.fromJson(TRIP_RESPONSE.load(), TripSolution.class);
 
         assertEquals("236e9cd5-4181-408c-b90f-a24c31237f11", tripSolution.getId());
@@ -192,18 +192,18 @@ public class TripSolutionTest {
         assertEquals(0, new BigDecimal("-23.566649").compareTo(endAddress.getMainLocation().getLat()));
         assertEquals(0, new BigDecimal("-46.6557755").compareTo(endAddress.getMainLocation().getLon()));
 
-        assertNotNull(tripSolution.getTurnByTurn());
-        List<TurnByTurnResponse> turnByTurn = tripSolution.getTurnByTurn();
-        assertEquals( 703.632, turnByTurn.get(0).getDistance());
-        assertEquals(fromInstruction(0),turnByTurn.get(0).getType());
+        assertNotNull(tripSolution.getLegs().get(0).getTurnByTurn());
+        List<TurnByTurnResponse> turnByTurn = tripSolution.getLegs().get(0).getTurnByTurn();
+        assertEquals(703.632, turnByTurn.get(0).getDistance());
+        assertEquals(fromInstruction(0), turnByTurn.get(0).getType());
         assertThat(turnByTurn.get(0).getPoints())
                 .first()
                 .isEqualTo(new MaplinkPoint(-23.5666499, -46.6557755));
         assertEquals("Continue na Avenida Paulista", turnByTurn.get(0).getText());
         assertEquals(61185, turnByTurn.get(0).getDuration());
 
-        assertEquals( 0.0, turnByTurn.get(1).getDistance());
-        assertEquals(fromInstruction(4),turnByTurn.get(1).getType());
+        assertEquals(0.0, turnByTurn.get(1).getDistance());
+        assertEquals(fromInstruction(4), turnByTurn.get(1).getType());
         assertThat(turnByTurn.get(1).getPoints())
                 .first()
                 .isEqualTo(new MaplinkPoint(-23.5666499, -46.6557755));
