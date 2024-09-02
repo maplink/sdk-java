@@ -49,7 +49,7 @@ class TripSolutionTest {
     @Test
     void shouldDeserializeLegs() {
         assertEquals(1, tripSolution.getLegs().size());
-        SolutionLeg solutionLeg = getSolutionLeg();
+        SolutionLeg solutionLeg = tripSolution.getLegs().get(0);
         assertEquals(1000L, solutionLeg.getDistance());
         assertEquals(1200L, solutionLeg.getNominalDuration());
         assertEquals(70.0D, solutionLeg.getAverageSpeed());
@@ -63,8 +63,8 @@ class TripSolutionTest {
 
     @Test
     void shouldDeserializeAddress() {
-        assertNotNull(getSolutionLeg().getFirstPointAddress());
-        Address address = getSolutionLeg().getFirstPointAddress();
+        assertNotNull(tripSolution.getLegs().get(0).getFirstPointAddress());
+        Address address = tripSolution.getLegs().get(0).getFirstPointAddress();
         assertEquals("Rua Doutor Otávio Teixeira Mendes", address.getRoad());
         assertEquals("Cidade Alta", address.getDistrict());
         assertEquals("13417095", address.getZipCode());
@@ -79,7 +79,7 @@ class TripSolutionTest {
 
     @Test
     void shouldDeserializePlace() {
-        var getPlace = getSolutionLeg().getPlaceCalculation();
+        var getPlace = tripSolution.getLegs().get(0).getPlaceCalculation();
 
         assertNotNull(getPlace);
         assertEquals(1, getPlace.getTotal());
@@ -111,8 +111,8 @@ class TripSolutionTest {
 
     @Test
     void shouldDeserializeToll() {
-        assertNotNull(getSolutionLeg().getTollCalculation());
-        var tollCalculation = getSolutionLeg().getTollCalculation();
+        assertNotNull(tripSolution.getLegs().get(0).getTollCalculation());
+        var tollCalculation = tripSolution.getLegs().get(0).getTollCalculation();
         assertEquals(1,  tollCalculation.getTolls().size());
         assertEquals(0, new BigDecimal("209.5").compareTo(tollCalculation.getLegTotalCost()));
 
@@ -144,7 +144,8 @@ class TripSolutionTest {
 
     @Test
     void shouldDeserializeTollConditions() {
-        var tollCalculationConditions = getSolutionLeg().getTollCalculation().getTolls().get(0).getConditions();
+        var tollCalculationConditions = tripSolution.getLegs().get(0)
+                .getTollCalculation().getTolls().get(0).getConditions();
 
         assertEquals(1, tollCalculationConditions.size());
         TollCondition tollCondition = tollCalculationConditions.get(0);
@@ -157,7 +158,8 @@ class TripSolutionTest {
         assertEquals(periods.size(), tollCondition.getPeriods().size());
         assertTrue(tollCondition.getPeriods().containsAll(periods));
 
-        List<TollConditionBillingType> billingsType = Arrays.asList(TollConditionBillingType.NORMAL, TollConditionBillingType.ADDITIONAL_AXLE);
+        List<TollConditionBillingType> billingsType = Arrays.asList(TollConditionBillingType.NORMAL,
+                TollConditionBillingType.ADDITIONAL_AXLE);
         assertEquals(billingsType.size(), tollCondition.getBillingsType().size());
         assertTrue(tollCondition.getBillingsType().containsAll(billingsType));
 
@@ -189,17 +191,17 @@ class TripSolutionTest {
         assertEquals("SP", crossedBorderResponse.getState());
         assertEquals("Brasil", crossedBorderResponse.getCountry());
 
-        assertNotNull(getStartAddress());
-        Address startAddress = getStartAddress();
+        assertNotNull(tripSolution.getStartAddress());
+        Address startAddress = tripSolution.getStartAddress();
         assertEquals("Rua Doutor Otávio Teixeira Mendes", startAddress.getRoad());
         assertEquals("568", startAddress.getNumber());
         assertEquals("Cidade Alta", startAddress.getDistrict());
         assertEquals("13419220", startAddress.getZipCode());
         assertEquals("Piracicaba", startAddress.getCity());
-        assertNotNull(getStartAddress().getState());
+        assertNotNull(tripSolution.getStartAddress().getState());
         assertEquals("SP", startAddress.getState().getCode());
         assertEquals("São Paulo", startAddress.getState().getName());
-        assertNotNull(getStartAddress().getMainLocation());
+        assertNotNull(tripSolution.getStartAddress().getMainLocation());
         assertEquals(0, new BigDecimal("-22.72859909085603").compareTo(startAddress.getMainLocation().getLat()));
         assertEquals(0, new BigDecimal("-47.646662703084864").compareTo(startAddress.getMainLocation().getLon()));
 
@@ -214,10 +216,10 @@ class TripSolutionTest {
         assertEquals("Jardim Paulista", endAddress.getDistrict());
         assertEquals("01404-100", endAddress.getZipCode());
         assertEquals("São Paulo", endAddress.getCity());
-        assertNotNull(getStartAddress().getState());
+        assertNotNull(tripSolution.getStartAddress().getState());
         assertEquals("SP", endAddress.getState().getCode());
         assertEquals("São Paulo", endAddress.getState().getName());
-        assertNotNull(getStartAddress().getMainLocation());
+        assertNotNull(tripSolution.getStartAddress().getMainLocation());
         assertEquals(0, new BigDecimal("-23.566649").compareTo(endAddress.getMainLocation().getLat()));
         assertEquals(0, new BigDecimal("-46.6557755").compareTo(endAddress.getMainLocation().getLon()));
     }
@@ -249,13 +251,4 @@ class TripSolutionTest {
         assertThat(tripSolution.getCreatedAt()).isEqualTo("2022-10-26T00:00:00-03:00");
         assertThat(tripSolution.getExpiryIn()).isEqualTo("2023-10-26T00:00:00-03:00");
     }
-
-    private Address getStartAddress() {
-        return tripSolution.getStartAddress();
-    }
-
-    private SolutionLeg getSolutionLeg() {
-        return tripSolution.getLegs().get(0);
-    }
-
 }

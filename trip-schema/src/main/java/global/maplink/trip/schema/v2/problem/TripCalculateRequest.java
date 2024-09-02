@@ -46,7 +46,8 @@ public class TripCalculateRequest extends TripProblem implements MapLinkServiceR
             TurnByTurnRequest turnByTurn,
             OffsetDateTime expireIn
     ) {
-        super(points, calculationMode, restrictionZones, avoidanceTypes, avoidanceBehavior, toll, crossedBorders, freight, emission, place, turnByTurn);
+        super(points, calculationMode, restrictionZones, avoidanceTypes, avoidanceBehavior,
+                toll, crossedBorders, freight, emission, place, turnByTurn);
         this.expireIn = expireIn;
     }
 

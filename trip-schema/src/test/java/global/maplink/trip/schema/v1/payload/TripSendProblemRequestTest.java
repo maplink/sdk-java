@@ -15,7 +15,7 @@ import static global.maplink.trip.testUtils.V1SampleFiles.INVALID_TRIP_PROBLEM;
 import static global.maplink.trip.testUtils.V1SampleFiles.VALID_TRIP_PROBLEM;
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class TripSendProblemRequestTest {
+class TripSendProblemRequestTest {
     private final JsonMapper mapper = JsonMapper.loadDefault();
 
     @Test
@@ -93,7 +93,7 @@ public class TripSendProblemRequestTest {
         TripSendProblemRequest tripProblem = mapper.fromJson(INVALID_TRIP_PROBLEM.load(), TripSendProblemRequest.class);
         assertThat(tripProblem.validate()).isNotEmpty();
         assertThat(tripProblem.validate()).containsExactlyInAnyOrder(
-                PROFILE_NAME_EMPTY, CALLBACK_DOES_NOT_HAVE_URL, ROAD_TYPE_ELEMENTS_EMPTY
+                PROFILE_NAME_EMPTY, CALLBACK_DOES_NOT_HAVE_URL, ROAD_TYPE_ELEMENTS_EMPTY, TURN_BY_TURN_LANGUAGE_NOT_FOUND
         );
     }
 }

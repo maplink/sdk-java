@@ -118,6 +118,10 @@ public class TripSendProblemRequest extends TripProblem implements MapLinkServic
             errors.addAll(place.validate());
         }
 
+        if (turnByTurn != null) {
+            errors.addAll(turnByTurn.validate());
+        }
+
         return errors;
     }
 
