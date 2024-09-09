@@ -33,7 +33,7 @@
     "loadTypes": ["BUILDING_PRODUCTS", "HEATH_WASTES", "SAND_GRAVELS"]
   },
   "turnByTurn": {
-    "language": ""
+
   },
   "avoidanceTypes": ["TUNNELS", "BRIDGES"],
   "callback": {
