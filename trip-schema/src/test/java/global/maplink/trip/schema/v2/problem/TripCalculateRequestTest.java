@@ -72,6 +72,6 @@ class TripCalculateRequestTest {
     void shouldDeserializeTripWithTurnByTurn() {
         TripCalculateRequest tripRequest = mapper.fromJson(TRIP_REQUEST_WITH_TURN_BY_TURN.load(), TripCalculateRequest.class);
 
-        assertEquals(PT_BR, tripRequest.getTurnByTurn().getLanguage());
+        assertEquals(PT_BR.getLanguageCode(), tripRequest.getTurnByTurn().getLanguageCode());
     }
 }

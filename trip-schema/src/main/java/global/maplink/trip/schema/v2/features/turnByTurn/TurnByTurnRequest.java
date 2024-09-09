@@ -21,6 +21,10 @@ public class TurnByTurnRequest {
 
     private final Languages language;
 
+    public String getLanguageCode() {
+        return language != null ? language.getLanguageCode() : null;
+    }
+
     public List<ValidationViolation> validate() {
         List<ValidationViolation> errors = new ArrayList<>();
         if (language == null) {

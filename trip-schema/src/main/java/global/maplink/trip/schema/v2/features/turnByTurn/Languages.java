@@ -10,10 +10,10 @@ public enum Languages {
     ES_AR("es_AR"),
     EN("en");
 
-    private final String language;
+    private final String languageCode;
 
     @JsonValue
-    public String getLanguage() {
-        return language;
+    public String getLanguageCode() {
+        return languageCode;
     }
 }

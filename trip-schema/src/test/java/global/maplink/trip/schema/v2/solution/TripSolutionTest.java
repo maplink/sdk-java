@@ -20,7 +20,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-import static global.maplink.trip.schema.v2.features.turnByTurn.Instructions.fromInstruction;
+import static global.maplink.trip.schema.v2.features.turnByTurn.Instructions.*;
 import static global.maplink.trip.testUtils.Defaults.POINT_OFFSET;
 import static global.maplink.trip.testUtils.SolutionSampleFiles.TRIP_RESPONSE;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -229,7 +229,7 @@ class TripSolutionTest {
         assertNotNull(tripSolution.getLegs().get(0).getTurnByTurn());
         List<TurnByTurnResponse> turnByTurn = tripSolution.getLegs().get(0).getTurnByTurn();
         assertEquals(703.632, turnByTurn.get(0).getDistance());
-        assertEquals(fromInstruction(0), turnByTurn.get(0).getType());
+        assertEquals(CONTINUE_ON_STREET, turnByTurn.get(0).getType());
         assertThat(turnByTurn.get(0).getPoints())
                 .first()
                 .isEqualTo(new MaplinkPoint(-23.5666499, -46.6557755));
@@ -237,7 +237,7 @@ class TripSolutionTest {
         assertEquals(61185, turnByTurn.get(0).getDuration());
 
         assertEquals(0.0, turnByTurn.get(1).getDistance());
-        assertEquals(fromInstruction(4), turnByTurn.get(1).getType());
+        assertEquals(LAST_POINT, turnByTurn.get(1).getType());
         assertThat(turnByTurn.get(1).getPoints())
                 .first()
                 .isEqualTo(new MaplinkPoint(-23.5666499, -46.6557755));
