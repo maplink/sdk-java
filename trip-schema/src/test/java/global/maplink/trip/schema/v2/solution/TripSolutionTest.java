@@ -9,7 +9,7 @@ import global.maplink.place.schema.SubCategory;
 import global.maplink.toll.schema.*;
 import global.maplink.toll.schema.result.CalculationDetail;
 import global.maplink.trip.schema.v2.features.crossedBorders.CrossedBorderResponse;
-import global.maplink.trip.schema.v2.features.turnByTurn.TurnByTurnResponse;
+import global.maplink.trip.schema.v2.features.turnByTurn.TurnByTurnInstruction;
 import lombok.var;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -227,7 +227,7 @@ class TripSolutionTest {
     @Test
     void shouldDeserializeTurnByTurn() {
         assertNotNull(tripSolution.getLegs().get(0).getTurnByTurn());
-        List<TurnByTurnResponse> turnByTurn = tripSolution.getLegs().get(0).getTurnByTurn();
+        List<TurnByTurnInstruction> turnByTurn = tripSolution.getLegs().get(0).getTurnByTurn();
         assertEquals(703.632, turnByTurn.get(0).getDistance());
         assertEquals(CONTINUE_ON_STREET, turnByTurn.get(0).getType());
         assertThat(turnByTurn.get(0).getPoints())

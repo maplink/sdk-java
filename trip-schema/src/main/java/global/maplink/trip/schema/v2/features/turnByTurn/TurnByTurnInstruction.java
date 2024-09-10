@@ -13,7 +13,7 @@ import static lombok.AccessLevel.PRIVATE;
 @Builder
 @RequiredArgsConstructor
 @NoArgsConstructor(force = true, access = PRIVATE)
-public class TurnByTurnResponse {
+public class TurnByTurnInstruction {
 
     private final Double distance;
     private final Instructions type;

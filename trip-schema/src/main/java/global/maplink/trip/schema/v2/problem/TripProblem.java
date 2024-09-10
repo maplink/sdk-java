@@ -82,9 +82,12 @@ public class TripProblem implements Validable {
     @Override
     public List<ValidationViolation> validate() {
         List<ValidationViolation> errors = new LinkedList<>();
-        if (toll != null){
+        if (toll != null) {
             errors.addAll(toll.validate());
             errors.addAll(toll.validateVariableAxles(points));
+        }
+        if (turnByTurn != null) {
+            errors.addAll(turnByTurn.validate());
         }
         return errors;
     }
