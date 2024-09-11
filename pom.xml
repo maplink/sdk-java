@@ -353,7 +353,7 @@
         <profile>
             <id>release</id>
             <properties>
-                <gpg.keyname>0403DE35D906D28C3CE0ED024E6401928C742671</gpg.keyname>
+                <gpg.keyname>8C956070C08C25D615C459211CDB3C64FF518EAB</gpg.keyname>
             </properties>
             <build>
                 <plugins>
