@@ -32,6 +32,9 @@
     "maxWeightForDangerousMaterials": 30,
     "loadTypes": ["BUILDING_PRODUCTS", "HEATH_WASTES", "SAND_GRAVELS"]
   },
+  "turnByTurn": {
+
+  },
   "avoidanceTypes": ["TUNNELS", "BRIDGES"],
   "callback": {
     "user": "user",

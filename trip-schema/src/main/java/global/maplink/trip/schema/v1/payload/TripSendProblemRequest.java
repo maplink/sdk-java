@@ -12,6 +12,7 @@ import global.maplink.place.schema.PlaceRouteRequest;
 import global.maplink.trip.schema.v1.exception.TripCalculationRequestException;
 import global.maplink.trip.schema.v2.features.avoidance.AvoidanceBehavior;
 import global.maplink.trip.schema.v2.features.crossedBorders.CrossedBordersRequest;
+import global.maplink.trip.schema.v2.features.turnByTurn.TurnByTurnRequest;
 import global.maplink.trip.schema.v2.problem.CalculationMode;
 import global.maplink.trip.schema.v2.problem.SitePoint;
 import global.maplink.trip.schema.v2.problem.TollRequest;
@@ -53,13 +54,14 @@ public class TripSendProblemRequest extends TripProblem implements MapLinkServic
             FreightCalculationRequest freight,
             EmissionRequest emission,
             PlaceRouteRequest place,
+            TurnByTurnRequest turnByTurn,
             String clientId,
             String profileName,
             @Singular List<SpeedPreference> speedPreferences,
             VehicleSpecification vehicleSpecification,
             Callback callback
     ) {
-        super(points, calculationMode, restrictionZones, avoidanceTypes, avoidanceBehavior, toll, crossedBorders, freight, emission, place);
+        super(points, calculationMode, restrictionZones, avoidanceTypes, avoidanceBehavior, toll, crossedBorders, freight, emission, place, turnByTurn);
         this.clientId = clientId;
         this.profileName = profileName;
         this.speedPreferences = speedPreferences;
@@ -114,6 +116,10 @@ public class TripSendProblemRequest extends TripProblem implements MapLinkServic
 
         if (place != null) {
             errors.addAll(place.validate());
+        }
+
+        if (turnByTurn != null) {
+            errors.addAll(turnByTurn.validate());
         }
 
         return errors;

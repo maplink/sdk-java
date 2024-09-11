@@ -21,7 +21,8 @@ public enum TripErrorType implements ValidationViolation {
     CROSSED_BORDERS_DOES_NOT_HAVE_LEVEL("CrossedBorders parameters must have a level"),
     ROAD_TYPE_ELEMENTS_EMPTY("SpeedPreferences should contain one element for each roadType"),
     VEHICLE_SPECIFICATION_CONTAINS_NEGATIVE_VALUE("VehicleSpecification should not contain any measure with a negative value"),
-    TRIP_PROFILE_NOT_FOUND("Trip profile does not exist");
+    TRIP_PROFILE_NOT_FOUND("Trip profile does not exist"),
+    TURN_BY_TURN_LANGUAGE_NOT_FOUND("TurnByTurn language cannot be null");
 
     private final String message;
 }
