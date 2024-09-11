@@ -4,7 +4,7 @@
     <parent>
         <artifactId>sdk</artifactId>
         <groupId>global.maplink</groupId>
-        <version>1.5.13-SNAPSHOT</version>
+        <version>1.5.13</version>
     </parent>
 
     <artifactId>toll-schema</artifactId>
