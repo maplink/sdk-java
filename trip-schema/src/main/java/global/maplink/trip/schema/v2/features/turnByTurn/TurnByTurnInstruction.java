@@ -20,5 +20,5 @@ public class TurnByTurnInstruction {
     private final MaplinkPoints points;
     private final String text;
     private final int duration;
-    private final int exitNumber;
+    private final Integer exitNumber;
 }
