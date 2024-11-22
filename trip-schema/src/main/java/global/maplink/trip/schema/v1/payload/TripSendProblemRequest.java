@@ -38,7 +38,6 @@ public class TripSendProblemRequest extends TripProblem implements MapLinkServic
 
     private final String clientId;
     private final String profileName;
-    private final List<SpeedPreference> speedPreferences;
     private final VehicleSpecification vehicleSpecification;
     private final Callback callback;
 
@@ -64,7 +63,7 @@ public class TripSendProblemRequest extends TripProblem implements MapLinkServic
         super(points, calculationMode, speedPreferences, restrictionZones, avoidanceTypes, avoidanceBehavior, toll, crossedBorders, freight, emission, place, turnByTurn);
         this.clientId = clientId;
         this.profileName = profileName;
-        this.speedPreferences = speedPreferences;
+        speedPreferences = speedPreferences;
         this.vehicleSpecification = vehicleSpecification;
         this.callback = callback;
     }
