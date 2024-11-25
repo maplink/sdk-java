@@ -4,6 +4,7 @@ import global.maplink.emission.schema.EmissionRequest;
 import global.maplink.freight.schema.FreightCalculationRequest;
 import global.maplink.place.schema.PlaceRouteRequest;
 import global.maplink.trip.schema.v1.payload.AvoidanceType;
+import global.maplink.trip.schema.v1.payload.SpeedPreference;
 import global.maplink.trip.schema.v2.features.avoidance.AvoidanceBehavior;
 import global.maplink.trip.schema.v2.features.crossedBorders.CrossedBordersRequest;
 import global.maplink.trip.schema.v2.features.turnByTurn.TurnByTurnRequest;
@@ -19,6 +20,7 @@ import java.util.Set;
 
 import static global.maplink.trip.schema.v2.features.avoidance.AvoidanceBehavior.FAIL;
 import static global.maplink.trip.schema.v2.problem.CalculationMode.THE_FASTEST;
+import static java.util.Collections.emptyList;
 import static java.util.Collections.emptySet;
 import static java.util.Optional.ofNullable;
 
@@ -29,6 +31,7 @@ public class TripProblem implements Validable {
 
     protected final List<SitePoint> points;
     protected final CalculationMode calculationMode;
+    protected final List<SpeedPreference> speedPreferences;
     protected final Set<String> restrictionZones;
     protected final Set<AvoidanceType> avoidanceTypes;
     protected final AvoidanceBehavior avoidanceBehavior;
@@ -42,6 +45,7 @@ public class TripProblem implements Validable {
     public TripProblem(
             List<SitePoint> points,
             CalculationMode calculationMode,
+            List<SpeedPreference> speedPreferences,
             Set<String> restrictionZones,
             Set<AvoidanceType> avoidanceTypes,
             AvoidanceBehavior avoidanceBehavior,
@@ -54,6 +58,7 @@ public class TripProblem implements Validable {
     ) {
         this.points = points;
         this.calculationMode = ofNullable(calculationMode).orElse(THE_FASTEST);
+        this.speedPreferences = ofNullable(speedPreferences).orElse(emptyList());
         this.restrictionZones = ofNullable(restrictionZones).orElse(emptySet());
         this.avoidanceTypes = ofNullable(avoidanceTypes).orElse(emptySet());
         this.avoidanceBehavior= ofNullable(avoidanceBehavior).orElse(FAIL);
@@ -68,6 +73,7 @@ public class TripProblem implements Validable {
     public TripProblem() {
         this.points = null;
         this.calculationMode = THE_FASTEST;
+        this.speedPreferences = emptyList();
         this.restrictionZones = emptySet();
         this.avoidanceTypes = emptySet();
         this.avoidanceBehavior = FAIL;
