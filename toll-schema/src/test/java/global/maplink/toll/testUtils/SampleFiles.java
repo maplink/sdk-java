@@ -18,7 +18,11 @@ public enum SampleFiles {
     TOLL_SERVICE_TYPE("toll/json/tollServiceType.json"),
     CALCULATION_REQUEST("toll/json/calculationRequest.json"),
     CALCULATION_REQUEST_CONECTCAR("toll/json/calculationRequest_Conectcar.json"),
-    CALCULATION_RESULT("toll/json/calculationResult.json");
+    CALCULATION_RESULT("toll/json/calculationResult.json"),
+    CALCULATION_REQUEST_CONDITIONS("toll/json/calculationConditions.json"),
+    CALCULATION_DATE_DEFAULT("toll/json/calculationDate.json"),
+    CALCULATION_CONDITIONS_DEFAULT("toll/json/calculationConditionsDefault.json"),
+    CALCULATION_DEFAULT("toll/json/calculationDefault.json");
 
     private final String filePath;
 
