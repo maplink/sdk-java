@@ -4,7 +4,6 @@ import global.maplink.MapLinkSDK;
 import global.maplink.credentials.InvalidCredentialsException;
 import global.maplink.credentials.MapLinkCredentials;
 import global.maplink.http.exceptions.MapLinkHttpException;
-import global.maplink.toll.schema.Condition;
 import global.maplink.toll.schema.request.LegRequest;
 import lombok.val;
 import org.junit.jupiter.api.Test;
@@ -13,8 +12,6 @@ import static global.maplink.env.EnvironmentCatalog.HOMOLOG;
 import static global.maplink.toll.common.Defaults.DEFAULT_CLIENT_ID;
 import static global.maplink.toll.common.Defaults.DEFAULT_SECRET;
 import static global.maplink.toll.schema.Billing.FREE_FLOW;
-import static global.maplink.toll.schema.TollConditionBillingType.TAG;
-import static global.maplink.toll.schema.TollConditionPeriod.HOLIDAY;
 import static global.maplink.toll.schema.TollVehicleType.CAR;
 import static global.maplink.toll.utils.EnvCredentialsHelper.withEnvCredentials;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -54,12 +51,7 @@ class TollSyncApiTest {
             val instance = TollSyncAPI.getInstance();
             val result = instance.calculate(
                     LegRequest.of(
-                            System.currentTimeMillis(),
                             CAR,
-                            Condition.builder()
-                                    .billingType(TAG)
-                                    .period(HOLIDAY)
-                                    .build(),
                             -22.05491, -42.36299,
                             -22.05461, -42.36224
                     )
@@ -77,12 +69,7 @@ class TollSyncApiTest {
             val result = instance.calculate(
                     FREE_FLOW,
                     LegRequest.of(
-                            System.currentTimeMillis(),
                             CAR,
-                            Condition.builder()
-                                    .billingType(TAG)
-                                    .period(HOLIDAY)
-                                    .build(),
                             -22.05491, -42.36299,
                             -22.05461, -42.36224
                     )
