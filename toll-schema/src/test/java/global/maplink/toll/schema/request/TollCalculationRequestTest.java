@@ -2,7 +2,6 @@ package global.maplink.toll.schema.request;
 
 import global.maplink.json.JsonMapper;
 import global.maplink.toll.schema.Coordinates;
-import global.maplink.toll.schema.TollConditionBillingType;
 import global.maplink.toll.schema.TollConditionPeriod;
 import lombok.val;
 import org.junit.jupiter.api.Test;
@@ -83,8 +82,7 @@ class TollCalculationRequestTest {
         val data = mapper.fromJson(CALCULATION_CONDITIONS_DEFAULT.load(), TollCalculationRequest.class);
 
         assertThat(data.getLegs().stream().findFirst().get().getCalculationDate()).isEqualTo(1710769071000L);
-        assertThat(data.getLegs().stream().findFirst().get().getCondition().getBillingType()).isEqualTo(
-                TollConditionBillingType.NORMAL);
+        assertThat(data.getLegs().stream().findFirst().get().getCondition().getBillingType()).isEqualTo(TAG);
         assertThat(data.getLegs().stream().findFirst().get().getCondition().getPeriod()).isEqualTo(TollConditionPeriod.NORMAL);
         assertThat(data.getLegs())
                 .hasSize(1);
@@ -96,9 +94,6 @@ class TollCalculationRequestTest {
         val data = mapper.fromJson(CALCULATION_DEFAULT.load(), TollCalculationRequest.class);
 
         assertThat(data.getLegs().stream().findFirst().get().getCalculationDate()).isNotNull();
-        assertThat(data.getLegs().stream().findFirst().get().getCondition().getBillingType()).isEqualTo(
-                TollConditionBillingType.NORMAL);
-        assertThat(data.getLegs().stream().findFirst().get().getCondition().getPeriod()).isEqualTo(TollConditionPeriod.NORMAL);
         assertThat(data.getLegs())
                 .hasSize(1);
         assertThat(data.getTransponderOperators()).isEqualTo(new HashSet<>(Collections.singletonList(SEM_PARAR)));

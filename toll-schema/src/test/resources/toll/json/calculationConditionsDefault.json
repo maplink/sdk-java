@@ -3,6 +3,9 @@
     {
       "calculationDate": 1710769071000,
       "vehicleType": "CAR",
+      "condition": {
+        "billingType": "TAG"
+      },
       "points": [
         {
           "latitude": -22.0539,

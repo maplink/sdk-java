@@ -20,7 +20,7 @@ public class LegRequest {
 
     private TollVehicleType vehicleType;
 
-    private Condition condition = new Condition();
+    private Condition condition;
 
     @Singular
     private List<Coordinates> points;
