@@ -1,7 +1,6 @@
 package global.maplink.http.request;
 
 import lombok.val;
-import lombok.var;
 import org.junit.jupiter.api.Test;
 
 import java.net.MalformedURLException;
@@ -40,7 +39,7 @@ public class GetRequestTest {
     public void shouldBeAbleToAddQueryParams() {
         val key = "query1";
         val value = "valor";
-        var req = Request.get(localhost).withQuery(key, value);
+        Request req = Request.get(localhost).withQuery(key, value);
 
         assertThat(req.getQuery(key)).isEqualTo(value);
 
@@ -68,7 +67,7 @@ public class GetRequestTest {
     public void shouldBeAbleToAddHeaderParams() {
         val key = "Header1";
         val value = "valor";
-        var req = Request.get(localhost).withHeader(key, value);
+        Request req = Request.get(localhost).withHeader(key, value);
 
         assertThat(req.getHeader(key)).isEqualTo(value);
 

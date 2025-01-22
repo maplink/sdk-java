@@ -1,8 +1,13 @@
 package global.maplink.domain;
 
+import lombok.SneakyThrows;
 import org.assertj.core.data.Offset;
 import org.junit.jupiter.api.Test;
 
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
@@ -92,14 +97,25 @@ class MaplinkPointsTest {
     }
 
     @Test
-    void shoulDeserializeFromPolyline() {
+    void shouldDeserializeFromPolyline() {
         MaplinkPoints points = MaplinkPoints.fromPolyline(SAMPLE_POLYLINE);
 
         assertThatMatchWithSample(points);
     }
 
     @Test
-    void shouldReadSelfWritedGeohash() {
+    @SneakyThrows
+    void shouldDeserializeFromLargePolylineWithWrongLastPoint() {
+        Path file = Paths.get(getClass().getResource("/polylines/large-polyline-wrong-last-point").toURI());
+        MaplinkPoints points = MaplinkPoints.fromPolyline(new String(Files.readAllBytes(file), StandardCharsets.UTF_8));
+
+        assertThat(points).hasSize(11109)
+                .startsWith(new MaplinkPoint(-26.30467,-48.84922))
+                .endsWith(new MaplinkPoint(-24.02653,-47.17346));
+    }
+
+    @Test
+    void shouldReadSelfWrittenGeohashing() {
         int geohashSize = 11;
         MaplinkPoints points = MaplinkPoints.from(randSampleLine(50));
         List<String> geohash = points.toGeohash(geohashSize);
