@@ -154,6 +154,9 @@ public class MaplinkPoints implements Iterable<MaplinkPoint> {
                 int shift = 0;
                 int result = 0;
                 do {
+                    if(index >= len){
+                        break;
+                    }
                     b = encoded.charAt(index++) - 63;
                     result |= (b & 0x1f) << shift;
                     shift += 5;

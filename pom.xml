@@ -23,7 +23,7 @@
         <mockito.version>5.15.2</mockito.version>
         <assertj.version>3.27.3</assertj.version>
         <wiremock.version>3.10.0</wiremock.version>
-        <json-unit-assertj.version>4.1.0</json-unit-assertj.version>
+        <json-unit-assertj.version>2.38.0</json-unit-assertj.version>
         <delombok.output>${project.build.directory}/delombok</delombok.output>
     </properties>
 
