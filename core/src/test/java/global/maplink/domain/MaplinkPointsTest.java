@@ -109,13 +109,9 @@ class MaplinkPointsTest {
         Path file = Paths.get(getClass().getResource("/polylines/large-polyline-wrong-last-point").toURI());
         MaplinkPoints points = MaplinkPoints.fromPolyline(new String(Files.readAllBytes(file), StandardCharsets.UTF_8));
 
-        assertThat(points).hasSize(11109);
-        assertThat(points).first()
-                .isEqualTo(points.first())
-                .isEqualTo(new MaplinkPoint(-26.30467,-48.84922));
-        assertThat(points).last()
-                .isEqualTo(points.last())
-                .isEqualTo(new MaplinkPoint(-24.02653,-47.17346));
+        assertThat(points).hasSize(11109)
+                .startsWith(new MaplinkPoint(-26.30467,-48.84922))
+                .endsWith(new MaplinkPoint(-24.02653,-47.17346));
     }
 
     @Test
