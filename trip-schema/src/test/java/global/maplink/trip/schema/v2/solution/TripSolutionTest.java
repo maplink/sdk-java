@@ -131,9 +131,7 @@ class TripSolutionTest {
         assertEquals("IDK", calculationDetail.getConcession());
         assertEquals(TollDirection.NORTH, calculationDetail.getDirection());
 
-        assertNotNull(calculationDetail.getCoordinates());
-        assertEquals(0, new BigDecimal("-23.5666499").compareTo(calculationDetail.getCoordinates().getLatitude()));
-        assertEquals(0, new BigDecimal("-46.6557755").compareTo(calculationDetail.getCoordinates().getLongitude()));
+        assertThat(calculationDetail.getCoordinates()).isEqualTo(new MaplinkPoint(-23.5666499,-46.6557755));
 
         assertEquals(1, calculationDetail.getServiceTypes().size());
         assertEquals("236e9cd5-4181-408c-b90f-a24c31237f11", calculationDetail.getServiceTypes().get(0).getServiceId());

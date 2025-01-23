@@ -1,5 +1,6 @@
 package global.maplink.toll.schema.result;
 
+import global.maplink.domain.MaplinkPoint;
 import global.maplink.toll.schema.*;
 import lombok.Builder;
 import lombok.Data;
@@ -24,7 +25,7 @@ public class CalculationDetail {
     private final String country;
     private final String concession;
     private final TollDirection direction;
-    private final Coordinates coordinates;
+    private final MaplinkPoint coordinates;
     private final List<TollServiceType> serviceTypes;
     private final BigDecimal price;
     private final List<TollCondition> conditions;
