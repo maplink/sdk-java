@@ -10,13 +10,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Data
-@NoArgsConstructor
+@NoArgsConstructor(force = true)
 @AllArgsConstructor
 @Builder
 public class LegRequest {
 
     @Builder.Default
-    private Long calculationDate = Instant.now().toEpochMilli();
+    private Instant calculationDate = Instant.now();
 
     private TollVehicleType vehicleType;
 
@@ -39,7 +39,7 @@ public class LegRequest {
                 .build();
     }
 
-    public static LegRequest of(Long calculationDate, TollVehicleType vehicleType, Condition condition, double... coordinates) {
+    public static LegRequest of(Instant calculationDate, TollVehicleType vehicleType, Condition condition, double... coordinates) {
         return LegRequest.builder()
                 .calculationDate(calculationDate)
                 .vehicleType(vehicleType)
@@ -53,11 +53,11 @@ public class LegRequest {
             throw new IllegalArgumentException("Coordinates must be provided in pairs lat,lon");
         }
 
-        List<Coordinates> listCoordinates = new ArrayList<>(coordinates.length / 2);
+        List<Coordinates> result = new ArrayList<>(coordinates.length / 2);
         for (int i = 0; i < coordinates.length; i += 2) {
-            listCoordinates.add(Coordinates.of(coordinates[i], coordinates[i + 1]));
+            result.add(Coordinates.of(coordinates[i], coordinates[i + 1]));
         }
-        return listCoordinates;
+        return result;
     }
 
 }

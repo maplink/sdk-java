@@ -6,6 +6,7 @@ import global.maplink.toll.schema.TollConditionPeriod;
 import lombok.val;
 import org.junit.jupiter.api.Test;
 
+import java.time.Instant;
 import java.util.Collections;
 import java.util.HashSet;
 
@@ -57,46 +58,50 @@ class TollCalculationRequestTest {
     void shouldDeserializeRequestWithSpecificConditions() {
         val data = mapper.fromJson(CALCULATION_REQUEST_CONDITIONS.load(), TollCalculationRequest.class);
 
-        assertThat(data.getLegs().stream().findFirst().get().getCalculationDate()).isEqualTo(1710769071000L);
-        assertThat(data.getLegs().stream().findFirst().get().getCondition().getBillingType()).isEqualTo(TAG);
-        assertThat(data.getLegs().stream().findFirst().get().getCondition().getPeriod()).isEqualTo(HOLIDAY);
+        LegRequest firstLeg = data.getLegs().stream().findFirst().orElseThrow(IllegalArgumentException::new);
+        assertThat(firstLeg.getCalculationDate()).isEqualTo(Instant.ofEpochMilli(1710769071000L));
+        assertThat(firstLeg.getCondition().getBillingType()).isEqualTo(TAG);
+        assertThat(firstLeg.getCondition().getPeriod()).isEqualTo(HOLIDAY);
         assertThat(data.getLegs())
                 .hasSize(1);
-        assertThat(data.getTransponderOperators()).isEqualTo(new HashSet<>(Collections.singletonList(SEM_PARAR)));
+        assertThat(data.getTransponderOperators()).containsExactly(SEM_PARAR);
     }
 
     @Test
     void shouldValidateDefaultCalculationDateAndRequestProperties() {
         val data = mapper.fromJson(CALCULATION_DATE_DEFAULT.load(), TollCalculationRequest.class);
-
-        assertThat(data.getLegs().stream().findFirst().get().getCalculationDate()).isNotNull();
-        assertThat(data.getLegs().stream().findFirst().get().getCondition().getBillingType()).isEqualTo(TAG);
-        assertThat(data.getLegs().stream().findFirst().get().getCondition().getPeriod()).isEqualTo(HOLIDAY);
+        
+        LegRequest firstLeg = data.getLegs().stream().findFirst().orElseThrow(IllegalArgumentException::new);
+        assertThat(firstLeg.getCalculationDate()).isNotNull();
+        assertThat(firstLeg.getCondition().getBillingType()).isEqualTo(TAG);
+        assertThat(firstLeg.getCondition().getPeriod()).isEqualTo(HOLIDAY);
         assertThat(data.getLegs())
                 .hasSize(1);
-        assertThat(data.getTransponderOperators()).isEqualTo(new HashSet<>(Collections.singletonList(SEM_PARAR)));
+        assertThat(data.getTransponderOperators()).containsExactly(SEM_PARAR);
     }
 
     @Test
     void shouldDefaultCalculationCondition() {
         val data = mapper.fromJson(CALCULATION_CONDITIONS_DEFAULT.load(), TollCalculationRequest.class);
 
-        assertThat(data.getLegs().stream().findFirst().get().getCalculationDate()).isEqualTo(1710769071000L);
-        assertThat(data.getLegs().stream().findFirst().get().getCondition().getBillingType()).isEqualTo(TAG);
-        assertThat(data.getLegs().stream().findFirst().get().getCondition().getPeriod()).isEqualTo(TollConditionPeriod.NORMAL);
+        LegRequest firstLeg = data.getLegs().stream().findFirst().orElseThrow(IllegalArgumentException::new);
+        assertThat(firstLeg.getCalculationDate()).isEqualTo(Instant.ofEpochMilli(1710769071000L));
+        assertThat(firstLeg.getCondition().getBillingType()).isEqualTo(TAG);
+        assertThat(firstLeg.getCondition().getPeriod()).isEqualTo(TollConditionPeriod.NORMAL);
         assertThat(data.getLegs())
                 .hasSize(1);
-        assertThat(data.getTransponderOperators()).isEqualTo(new HashSet<>(Collections.singletonList(SEM_PARAR)));
+        assertThat(data.getTransponderOperators()).containsExactly(SEM_PARAR);
     }
 
     @Test
     void shouldDefaultCalculation() {
         val data = mapper.fromJson(CALCULATION_DEFAULT.load(), TollCalculationRequest.class);
 
-        assertThat(data.getLegs().stream().findFirst().get().getCalculationDate()).isNotNull();
+        LegRequest firstLeg = data.getLegs().stream().findFirst().orElseThrow(IllegalArgumentException::new);
+        assertThat(firstLeg.getCalculationDate()).isNotNull();
         assertThat(data.getLegs())
                 .hasSize(1);
-        assertThat(data.getTransponderOperators()).isEqualTo(new HashSet<>(Collections.singletonList(SEM_PARAR)));
+        assertThat(data.getTransponderOperators()).containsExactly(SEM_PARAR);
     }
 
     private void assertPoint(Coordinates point, double lat, double lon) {

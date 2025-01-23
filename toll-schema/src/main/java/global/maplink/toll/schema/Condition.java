@@ -7,14 +7,12 @@ import lombok.NoArgsConstructor;
 
 @Data
 @Builder
-@NoArgsConstructor
+@NoArgsConstructor(force = true)
 @AllArgsConstructor
 public class Condition {
 
-    @Builder.Default
-    private TollConditionBillingType billingType = TollConditionBillingType.NORMAL;
+    private final TollConditionBillingType billingType;
 
-    @Builder.Default
-    private TollConditionPeriod period = TollConditionPeriod.NORMAL;
+    private final TollConditionPeriod period;
 
 }

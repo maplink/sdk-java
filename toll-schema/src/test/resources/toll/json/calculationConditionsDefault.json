@@ -4,7 +4,8 @@
       "calculationDate": 1710769071000,
       "vehicleType": "CAR",
       "condition": {
-        "billingType": "TAG"
+        "billingType": "TAG",
+        "period": "NORMAL"
       },
       "points": [
         {

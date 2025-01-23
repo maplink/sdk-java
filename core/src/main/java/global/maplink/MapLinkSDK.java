@@ -6,6 +6,7 @@ import global.maplink.env.Environment;
 import global.maplink.extensions.SdkExtension;
 import global.maplink.extensions.SdkExtensionCatalog;
 import global.maplink.http.HttpAsyncEngine;
+import global.maplink.http.UserAgent;
 import global.maplink.json.JsonMapper;
 import global.maplink.token.TokenProvider;
 import lombok.AccessLevel;
@@ -34,6 +35,8 @@ public class MapLinkSDK {
 
     private final HttpAsyncEngine http;
 
+    private final UserAgent userAgent;
+
     private final JsonMapper jsonMapper;
 
     private final TokenProvider tokenProvider;
@@ -44,6 +47,7 @@ public class MapLinkSDK {
 
     private void postConstruct() {
         extensions.forEach(e -> e.initialize(this));
+        http.initialize(this);
         log.info(
                 "Initialized MapLink SDK with [Environment: {}] [HttpEngine: {}] [JsonMapper: {}] [Extensions: {}]",
                 environment,
@@ -81,6 +85,8 @@ public class MapLinkSDK {
 
         private Optional<HttpAsyncEngine> engine = Optional.empty();
 
+        private Optional<UserAgent> agent = Optional.empty();
+
         private Optional<JsonMapper> mapper = Optional.empty();
 
         private Optional<PointsMode> pointsMode = Optional.empty();
@@ -94,6 +100,12 @@ public class MapLinkSDK {
 
         public Configurator with(HttpAsyncEngine engine) {
             this.engine = Optional.of(engine);
+            return this;
+        }
+
+
+        public Configurator with(UserAgent agent) {
+            this.agent = Optional.of(agent);
             return this;
         }
 
@@ -132,6 +144,7 @@ public class MapLinkSDK {
                     credentials.orElseGet(MapLinkCredentials::loadDefault),
                     environment.orElseGet(Environment::loadDefault),
                     http,
+                    agent.orElseGet(UserAgent::loadDefault),
                     jsonMapper,
                     TokenProvider.create(http, env, jsonMapper, true),
                     pointsMode.orElseGet(PointsMode::loadDefault),
