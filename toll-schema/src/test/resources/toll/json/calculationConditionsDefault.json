@@ -1,0 +1,86 @@
+{
+  "legs": [
+    {
+      "calculationDate": 1710769071000,
+      "vehicleType": "CAR",
+      "condition": {
+        "billingType": "TAG",
+        "period": "NORMAL"
+      },
+      "points": [
+        {
+          "latitude": -22.0539,
+          "longitude": -42.36768
+        },
+        {
+          "latitude": -22.05377,
+          "longitude": -42.36716
+        },
+        {
+          "latitude": -22.05371,
+          "longitude": -42.3667
+        },
+        {
+          "latitude": -22.05371,
+          "longitude": -42.36636
+        },
+        {
+          "latitude": -22.05379,
+          "longitude": -42.36602
+        },
+        {
+          "latitude": -22.05392,
+          "longitude": -42.36565
+        },
+        {
+          "latitude": -22.0548,
+          "longitude": -42.36396
+        },
+        {
+          "latitude": -22.05485,
+          "longitude": -42.36392
+        },
+        {
+          "latitude": -22.05494,
+          "longitude": -42.36365
+        },
+        {
+          "latitude": -22.05497,
+          "longitude": -42.3634
+        },
+        {
+          "latitude": -22.05496,
+          "longitude": -42.36317
+        },
+        {
+          "latitude": -22.05491,
+          "longitude": -42.36299
+        },
+        {
+          "latitude": -22.05461,
+          "longitude": -42.36224
+        },
+        {
+          "latitude": -22.05417,
+          "longitude": -42.36119
+        },
+        {
+          "latitude": -22.05409,
+          "longitude": -42.36109
+        },
+        {
+          "latitude": -22.05355,
+          "longitude": -42.35982
+        },
+        {
+          "latitude": -22.05251,
+          "longitude": -42.35759
+        },
+        {
+          "latitude": -22.05251,
+          "longitude": -42.35759
+        }
+      ]
+    }
+  ]
+}

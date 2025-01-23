@@ -37,6 +37,11 @@
       ]
     }
   ],
+  "condition": {
+    "billingType": "TAG",
+    "period": "NORMAL"
+  },
+  "calculationDate": 1710769071000,
   "legTotalCost": 209.5,
   "vehicleType": "CAR"
 }

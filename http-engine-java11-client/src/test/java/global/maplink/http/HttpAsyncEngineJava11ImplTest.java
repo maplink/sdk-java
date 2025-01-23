@@ -7,6 +7,7 @@ import global.maplink.http.request.RequestBody;
 import lombok.SneakyThrows;
 import lombok.val;
 import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
@@ -31,16 +32,21 @@ public class HttpAsyncEngineJava11ImplTest {
     public static WireMockServer wireMockServer = new WireMockServer(wireMockConfig().dynamicPort());
 
     @BeforeAll
-    public static void wireMockServerStart() {
+    static void wireMockServerStart() {
         wireMockServer.start();
         wireMockServer.stubFor(post(TRIP_SYNC)
                 .willReturn(ok()
                         .withBody("{}")));
     }
 
+    @AfterEach
+    void cleanup() {
+        wireMockServer.resetAll();
+    }
+
     @Test
     @SneakyThrows
-    public void returnsHttpVersionEqualThatIsRequest() {
+    void returnsHttpVersionEqualThatIsRequest() {
         val engine = new HttpAsyncEngineJava11Impl();
         val requestBody = RequestBody.Json.of("{}");
         val result = engine.run(Request.post(new URL(wireMockServer.baseUrl()), requestBody));
@@ -51,20 +57,37 @@ public class HttpAsyncEngineJava11ImplTest {
         assertThat(requestsLogged).first().extracting(LoggedRequest::getProtocol).isEqualTo(HTTP_1_1);
     }
 
+    @Test
+    @SneakyThrows
+    void shouldPutUserAgentHeader() {
+        val engine = new HttpAsyncEngineJava11Impl().setUserAgent("my user agent");
+        val requestBody = RequestBody.Json.of("{}");
+        val result = engine.run(Request.post(new URL(wireMockServer.baseUrl()), requestBody));
+
+        assertThat(result.get()).isNotNull();
+
+        val requestsLogged = wireMockServer.findAll(allRequests());
+        assertThat(requestsLogged)
+                .first()
+                .extracting(h -> h.getHeader("user-agent"))
+                .isNotNull()
+                .isEqualTo("my user agent");
+    }
+
     @AfterAll
-    public static void wireMockServerStop() {
+    static void wireMockServerStop() {
         wireMockServer.stop();
     }
 
     @Test
-    public void mustBeAccessibleByLoadDefault() {
+    void mustBeAccessibleByLoadDefault() {
         HttpAsyncEngine engine = HttpAsyncEngine.loadDefault();
         assertThat(engine).isNotNull().isInstanceOf(HttpAsyncEngineJava11Impl.class);
     }
 
     @Test
     @SneakyThrows
-    public void mustBeAbleToDoGetRequest() {
+    void mustBeAbleToDoGetRequest() {
         val engine = new HttpAsyncEngineJava11Impl();
         val result = await(engine.run(Request.get(new URL(GOOGLE_COM))));
         assertThat(result).isNotNull();
@@ -73,7 +96,7 @@ public class HttpAsyncEngineJava11ImplTest {
 
     @Test
     @SneakyThrows
-    public void mustFailOnUnknownRequest() {
+    void mustFailOnUnknownRequest() {
         val engine = new HttpAsyncEngineJava11Impl();
 
         assertThatThrownBy(() -> engine.run(new UnknownRequest(new URL(GOOGLE_COM))).get())

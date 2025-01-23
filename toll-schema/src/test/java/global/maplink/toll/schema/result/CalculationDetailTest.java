@@ -1,5 +1,6 @@
 package global.maplink.toll.schema.result;
 
+import global.maplink.domain.MaplinkPoint;
 import global.maplink.json.JsonMapper;
 import global.maplink.toll.schema.*;
 import org.junit.jupiter.api.Test;
@@ -11,6 +12,7 @@ import java.util.Collections;
 import java.util.List;
 
 import static global.maplink.toll.testUtils.SampleFiles.CALCULATION_DETAIL;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class CalculationDetailTest {
@@ -35,8 +37,7 @@ public class CalculationDetailTest {
         assertEquals(TollDirection.NORTH, calculationDetail.getDirection());
 
         assertNotNull(calculationDetail.getCoordinates());
-        assertEquals(0, new BigDecimal("-23.5666499").compareTo(calculationDetail.getCoordinates().getLatitude()));
-        assertEquals(0, new BigDecimal("-46.6557755").compareTo(calculationDetail.getCoordinates().getLongitude()));
+        assertThat(calculationDetail.getCoordinates()).isEqualTo(new MaplinkPoint(-23.5666499,-46.6557755));
 
         assertEquals(1, calculationDetail.getServiceTypes().size());
         assertEquals("236e9cd5-4181-408c-b90f-a24c31237f11", calculationDetail.getServiceTypes().get(0).getServiceId());
