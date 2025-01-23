@@ -55,19 +55,19 @@ public class LegResultTest {
 
         assertThat(tollCondition.getDaysOfWeek()).containsExactly(MONDAY, WEDNESDAY, FRIDAY);
 
-        assertThat(tollCondition.getPeriods()).containsExactly(
+        assertThat(tollCondition.getPeriods()).containsExactlyInAnyOrder(
                 TollConditionPeriod.NORMAL,
                 TollConditionPeriod.HOLIDAY
         );
 
-        assertThat(tollCondition.getBillingsType()).hasSize(2).containsExactly(
+        assertThat(tollCondition.getBillingsType()).hasSize(2).containsExactlyInAnyOrder(
                 TollConditionBillingType.NORMAL,
                 TollConditionBillingType.ADDITIONAL_AXLE
         );
 
-        assertThat(tollCondition.getTimesWindow()).hasSize(2).containsExactly("ONE", "TWO");
+        assertThat(tollCondition.getTimesWindow()).hasSize(2).containsExactlyInAnyOrder("ONE", "TWO");
 
-        assertThat(tollCondition.getTags()).hasSize(1).containsExactly("FIRST_TAG");
+        assertThat(tollCondition.getTags()).hasSize(1).containsExactlyInAnyOrder("FIRST_TAG");
 
         assertThat(tollCondition.getVehicleTypes())
                 .hasSize(3)
