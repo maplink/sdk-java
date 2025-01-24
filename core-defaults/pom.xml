@@ -4,7 +4,7 @@
     <parent>
         <artifactId>sdk</artifactId>
         <groupId>global.maplink</groupId>
-        <version>1.5.17</version>
+        <version>1.5.18-SNAPSHOT</version>
     </parent>
 
     <artifactId>sdk-core-defaults</artifactId>
