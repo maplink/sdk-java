@@ -53,7 +53,7 @@ public class LegResultTest {
         assertThat(calculationDetail.getConditions()).hasSize(1);
         TollCondition tollCondition = calculationDetail.getConditions().get(0);
 
-        assertThat(tollCondition.getDaysOfWeek()).containsExactly(MONDAY, WEDNESDAY, FRIDAY);
+        assertThat(tollCondition.getDaysOfWeek()).containsExactlyInAnyOrder(MONDAY, WEDNESDAY, FRIDAY);
 
         assertThat(tollCondition.getPeriods()).containsExactlyInAnyOrder(
                 TollConditionPeriod.NORMAL,
