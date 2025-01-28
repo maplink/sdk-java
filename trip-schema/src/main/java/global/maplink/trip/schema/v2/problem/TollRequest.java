@@ -2,6 +2,7 @@ package global.maplink.trip.schema.v2.problem;
 
 import global.maplink.commons.TransponderOperator;
 import global.maplink.toll.schema.Billing;
+import global.maplink.toll.schema.Condition;
 import global.maplink.toll.schema.TollVehicleType;
 import global.maplink.trip.schema.v1.exception.violations.VariableAxlesOverlappingViolation;
 import global.maplink.trip.schema.v1.exception.violations.VariableAxlesSiteIdNotFoundInProblem;
@@ -9,6 +10,7 @@ import global.maplink.validations.Validable;
 import global.maplink.validations.ValidationViolation;
 import lombok.*;
 
+import java.time.Instant;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -33,7 +35,9 @@ public class TollRequest implements Validable {
     private final Set<TransponderOperator> transponderOperators = new HashSet<>(Collections.singletonList(TransponderOperator.SEM_PARAR));
     @Singular
     private final List<LegVariableAxles> variableAxles = Collections.emptyList();
-
+    private final Instant calculationDate;
+    private final Condition condition;
+    
     @Override
     public List<ValidationViolation> validate() {
         List<ValidationViolation> errors = new ArrayList<>();
