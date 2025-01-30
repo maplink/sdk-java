@@ -12,11 +12,11 @@ import static global.maplink.trip.schema.v2.problem.VehicleType.*;
 import static global.maplink.trip.testUtils.ProblemSampleFiles.*;
 import static org.assertj.core.api.Assertions.assertThat;
 
-class TripProblemTest {
+public class TripProblemTest {
     private final JsonMapper mapper = JsonMapper.loadDefault();
 
     @Test
-    void shouldDeserializeWithVehicleType() {
+    public void shouldDeserializeWithVehicleType() {
         TripProblem problem = mapper.fromJson(PROBLEM_WITH_VEHICLE_TYPE.load(), TripProblem.class);
 
         assertThat(problem).isNotNull();
