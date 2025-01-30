@@ -42,9 +42,10 @@ public class TripCalculateRequest extends TripProblem implements MapLinkServiceR
             FreightCalculationRequest freight,
             EmissionRequest emission,
             PlaceRouteRequest place,
+            VehicleType vehicleType,
             OffsetDateTime expireIn
     ) {
-        super(points, calculationMode, restrictionZones, avoidanceTypes, avoidanceBehavior, toll, crossedBorders, freight, emission, place);
+        super(points, calculationMode, restrictionZones, avoidanceTypes, avoidanceBehavior, toll, crossedBorders, freight, emission, place, vehicleType);
         this.expireIn = expireIn;
     }
 

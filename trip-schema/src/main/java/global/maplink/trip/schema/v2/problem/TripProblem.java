@@ -1,5 +1,16 @@
 package global.maplink.trip.schema.v2.problem;
 
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Set;
+
+import static global.maplink.trip.schema.v1.exception.TripErrorType.ROUTE_POINTS_LESS_THAN_TWO;
+import static global.maplink.trip.schema.v1.exception.TripErrorType.VEHICLE_TYPE_WITH_TOLL;
+import static global.maplink.trip.schema.v2.features.avoidance.AvoidanceBehavior.FAIL;
+import static global.maplink.trip.schema.v2.problem.CalculationMode.THE_FASTEST;
+import static java.util.Collections.emptySet;
+import static java.util.Optional.ofNullable;
+
 import global.maplink.emission.schema.EmissionRequest;
 import global.maplink.freight.schema.FreightCalculationRequest;
 import global.maplink.place.schema.PlaceRouteRequest;
@@ -11,15 +22,6 @@ import global.maplink.validations.ValidationViolation;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.ToString;
-
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Set;
-
-import static global.maplink.trip.schema.v2.features.avoidance.AvoidanceBehavior.FAIL;
-import static global.maplink.trip.schema.v2.problem.CalculationMode.THE_FASTEST;
-import static java.util.Collections.emptySet;
-import static java.util.Optional.ofNullable;
 
 @Getter
 @ToString
@@ -36,6 +38,7 @@ public class TripProblem implements Validable {
     protected final FreightCalculationRequest freight;
     protected final EmissionRequest emission;
     protected final PlaceRouteRequest place;
+    protected final VehicleType vehicleType;
 
     public TripProblem(
             List<SitePoint> points,
@@ -47,7 +50,8 @@ public class TripProblem implements Validable {
             CrossedBordersRequest crossedBorders,
             FreightCalculationRequest freight,
             EmissionRequest emission,
-            PlaceRouteRequest place
+            PlaceRouteRequest place,
+            VehicleType vehicleType
     ) {
         this.points = points;
         this.calculationMode = ofNullable(calculationMode).orElse(THE_FASTEST);
@@ -59,6 +63,7 @@ public class TripProblem implements Validable {
         this.freight = freight;
         this.emission = emission;
         this.place = place;
+        this.vehicleType = vehicleType;
     }
 
     public TripProblem() {
@@ -72,16 +77,31 @@ public class TripProblem implements Validable {
         this.freight = null;
         this.emission = null;
         this.place = null;
+        this.vehicleType = null;
     }
 
     @Override
     public List<ValidationViolation> validate() {
         List<ValidationViolation> errors = new LinkedList<>();
-        if (toll != null){
+
+        if (points != null && points.size() < 2) {
+            errors.add(ROUTE_POINTS_LESS_THAN_TWO);
+        }
+
+        if (toll != null) {
             errors.addAll(toll.validate());
             errors.addAll(toll.validateVariableAxles(points));
+
+            if (vehicleType != null) {
+                errors.add(VEHICLE_TYPE_WITH_TOLL);
+            }
         }
+
         return errors;
+    }
+
+    public VehicleType getVehicleTypeOrDefault() {
+        return ofNullable(vehicleType).orElse(VehicleType.TRUCK_WITH_TWO_DOUBLE_AXLES);
     }
 }
 
