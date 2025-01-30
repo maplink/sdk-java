@@ -12,11 +12,11 @@ import static global.maplink.trip.schema.v2.problem.VehicleType.*;
 import static global.maplink.trip.testUtils.ProblemSampleFiles.*;
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class TripProblemTest {
+class TripProblemTest {
     private final JsonMapper mapper = JsonMapper.loadDefault();
 
     @Test
-    public void shouldDeserializeWithVehicleType() {
+    void shouldDeserializeWithVehicleType() {
         TripProblem problem = mapper.fromJson(PROBLEM_WITH_VEHICLE_TYPE.load(), TripProblem.class);
 
         assertThat(problem).isNotNull();
@@ -27,7 +27,7 @@ public class TripProblemTest {
     }
 
     @Test
-    public void shouldValidateWhenVehicleTypeIsValid() {
+    void shouldValidateWhenVehicleTypeIsValid() {
         TripProblem problem = mapper.fromJson(PROBLEM_WITH_VEHICLE_TYPE.load(), TripProblem.class);
 
         List<ValidationViolation> errors = problem.validate();
@@ -36,7 +36,7 @@ public class TripProblemTest {
     }
 
     @Test
-    public void shouldFailValidationWhenBothTollAndVehicleTypeArePresent() {
+    void shouldFailValidationWhenBothTollAndVehicleTypeArePresent() {
         TripProblem problem = mapper.fromJson(PROBLEM_WITH_TOLL_AND_VEHICLE_TYPE.load(), TripProblem.class);
 
         List<ValidationViolation> errors = problem.validate();
@@ -46,7 +46,7 @@ public class TripProblemTest {
     }
 
     @Test
-    public void shouldValidateWithMinimumTwoPoints() {
+    void shouldValidateWithMinimumTwoPoints() {
         TripProblem problem = mapper.fromJson(PROBLEM_WITH_SINGLE_POINT.load(), TripProblem.class);
 
         List<ValidationViolation> errors = problem.validate();
@@ -57,7 +57,7 @@ public class TripProblemTest {
     }
 
     @Test
-    public void shouldCreateEmptyTripProblem() {
+    void shouldCreateEmptyTripProblem() {
         TripProblem problem = new TripProblem();
 
         assertThat(problem.getVehicleType()).isNull();
