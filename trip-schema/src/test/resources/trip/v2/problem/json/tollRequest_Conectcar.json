@@ -1,5 +1,10 @@
 {
   "vehicleType": "TRUCK_WITH_TWO_SINGLE_AXIS",
   "billing": "FREE_FLOW",
-  "transponderOperators": ["CONECTCAR"]
+  "transponderOperators": ["CONECTCAR"],
+  "calculationDate": 1710769071000,
+  "condition": {
+    "billingType": "TAG",
+    "period": "NORMAL"
+  }
 }

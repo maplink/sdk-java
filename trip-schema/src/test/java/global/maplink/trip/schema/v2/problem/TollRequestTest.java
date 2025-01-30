@@ -2,6 +2,8 @@ package global.maplink.trip.schema.v2.problem;
 
 import global.maplink.json.JsonMapper;
 import global.maplink.toll.schema.Billing;
+import global.maplink.toll.schema.TollConditionBillingType;
+import global.maplink.toll.schema.TollConditionPeriod;
 import global.maplink.toll.schema.TollVehicleType;
 import global.maplink.trip.schema.v1.exception.TripErrorType;
 import lombok.val;
@@ -23,9 +25,12 @@ public class TollRequestTest {
     @Test
     public void shouldDeserialize() {
         TollRequest tollRequest = mapper.fromJson(TOLL_REQUEST_CONECTCAR.load(), TollRequest.class);
-        assertEquals(TollVehicleType.TRUCK_WITH_TWO_SINGLE_AXIS, tollRequest.getVehicleType());
-        assertEquals(Billing.FREE_FLOW, tollRequest.getBilling());
-        assertEquals(new HashSet<>(Collections.singletonList(CONECTCAR)), tollRequest.getTransponderOperators());
+        assertThat(tollRequest.getVehicleType()).isEqualTo(TollVehicleType.TRUCK_WITH_TWO_SINGLE_AXIS);
+        assertThat(tollRequest.getBilling()).isEqualTo(Billing.FREE_FLOW);
+        assertThat(tollRequest.getTransponderOperators()).contains(CONECTCAR);
+        assertThat(tollRequest.getCalculationDate()).isEqualTo("2024-03-18T13:37:51Z");
+        assertThat(tollRequest.getCondition().getBillingType()).isEqualTo(TollConditionBillingType.TAG);
+        assertThat(tollRequest.getCondition().getPeriod()).isEqualTo(TollConditionPeriod.NORMAL);
     }
 
     @Test
