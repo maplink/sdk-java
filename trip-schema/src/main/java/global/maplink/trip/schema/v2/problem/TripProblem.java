@@ -22,6 +22,7 @@ import static global.maplink.trip.schema.v1.exception.TripErrorType.ROUTE_POINTS
 import static global.maplink.trip.schema.v1.exception.TripErrorType.VEHICLE_TYPE_WITH_TOLL;
 import static global.maplink.trip.schema.v2.features.avoidance.AvoidanceBehavior.FAIL;
 import static global.maplink.trip.schema.v2.problem.CalculationMode.THE_FASTEST;
+import static global.maplink.trip.schema.v2.problem.VehicleType.*;
 import static java.util.Collections.emptyList;
 import static java.util.Collections.emptySet;
 import static java.util.Optional.ofNullable;
@@ -115,7 +116,7 @@ public class TripProblem implements Validable {
     }
 
     public VehicleType getVehicleTypeOrDefault() {
-        return ofNullable(vehicleType).orElse(VehicleType.TRUCK_WITH_TWO_DOUBLE_AXLES);
+        return ofNullable(vehicleType).orElse(TRUCK_WITH_TWO_DOUBLE_AXLES);
     }
 }
 
