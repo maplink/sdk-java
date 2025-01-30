@@ -24,7 +24,7 @@ public enum TripErrorType implements ValidationViolation {
     TRIP_PROFILE_NOT_FOUND("Trip profile does not exist"),
     TURN_BY_TURN_LANGUAGE_NOT_FOUND("TurnByTurn language cannot be null"),
     INVALID_VEHICLE_TYPE("vehicleType does not have a valid value. Possible values are: [CAR, MOTORCYCLE, SMALL_TRUCK, TRUCK, FOOT, BIKE]"),
-    VEHICLE_TYPE_WITH_TOLL("Cannot use vehicleType when toll is present");
+    VEHICLE_TYPE_WITH_TOLL("vehicleType cannot be set more than once");
 
     private final String message;
 }

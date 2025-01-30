@@ -42,7 +42,7 @@ class TripProblemTest {
         List<ValidationViolation> errors = problem.validate();
 
         assertThat(errors).hasSize(1);
-        assertThat(errors.get(0).getMessage()).isEqualTo("Cannot use vehicleType when toll is present");
+        assertThat(errors.get(0).getMessage()).isEqualTo("vehicleType cannot be set more than once");
     }
 
     @Test
