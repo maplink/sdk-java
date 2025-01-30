@@ -5,6 +5,7 @@ import java.util.stream.Collectors;
 
 public enum VehicleType {
     CAR,
+    MOTORCYCLE,
     CAR_WITH_THREE_SIMPLE_AXLES,
     CAR_WITH_FOUR_SIMPLE_AXLES,
     TRUCK_WITH_TWO_SINGLE_AXIS,
