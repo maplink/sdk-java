@@ -18,6 +18,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
+import static global.maplink.trip.schema.v1.exception.TripErrorType.ROUTE_POINTS_LESS_THAN_TWO;
+import static global.maplink.trip.schema.v1.exception.TripErrorType.VEHICLE_TYPE_WITH_TOLL;
 import static global.maplink.trip.schema.v2.features.avoidance.AvoidanceBehavior.FAIL;
 import static global.maplink.trip.schema.v2.problem.CalculationMode.THE_FASTEST;
 import static java.util.Collections.emptyList;
@@ -41,6 +43,7 @@ public class TripProblem implements Validable {
     protected final EmissionRequest emission;
     protected final PlaceRouteRequest place;
     protected final TurnByTurnRequest turnByTurn;
+    protected final VehicleType vehicleType;
 
     public TripProblem(
             List<SitePoint> points,
@@ -54,7 +57,8 @@ public class TripProblem implements Validable {
             FreightCalculationRequest freight,
             EmissionRequest emission,
             PlaceRouteRequest place,
-            TurnByTurnRequest turnByTurn
+            TurnByTurnRequest turnByTurn,
+            VehicleType vehicleType
     ) {
         this.points = points;
         this.calculationMode = ofNullable(calculationMode).orElse(THE_FASTEST);
@@ -68,6 +72,7 @@ public class TripProblem implements Validable {
         this.emission = emission;
         this.place = place;
         this.turnByTurn = turnByTurn;
+        this.vehicleType = vehicleType;
     }
 
     public TripProblem() {
@@ -83,19 +88,34 @@ public class TripProblem implements Validable {
         this.emission = null;
         this.place = null;
         this.turnByTurn = null;
+        this.vehicleType = null;
     }
 
     @Override
     public List<ValidationViolation> validate() {
         List<ValidationViolation> errors = new LinkedList<>();
+
+        if (points != null && points.size() < 2) {
+            errors.add(ROUTE_POINTS_LESS_THAN_TWO);
+        }
+
         if (toll != null) {
             errors.addAll(toll.validate());
             errors.addAll(toll.validateVariableAxles(points));
+
+            if (vehicleType != null) {
+                errors.add(VEHICLE_TYPE_WITH_TOLL);
+            }
         }
+
         if (turnByTurn != null) {
             errors.addAll(turnByTurn.validate());
         }
         return errors;
+    }
+
+    public VehicleType getVehicleTypeOrDefault() {
+        return ofNullable(vehicleType).orElse(VehicleType.TRUCK_WITH_TWO_DOUBLE_AXLES);
     }
 }
 

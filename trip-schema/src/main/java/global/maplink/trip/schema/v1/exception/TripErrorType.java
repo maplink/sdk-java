@@ -22,7 +22,9 @@ public enum TripErrorType implements ValidationViolation {
     ROAD_TYPE_ELEMENTS_EMPTY("SpeedPreferences should contain one element for each roadType"),
     VEHICLE_SPECIFICATION_CONTAINS_NEGATIVE_VALUE("VehicleSpecification should not contain any measure with a negative value"),
     TRIP_PROFILE_NOT_FOUND("Trip profile does not exist"),
-    TURN_BY_TURN_LANGUAGE_NOT_FOUND("TurnByTurn language cannot be null");
+    TURN_BY_TURN_LANGUAGE_NOT_FOUND("TurnByTurn language cannot be null"),
+    INVALID_VEHICLE_TYPE("vehicleType does not have a valid value. Possible values are: [CAR, MOTORCYCLE, SMALL_TRUCK, TRUCK, FOOT, BIKE]"),
+    VEHICLE_TYPE_WITH_TOLL("Cannot use vehicleType when toll is present");
 
     private final String message;
 }

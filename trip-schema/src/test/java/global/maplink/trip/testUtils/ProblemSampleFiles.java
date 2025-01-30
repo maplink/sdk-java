@@ -22,7 +22,10 @@ public enum ProblemSampleFiles {
     PROBLEM_VARIABLE_AXLES_OVERLAPPING_ENDING_ON_MIDDLE("trip/v2/problem/json/problem_VariableAxles_Overlapping_Ending_on_Middle.json"),
     PROBLEM_VARIABLE_AXLES_OVERLAPPING_MIDDLE("trip/v2/problem/json/problem_VariableAxles_Overlapping_Middle.json"),
     TRIP_REQUEST_THE_SHORTEST("trip/v2/problem/json/tripRequestCalculationModeTheShortest.json"),
-    TRIP_REQUEST_WITH_TURN_BY_TURN("trip/v2/problem/json/tripRequestCalculationWithTurnByTurn.json");
+    TRIP_REQUEST_WITH_TURN_BY_TURN("trip/v2/problem/json/tripRequestCalculationWithTurnByTurn.json"),
+    PROBLEM_WITH_VEHICLE_TYPE("trip/v2/problem/json/problem_with_vehicle_type.json"),
+    PROBLEM_WITH_TOLL_AND_VEHICLE_TYPE("trip/v2/problem/json/problem_with_toll_and_vehicle_type.json"),
+    PROBLEM_WITH_SINGLE_POINT("trip/v2/problem/json/problem_with_single_point.json");
 
 
     private final String filePath;
