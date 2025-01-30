@@ -3,6 +3,7 @@ package global.maplink.trip.schema.v2.problem;
 import global.maplink.emission.schema.EmissionRequest;
 import global.maplink.freight.schema.FreightCalculationRequest;
 import global.maplink.place.schema.PlaceRouteRequest;
+import global.maplink.toll.schema.TollVehicleType;
 import global.maplink.trip.schema.v1.payload.AvoidanceType;
 import global.maplink.trip.schema.v1.payload.SpeedPreference;
 import global.maplink.trip.schema.v2.features.avoidance.AvoidanceBehavior;
@@ -101,12 +102,15 @@ public class TripProblem implements Validable {
         }
 
         if (toll != null) {
-            errors.addAll(toll.validate());
-            errors.addAll(toll.validateVariableAxles(points));
-
-            if (vehicleType != null) {
+            if (vehicleType != null && toll.getVehicleType() != null) {
                 errors.add(VEHICLE_TYPE_WITH_TOLL);
             }
+            else if (vehicleType != null) {
+                toll.setVehicleType(TollVehicleType.valueOf(vehicleType.name()));
+            }
+
+            errors.addAll(toll.validate());
+            errors.addAll(toll.validateVariableAxles(points));
         }
 
         if (turnByTurn != null) {

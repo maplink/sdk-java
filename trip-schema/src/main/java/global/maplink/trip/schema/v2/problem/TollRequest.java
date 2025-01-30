@@ -18,7 +18,7 @@ import static lombok.AccessLevel.PRIVATE;
 
 @Data
 @Builder
-@RequiredArgsConstructor
+@AllArgsConstructor
 @NoArgsConstructor(force = true, access = PRIVATE)
 public class TollRequest implements Validable {
     private static final String SITE_NOT_USED = "site not used";
@@ -26,7 +26,7 @@ public class TollRequest implements Validable {
     private static final String SITE_USED_AS_TO_SITE_ID = "site used as toSiteId";
     private static final String SITE_USED_AS_MIDDLE_SITE = "site used as middle site";
 
-    private final TollVehicleType vehicleType;
+    private TollVehicleType vehicleType;
     @Builder.Default
     private final Billing billing = Billing.DEFAULT;
     @Builder.Default
@@ -43,10 +43,10 @@ public class TollRequest implements Validable {
         return errors;
     }
 
-    public List<ValidationViolation> validateVariableAxles(final List<SitePoint> sites){
+    public List<ValidationViolation> validateVariableAxles(final List<SitePoint> sites) {
         List<ValidationViolation> errors = new ArrayList<>();
 
-        if (variableAxles == null || sites.isEmpty()) {
+        if (sites.isEmpty()) {
             return errors;
         }
 
@@ -64,7 +64,7 @@ public class TollRequest implements Validable {
                 return errors;
             }
 
-            if (newVehicleType == null){
+            if (newVehicleType == null) {
                 errors.add(MISSING_NEW_VEHICLE_TYPE);
                 return errors;
             }
@@ -84,7 +84,7 @@ public class TollRequest implements Validable {
                 return errors;
             }
 
-            if (isToSiteIdBeforeFromSiteId(fromSiteId, toSiteId, problemSites)){
+            if (isToSiteIdBeforeFromSiteId(fromSiteId, toSiteId, problemSites)) {
                 errors.add(TOSITEID_BEFORE_FROMSITEID);
                 return errors;
             }
@@ -105,15 +105,14 @@ public class TollRequest implements Validable {
         return errors;
     }
 
-    private boolean isToSiteIdBeforeFromSiteId(String fromSiteId, String toSiteId, List<String> problemSites){
+    private boolean isToSiteIdBeforeFromSiteId(String fromSiteId, String toSiteId, List<String> problemSites) {
         int fromSiteIdIndex = problemSites.indexOf(fromSiteId);
         int toSiteIdIndex = problemSites.indexOf(toSiteId);
 
-        return  toSiteIdIndex < fromSiteIdIndex;
+        return toSiteIdIndex < fromSiteIdIndex;
     }
 
     private List<String> getProblemSites(final List<SitePoint> sites) {
-
         return sites.stream()
                 .filter(Objects::nonNull)
                 .map(SitePoint::getSiteId)
@@ -162,5 +161,4 @@ public class TollRequest implements Validable {
         }
         return false;
     }
-
 }
