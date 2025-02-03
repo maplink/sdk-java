@@ -1,9 +1,20 @@
 package global.maplink.trip.schema.v2.problem;
 
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Set;
+
+import static global.maplink.trip.schema.v1.exception.TripErrorType.ROUTE_POINTS_LESS_THAN_TWO;
+import static global.maplink.trip.schema.v2.features.avoidance.AvoidanceBehavior.FAIL;
+import static global.maplink.trip.schema.v2.problem.CalculationMode.THE_FASTEST;
+import static global.maplink.trip.schema.v2.problem.VehicleType.TRUCK_WITH_TWO_DOUBLE_AXLES;
+import static java.util.Collections.emptyList;
+import static java.util.Collections.emptySet;
+import static java.util.Optional.ofNullable;
+
 import global.maplink.emission.schema.EmissionRequest;
 import global.maplink.freight.schema.FreightCalculationRequest;
 import global.maplink.place.schema.PlaceRouteRequest;
-import global.maplink.toll.schema.TollVehicleType;
 import global.maplink.trip.schema.v1.payload.AvoidanceType;
 import global.maplink.trip.schema.v1.payload.SpeedPreference;
 import global.maplink.trip.schema.v2.features.avoidance.AvoidanceBehavior;
@@ -14,19 +25,6 @@ import global.maplink.validations.ValidationViolation;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.ToString;
-
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Set;
-
-import static global.maplink.trip.schema.v1.exception.TripErrorType.ROUTE_POINTS_LESS_THAN_TWO;
-import static global.maplink.trip.schema.v1.exception.TripErrorType.VEHICLE_TYPE_WITH_TOLL;
-import static global.maplink.trip.schema.v2.features.avoidance.AvoidanceBehavior.FAIL;
-import static global.maplink.trip.schema.v2.problem.CalculationMode.THE_FASTEST;
-import static global.maplink.trip.schema.v2.problem.VehicleType.*;
-import static java.util.Collections.emptyList;
-import static java.util.Collections.emptySet;
-import static java.util.Optional.ofNullable;
 
 @Getter
 @ToString
