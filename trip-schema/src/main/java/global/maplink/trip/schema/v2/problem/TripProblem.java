@@ -1,5 +1,17 @@
 package global.maplink.trip.schema.v2.problem;
 
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Set;
+
+import static global.maplink.trip.schema.v1.exception.TripErrorType.ROUTE_POINTS_LESS_THAN_TWO;
+import static global.maplink.trip.schema.v2.features.avoidance.AvoidanceBehavior.FAIL;
+import static global.maplink.trip.schema.v2.problem.CalculationMode.THE_FASTEST;
+import static global.maplink.trip.schema.v2.problem.VehicleType.TRUCK_WITH_TWO_DOUBLE_AXLES;
+import static java.util.Collections.emptyList;
+import static java.util.Collections.emptySet;
+import static java.util.Optional.ofNullable;
+
 import global.maplink.emission.schema.EmissionRequest;
 import global.maplink.freight.schema.FreightCalculationRequest;
 import global.maplink.place.schema.PlaceRouteRequest;
@@ -13,16 +25,6 @@ import global.maplink.validations.ValidationViolation;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.ToString;
-
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Set;
-
-import static global.maplink.trip.schema.v2.features.avoidance.AvoidanceBehavior.FAIL;
-import static global.maplink.trip.schema.v2.problem.CalculationMode.THE_FASTEST;
-import static java.util.Collections.emptyList;
-import static java.util.Collections.emptySet;
-import static java.util.Optional.ofNullable;
 
 @Getter
 @ToString
@@ -41,6 +43,7 @@ public class TripProblem implements Validable {
     protected final EmissionRequest emission;
     protected final PlaceRouteRequest place;
     protected final TurnByTurnRequest turnByTurn;
+    protected final VehicleType vehicleType;
 
     public TripProblem(
             List<SitePoint> points,
@@ -54,7 +57,8 @@ public class TripProblem implements Validable {
             FreightCalculationRequest freight,
             EmissionRequest emission,
             PlaceRouteRequest place,
-            TurnByTurnRequest turnByTurn
+            TurnByTurnRequest turnByTurn,
+            VehicleType vehicleType
     ) {
         this.points = points;
         this.calculationMode = ofNullable(calculationMode).orElse(THE_FASTEST);
@@ -68,6 +72,7 @@ public class TripProblem implements Validable {
         this.emission = emission;
         this.place = place;
         this.turnByTurn = turnByTurn;
+        this.vehicleType = vehicleType;
     }
 
     public TripProblem() {
@@ -83,19 +88,27 @@ public class TripProblem implements Validable {
         this.emission = null;
         this.place = null;
         this.turnByTurn = null;
+        this.vehicleType = TRUCK_WITH_TWO_DOUBLE_AXLES;
     }
 
     @Override
     public List<ValidationViolation> validate() {
         List<ValidationViolation> errors = new LinkedList<>();
+
+        if (points != null && points.size() < 2) {
+            errors.add(ROUTE_POINTS_LESS_THAN_TWO);
+        }
+
         if (toll != null) {
             errors.addAll(toll.validate());
             errors.addAll(toll.validateVariableAxles(points));
         }
+
         if (turnByTurn != null) {
             errors.addAll(turnByTurn.validate());
         }
         return errors;
     }
+
 }
 

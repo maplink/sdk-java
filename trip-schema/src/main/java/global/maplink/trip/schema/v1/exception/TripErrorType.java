@@ -1,5 +1,6 @@
 package global.maplink.trip.schema.v1.exception;
 
+import global.maplink.trip.schema.v2.problem.VehicleType;
 import global.maplink.validations.ValidationViolation;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -22,7 +23,9 @@ public enum TripErrorType implements ValidationViolation {
     ROAD_TYPE_ELEMENTS_EMPTY("SpeedPreferences should contain one element for each roadType"),
     VEHICLE_SPECIFICATION_CONTAINS_NEGATIVE_VALUE("VehicleSpecification should not contain any measure with a negative value"),
     TRIP_PROFILE_NOT_FOUND("Trip profile does not exist"),
-    TURN_BY_TURN_LANGUAGE_NOT_FOUND("TurnByTurn language cannot be null");
+    TURN_BY_TURN_LANGUAGE_NOT_FOUND("TurnByTurn language cannot be null"),
+    INVALID_VEHICLE_TYPE("vehicleType does not have a valid value. Possible values are: [" + VehicleType.getAllowedValues() + "]"),
+    VEHICLE_TYPE_WITH_TOLL("vehicleType cannot be set more than once");
 
     private final String message;
 }
