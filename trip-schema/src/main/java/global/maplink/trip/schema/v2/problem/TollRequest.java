@@ -18,7 +18,7 @@ import static lombok.AccessLevel.PRIVATE;
 
 @Data
 @Builder
-@AllArgsConstructor
+@RequiredArgsConstructor
 @NoArgsConstructor(force = true, access = PRIVATE)
 public class TollRequest implements Validable {
     private static final String SITE_NOT_USED = "site not used";
@@ -26,7 +26,7 @@ public class TollRequest implements Validable {
     private static final String SITE_USED_AS_TO_SITE_ID = "site used as toSiteId";
     private static final String SITE_USED_AS_MIDDLE_SITE = "site used as middle site";
 
-    private TollVehicleType vehicleType;
+    private final TollVehicleType vehicleType;
     @Builder.Default
     private final Billing billing = Billing.DEFAULT;
     @Builder.Default
@@ -46,7 +46,7 @@ public class TollRequest implements Validable {
     public List<ValidationViolation> validateVariableAxles(final List<SitePoint> sites) {
         List<ValidationViolation> errors = new ArrayList<>();
 
-        if (sites.isEmpty()) {
+        if (variableAxles == null || sites.isEmpty()) {
             return errors;
         }
 

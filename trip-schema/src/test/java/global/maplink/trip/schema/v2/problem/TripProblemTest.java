@@ -36,16 +36,6 @@ class TripProblemTest {
     }
 
     @Test
-    void shouldFailValidationWhenBothTollAndVehicleTypeArePresent() {
-        TripProblem problem = mapper.fromJson(PROBLEM_WITH_TOLL_AND_VEHICLE_TYPE.load(), TripProblem.class);
-
-        List<ValidationViolation> errors = problem.validate();
-
-        assertThat(errors).hasSize(1);
-        assertThat(errors.get(0).getMessage()).isEqualTo("vehicleType cannot be set more than once");
-    }
-
-    @Test
     void shouldValidateWithMinimumTwoPoints() {
         TripProblem problem = mapper.fromJson(PROBLEM_WITH_SINGLE_POINT.load(), TripProblem.class);
 
@@ -60,7 +50,7 @@ class TripProblemTest {
     void shouldCreateEmptyTripProblem() {
         TripProblem problem = new TripProblem();
 
-        assertThat(problem.getVehicleType()).isNull();
+        assertThat(problem.getVehicleType()).isEqualTo(TRUCK_WITH_TWO_DOUBLE_AXLES);
         assertThat(problem.getToll()).isNull();
         assertThat(problem.getPoints()).isNull();
         assertThat(problem.getCalculationMode()).isEqualTo(THE_FASTEST);

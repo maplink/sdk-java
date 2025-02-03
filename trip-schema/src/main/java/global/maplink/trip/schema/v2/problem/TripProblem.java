@@ -90,7 +90,7 @@ public class TripProblem implements Validable {
         this.emission = null;
         this.place = null;
         this.turnByTurn = null;
-        this.vehicleType = null;
+        this.vehicleType = TRUCK_WITH_TWO_DOUBLE_AXLES;
     }
 
     @Override
@@ -102,13 +102,6 @@ public class TripProblem implements Validable {
         }
 
         if (toll != null) {
-            if (vehicleType != null && toll.getVehicleType() != null) {
-                errors.add(VEHICLE_TYPE_WITH_TOLL);
-            }
-            else if (vehicleType != null) {
-                toll.setVehicleType(TollVehicleType.valueOf(vehicleType.name()));
-            }
-
             errors.addAll(toll.validate());
             errors.addAll(toll.validateVariableAxles(points));
         }
@@ -119,8 +112,5 @@ public class TripProblem implements Validable {
         return errors;
     }
 
-    public VehicleType getVehicleTypeOrDefault() {
-        return ofNullable(vehicleType).orElse(TRUCK_WITH_TWO_DOUBLE_AXLES);
-    }
 }
 
