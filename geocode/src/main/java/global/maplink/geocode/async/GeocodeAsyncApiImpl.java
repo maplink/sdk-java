@@ -2,20 +2,20 @@ package global.maplink.geocode.async;
 
 import global.maplink.MapLinkServiceRequestAsyncRunner;
 import global.maplink.geocode.extensions.GeocodeExtensionManager;
-import global.maplink.geocode.schema.GeocodeSplittableRequest;
-import global.maplink.geocode.schema.cities.CitiesByStateRequest;
-import global.maplink.geocode.schema.crossCities.CrossCitiesRequest;
-import global.maplink.geocode.schema.reverse.ReverseRequest;
-import global.maplink.geocode.schema.structured.StructuredRequest;
-import global.maplink.geocode.schema.suggestions.SuggestionsRequest;
-import global.maplink.geocode.schema.suggestions.SuggestionsResult;
+import global.maplink.geocode.schema.v1.GeocodeSplittableRequest;
+import global.maplink.geocode.schema.v1.cities.CitiesByStateRequest;
+import global.maplink.geocode.schema.v1.crossCities.CrossCitiesRequest;
+import global.maplink.geocode.schema.v1.reverse.ReverseRequest;
+import global.maplink.geocode.schema.v1.structured.StructuredRequest;
+import global.maplink.geocode.schema.v1.suggestions.SuggestionsRequest;
+import global.maplink.geocode.schema.v1.suggestions.SuggestionsResult;
 import global.maplink.helpers.FutureHelper;
 import lombok.RequiredArgsConstructor;
 import lombok.val;
 
 import java.util.concurrent.CompletableFuture;
 
-import static global.maplink.geocode.schema.suggestions.SuggestionsResult.EMPTY;
+import static global.maplink.geocode.schema.v1.suggestions.SuggestionsResult.EMPTY;
 import static java.util.stream.Collectors.toList;
 import static lombok.AccessLevel.PACKAGE;
 

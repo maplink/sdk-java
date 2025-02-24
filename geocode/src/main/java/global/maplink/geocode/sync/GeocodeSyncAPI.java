@@ -2,13 +2,13 @@ package global.maplink.geocode.sync;
 
 import global.maplink.env.Environment;
 import global.maplink.geocode.async.GeocodeAsyncAPI;
-import global.maplink.geocode.schema.Type;
-import global.maplink.geocode.schema.cities.CitiesByStateRequest;
-import global.maplink.geocode.schema.crossCities.CrossCitiesRequest;
-import global.maplink.geocode.schema.reverse.ReverseRequest;
-import global.maplink.geocode.schema.structured.StructuredRequest;
-import global.maplink.geocode.schema.suggestions.SuggestionsRequest;
-import global.maplink.geocode.schema.suggestions.SuggestionsResult;
+import global.maplink.geocode.schema.v1.Type;
+import global.maplink.geocode.schema.v1.cities.CitiesByStateRequest;
+import global.maplink.geocode.schema.v1.crossCities.CrossCitiesRequest;
+import global.maplink.geocode.schema.v1.reverse.ReverseRequest;
+import global.maplink.geocode.schema.v1.structured.StructuredRequest;
+import global.maplink.geocode.schema.v1.suggestions.SuggestionsRequest;
+import global.maplink.geocode.schema.v1.suggestions.SuggestionsResult;
 
 import java.util.List;
 

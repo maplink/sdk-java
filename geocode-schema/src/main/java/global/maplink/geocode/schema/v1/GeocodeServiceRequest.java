@@ -1,0 +1,17 @@
+package global.maplink.geocode.schema.v1;
+
+import global.maplink.MapLinkServiceRequest;
+import global.maplink.geocode.schema.v1.suggestions.SuggestionsResult;
+import global.maplink.http.Response;
+import global.maplink.json.JsonMapper;
+
+import java.util.function.Function;
+
+public interface GeocodeServiceRequest extends MapLinkServiceRequest<SuggestionsResult> {
+
+    @Override
+    default Function<Response, SuggestionsResult> getResponseParser(JsonMapper mapper) {
+        return r -> r.parseBodyObject(mapper, SuggestionsResult.class);
+    }
+
+}

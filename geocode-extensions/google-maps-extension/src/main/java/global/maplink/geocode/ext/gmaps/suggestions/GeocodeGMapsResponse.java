@@ -1,6 +1,6 @@
 package global.maplink.geocode.ext.gmaps.suggestions;
 
-import global.maplink.geocode.schema.suggestions.SuggestionsResult;
+import global.maplink.geocode.schema.v1.suggestions.SuggestionsResult;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
