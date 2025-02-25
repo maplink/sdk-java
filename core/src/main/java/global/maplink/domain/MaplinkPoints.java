@@ -1,6 +1,7 @@
 package global.maplink.domain;
 
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import lombok.ToString;
 
@@ -13,6 +14,7 @@ import static java.lang.Math.floor;
 import static java.lang.Math.max;
 import static java.util.stream.IntStream.range;
 
+@NoArgsConstructor(force = true)
 @RequiredArgsConstructor
 @EqualsAndHashCode
 @ToString
