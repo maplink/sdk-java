@@ -2,7 +2,7 @@ package global.maplink.geocode.schema.v2.reverse;
 
 
 import global.maplink.env.Environment;
-import global.maplink.geocode.schema.v1.GeocodeSplittableRequest;
+import global.maplink.geocode.schema.GeocodeSplittableRequest;
 import global.maplink.http.request.Request;
 import global.maplink.http.request.RequestBody;
 import global.maplink.json.JsonMapper;
@@ -24,19 +24,20 @@ import static java.util.stream.Collectors.toList;
 @EqualsAndHashCode
 @RequiredArgsConstructor(staticName = "of")
 public class ReverseBaseRequest implements GeocodeSplittableRequest {
-    private static final int ENTRY_LIMIT = 200;
+    public static final int ENTRY_LIMIT = 200;
+    public static final String PATH = "geocode/v1/reverse";
 
     @Singular
     private final List<Entry> entries;
 
     @Override
     public List<ReverseBaseRequest> split() {
-        if (entries.size() < ENTRY_LIMIT) {
+        if (entries.size() < entryLimit()) {
             return singletonList(this);
         }
-        val parts = (entries.size() / ENTRY_LIMIT) + 1;
+        val parts = (entries.size() / entryLimit()) + 1;
         return IntStream.range(0, parts)
-                .map(i -> i * ENTRY_LIMIT)
+                .map(i -> i * entryLimit())
                 .mapToObj(i -> entries.subList(i, min(i + 200, entries.size())))
                 .map(ReverseBaseRequest::new)
                 .collect(toList());
@@ -81,13 +82,17 @@ public class ReverseBaseRequest implements GeocodeSplittableRequest {
     @Override
     public Request asHttpRequest(Environment environment, JsonMapper mapper) {
         return post(
-                environment.withService(getPath()),
+                environment.withService(path()),
                 RequestBody.Json.of(entries, mapper)
         );
     }
 
-    protected String getPath() {
-        return "geocode/v2/reverse";
+    protected int entryLimit() {
+        return ENTRY_LIMIT;
+    }
+
+    protected String path() {
+        return PATH;
     }
 
     @Builder

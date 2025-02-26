@@ -8,7 +8,9 @@ import global.maplink.geocode.schema.v1.crossCities.CrossCitiesRequest;
 import global.maplink.geocode.schema.v1.reverse.ReverseRequest;
 import global.maplink.geocode.schema.v1.structured.StructuredRequest;
 import global.maplink.geocode.schema.v1.suggestions.SuggestionsRequest;
-import global.maplink.geocode.schema.v1.suggestions.SuggestionsResult;
+import global.maplink.geocode.schema.v2.reverse.ReverseBaseRequest;
+import global.maplink.geocode.schema.v2.suggestions.SuggestionsBaseRequest;
+import global.maplink.geocode.schema.v2.suggestions.SuggestionsResult;
 import lombok.val;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -16,7 +18,7 @@ import org.junit.jupiter.api.Test;
 
 import static global.maplink.geocode.common.Defaults.DEFAULT_CLIENT_ID;
 import static global.maplink.geocode.common.Defaults.DEFAULT_SECRET;
-import static global.maplink.geocode.schema.v1.Type.ZIPCODE;
+import static global.maplink.geocode.schema.v1.TypeVersionOne.ZIPCODE;
 import static global.maplink.geocode.schema.v1.crossCities.CrossCitiesRequest.point;
 import static global.maplink.geocode.schema.v1.reverse.ReverseRequest.entry;
 import static java.math.BigDecimal.ZERO;
@@ -64,7 +66,7 @@ public class GeocodeSyncApiTest {
         val async = mock(GeocodeAsyncAPI.class);
         when(async.suggestions(any(String.class))).thenCallRealMethod();
         when(async.suggestions(any(), any())).thenCallRealMethod();
-        when(async.suggestions(any(SuggestionsRequest.class))).thenReturn(completedFuture(new SuggestionsResult()));
+        when(async.suggestions(any(SuggestionsBaseRequest.class))).thenReturn(completedFuture(new SuggestionsResult()));
         val sync = new GeocodeSyncApiImpl(async);
         val result1 = sync.suggestions(SOMETHING);
         val result2 = sync.suggestions(SOMETHING, ZIPCODE);
@@ -72,7 +74,8 @@ public class GeocodeSyncApiTest {
                 .query(SOMETHING)
                 .build());
         assertThat(asList(result1, result2, result3)).doesNotContainNull();
-        verify(async, times(3)).suggestions(any(SuggestionsRequest.class));
+        verify(async, times(1)).suggestions(any(SuggestionsRequest.class));
+        verify(async, times(3)).suggestions(any(SuggestionsBaseRequest.class));
     }
 
     @Test
@@ -95,7 +98,7 @@ public class GeocodeSyncApiTest {
         val async = mock(GeocodeAsyncAPI.class);
         when(async.reverse(any(ReverseRequest.Entry[].class))).thenCallRealMethod();
         when(async.reverse(anyList())).thenCallRealMethod();
-        when(async.reverse(any(ReverseRequest.class))).thenReturn(completedFuture(new SuggestionsResult()));
+        when(async.reverse(any(ReverseBaseRequest.class))).thenReturn(completedFuture(new SuggestionsResult()));
         val sync = new GeocodeSyncApiImpl(async);
         val result1 = sync.reverse(entry(1, 1), entry("teste", ZERO, ZERO));
         val result2 = sync.reverse(ReverseRequest.builder()
@@ -104,7 +107,8 @@ public class GeocodeSyncApiTest {
                 .build()
         );
         assertThat(asList(result1, result2)).doesNotContainNull();
-        verify(async, times(2)).reverse(any(ReverseRequest.class));
+        verify(async, times(1)).reverse(any(ReverseRequest.class));
+        verify(async, times(2)).reverse(any(ReverseBaseRequest.class));
     }
 
     @Test

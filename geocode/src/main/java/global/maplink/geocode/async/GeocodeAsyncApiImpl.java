@@ -2,20 +2,20 @@ package global.maplink.geocode.async;
 
 import global.maplink.MapLinkServiceRequestAsyncRunner;
 import global.maplink.geocode.extensions.GeocodeExtensionManager;
-import global.maplink.geocode.schema.v1.GeocodeSplittableRequest;
+import global.maplink.geocode.schema.GeocodeSplittableRequest;
 import global.maplink.geocode.schema.v1.cities.CitiesByStateRequest;
 import global.maplink.geocode.schema.v1.crossCities.CrossCitiesRequest;
-import global.maplink.geocode.schema.v1.reverse.ReverseRequest;
-import global.maplink.geocode.schema.v1.structured.StructuredRequest;
-import global.maplink.geocode.schema.v1.suggestions.SuggestionsRequest;
-import global.maplink.geocode.schema.v1.suggestions.SuggestionsResult;
+import global.maplink.geocode.schema.v2.reverse.ReverseBaseRequest;
+import global.maplink.geocode.schema.v2.structured.StructuredBaseRequest;
+import global.maplink.geocode.schema.v2.suggestions.SuggestionsBaseRequest;
+import global.maplink.geocode.schema.v2.suggestions.SuggestionsResult;
 import global.maplink.helpers.FutureHelper;
 import lombok.RequiredArgsConstructor;
 import lombok.val;
 
 import java.util.concurrent.CompletableFuture;
 
-import static global.maplink.geocode.schema.v1.suggestions.SuggestionsResult.EMPTY;
+import static global.maplink.geocode.schema.v2.suggestions.SuggestionsResult.EMPTY;
 import static java.util.stream.Collectors.toList;
 import static lombok.AccessLevel.PACKAGE;
 
@@ -27,13 +27,13 @@ public class GeocodeAsyncApiImpl implements GeocodeAsyncAPI {
     private final GeocodeExtensionManager extensionManager;
 
     @Override
-    public CompletableFuture<SuggestionsResult> suggestions(SuggestionsRequest request) {
-        return extensionManager.get(SuggestionsRequest.class).doRequest(request, runner::run);
+    public CompletableFuture<SuggestionsResult> suggestions(SuggestionsBaseRequest request) {
+        return extensionManager.get(SuggestionsBaseRequest.class).doRequest(request, runner::run);
     }
 
     @Override
-    public CompletableFuture<SuggestionsResult> structured(StructuredRequest request) {
-        return extensionManager.get(StructuredRequest.class).doRequest(request, runner::run);
+    public CompletableFuture<SuggestionsResult> structured(StructuredBaseRequest request) {
+        return extensionManager.get(StructuredBaseRequest.class).doRequest(request, runner::run);
     }
 
     @Override
@@ -42,8 +42,8 @@ public class GeocodeAsyncApiImpl implements GeocodeAsyncAPI {
     }
 
     @Override
-    public CompletableFuture<SuggestionsResult> reverse(ReverseRequest request) {
-        return extensionManager.get(ReverseRequest.class).doRequest(request, this::runSplit);
+    public CompletableFuture<SuggestionsResult> reverse(ReverseBaseRequest request) {
+        return extensionManager.get(ReverseBaseRequest.class).doRequest(request, this::runSplit);
     }
 
     @Override

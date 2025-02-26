@@ -1,9 +1,8 @@
 package global.maplink.geocode.schema.v2.structured;
 
 import global.maplink.env.Environment;
-import global.maplink.geocode.schema.v1.GeocodeSplittableRequest;
-import global.maplink.geocode.schema.v1.Type;
-import global.maplink.geocode.schema.v1.structured.StructuredRequest;
+import global.maplink.geocode.schema.GeocodeSplittableRequest;
+import global.maplink.geocode.schema.Type;
 import global.maplink.http.request.Request;
 import global.maplink.http.request.RequestBody;
 import global.maplink.json.JsonMapper;
@@ -24,6 +23,18 @@ import static java.util.Collections.singletonList;
 import static java.util.stream.Collectors.toList;
 
 public interface StructuredBaseRequest extends GeocodeSplittableRequest {
+
+    static <T extends Single> T.SingleBuilder<?, ?> of(String id) {
+        return Single.builder().id(id);
+    }
+
+    static Multi multi(Single... requests) {
+        return new Multi(requests);
+    }
+
+    static Multi multi(List<Single> requests) {
+        return new Multi(requests.toArray(new Single[0]));
+    }
 
 
     @SuperBuilder

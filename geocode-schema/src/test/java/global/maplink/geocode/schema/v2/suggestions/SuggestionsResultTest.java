@@ -3,7 +3,7 @@ package global.maplink.geocode.schema.v2.suggestions;
 import global.maplink.json.JsonMapper;
 import org.junit.jupiter.api.Test;
 
-import static global.maplink.geocode.schema.v1.Type.ROAD;
+import static global.maplink.geocode.schema.v1.TypeVersionOne.ROAD;
 import static global.maplink.geocode.testUtils.SampleFiles.SUGGESTIONS_RESPONSE;
 import static java.util.Collections.emptyList;
 import static org.assertj.core.api.Assertions.assertThat;

@@ -1,25 +1,25 @@
 package global.maplink.geocode.schema.v2.suggestions;
 
 import global.maplink.env.Environment;
-import global.maplink.geocode.schema.v1.GeocodeServiceRequest;
-import global.maplink.geocode.schema.v1.Type;
+import global.maplink.geocode.schema.GeocodeServiceRequest;
+import global.maplink.geocode.schema.Type;
 import global.maplink.http.request.Request;
 import global.maplink.json.JsonMapper;
-import lombok.Builder;
 import lombok.Data;
+import lombok.experimental.SuperBuilder;
 import lombok.val;
 
 import java.util.Optional;
 
 import static global.maplink.http.request.Request.get;
 
-@Builder
+@SuperBuilder
 @Data
-public class SuggestionsRequest implements GeocodeServiceRequest {
+public class SuggestionsBaseRequest implements GeocodeServiceRequest {
 
     public static final String PATH = "geocode/v2/suggestions";
-    private static final String PARAM_QUERY = "q";
-    private static final String PARAM_TYPE = "type";
+    protected static final String PARAM_QUERY = "q";
+    protected static final String PARAM_TYPE = "type";
 
     private final String query;
 

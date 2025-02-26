@@ -1,7 +1,7 @@
 package global.maplink.geocode.schema.v1.cities;
 
 import global.maplink.env.Environment;
-import global.maplink.geocode.schema.v1.GeocodeServiceRequest;
+import global.maplink.geocode.schema.GeocodeServiceRequest;
 import global.maplink.http.request.Request;
 import global.maplink.http.request.RequestBody;
 import global.maplink.json.JsonMapper;

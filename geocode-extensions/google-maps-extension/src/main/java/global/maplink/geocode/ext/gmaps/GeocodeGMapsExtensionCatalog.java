@@ -5,7 +5,7 @@ import global.maplink.extensions.SdkExtensionCatalog;
 import global.maplink.geocode.ext.gmaps.config.GeocodeGMapsConfig;
 import global.maplink.geocode.ext.gmaps.suggestions.GeocodeSuggestionsGMapsExtension;
 import global.maplink.geocode.extensions.GeocodeExtension;
-import global.maplink.geocode.schema.v1.GeocodeServiceRequest;
+import global.maplink.geocode.schema.GeocodeServiceRequest;
 
 import java.util.Collection;
 import java.util.List;

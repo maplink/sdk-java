@@ -1,5 +1,7 @@
 package global.maplink.geocode.schema.v2;
 
+import global.maplink.geocode.schema.GeoPoint;
+import global.maplink.geocode.schema.State;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

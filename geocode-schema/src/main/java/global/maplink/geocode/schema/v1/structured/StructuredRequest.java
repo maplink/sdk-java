@@ -1,7 +1,7 @@
 package global.maplink.geocode.schema.v1.structured;
 
 import global.maplink.env.Environment;
-import global.maplink.geocode.schema.v1.Type;
+import global.maplink.geocode.schema.v1.TypeVersionOne;
 import global.maplink.geocode.schema.v2.structured.StructuredBaseRequest;
 import global.maplink.http.request.Request;
 import global.maplink.json.JsonMapper;
@@ -15,15 +15,15 @@ import java.util.List;
 
 public interface StructuredRequest extends StructuredBaseRequest {
 
-    static Single.SingleBuilder<?,?> of(String id) {
-        return Single.builder().id(id);
+    static Single.SingleBuilder<?, ?> of(String id) {
+        return (Single.SingleBuilder<?, ?>) StructuredBaseRequest.of(id);
     }
 
     static Single ofState(String id, String state) {
         return Single.builder()
                 .id(id)
                 .state(state)
-                .type(Type.STATE)
+                .type(TypeVersionOne.STATE)
                 .build();
     }
 
@@ -32,7 +32,7 @@ public interface StructuredRequest extends StructuredBaseRequest {
                 .id(id)
                 .state(state)
                 .city(city)
-                .type(Type.CITY)
+                .type(TypeVersionOne.CITY)
                 .build();
     }
 
@@ -42,15 +42,15 @@ public interface StructuredRequest extends StructuredBaseRequest {
                 .state(state)
                 .city(city)
                 .district(district)
-                .type(Type.DISTRICT)
+                .type(TypeVersionOne.DISTRICT)
                 .build();
     }
 
-    static StructuredRequest.Multi multi(Single... requests) {
+    static Multi multi(Single... requests) {
         return new Multi(requests);
     }
 
-    static StructuredRequest.Multi multi(List<Single> requests) {
+    static Multi multi(List<Single> requests) {
         return new Multi(requests.toArray(new Single[0]));
     }
 

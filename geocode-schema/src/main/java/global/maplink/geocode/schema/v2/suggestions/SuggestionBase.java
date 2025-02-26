@@ -1,26 +1,26 @@
 package global.maplink.geocode.schema.v2.suggestions;
 
+import global.maplink.geocode.schema.Type;
 import global.maplink.geocode.schema.v2.AddressBase;
-import global.maplink.geocode.schema.v1.Type;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 
 @Data
 @NoArgsConstructor(force = true)
 @AllArgsConstructor
-@Builder
-public class Suggestion implements Comparable<Suggestion> {
+@SuperBuilder
+public class SuggestionBase implements Comparable<SuggestionBase> {
     private final String id;
     private final AddressBase address;
     private final Type type;
-    private final Double score;
+    private final Float score;
     private final Double distance;
     private final String label;
 
     @Override
-    public int compareTo(Suggestion o) {
+    public int compareTo(SuggestionBase o) {
         if (score == null) {
             return o.score == null ? 0 : -1;
         }

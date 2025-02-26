@@ -1,9 +1,9 @@
 package global.maplink.geocode.extensions;
 
 import global.maplink.extensions.SdkExtension;
-import global.maplink.geocode.schema.v1.GeocodeServiceRequest;
+import global.maplink.geocode.schema.GeocodeServiceRequest;
 import global.maplink.geocode.schema.v1.suggestions.SuggestionsRequest;
-import global.maplink.geocode.schema.v1.suggestions.SuggestionsResult;
+import global.maplink.geocode.schema.v2.suggestions.SuggestionsResult;
 import lombok.SneakyThrows;
 import org.junit.jupiter.api.Test;
 

@@ -1,10 +1,11 @@
 package global.maplink.geocode.schema.v2.suggestions;
 
+import global.maplink.geocode.schema.v1.suggestions.Suggestion;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.Singular;
+import lombok.experimental.SuperBuilder;
 
 import java.util.Iterator;
 import java.util.List;
@@ -23,7 +24,7 @@ import static java.util.stream.Collectors.toList;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor(force = true)
-@Builder
+@SuperBuilder
 public class SuggestionsResult implements Iterable<Suggestion> {
 
     public static final SuggestionsResult EMPTY = new SuggestionsResult(0, emptyList());
