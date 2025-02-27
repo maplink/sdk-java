@@ -3,9 +3,11 @@ package global.maplink.geocode.async;
 import global.maplink.MapLinkSDK;
 import global.maplink.credentials.InvalidCredentialsException;
 import global.maplink.credentials.MapLinkCredentials;
+import global.maplink.geocode.schema.SingleBase;
 import global.maplink.geocode.schema.v1.cities.CitiesByStateRequest;
 import global.maplink.geocode.schema.v1.structured.StructuredRequest;
 import global.maplink.geocode.schema.v1.suggestions.SuggestionsRequest;
+import global.maplink.geocode.schema.v1.suggestions.SuggestionsResult;
 import global.maplink.geocode.schema.v2.reverse.ReverseBaseRequest;
 import global.maplink.http.exceptions.MapLinkHttpException;
 import lombok.extern.slf4j.Slf4j;
@@ -24,6 +26,7 @@ import static global.maplink.geocode.schema.v1.TypeVersionOne.CITY;
 import static global.maplink.geocode.schema.v1.TypeVersionOne.ZIPCODE;
 import static global.maplink.geocode.schema.v1.crossCities.CrossCitiesRequest.point;
 import static global.maplink.geocode.schema.v1.reverse.ReverseRequest.entry;
+import static global.maplink.geocode.schema.v1.structured.StructuredRequest.*;
 import static global.maplink.geocode.schema.v1.structured.StructuredRequest.multi;
 import static global.maplink.geocode.utils.EnvCredentialsHelper.withEnvCredentials;
 import static java.util.stream.Collectors.toList;
@@ -111,7 +114,7 @@ public class GeocodeAsyncApiTest {
             configureWith(credentials);
             val instance = GeocodeAsyncAPI.getInstance();
             val result = instance.structured(
-                    StructuredRequest.ofCity("sp", "Paulo", "SP")
+                    ofCity("sp", "Paulo", "SP")
             ).get();
             assertThat(result.getResults()).hasSizeGreaterThan(1);
             assertThat(result.getFound()).isGreaterThan(1);
@@ -124,7 +127,7 @@ public class GeocodeAsyncApiTest {
         withEnvCredentials(credentials -> {
             configureWith(credentials);
             val instance = GeocodeAsyncAPI.getInstance();
-            val result = instance.structured(StructuredRequest.of("reqId")
+            SuggestionsResult result = instance.structured(StructuredRequest.Single.builder().id("reqId")
                     .state("sp")
                     .city("sao paulo")
                     .road("alameda campinas")
@@ -167,9 +170,9 @@ public class GeocodeAsyncApiTest {
             configureWith(credentials);
             val instance = GeocodeAsyncAPI.getInstance();
             val result = instance.structured(multi(
-                    StructuredRequest.ofCity("sp", "São Paulo", "SP"),
-                    StructuredRequest.ofCity("pr", "Paraná", "PR"),
-                    StructuredRequest.of("addr")
+                    ofCity("sp", "São Paulo", "SP"),
+                    ofCity("pr", "Paraná", "PR"),
+                    of("addr")
                             .state("SP")
                             .city("São Paulo")
                             .district("Jardim Paulista")
@@ -191,14 +194,14 @@ public class GeocodeAsyncApiTest {
         withEnvCredentials(credentials -> {
             configureWith(credentials);
             val instance = GeocodeAsyncAPI.getInstance();
-            val multiRequest = StructuredRequest.multi(
-                    StructuredRequest.of("sc")
+            val multiRequest = multi(
+                    of("sc")
                             .state("sc")
                             .city("itajai")
                             .road("rua leopoldo hess")
                             .number(75)
                             .build(),
-                    StructuredRequest.of("pr")
+                    of("pr")
                             .state("pr")
                             .city("ponta grossa")
                             .road("rua citrino")
@@ -222,8 +225,8 @@ public class GeocodeAsyncApiTest {
         withEnvCredentials(credentials -> {
             configureWith(credentials);
             val instance = GeocodeAsyncAPI.getInstance();
-            List<StructuredRequest.Single> requests = range(0, 500)
-                    .mapToObj(i -> StructuredRequest.of("id-" + i)
+            List<SingleBase> requests = range(0, 500)
+                    .mapToObj(i -> of("id-" + i)
                             .type(CITY)
                             .city("sao paulo " + i)
                             .build()

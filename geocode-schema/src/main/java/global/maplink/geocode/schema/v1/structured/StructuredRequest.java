@@ -1,9 +1,11 @@
 package global.maplink.geocode.schema.v1.structured;
 
 import global.maplink.env.Environment;
+import global.maplink.geocode.schema.SingleBase;
 import global.maplink.geocode.schema.v1.TypeVersionOne;
 import global.maplink.geocode.schema.v2.structured.StructuredBaseRequest;
 import global.maplink.http.request.Request;
+import global.maplink.http.request.RequestBody;
 import global.maplink.json.JsonMapper;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -13,14 +15,17 @@ import lombok.experimental.SuperBuilder;
 
 import java.util.List;
 
+import static global.maplink.http.request.Request.post;
+import static java.util.Collections.singletonList;
+
 public interface StructuredRequest extends StructuredBaseRequest {
 
-    static Single.SingleBuilder<?, ?> of(String id) {
-        return (Single.SingleBuilder<?, ?>) StructuredBaseRequest.of(id);
+    static StructuredRequest.Single.SingleBuilder of(String id) {
+        return StructuredRequest.Single.builder().id(id);
     }
 
     static Single ofState(String id, String state) {
-        return Single.builder()
+        return StructuredRequest.Single.builder()
                 .id(id)
                 .state(state)
                 .type(TypeVersionOne.STATE)
@@ -28,7 +33,7 @@ public interface StructuredRequest extends StructuredBaseRequest {
     }
 
     static Single ofCity(String id, String city, String state) {
-        return Single.builder()
+        return StructuredRequest.Single.builder()
                 .id(id)
                 .state(state)
                 .city(city)
@@ -37,7 +42,7 @@ public interface StructuredRequest extends StructuredBaseRequest {
     }
 
     static Single ofDistrict(String id, String district, String city, String state) {
-        return Single.builder()
+        return StructuredRequest.Single.builder()
                 .id(id)
                 .state(state)
                 .city(city)
@@ -46,12 +51,12 @@ public interface StructuredRequest extends StructuredBaseRequest {
                 .build();
     }
 
-    static Multi multi(Single... requests) {
+    static Multi multi(SingleBase... requests) {
         return new Multi(requests);
     }
 
-    static Multi multi(List<Single> requests) {
-        return new Multi(requests.toArray(new Single[0]));
+    static Multi multi(List<SingleBase> requests) {
+        return new Multi(requests.toArray(new SingleBase[0]));
     }
 
 
@@ -60,15 +65,24 @@ public interface StructuredRequest extends StructuredBaseRequest {
     @Getter
     @ToString
     @EqualsAndHashCode(callSuper = true)
-    class Single extends StructuredBaseRequest.Single implements StructuredRequest {
+    class Single extends SingleBase implements StructuredRequest {
+        public static final String PATH = "geocode/v1/geocode";
         private static final String PARAM_LAST_MILE = "lastMile";
         private boolean lastMile;
 
         @Override
         public Request asHttpRequest(Environment environment, JsonMapper mapper) {
-            return super.asHttpRequest(environment, mapper)
-                    .withQuery(PARAM_LAST_MILE, Boolean.toString(lastMile));
+            return post(
+                    environment.withService(PATH),
+                    RequestBody.Json.of(this, mapper)
+            ).withQuery(PARAM_LAST_MILE, Boolean.toString(lastMile));
         }
+
+        @Override
+        public List<StructuredRequest.Single> split() {
+            return singletonList(this);
+        }
+
     }
 
     @Getter
@@ -76,16 +90,16 @@ public interface StructuredRequest extends StructuredBaseRequest {
     @EqualsAndHashCode(callSuper = true)
     @SuperBuilder
     @Setter
-    class Multi extends StructuredBaseRequest.Multi implements StructuredRequest {
+    class Multi extends StructuredBaseRequest.Multi {
         private static final String PARAM_LAST_MILE = "lastMile";
         private boolean lastMile;
 
-        public Multi(StructuredRequest.Single[] requests) {
+        public Multi(SingleBase[] requests) {
             super(requests);
             this.lastMile = false;
         }
 
-        public Multi(StructuredRequest.Single[] requests, boolean lastMile) {
+        public Multi(SingleBase[] requests, boolean lastMile) {
             super(requests);
             this.lastMile = lastMile;
         }

@@ -8,14 +8,14 @@ import global.maplink.geocode.schema.v1.crossCities.CrossCitiesRequest;
 import global.maplink.geocode.schema.v2.reverse.ReverseBaseRequest;
 import global.maplink.geocode.schema.v2.structured.StructuredBaseRequest;
 import global.maplink.geocode.schema.v2.suggestions.SuggestionsBaseRequest;
-import global.maplink.geocode.schema.v2.suggestions.SuggestionsResult;
+import global.maplink.geocode.schema.v1.suggestions.SuggestionsResult;
 import global.maplink.helpers.FutureHelper;
 import lombok.RequiredArgsConstructor;
 import lombok.val;
 
 import java.util.concurrent.CompletableFuture;
 
-import static global.maplink.geocode.schema.v2.suggestions.SuggestionsResult.EMPTY;
+import static global.maplink.geocode.schema.v1.suggestions.SuggestionsResult.EMPTY;
 import static java.util.stream.Collectors.toList;
 import static lombok.AccessLevel.PACKAGE;
 

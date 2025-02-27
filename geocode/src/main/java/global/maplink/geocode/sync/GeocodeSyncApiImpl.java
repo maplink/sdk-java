@@ -6,7 +6,7 @@ import global.maplink.geocode.schema.v1.crossCities.CrossCitiesRequest;
 import global.maplink.geocode.schema.v2.reverse.ReverseBaseRequest;
 import global.maplink.geocode.schema.v2.structured.StructuredBaseRequest;
 import global.maplink.geocode.schema.v2.suggestions.SuggestionsBaseRequest;
-import global.maplink.geocode.schema.v2.suggestions.SuggestionsResult;
+import global.maplink.geocode.schema.v1.suggestions.SuggestionsResult;
 import lombok.RequiredArgsConstructor;
 
 import static global.maplink.helpers.FutureHelper.await;

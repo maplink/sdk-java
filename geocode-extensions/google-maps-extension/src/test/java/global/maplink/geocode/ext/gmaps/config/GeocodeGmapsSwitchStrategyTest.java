@@ -5,7 +5,7 @@ import global.maplink.geocode.ext.gmaps.config.GeocodeGmapsSwitchStrategy.Switch
 import global.maplink.geocode.ext.gmaps.suggestions.*;
 import global.maplink.geocode.schema.v1.suggestions.Suggestion;
 import global.maplink.geocode.schema.v1.suggestions.SuggestionsRequest;
-import global.maplink.geocode.schema.v2.suggestions.SuggestionsResult;
+import global.maplink.geocode.schema.v1.suggestions.SuggestionsResult;
 import lombok.val;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;

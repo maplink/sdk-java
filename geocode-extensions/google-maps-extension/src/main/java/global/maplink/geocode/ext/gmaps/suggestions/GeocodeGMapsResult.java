@@ -7,6 +7,7 @@ import global.maplink.geocode.schema.v1.Address;
 import global.maplink.geocode.schema.v1.suggestions.Suggestion;
 import global.maplink.geocode.schema.v2.AddressBase;
 import global.maplink.geocode.schema.v2.TypeVersionTwo;
+import global.maplink.geocode.schema.v2.suggestions.SuggestionBase;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;

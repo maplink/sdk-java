@@ -4,7 +4,7 @@ import global.maplink.MapLinkSDK;
 import global.maplink.geocode.ext.gmaps.config.GeocodeGMapsConfig;
 import global.maplink.geocode.extensions.GeocodeExtension;
 import global.maplink.geocode.schema.v2.suggestions.SuggestionsBaseRequest;
-import global.maplink.geocode.schema.v2.suggestions.SuggestionsResult;
+import global.maplink.geocode.schema.v1.suggestions.SuggestionsResult;
 import global.maplink.http.HttpAsyncEngine;
 import global.maplink.json.JsonMapper;
 import lombok.EqualsAndHashCode;

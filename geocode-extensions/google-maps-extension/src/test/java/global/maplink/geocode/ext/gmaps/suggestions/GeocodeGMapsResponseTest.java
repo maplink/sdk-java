@@ -4,7 +4,7 @@ import global.maplink.geocode.schema.GeoPoint;
 import global.maplink.geocode.schema.v1.Address;
 import global.maplink.geocode.schema.v1.suggestions.Suggestion;
 import global.maplink.geocode.schema.v2.TypeVersionTwo;
-import global.maplink.geocode.schema.v2.suggestions.SuggestionsResult;
+import global.maplink.geocode.schema.v1.suggestions.SuggestionsResult;
 import global.maplink.helpers.UrlHelper;
 import global.maplink.json.JsonMapper;
 import lombok.SneakyThrows;
@@ -36,7 +36,7 @@ class GeocodeGMapsResponseTest {
     void mustResultEmptySuggestionResultWhenEmpty() {
         GeocodeGMapsResponse response = new GeocodeGMapsResponse();
         assertThat(response.toSuggestions()).isEqualTo(
-                global.maplink.geocode.schema.v2.suggestions.SuggestionsResult.EMPTY);
+                SuggestionsResult.EMPTY);
     }
 
     @Test
@@ -51,7 +51,7 @@ class GeocodeGMapsResponseTest {
         assertThat(response.isEmpty()).isTrue();
 
         assertThat(response.toSuggestions()).isEqualTo(
-                global.maplink.geocode.schema.v2.suggestions.SuggestionsResult.EMPTY);
+                SuggestionsResult.EMPTY);
     }
 
     @Test

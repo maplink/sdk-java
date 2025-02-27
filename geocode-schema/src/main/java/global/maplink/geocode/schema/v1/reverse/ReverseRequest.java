@@ -2,10 +2,8 @@ package global.maplink.geocode.schema.v1.reverse;
 
 
 import global.maplink.geocode.schema.v2.reverse.ReverseBaseRequest;
-import lombok.AccessLevel;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 import lombok.ToString;
 import lombok.experimental.SuperBuilder;
 

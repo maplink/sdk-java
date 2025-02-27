@@ -1,6 +1,5 @@
 package global.maplink.geocode.schema.v1.suggestions;
 
-import global.maplink.geocode.schema.v2.suggestions.SuggestionsResult;
 import global.maplink.json.JsonMapper;
 import org.junit.jupiter.api.Test;
 
