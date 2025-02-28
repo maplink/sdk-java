@@ -1,6 +1,6 @@
 package global.maplink.geocode.schema.v2;
 
-import global.maplink.geocode.schema.GeoPoint;
+import global.maplink.domain.MaplinkPoint;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -11,5 +11,5 @@ import lombok.NoArgsConstructor;
 public class MainLocation {
 
     private Integer radius;
-    private GeoPoint center;
+    private MaplinkPoint center;
 }

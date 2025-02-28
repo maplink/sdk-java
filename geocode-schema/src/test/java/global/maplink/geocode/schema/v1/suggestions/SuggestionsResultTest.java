@@ -4,7 +4,7 @@ import global.maplink.json.JsonMapper;
 import org.junit.jupiter.api.Test;
 
 import static global.maplink.geocode.schema.v1.TypeVersionOne.ROAD;
-import static global.maplink.geocode.testUtils.SampleFiles.SUGGESTIONS_RESPONSE;
+import static global.maplink.geocode.testUtils.SampleFiles.SUGGESTIONS_RESPONSE_V1;
 import static java.util.Collections.emptyList;
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -14,7 +14,7 @@ public class SuggestionsResultTest {
 
     @Test
     public void mustBeCreatedByJson() {
-        SuggestionsResult response = mapper.fromJson(SUGGESTIONS_RESPONSE.load(), SuggestionsResult.class);
+        SuggestionsResult response = mapper.fromJson(SUGGESTIONS_RESPONSE_V1.load(), SuggestionsResult.class);
         assertThat(response.getFound()).isEqualTo(317);
         assertThat(response.getResults()).hasSize(10);
         assertThat(response.getMostRelevant().getType()).isEqualTo(ROAD);

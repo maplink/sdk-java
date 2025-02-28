@@ -58,7 +58,7 @@ public class ReverseBaseRequest implements GeocodeSplittableRequest {
                 .build();
     }
 
-    public static Entry entry(String id, double lat, double lon, int distance) {
+    public static Entry entry(String id, double lat, double lon, double distance) {
         return Entry.builder()
                 .id(id)
                 .lat(BigDecimal.valueOf(lat))
@@ -75,7 +75,7 @@ public class ReverseBaseRequest implements GeocodeSplittableRequest {
         return Entry.builder().id(id).lat(lat).lon(lon).build();
     }
 
-    public static Entry entry(String id, BigDecimal lat, BigDecimal lon, int distance) {
+    public static Entry entry(String id, BigDecimal lat, BigDecimal lon, double distance) {
         return Entry.builder().id(id).lat(lat).lon(lon).distance(distance).build();
     }
 
@@ -103,7 +103,7 @@ public class ReverseBaseRequest implements GeocodeSplittableRequest {
         private String id;
         private final BigDecimal lat;
         private final BigDecimal lon;
-        private Integer distance;
+        private Double distance;
     }
 
 }

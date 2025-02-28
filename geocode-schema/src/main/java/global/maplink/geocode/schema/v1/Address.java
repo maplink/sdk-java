@@ -1,6 +1,6 @@
 package global.maplink.geocode.schema.v1;
 
-import global.maplink.geocode.schema.v2.AddressBase;
+import global.maplink.geocode.schema.AddressBase;
 import global.maplink.geocode.schema.GeoPoint;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -35,4 +35,6 @@ public class Address extends AddressBase {
 
     private final String direction;
     private final String acronym;
+
+    private final GeoPoint mainLocation;
 }

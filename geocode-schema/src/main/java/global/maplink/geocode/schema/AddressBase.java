@@ -1,7 +1,5 @@
-package global.maplink.geocode.schema.v2;
+package global.maplink.geocode.schema;
 
-import global.maplink.geocode.schema.GeoPoint;
-import global.maplink.geocode.schema.State;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -19,8 +17,5 @@ public class AddressBase {
     private final String zipCode;
     private final String city;
     private final State state;
-
-    private final GeoPoint mainLocation;
-
 
 }
