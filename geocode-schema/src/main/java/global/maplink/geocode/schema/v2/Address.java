@@ -16,6 +16,8 @@ import lombok.experimental.SuperBuilder;
 @SuperBuilder
 public class Address extends AddressBase {
 
+    private final Integer numberAsInteger;
+
     private final MaplinkPoint mainLocation;
 
 
