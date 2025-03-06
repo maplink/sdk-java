@@ -14,7 +14,9 @@ public class SuggestionsResultTest {
 
     @Test
     public void mustBeCreatedByJson() {
+
         SuggestionsResult response = mapper.fromJson(SUGGESTIONS_RESPONSE_V1.load(), SuggestionsResult.class);
+
         assertThat(response.getFound()).isEqualTo(317);
         assertThat(response.getResults()).hasSize(10);
         assertThat(response.getMostRelevant().getType()).isEqualTo(ROAD);

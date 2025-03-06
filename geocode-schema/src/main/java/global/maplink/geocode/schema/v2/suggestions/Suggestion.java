@@ -1,8 +1,7 @@
-package global.maplink.geocode.schema.v1.suggestions;
+package global.maplink.geocode.schema.v2.suggestions;
 
-import global.maplink.geocode.schema.v1.Address;
-import global.maplink.geocode.schema.v1.PointOfInterest;
 import global.maplink.geocode.schema.SuggestionBase;
+import global.maplink.geocode.schema.v2.Address;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
@@ -13,9 +12,6 @@ import lombok.experimental.SuperBuilder;
 @EqualsAndHashCode(callSuper = true)
 @SuperBuilder
 public class Suggestion extends SuggestionBase {
-    private final PointOfInterest poi;
-    private final String polygonWKT;
-
     @Override
     public Address getAddress() {
         return (Address) super.getAddress();

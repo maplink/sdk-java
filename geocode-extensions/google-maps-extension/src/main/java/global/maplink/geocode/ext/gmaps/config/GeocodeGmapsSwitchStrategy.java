@@ -3,7 +3,7 @@ package global.maplink.geocode.ext.gmaps.config;
 import global.maplink.geocode.ext.gmaps.suggestions.GMapsSuggestionsRequestAction;
 import global.maplink.geocode.ext.gmaps.suggestions.GeocodeGMapsResponse;
 import global.maplink.geocode.ext.gmaps.suggestions.MlpSuggestionsRequestAction;
-import global.maplink.geocode.schema.v2.suggestions.SuggestionBase;
+import global.maplink.geocode.schema.SuggestionBase;
 import global.maplink.geocode.schema.v2.suggestions.SuggestionsBaseRequest;
 import global.maplink.geocode.schema.v1.suggestions.SuggestionsResult;
 import lombok.Getter;

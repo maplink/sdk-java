@@ -1,6 +1,6 @@
 package global.maplink.geocode.schema.v1.suggestions;
 
-import global.maplink.geocode.schema.v2.suggestions.SuggestionBase;
+import global.maplink.geocode.schema.SuggestionBase;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

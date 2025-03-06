@@ -4,7 +4,7 @@ import global.maplink.geocode.schema.GeoPoint;
 import global.maplink.geocode.schema.v1.Address;
 import global.maplink.geocode.schema.v1.suggestions.SuggestionsResult;
 import global.maplink.geocode.schema.v2.TypeVersionTwo;
-import global.maplink.geocode.schema.v2.suggestions.SuggestionBase;
+import global.maplink.geocode.schema.SuggestionBase;
 import global.maplink.helpers.UrlHelper;
 import global.maplink.json.JsonMapper;
 import lombok.SneakyThrows;
