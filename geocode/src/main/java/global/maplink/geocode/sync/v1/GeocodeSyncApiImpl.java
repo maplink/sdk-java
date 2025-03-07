@@ -3,8 +3,8 @@ package global.maplink.geocode.sync.v1;
 import global.maplink.geocode.async.v1.GeocodeAsyncAPI;
 import global.maplink.geocode.schema.v1.cities.CitiesByStateRequest;
 import global.maplink.geocode.schema.v1.crossCities.CrossCitiesRequest;
+import global.maplink.geocode.schema.v2.structured.StructuredRequest;
 import global.maplink.geocode.schema.v2.reverse.ReverseBaseRequest;
-import global.maplink.geocode.schema.v2.structured.StructuredBaseRequest;
 import global.maplink.geocode.schema.v2.suggestions.SuggestionsBaseRequest;
 import global.maplink.geocode.schema.v2.suggestions.SuggestionsResult;
 import lombok.RequiredArgsConstructor;
@@ -28,7 +28,7 @@ public class GeocodeSyncApiImpl implements GeocodeSyncAPI {
     }
 
     @Override
-    public SuggestionsResult structured(StructuredBaseRequest request) {
+    public SuggestionsResult structured(StructuredRequest request) {
         return await(delegate.structured(request));
     }
 

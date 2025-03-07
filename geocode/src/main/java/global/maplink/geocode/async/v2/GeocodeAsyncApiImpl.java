@@ -3,9 +3,9 @@ package global.maplink.geocode.async.v2;
 import global.maplink.MapLinkServiceRequestAsyncRunner;
 import global.maplink.geocode.async.GeocodeAsyncHelper;
 import global.maplink.geocode.extensions.GeocodeExtensionManager;
+import global.maplink.geocode.schema.v2.structured.StructuredRequest;
 import global.maplink.geocode.schema.v2.suggestions.SuggestionsResult;
 import global.maplink.geocode.schema.v2.reverse.ReverseBaseRequest;
-import global.maplink.geocode.schema.v2.structured.StructuredBaseRequest;
 import global.maplink.geocode.schema.v2.suggestions.SuggestionsBaseRequest;
 import lombok.RequiredArgsConstructor;
 
@@ -26,8 +26,8 @@ public class GeocodeAsyncApiImpl implements GeocodeAsyncAPI {
     }
 
     @Override
-    public CompletableFuture<SuggestionsResult> structured(StructuredBaseRequest request) {
-        return extensionManager.get(StructuredBaseRequest.class).doRequest(request, runner::run);
+    public CompletableFuture<SuggestionsResult> structured(StructuredRequest request) {
+        return extensionManager.get(StructuredRequest.class).doRequest(request, runner::run);
     }
 
 

@@ -5,7 +5,7 @@ import global.maplink.credentials.InvalidCredentialsException;
 import global.maplink.credentials.MapLinkCredentials;
 import global.maplink.geocode.schema.v1.cities.CitiesByStateRequest;
 import global.maplink.geocode.schema.v1.reverse.ReverseRequest;
-import global.maplink.geocode.schema.v1.structured.StructuredRequest;
+import global.maplink.geocode.schema.v2.structured.StructuredRequest;
 import global.maplink.geocode.schema.v1.suggestions.SuggestionsRequest;
 import global.maplink.http.exceptions.MapLinkHttpException;
 import lombok.extern.slf4j.Slf4j;
@@ -21,7 +21,7 @@ import static global.maplink.geocode.common.Defaults.DEFAULT_CLIENT_ID;
 import static global.maplink.geocode.common.Defaults.DEFAULT_SECRET;
 import static global.maplink.geocode.schema.v1.crossCities.CrossCitiesRequest.point;
 import static global.maplink.geocode.schema.v1.reverse.ReverseRequest.entry;
-import static global.maplink.geocode.schema.v1.structured.StructuredRequest.multi;
+import static global.maplink.geocode.schema.v2.structured.StructuredRequest.multi;
 import static global.maplink.geocode.schema.v2.Type.CITY;
 import static global.maplink.geocode.schema.v2.Type.ZIPCODE;
 import static global.maplink.geocode.utils.EnvCredentialsHelper.withEnvCredentials;
@@ -242,9 +242,9 @@ public class GeocodeAsyncApiTest {
             configureWith(credentials);
             val instance = GeocodeAsyncAPI.getInstance();
             val result = instance.reverse(
-                    entry(-22.9141308, -43.445982),
-                    entry("sp", -23.6818334, -46.8823662),
-                    entry("pr", -25.494945, -49.3598374, 500),
+                    ReverseRequest.entry(-22.9141308, -43.445982),
+                    ReverseRequest.entry("sp", -23.6818334, -46.8823662),
+                    ReverseRequest.entry("pr", -25.494945, -49.3598374, 500),
                     ReverseRequest.Entry.builder()
                             .id("addr")
                             .lat(BigDecimal.valueOf(-23.5666682))

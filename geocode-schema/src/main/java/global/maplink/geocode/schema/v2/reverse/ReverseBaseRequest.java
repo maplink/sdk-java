@@ -25,7 +25,7 @@ import static java.util.stream.Collectors.toList;
 @RequiredArgsConstructor(staticName = "of")
 public class ReverseBaseRequest implements GeocodeSplittableRequest {
     public static final int ENTRY_LIMIT = 200;
-    public static final String PATH = "geocode/v1/reverse";
+    public static final String PATH = "geocode/v2/reverse";
 
     @Singular
     private final List<Entry> entries;

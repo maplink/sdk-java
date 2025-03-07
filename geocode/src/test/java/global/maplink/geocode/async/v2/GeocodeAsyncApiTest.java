@@ -3,10 +3,9 @@ package global.maplink.geocode.async.v2;
 import global.maplink.MapLinkSDK;
 import global.maplink.credentials.InvalidCredentialsException;
 import global.maplink.credentials.MapLinkCredentials;
-import global.maplink.geocode.schema.SingleBase;
+import global.maplink.geocode.schema.v2.structured.StructuredRequest;
 import global.maplink.geocode.schema.v2.suggestions.SuggestionsResult;
 import global.maplink.geocode.schema.v2.reverse.ReverseBaseRequest;
-import global.maplink.geocode.schema.v2.structured.StructuredBaseRequest;
 import global.maplink.geocode.schema.v2.suggestions.SuggestionsBaseRequest;
 import global.maplink.http.exceptions.MapLinkHttpException;
 import lombok.extern.slf4j.Slf4j;
@@ -21,7 +20,7 @@ import java.util.concurrent.ExecutionException;
 import static global.maplink.env.EnvironmentCatalog.HOMOLOG;
 import static global.maplink.geocode.common.Defaults.DEFAULT_CLIENT_ID;
 import static global.maplink.geocode.common.Defaults.DEFAULT_SECRET;
-import static global.maplink.geocode.schema.v1.structured.StructuredRequest.*;
+import static global.maplink.geocode.schema.v2.structured.StructuredRequest.*;
 import static global.maplink.geocode.schema.v2.Type.CITY;
 import static global.maplink.geocode.schema.v2.Type.ZIPCODE;
 import static global.maplink.geocode.schema.v2.reverse.ReverseBaseRequest.entry;
@@ -125,7 +124,7 @@ public class GeocodeAsyncApiTest {
             configureWith(credentials);
             val instance = GeocodeAsyncAPI.getInstance();
             SuggestionsResult result = instance.structured(
-                    StructuredBaseRequest.Single.builder().id("reqId")
+                    StructuredRequest.Single.builder().id("reqId")
                     .state("sp")
                     .city("sao paulo")
                     .road("alameda campinas")

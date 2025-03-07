@@ -9,6 +9,10 @@
     <option name="TEST_SEARCH_SCOPE">
       <value defaultName="wholeProject" />
     </option>
+    <envs>
+      <env name="MAPLINK_CLIENT_ID" value="CfhNAeITPxxShAo4G3uiVgi5RgcvzDzx" />
+      <env name="MAPLINK_SECRET" value="ZalnDvvqpf0ozMN2" />
+    </envs>
     <method v="2">
       <option name="Make" enabled="true" />
     </method>
