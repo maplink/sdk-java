@@ -1,5 +1,6 @@
 package global.maplink.geocode.schema;
 
+import global.maplink.geocode.schema.v2.Type;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;

@@ -1,20 +1,21 @@
-package global.maplink.geocode.sync;
+package global.maplink.geocode.sync.v1;
 
 import global.maplink.env.Environment;
-import global.maplink.geocode.async.GeocodeAsyncAPI;
-import global.maplink.geocode.schema.Type;
+import global.maplink.geocode.async.v1.GeocodeAsyncAPI;
 import global.maplink.geocode.schema.v1.cities.CitiesByStateRequest;
 import global.maplink.geocode.schema.v1.crossCities.CrossCitiesRequest;
+import global.maplink.geocode.schema.v1.reverse.ReverseRequest;
+import global.maplink.geocode.schema.v1.suggestions.SuggestionsRequest;
+import global.maplink.geocode.schema.v2.suggestions.SuggestionsResult;
+import global.maplink.geocode.schema.v2.Type;
 import global.maplink.geocode.schema.v2.reverse.ReverseBaseRequest;
-import global.maplink.geocode.schema.v2.structured.StructuredBaseRequest;
-import global.maplink.geocode.schema.v2.suggestions.SuggestionsBaseRequest;
-import global.maplink.geocode.schema.v1.suggestions.SuggestionsResult;
+import global.maplink.geocode.sync.GeocodeSyncAPIBase;
 
 import java.util.List;
 
 import static java.util.Arrays.asList;
 
-public interface GeocodeSyncAPI {
+public interface GeocodeSyncAPI extends GeocodeSyncAPIBase {
 
     SuggestionsResult citiesByState(CitiesByStateRequest request);
 
@@ -23,26 +24,20 @@ public interface GeocodeSyncAPI {
     }
 
     default SuggestionsResult suggestions(String query) {
-        return suggestions(SuggestionsBaseRequest.builder().query(query).build());
+        return suggestions(SuggestionsRequest.builder().query(query).build());
     }
 
     default SuggestionsResult suggestions(String query, Type type) {
-        return suggestions(SuggestionsBaseRequest.builder().query(query).type(type).build());
+        return suggestions(SuggestionsRequest.builder().query(query).type(type).build());
     }
-
-    SuggestionsResult suggestions(SuggestionsBaseRequest request);
-
-    SuggestionsResult structured(StructuredBaseRequest request);
 
     default SuggestionsResult reverse(ReverseBaseRequest.Entry... request) {
         return reverse(asList(request));
     }
 
     default SuggestionsResult reverse(List<ReverseBaseRequest.Entry> request) {
-        return reverse(ReverseBaseRequest.of(request));
+        return reverse(ReverseRequest.of(request));
     }
-
-    SuggestionsResult reverse(ReverseBaseRequest request);
 
     default SuggestionsResult crossCities(CrossCitiesRequest.Point... points) {
         return crossCities(asList(points));

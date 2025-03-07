@@ -1,10 +1,10 @@
 package global.maplink.geocode.ext.gmaps.suggestions;
 
-import global.maplink.geocode.schema.GeoPoint;
-import global.maplink.geocode.schema.v1.Address;
-import global.maplink.geocode.schema.v1.suggestions.SuggestionsResult;
-import global.maplink.geocode.schema.v2.TypeVersionTwo;
-import global.maplink.geocode.schema.SuggestionBase;
+import global.maplink.geocode.schema.v2.GeoPoint;
+import global.maplink.geocode.schema.v2.suggestions.SuggestionsResult;
+import global.maplink.geocode.schema.v2.Address;
+import global.maplink.geocode.schema.v2.Type;
+import global.maplink.geocode.schema.v2.suggestions.Suggestion;
 import global.maplink.helpers.UrlHelper;
 import global.maplink.json.JsonMapper;
 import lombok.SneakyThrows;
@@ -87,11 +87,11 @@ class GeocodeGMapsResponseTest {
         assertThat(suggestions).isNotNull().isNotEqualTo(SuggestionsResult.EMPTY);
         assertThat(suggestions.getFound()).isEqualTo(2);
         assertThat(suggestions.getResults()).hasSize(2);
-        SuggestionBase mostRelevant = suggestions.getMostRelevant();
+        Suggestion mostRelevant = suggestions.getMostRelevant();
         assertThat(mostRelevant.getId()).isEqualTo("place-result1");
         assertThat(mostRelevant.getLabel()).isEqualTo(SAMPLE_LABEL);
-        assertThat(mostRelevant.getType()).isEqualTo(TypeVersionTwo.STATE);
-        Address address = (Address) mostRelevant.getAddress();
+        assertThat(mostRelevant.getType()).isEqualTo(Type.STATE);
+        Address address = mostRelevant.getAddress();
         assertThat(address.getCountry()).isEqualTo("Brasil");
         assertThat(address.getState().getCode()).isEqualTo("PR");
         assertThat(address.getState().getName()).isEqualTo("Paraná");
@@ -120,10 +120,10 @@ class GeocodeGMapsResponseTest {
         assertThat(suggestions).isNotNull().isNotEqualTo(SuggestionsResult.EMPTY);
         assertThat(suggestions.getFound()).isEqualTo(1);
         assertThat(suggestions.getResults()).hasSize(1);
-        SuggestionBase mostRelevant = suggestions.getMostRelevant();
+        Suggestion mostRelevant = suggestions.getMostRelevant();
         assertThat(mostRelevant.getId()).isEqualTo("maplink-addr");
         assertThat(mostRelevant.getLabel()).isEqualTo(FULL_LABEL);
-        assertThat(mostRelevant.getType()).isEqualTo(TypeVersionTwo.ROAD);
+        assertThat(mostRelevant.getType()).isEqualTo(Type.ROAD);
         Address address = (Address) mostRelevant.getAddress();
         assertThat(address.getCountry()).isEqualTo("Brasil");
         assertThat(address.getState().getCode()).isEqualTo("SP");

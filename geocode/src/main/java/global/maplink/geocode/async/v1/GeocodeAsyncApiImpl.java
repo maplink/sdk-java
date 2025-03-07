@@ -1,22 +1,18 @@
-package global.maplink.geocode.async;
+package global.maplink.geocode.async.v1;
 
 import global.maplink.MapLinkServiceRequestAsyncRunner;
+import global.maplink.geocode.async.GeocodeAsyncHelper;
 import global.maplink.geocode.extensions.GeocodeExtensionManager;
-import global.maplink.geocode.schema.GeocodeSplittableRequest;
 import global.maplink.geocode.schema.v1.cities.CitiesByStateRequest;
 import global.maplink.geocode.schema.v1.crossCities.CrossCitiesRequest;
+import global.maplink.geocode.schema.v2.suggestions.SuggestionsResult;
 import global.maplink.geocode.schema.v2.reverse.ReverseBaseRequest;
 import global.maplink.geocode.schema.v2.structured.StructuredBaseRequest;
 import global.maplink.geocode.schema.v2.suggestions.SuggestionsBaseRequest;
-import global.maplink.geocode.schema.v1.suggestions.SuggestionsResult;
-import global.maplink.helpers.FutureHelper;
 import lombok.RequiredArgsConstructor;
-import lombok.val;
 
 import java.util.concurrent.CompletableFuture;
 
-import static global.maplink.geocode.schema.v1.suggestions.SuggestionsResult.EMPTY;
-import static java.util.stream.Collectors.toList;
 import static lombok.AccessLevel.PACKAGE;
 
 @RequiredArgsConstructor(access = PACKAGE)
@@ -43,23 +39,12 @@ public class GeocodeAsyncApiImpl implements GeocodeAsyncAPI {
 
     @Override
     public CompletableFuture<SuggestionsResult> reverse(ReverseBaseRequest request) {
-        return extensionManager.get(ReverseBaseRequest.class).doRequest(request, this::runSplit);
+        return extensionManager.get(ReverseBaseRequest.class).doRequest(request, req -> GeocodeAsyncHelper.runSplit(runner, req));
     }
 
     @Override
     public CompletableFuture<SuggestionsResult> crossCities(CrossCitiesRequest request) {
         return extensionManager.get(CrossCitiesRequest.class).doRequest(request, runner::run);
-    }
-
-    private CompletableFuture<SuggestionsResult> runSplit(GeocodeSplittableRequest request) {
-        val requests = request.split().stream().map(runner::run).collect(toList());
-        return CompletableFuture.allOf(requests.toArray(new CompletableFuture[0]))
-                .thenApply(v -> requests.stream()
-                        .map(FutureHelper::await)
-                        .reduce(SuggestionsResult::joinTo)
-                        .orElse(EMPTY)
-                );
-
     }
 
 }

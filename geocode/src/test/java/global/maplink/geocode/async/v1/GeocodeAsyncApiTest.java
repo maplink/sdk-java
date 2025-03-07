@@ -1,14 +1,12 @@
-package global.maplink.geocode.async;
+package global.maplink.geocode.async.v1;
 
 import global.maplink.MapLinkSDK;
 import global.maplink.credentials.InvalidCredentialsException;
 import global.maplink.credentials.MapLinkCredentials;
-import global.maplink.geocode.schema.SingleBase;
 import global.maplink.geocode.schema.v1.cities.CitiesByStateRequest;
+import global.maplink.geocode.schema.v1.reverse.ReverseRequest;
 import global.maplink.geocode.schema.v1.structured.StructuredRequest;
 import global.maplink.geocode.schema.v1.suggestions.SuggestionsRequest;
-import global.maplink.geocode.schema.v1.suggestions.SuggestionsResult;
-import global.maplink.geocode.schema.v2.reverse.ReverseBaseRequest;
 import global.maplink.http.exceptions.MapLinkHttpException;
 import lombok.extern.slf4j.Slf4j;
 import lombok.val;
@@ -16,18 +14,16 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
-import java.util.List;
 import java.util.concurrent.ExecutionException;
 
 import static global.maplink.env.EnvironmentCatalog.HOMOLOG;
 import static global.maplink.geocode.common.Defaults.DEFAULT_CLIENT_ID;
 import static global.maplink.geocode.common.Defaults.DEFAULT_SECRET;
-import static global.maplink.geocode.schema.v1.TypeVersionOne.CITY;
-import static global.maplink.geocode.schema.v1.TypeVersionOne.ZIPCODE;
 import static global.maplink.geocode.schema.v1.crossCities.CrossCitiesRequest.point;
 import static global.maplink.geocode.schema.v1.reverse.ReverseRequest.entry;
-import static global.maplink.geocode.schema.v1.structured.StructuredRequest.*;
 import static global.maplink.geocode.schema.v1.structured.StructuredRequest.multi;
+import static global.maplink.geocode.schema.v2.Type.CITY;
+import static global.maplink.geocode.schema.v2.Type.ZIPCODE;
 import static global.maplink.geocode.utils.EnvCredentialsHelper.withEnvCredentials;
 import static java.util.stream.Collectors.toList;
 import static java.util.stream.IntStream.range;
@@ -114,7 +110,7 @@ public class GeocodeAsyncApiTest {
             configureWith(credentials);
             val instance = GeocodeAsyncAPI.getInstance();
             val result = instance.structured(
-                    ofCity("sp", "Paulo", "SP")
+                    StructuredRequest.ofCity("sp", "Paulo", "SP")
             ).get();
             assertThat(result.getResults()).hasSizeGreaterThan(1);
             assertThat(result.getFound()).isGreaterThan(1);
@@ -127,7 +123,7 @@ public class GeocodeAsyncApiTest {
         withEnvCredentials(credentials -> {
             configureWith(credentials);
             val instance = GeocodeAsyncAPI.getInstance();
-            SuggestionsResult result = instance.structured(StructuredRequest.Single.builder().id("reqId")
+            val result = instance.structured(StructuredRequest.Single.builder().id("reqId")
                     .state("sp")
                     .city("sao paulo")
                     .road("alameda campinas")
@@ -170,9 +166,9 @@ public class GeocodeAsyncApiTest {
             configureWith(credentials);
             val instance = GeocodeAsyncAPI.getInstance();
             val result = instance.structured(multi(
-                    ofCity("sp", "São Paulo", "SP"),
-                    ofCity("pr", "Paraná", "PR"),
-                    of("addr")
+                    StructuredRequest.ofCity("sp", "São Paulo", "SP"),
+                    StructuredRequest.ofCity("pr", "Paraná", "PR"),
+                    StructuredRequest.of("addr")
                             .state("SP")
                             .city("São Paulo")
                             .district("Jardim Paulista")
@@ -194,14 +190,14 @@ public class GeocodeAsyncApiTest {
         withEnvCredentials(credentials -> {
             configureWith(credentials);
             val instance = GeocodeAsyncAPI.getInstance();
-            val multiRequest = multi(
-                    of("sc")
+            val multiRequest = StructuredRequest.multi(
+                    StructuredRequest.of("sc")
                             .state("sc")
                             .city("itajai")
                             .road("rua leopoldo hess")
                             .number(75)
                             .build(),
-                    of("pr")
+                    StructuredRequest.of("pr")
                             .state("pr")
                             .city("ponta grossa")
                             .road("rua citrino")
@@ -225,8 +221,8 @@ public class GeocodeAsyncApiTest {
         withEnvCredentials(credentials -> {
             configureWith(credentials);
             val instance = GeocodeAsyncAPI.getInstance();
-            List<SingleBase> requests = range(0, 500)
-                    .mapToObj(i -> of("id-" + i)
+            val requests = range(0, 500)
+                    .mapToObj(i -> StructuredRequest.of("id-" + i)
                             .type(CITY)
                             .city("sao paulo " + i)
                             .build()
@@ -249,7 +245,7 @@ public class GeocodeAsyncApiTest {
                     entry(-22.9141308, -43.445982),
                     entry("sp", -23.6818334, -46.8823662),
                     entry("pr", -25.494945, -49.3598374, 500),
-                    ReverseBaseRequest.Entry.builder()
+                    ReverseRequest.Entry.builder()
                             .id("addr")
                             .lat(BigDecimal.valueOf(-23.5666682))
                             .lon(BigDecimal.valueOf(-46.6558011))

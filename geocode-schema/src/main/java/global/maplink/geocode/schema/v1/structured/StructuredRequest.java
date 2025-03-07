@@ -2,7 +2,7 @@ package global.maplink.geocode.schema.v1.structured;
 
 import global.maplink.env.Environment;
 import global.maplink.geocode.schema.SingleBase;
-import global.maplink.geocode.schema.v1.TypeVersionOne;
+import global.maplink.geocode.schema.v2.Type;
 import global.maplink.geocode.schema.v2.structured.StructuredBaseRequest;
 import global.maplink.http.request.Request;
 import global.maplink.http.request.RequestBody;
@@ -28,7 +28,7 @@ public interface StructuredRequest extends StructuredBaseRequest {
         return StructuredRequest.Single.builder()
                 .id(id)
                 .state(state)
-                .type(TypeVersionOne.STATE)
+                .type(Type.STATE)
                 .build();
     }
 
@@ -37,7 +37,7 @@ public interface StructuredRequest extends StructuredBaseRequest {
                 .id(id)
                 .state(state)
                 .city(city)
-                .type(TypeVersionOne.CITY)
+                .type(Type.CITY)
                 .build();
     }
 
@@ -47,7 +47,7 @@ public interface StructuredRequest extends StructuredBaseRequest {
                 .state(state)
                 .city(city)
                 .district(district)
-                .type(TypeVersionOne.DISTRICT)
+                .type(Type.DISTRICT)
                 .build();
     }
 

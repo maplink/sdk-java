@@ -1,6 +1,5 @@
-package global.maplink.geocode.schema.v1.suggestions;
+package global.maplink.geocode.schema.v2.suggestions;
 
-import global.maplink.geocode.schema.SuggestionBase;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -25,25 +24,25 @@ import static java.util.stream.Collectors.toList;
 @AllArgsConstructor
 @NoArgsConstructor(force = true)
 @SuperBuilder
-public class SuggestionsResult implements Iterable<SuggestionBase> {
+public class SuggestionsResult implements Iterable<Suggestion> {
 
     public static final SuggestionsResult EMPTY = new SuggestionsResult(0, emptyList());
 
     private final int found;
 
     @Singular
-    private final List<SuggestionBase> results;
+    private final List<Suggestion> results;
 
     public boolean isEmpty() {
         return results == null || results.isEmpty();
     }
 
-    public SuggestionBase getMostRelevant() {
+    public Suggestion getMostRelevant() {
         if (isEmpty()) return null;
         return results.stream().max(naturalOrder()).orElse(results.get(0));
     }
 
-    public Optional<SuggestionBase> getById(String id) {
+    public Optional<Suggestion> getById(String id) {
         requireNonNull(id);
         if (isEmpty()) return empty();
 
@@ -58,18 +57,18 @@ public class SuggestionsResult implements Iterable<SuggestionBase> {
     }
 
     @Override
-    public Iterator<SuggestionBase> iterator() {
+    public Iterator<Suggestion> iterator() {
         if (isEmpty()) {
             return emptyIterator();
         }
         return results.iterator();
     }
 
-    public Stream<SuggestionBase> stream() {
+    public Stream<Suggestion> stream() {
         return StreamSupport.stream(this.spliterator(), false);
     }
 
-    public Stream<SuggestionBase> parallelStream() {
+    public Stream<Suggestion> parallelStream() {
         return StreamSupport.stream(this.spliterator(), true);
     }
 }

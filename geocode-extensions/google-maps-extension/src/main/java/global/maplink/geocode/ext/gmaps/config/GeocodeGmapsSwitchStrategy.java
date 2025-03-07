@@ -3,9 +3,9 @@ package global.maplink.geocode.ext.gmaps.config;
 import global.maplink.geocode.ext.gmaps.suggestions.GMapsSuggestionsRequestAction;
 import global.maplink.geocode.ext.gmaps.suggestions.GeocodeGMapsResponse;
 import global.maplink.geocode.ext.gmaps.suggestions.MlpSuggestionsRequestAction;
-import global.maplink.geocode.schema.SuggestionBase;
+import global.maplink.geocode.schema.v2.suggestions.Suggestion;
 import global.maplink.geocode.schema.v2.suggestions.SuggestionsBaseRequest;
-import global.maplink.geocode.schema.v1.suggestions.SuggestionsResult;
+import global.maplink.geocode.schema.v2.suggestions.SuggestionsResult;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
@@ -53,7 +53,7 @@ public interface GeocodeGmapsSwitchStrategy {
 
         private boolean shouldSwitchAfter(SuggestionsResult result) {
             return ofNullable(result.getMostRelevant())
-                    .map(SuggestionBase::getScore)
+                    .map(Suggestion::getScore)
                     .map(score -> score < threshold)
                     .orElse(true);
         }

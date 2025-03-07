@@ -1,12 +1,10 @@
 package global.maplink.geocode.ext.gmaps.suggestions;
 
-import global.maplink.geocode.schema.GeoPoint;
-import global.maplink.geocode.schema.State;
-import global.maplink.geocode.schema.Type;
-import global.maplink.geocode.schema.v1.Address;
-import global.maplink.geocode.schema.v1.suggestions.Suggestion;
-import global.maplink.geocode.schema.AddressBase;
-import global.maplink.geocode.schema.v2.TypeVersionTwo;
+import global.maplink.geocode.schema.v2.GeoPoint;
+import global.maplink.geocode.schema.v2.State;
+import global.maplink.geocode.schema.v2.Address;
+import global.maplink.geocode.schema.v2.Type;
+import global.maplink.geocode.schema.v2.suggestions.Suggestion;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
@@ -31,7 +29,7 @@ public class GeocodeGMapsResult {
     private final boolean partial_match;
 
     public Suggestion toSuggestion() {
-        AddressBase addr = toAddress();
+        Address addr = toAddress();
         return Suggestion.builder()
                 .type(typeOf(addr))
                 .address(addr)
@@ -40,17 +38,17 @@ public class GeocodeGMapsResult {
                 .build();
     }
 
-    private Type typeOf(AddressBase addr) {
-        if (nonNull(addr.getRoad())) return TypeVersionTwo.ROAD;
-        if (nonNull(addr.getZipCode())) return TypeVersionTwo.ZIPCODE;
-        if (nonNull(addr.getDistrict())) return TypeVersionTwo.DISTRICT;
-        if (nonNull(addr.getCity())) return TypeVersionTwo.CITY;
-        if (nonNull(addr.getState())) return TypeVersionTwo.STATE;
+    private Type typeOf(Address addr) {
+        if (nonNull(addr.getRoad())) return Type.ROAD;
+        if (nonNull(addr.getZipCode())) return Type.ZIPCODE;
+        if (nonNull(addr.getDistrict())) return Type.DISTRICT;
+        if (nonNull(addr.getCity())) return Type.CITY;
+        if (nonNull(addr.getState())) return Type.STATE;
         return null;
     }
 
-    private AddressBase toAddress() {
-        Address.AddressBuilder<?, ?> builder = Address.builder();
+    private Address toAddress() {
+        Address.AddressBuilder builder = Address.builder();
         if (address_components != null && !address_components.isEmpty()) {
             Components components = new Components();
             components.fill(Components.COUNTRY, builder::country);

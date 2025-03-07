@@ -1,6 +1,5 @@
 package global.maplink.tracking.schema.schemaTest;
 
-import global.maplink.geocode.schema.v1.Address;
 import global.maplink.json.JsonMapper;
 import global.maplink.tracking.schema.domain.Driver;
 import global.maplink.tracking.schema.domain.Order;

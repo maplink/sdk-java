@@ -7,6 +7,7 @@
         "district":"JARDIM PAULISTA",
         "zipCode":"01404000",
         "city":"SÃO PAULO",
+        "numberAsInteger": 12,
         "state":{
           "name":"SÃO PAULO",
           "code":"SP"

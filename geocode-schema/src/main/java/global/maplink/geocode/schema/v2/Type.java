@@ -1,13 +1,12 @@
 package global.maplink.geocode.schema.v2;
 
-import global.maplink.geocode.schema.Type;
-
-public enum TypeVersionTwo implements Type {
+public enum Type  {
     ZIPCODE,
     STATE,
     CITY,
     POI,
     DISTRICT,
     ROAD,
-    KM
+    KM,
+    POINTS
 }

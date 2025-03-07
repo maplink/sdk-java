@@ -1,7 +1,7 @@
 package global.maplink.geocode.schema.v1.suggestions;
 
 import global.maplink.env.Environment;
-import global.maplink.geocode.schema.Type;
+import global.maplink.geocode.schema.v2.Type;
 import global.maplink.geocode.schema.v2.suggestions.SuggestionsBaseRequest;
 import global.maplink.http.request.Request;
 import global.maplink.json.JsonMapper;
@@ -17,7 +17,7 @@ import static global.maplink.http.request.Request.get;
 @EqualsAndHashCode(callSuper = true)
 public class SuggestionsRequest extends SuggestionsBaseRequest {
 
-    public static final String PATH = "geocode/v2/suggestions";
+    public static final String PATH = "geocode/v1/suggestions";
     private static final String PARAM_LAST_MILE = "lastMile";
 
 
