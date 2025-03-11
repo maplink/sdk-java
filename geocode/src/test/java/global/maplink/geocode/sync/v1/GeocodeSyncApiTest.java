@@ -5,7 +5,7 @@ import global.maplink.credentials.MapLinkCredentials;
 import global.maplink.geocode.async.v1.GeocodeAsyncAPI;
 import global.maplink.geocode.schema.v1.cities.CitiesByStateRequest;
 import global.maplink.geocode.schema.v1.crossCities.CrossCitiesRequest;
-import global.maplink.geocode.schema.v1.reverse.ReverseRequest;
+import global.maplink.geocode.schema.v2.reverse.ReverseRequest;
 import global.maplink.geocode.schema.v2.structured.StructuredRequest;
 import global.maplink.geocode.schema.v1.suggestions.SuggestionsRequest;
 import global.maplink.geocode.schema.v2.suggestions.SuggestionsResult;
@@ -17,8 +17,8 @@ import org.junit.jupiter.api.Test;
 import static global.maplink.geocode.common.Defaults.DEFAULT_CLIENT_ID;
 import static global.maplink.geocode.common.Defaults.DEFAULT_SECRET;
 import static global.maplink.geocode.schema.v1.crossCities.CrossCitiesRequest.point;
-import static global.maplink.geocode.schema.v1.reverse.ReverseRequest.entry;
 import static global.maplink.geocode.schema.v2.Type.ZIPCODE;
+import static global.maplink.geocode.schema.v2.reverse.ReverseRequest.entry;
 import static java.math.BigDecimal.ZERO;
 import static java.util.Arrays.asList;
 import static java.util.concurrent.CompletableFuture.completedFuture;
@@ -95,16 +95,16 @@ public class GeocodeSyncApiTest {
         val async = mock(GeocodeAsyncAPI.class);
         when(async.reverse(any(ReverseRequest.Entry[].class))).thenCallRealMethod();
         when(async.reverse(anyList())).thenCallRealMethod();
-        when(async.reverse(any(ReverseRequest.class))).thenReturn(completedFuture(new SuggestionsResult()));
+        when(async.reverse(any(global.maplink.geocode.schema.v1.reverse.ReverseRequest.class))).thenReturn(completedFuture(new SuggestionsResult()));
         val sync = new GeocodeSyncApiImpl(async);
         val result1 = sync.reverse(entry(1, 1), entry("teste", ZERO, ZERO));
-        val result2 = sync.reverse(ReverseRequest.builder()
+        val result2 = sync.reverse(global.maplink.geocode.schema.v1.reverse.ReverseRequest.builder()
                 .entry(entry(1, 1))
                 .entry(entry(ZERO, ZERO))
                 .build()
         );
         assertThat(asList(result1, result2)).doesNotContainNull();
-        verify(async, times(2)).reverse(any(ReverseRequest.class));
+        verify(async, times(2)).reverse(any(global.maplink.geocode.schema.v1.reverse.ReverseRequest.class));
     }
 
     @Test

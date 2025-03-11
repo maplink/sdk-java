@@ -23,15 +23,16 @@ import static java.util.stream.Collectors.toList;
 @ToString
 @EqualsAndHashCode
 @RequiredArgsConstructor(staticName = "of")
-public class ReverseBaseRequest implements GeocodeSplittableRequest {
+public class ReverseRequest implements GeocodeSplittableRequest {
     public static final int ENTRY_LIMIT = 200;
     public static final String PATH = "geocode/v2/reverse";
+
 
     @Singular
     private final List<Entry> entries;
 
     @Override
-    public List<ReverseBaseRequest> split() {
+    public List<ReverseRequest> split() {
         if (entries.size() < entryLimit()) {
             return singletonList(this);
         }
@@ -39,7 +40,7 @@ public class ReverseBaseRequest implements GeocodeSplittableRequest {
         return IntStream.range(0, parts)
                 .map(i -> i * entryLimit())
                 .mapToObj(i -> entries.subList(i, min(i + 200, entries.size())))
-                .map(ReverseBaseRequest::new)
+                .map(ReverseRequest::new)
                 .collect(toList());
     }
 

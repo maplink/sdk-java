@@ -5,9 +5,9 @@ import global.maplink.geocode.async.GeocodeAsyncHelper;
 import global.maplink.geocode.extensions.GeocodeExtensionManager;
 import global.maplink.geocode.schema.v1.cities.CitiesByStateRequest;
 import global.maplink.geocode.schema.v1.crossCities.CrossCitiesRequest;
+import global.maplink.geocode.schema.v1.reverse.ReverseRequest;
 import global.maplink.geocode.schema.v2.structured.StructuredRequest;
 import global.maplink.geocode.schema.v2.suggestions.SuggestionsResult;
-import global.maplink.geocode.schema.v2.reverse.ReverseBaseRequest;
 import global.maplink.geocode.schema.v2.suggestions.SuggestionsBaseRequest;
 import lombok.RequiredArgsConstructor;
 
@@ -38,8 +38,8 @@ public class GeocodeAsyncApiImpl implements GeocodeAsyncAPI {
     }
 
     @Override
-    public CompletableFuture<SuggestionsResult> reverse(ReverseBaseRequest request) {
-        return extensionManager.get(ReverseBaseRequest.class).doRequest(request, req -> GeocodeAsyncHelper.runSplit(runner, req));
+    public CompletableFuture<SuggestionsResult> reverse(ReverseRequest request) {
+        return extensionManager.get(ReverseRequest.class).doRequest(request, req -> GeocodeAsyncHelper.runSplit(runner, req));
     }
 
     @Override

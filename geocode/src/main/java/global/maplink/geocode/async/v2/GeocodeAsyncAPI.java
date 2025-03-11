@@ -6,7 +6,7 @@ import global.maplink.geocode.async.GeocodeAsyncAPIBase;
 import global.maplink.geocode.extensions.GeocodeExtensionManager;
 import global.maplink.geocode.schema.v2.suggestions.SuggestionsResult;
 import global.maplink.geocode.schema.v2.Type;
-import global.maplink.geocode.schema.v2.reverse.ReverseBaseRequest;
+import global.maplink.geocode.schema.v2.reverse.ReverseRequest;
 import global.maplink.geocode.schema.v2.suggestions.SuggestionsBaseRequest;
 
 import java.util.List;
@@ -26,13 +26,15 @@ public interface GeocodeAsyncAPI extends GeocodeAsyncAPIBase {
         return suggestions(SuggestionsBaseRequest.builder().query(query).type(type).build());
     }
 
-    default CompletableFuture<SuggestionsResult> reverse(ReverseBaseRequest.Entry... request) {
+    default CompletableFuture<SuggestionsResult> reverse(ReverseRequest.Entry... request) {
         return reverse(asList(request));
     }
 
-    default CompletableFuture<SuggestionsResult> reverse(List<ReverseBaseRequest.Entry> request) {
-        return reverse(ReverseBaseRequest.of(request));
+    default CompletableFuture<SuggestionsResult> reverse(List<ReverseRequest.Entry> request) {
+        return reverse(ReverseRequest.of(request));
     }
+
+    CompletableFuture<SuggestionsResult> reverse(ReverseRequest request);
 
     static GeocodeAsyncAPI getInstance() {
         return getInstance(null);

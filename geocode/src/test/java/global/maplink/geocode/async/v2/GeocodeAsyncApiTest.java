@@ -5,7 +5,7 @@ import global.maplink.credentials.InvalidCredentialsException;
 import global.maplink.credentials.MapLinkCredentials;
 import global.maplink.geocode.schema.v2.structured.StructuredRequest;
 import global.maplink.geocode.schema.v2.suggestions.SuggestionsResult;
-import global.maplink.geocode.schema.v2.reverse.ReverseBaseRequest;
+import global.maplink.geocode.schema.v2.reverse.ReverseRequest;
 import global.maplink.geocode.schema.v2.suggestions.SuggestionsBaseRequest;
 import global.maplink.http.exceptions.MapLinkHttpException;
 import lombok.extern.slf4j.Slf4j;
@@ -20,10 +20,9 @@ import java.util.concurrent.ExecutionException;
 import static global.maplink.env.EnvironmentCatalog.HOMOLOG;
 import static global.maplink.geocode.common.Defaults.DEFAULT_CLIENT_ID;
 import static global.maplink.geocode.common.Defaults.DEFAULT_SECRET;
+import static global.maplink.geocode.schema.v2.Type.*;
 import static global.maplink.geocode.schema.v2.structured.StructuredRequest.*;
-import static global.maplink.geocode.schema.v2.Type.CITY;
-import static global.maplink.geocode.schema.v2.Type.ZIPCODE;
-import static global.maplink.geocode.schema.v2.reverse.ReverseBaseRequest.entry;
+import static global.maplink.geocode.schema.v2.reverse.ReverseRequest.entry;
 import static global.maplink.geocode.utils.EnvCredentialsHelper.withEnvCredentials;
 import static java.util.stream.Collectors.toList;
 import static java.util.stream.IntStream.range;
@@ -73,10 +72,10 @@ public class GeocodeAsyncApiTest {
         withEnvCredentials(credentials -> {
             configureWith(credentials);
             val instance = GeocodeAsyncAPI.getInstance();
-            val result = instance.suggestions("São Paulo", ZIPCODE).get();
+            val result = instance.suggestions("São Paulo", ROAD).get();
             assertThat(result.getResults()).isNotEmpty();
             assertThat(result.getFound()).isNotZero();
-            assertThat(result.getResults()).allMatch(v -> v.getType() == ZIPCODE);
+            assertThat(result.getResults()).allMatch(v -> v.getType() == ROAD);
         });
     }
 
@@ -124,7 +123,7 @@ public class GeocodeAsyncApiTest {
             configureWith(credentials);
             val instance = GeocodeAsyncAPI.getInstance();
             SuggestionsResult result = instance.structured(
-                    StructuredRequest.Single.builder().id("reqId")
+                    StructuredRequest.SingleBase.builder().id("reqId")
                     .state("sp")
                     .city("sao paulo")
                     .road("alameda campinas")
@@ -221,7 +220,7 @@ public class GeocodeAsyncApiTest {
                     entry(-22.9141308, -43.445982),
                     entry("sp", -23.6818334, -46.8823662),
                     entry("pr", -25.494945, -49.3598374, 500),
-                    ReverseBaseRequest.Entry.builder()
+                    ReverseRequest.Entry.builder()
                             .id("addr")
                             .lat(BigDecimal.valueOf(-23.5666682))
                             .lon(BigDecimal.valueOf(-46.6558011))
