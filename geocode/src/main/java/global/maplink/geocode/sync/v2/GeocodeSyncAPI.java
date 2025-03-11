@@ -2,10 +2,10 @@ package global.maplink.geocode.sync.v2;
 
 import global.maplink.env.Environment;
 import global.maplink.geocode.async.v2.GeocodeAsyncAPI;
-import global.maplink.geocode.schema.v2.Type;
+import global.maplink.geocode.schema.v1.Type;
 import global.maplink.geocode.schema.v2.reverse.ReverseRequest;
 import global.maplink.geocode.schema.v2.suggestions.SuggestionsBaseRequest;
-import global.maplink.geocode.schema.v2.suggestions.SuggestionsResult;
+import global.maplink.geocode.schema.v1.suggestions.SuggestionsResult;
 import global.maplink.geocode.sync.GeocodeSyncAPIBase;
 
 import java.util.List;

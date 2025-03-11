@@ -1,8 +1,8 @@
 package global.maplink.tracking.schema.schemaTest;
 
-import global.maplink.geocode.schema.v2.Address;
-import global.maplink.geocode.schema.v2.GeoPoint;
-import global.maplink.geocode.schema.v2.State;
+import global.maplink.geocode.schema.v1.Address;
+import global.maplink.geocode.schema.v1.GeoPoint;
+import global.maplink.geocode.schema.v1.State;
 import global.maplink.json.JsonMapper;
 import global.maplink.tracking.schema.domain.Driver;
 import global.maplink.tracking.schema.domain.Order;

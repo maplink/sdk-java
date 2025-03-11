@@ -2,14 +2,14 @@ package global.maplink.geocode.async;
 
 import global.maplink.MapLinkServiceRequestAsyncRunner;
 import global.maplink.geocode.schema.GeocodeSplittableRequest;
-import global.maplink.geocode.schema.v2.suggestions.SuggestionsResult;
+import global.maplink.geocode.schema.v1.suggestions.SuggestionsResult;
 import global.maplink.helpers.FutureHelper;
 import lombok.RequiredArgsConstructor;
 import lombok.val;
 
 import java.util.concurrent.CompletableFuture;
 
-import static global.maplink.geocode.schema.v2.suggestions.SuggestionsResult.EMPTY;
+import static global.maplink.geocode.schema.v1.suggestions.SuggestionsResult.EMPTY;
 import static java.util.stream.Collectors.toList;
 import static lombok.AccessLevel.PACKAGE;
 

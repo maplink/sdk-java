@@ -1,6 +1,6 @@
 package global.maplink.tracking.schema.domain;
 
-import global.maplink.geocode.schema.v2.Address;
+import global.maplink.geocode.schema.v1.Address;
 import global.maplink.validations.Validable;
 import global.maplink.validations.ValidationViolation;
 import lombok.AllArgsConstructor;

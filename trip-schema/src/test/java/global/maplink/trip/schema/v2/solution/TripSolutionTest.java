@@ -1,7 +1,7 @@
 package global.maplink.trip.schema.v2.solution;
 
 import global.maplink.domain.MaplinkPoint;
-import global.maplink.geocode.schema.v2.Address;
+import global.maplink.geocode.schema.v1.Address;
 import global.maplink.json.JsonMapper;
 import global.maplink.place.schema.Category;
 import global.maplink.place.schema.PlaceRoute;

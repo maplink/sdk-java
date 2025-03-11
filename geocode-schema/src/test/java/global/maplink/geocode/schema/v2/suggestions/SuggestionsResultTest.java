@@ -1,9 +1,10 @@
 package global.maplink.geocode.schema.v2.suggestions;
 
+import global.maplink.geocode.schema.v1.suggestions.SuggestionsResult;
 import global.maplink.json.JsonMapper;
 import org.junit.jupiter.api.Test;
 
-import static global.maplink.geocode.schema.v2.Type.ROAD;
+import static global.maplink.geocode.schema.v1.Type.ROAD;
 import static global.maplink.geocode.testUtils.SampleFiles.SUGGESTIONS_RESPONSE_V2;
 import static org.assertj.core.api.Assertions.assertThat;
 

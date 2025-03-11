@@ -3,7 +3,7 @@ package global.maplink.geocode.sync.v2;
 import global.maplink.MapLinkSDK;
 import global.maplink.credentials.MapLinkCredentials;
 import global.maplink.geocode.async.v2.GeocodeAsyncAPI;
-import global.maplink.geocode.schema.v2.suggestions.SuggestionsResult;
+import global.maplink.geocode.schema.v1.suggestions.SuggestionsResult;
 import global.maplink.geocode.schema.v2.reverse.ReverseRequest;
 import global.maplink.geocode.schema.v2.suggestions.SuggestionsBaseRequest;
 import lombok.val;
@@ -13,7 +13,7 @@ import org.junit.jupiter.api.Test;
 
 import static global.maplink.geocode.common.Defaults.DEFAULT_CLIENT_ID;
 import static global.maplink.geocode.common.Defaults.DEFAULT_SECRET;
-import static global.maplink.geocode.schema.v2.Type.ZIPCODE;
+import static global.maplink.geocode.schema.v1.Type.ZIPCODE;
 import static global.maplink.geocode.schema.v2.reverse.ReverseRequest.entry;
 import static java.math.BigDecimal.ZERO;
 import static java.util.Arrays.asList;

@@ -1,7 +1,7 @@
 package global.maplink.trip.schema.v2.solution;
 
 import global.maplink.domain.MaplinkPoints;
-import global.maplink.geocode.schema.v2.Address;
+import global.maplink.geocode.schema.v1.Address;
 import global.maplink.toll.schema.result.LegResult;
 import global.maplink.trip.schema.v2.features.turnByTurn.TurnByTurnInstruction;
 import lombok.Builder;

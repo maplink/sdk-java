@@ -1,10 +1,10 @@
 package global.maplink.geocode.ext.gmaps.suggestions;
 
-import global.maplink.geocode.schema.v2.GeoPoint;
-import global.maplink.geocode.schema.v2.suggestions.SuggestionsResult;
-import global.maplink.geocode.schema.v2.Address;
-import global.maplink.geocode.schema.v2.Type;
-import global.maplink.geocode.schema.v2.suggestions.Suggestion;
+import global.maplink.geocode.schema.v1.GeoPoint;
+import global.maplink.geocode.schema.v1.suggestions.SuggestionsResult;
+import global.maplink.geocode.schema.v1.Address;
+import global.maplink.geocode.schema.v1.Type;
+import global.maplink.geocode.schema.v1.suggestions.Suggestion;
 import global.maplink.helpers.UrlHelper;
 import global.maplink.json.JsonMapper;
 import lombok.SneakyThrows;
@@ -124,7 +124,7 @@ class GeocodeGMapsResponseTest {
         assertThat(mostRelevant.getId()).isEqualTo("maplink-addr");
         assertThat(mostRelevant.getLabel()).isEqualTo(FULL_LABEL);
         assertThat(mostRelevant.getType()).isEqualTo(Type.ROAD);
-        Address address = (Address) mostRelevant.getAddress();
+        Address address = mostRelevant.getAddress();
         assertThat(address.getCountry()).isEqualTo("Brasil");
         assertThat(address.getState().getCode()).isEqualTo("SP");
         assertThat(address.getState().getName()).isEqualTo("São Paulo");

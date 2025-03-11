@@ -2,7 +2,7 @@ package global.maplink.geocode.schema.v2.suggestions;
 
 import global.maplink.env.Environment;
 import global.maplink.geocode.schema.GeocodeServiceRequest;
-import global.maplink.geocode.schema.v2.Type;
+import global.maplink.geocode.schema.v1.Type;
 import global.maplink.http.request.Request;
 import global.maplink.json.JsonMapper;
 import lombok.Data;

@@ -2,10 +2,12 @@ package global.maplink.geocode.async.v2;
 
 import global.maplink.MapLinkSDK;
 import global.maplink.env.Environment;
+import global.maplink.geocode.GeocodeVersion;
 import global.maplink.geocode.async.GeocodeAsyncAPIBase;
 import global.maplink.geocode.extensions.GeocodeExtensionManager;
-import global.maplink.geocode.schema.v2.suggestions.SuggestionsResult;
-import global.maplink.geocode.schema.v2.Type;
+import global.maplink.geocode.runner.GeocodeEnvironmentDecorator;
+import global.maplink.geocode.schema.v1.suggestions.SuggestionsResult;
+import global.maplink.geocode.schema.v1.Type;
 import global.maplink.geocode.schema.v2.reverse.ReverseRequest;
 import global.maplink.geocode.schema.v2.suggestions.SuggestionsBaseRequest;
 
@@ -37,14 +39,23 @@ public interface GeocodeAsyncAPI extends GeocodeAsyncAPIBase {
     CompletableFuture<SuggestionsResult> reverse(ReverseRequest request);
 
     static GeocodeAsyncAPI getInstance() {
-        return getInstance(null);
+        return getInstance(null, GeocodeVersion.V2);
     }
 
     static GeocodeAsyncAPI getInstance(Environment environment) {
+        return getInstance(environment, GeocodeVersion.V2);
+    }
+
+    static GeocodeAsyncAPI getInstance(GeocodeVersion version) {
+        return getInstance(null, version);
+    }
+
+    static GeocodeAsyncAPI getInstance(Environment environment, GeocodeVersion version) {
         MapLinkSDK sdk = MapLinkSDK.getInstance();
+        Environment env = Optional.ofNullable(environment).orElse(sdk.getEnvironment());
         return new GeocodeAsyncApiImpl(
                 createRunner(
-                        Optional.ofNullable(environment).orElse(sdk.getEnvironment()),
+                        new GeocodeEnvironmentDecorator(env, version),
                         sdk
                 ),
                 GeocodeExtensionManager.from(sdk.getExtensions())

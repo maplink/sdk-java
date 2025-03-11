@@ -2,7 +2,7 @@ package global.maplink.geocode.sync.v2;
 
 import global.maplink.geocode.async.v2.GeocodeAsyncAPI;
 import global.maplink.geocode.schema.v2.structured.StructuredRequest;
-import global.maplink.geocode.schema.v2.suggestions.SuggestionsResult;
+import global.maplink.geocode.schema.v1.suggestions.SuggestionsResult;
 import global.maplink.geocode.schema.v2.reverse.ReverseRequest;
 import global.maplink.geocode.schema.v2.suggestions.SuggestionsBaseRequest;
 import lombok.RequiredArgsConstructor;

@@ -33,12 +33,12 @@ public class ReverseRequest implements GeocodeSplittableRequest {
 
     @Override
     public List<ReverseRequest> split() {
-        if (entries.size() < entryLimit()) {
+        if (entries.size() < ENTRY_LIMIT) {
             return singletonList(this);
         }
-        val parts = (entries.size() / entryLimit()) + 1;
+        val parts = (entries.size() / ENTRY_LIMIT) + 1;
         return IntStream.range(0, parts)
-                .map(i -> i * entryLimit())
+                .map(i -> i * ENTRY_LIMIT   )
                 .mapToObj(i -> entries.subList(i, min(i + 200, entries.size())))
                 .map(ReverseRequest::new)
                 .collect(toList());
@@ -83,18 +83,12 @@ public class ReverseRequest implements GeocodeSplittableRequest {
     @Override
     public Request asHttpRequest(Environment environment, JsonMapper mapper) {
         return post(
-                environment.withService(path()),
+                environment.withService(PATH),
                 RequestBody.Json.of(entries, mapper)
         );
     }
 
-    protected int entryLimit() {
-        return ENTRY_LIMIT;
-    }
 
-    protected String path() {
-        return PATH;
-    }
 
     @Builder
     @Getter

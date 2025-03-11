@@ -20,8 +20,8 @@ import static global.maplink.env.EnvironmentCatalog.HOMOLOG;
 import static global.maplink.geocode.common.Defaults.DEFAULT_CLIENT_ID;
 import static global.maplink.geocode.common.Defaults.DEFAULT_SECRET;
 import static global.maplink.geocode.schema.v1.crossCities.CrossCitiesRequest.point;
-import static global.maplink.geocode.schema.v2.Type.CITY;
-import static global.maplink.geocode.schema.v2.Type.ZIPCODE;
+import static global.maplink.geocode.schema.v1.Type.CITY;
+import static global.maplink.geocode.schema.v1.Type.ZIPCODE;
 import static global.maplink.geocode.schema.v2.reverse.ReverseRequest.entry;
 import static global.maplink.geocode.schema.v2.structured.StructuredRequest.multi;
 import static global.maplink.geocode.utils.EnvCredentialsHelper.withEnvCredentials;
@@ -123,7 +123,7 @@ public class GeocodeAsyncApiTest {
         withEnvCredentials(credentials -> {
             configureWith(credentials);
             val instance = GeocodeAsyncAPI.getInstance();
-            val result = instance.structured(StructuredRequest.Single.builder().id("reqId")
+            val result = instance.structured(StructuredRequest.of("reqId")
                     .state("sp")
                     .city("sao paulo")
                     .road("alameda campinas")

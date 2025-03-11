@@ -2,7 +2,7 @@ package global.maplink.geocode.schema.v2.structured;
 
 import global.maplink.env.Environment;
 import global.maplink.geocode.schema.GeocodeSplittableRequest;
-import global.maplink.geocode.schema.v2.Type;
+import global.maplink.geocode.schema.v1.Type;
 import global.maplink.http.request.Request;
 import global.maplink.http.request.RequestBody;
 import global.maplink.json.JsonMapper;
