@@ -61,7 +61,6 @@ public class GeocodeSyncApiTest {
         verify(async, times(3)).suggestions(any(SuggestionsRequest.class));
     }
 
-
     @Test
     public void mustDelegateAllReverseToAsync() {
         val async = mock(GeocodeAsyncAPI.class);

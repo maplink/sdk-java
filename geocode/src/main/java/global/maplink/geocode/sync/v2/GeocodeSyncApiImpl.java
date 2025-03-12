@@ -15,6 +15,7 @@ public class GeocodeSyncApiImpl implements GeocodeSyncAPI {
 
     private final GeocodeAsyncAPI delegate;
 
+    @Override
     public SuggestionsResult suggestions(SuggestionsRequest request) {
         return await(delegate.suggestions(request));
     }

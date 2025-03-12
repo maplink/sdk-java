@@ -30,7 +30,6 @@ public class GeocodeAsyncApiImpl implements GeocodeAsyncAPI {
         return extensionManager.get(StructuredRequest.class).doRequest(request, runner::run);
     }
 
-
     @Override
     public CompletableFuture<SuggestionsResult> reverse(ReverseRequest request) {
         return extensionManager.get(ReverseRequest.class).doRequest(request, req -> GeocodeAsyncHelper.runSplit(runner, req));

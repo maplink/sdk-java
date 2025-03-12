@@ -134,8 +134,6 @@ public class GeocodeAsyncApiTest {
         });
     }
 
-
-
     @Test
     void mustReturnOneResultByRequestInMultiGeocode() {
         withEnvCredentials(credentials -> {
