@@ -3,10 +3,10 @@ package global.maplink.geocode.async.v2;
 import global.maplink.MapLinkServiceRequestAsyncRunner;
 import global.maplink.geocode.async.GeocodeAsyncHelper;
 import global.maplink.geocode.extensions.GeocodeExtensionManager;
+import global.maplink.geocode.schema.v1.suggestions.SuggestionsRequest;
 import global.maplink.geocode.schema.v2.structured.StructuredRequest;
 import global.maplink.geocode.schema.v1.suggestions.SuggestionsResult;
 import global.maplink.geocode.schema.v1.reverse.ReverseRequest;
-import global.maplink.geocode.schema.v2.suggestions.SuggestionsBaseRequest;
 import lombok.RequiredArgsConstructor;
 
 import java.util.concurrent.CompletableFuture;
@@ -21,8 +21,8 @@ public class GeocodeAsyncApiImpl implements GeocodeAsyncAPI {
     private final GeocodeExtensionManager extensionManager;
 
     @Override
-    public CompletableFuture<SuggestionsResult> suggestions(SuggestionsBaseRequest request) {
-        return extensionManager.get(SuggestionsBaseRequest.class).doRequest(request, runner::run);
+    public CompletableFuture<SuggestionsResult> suggestions(SuggestionsRequest request) {
+        return extensionManager.get(SuggestionsRequest.class).doRequest(request, runner::run);
     }
 
     @Override

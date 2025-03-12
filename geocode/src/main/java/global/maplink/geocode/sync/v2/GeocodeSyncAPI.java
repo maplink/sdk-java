@@ -4,7 +4,7 @@ import global.maplink.env.Environment;
 import global.maplink.geocode.async.v2.GeocodeAsyncAPI;
 import global.maplink.geocode.schema.v1.Type;
 import global.maplink.geocode.schema.v1.reverse.ReverseRequest;
-import global.maplink.geocode.schema.v2.suggestions.SuggestionsBaseRequest;
+import global.maplink.geocode.schema.v1.suggestions.SuggestionsRequest;
 import global.maplink.geocode.schema.v1.suggestions.SuggestionsResult;
 import global.maplink.geocode.sync.GeocodeSyncAPIBase;
 
@@ -16,12 +16,14 @@ public interface GeocodeSyncAPI extends GeocodeSyncAPIBase {
 
 
     default SuggestionsResult suggestions(String query) {
-        return suggestions(SuggestionsBaseRequest.builder().query(query).build());
+        return suggestions(SuggestionsRequest.builder().query(query).build());
     }
 
     default SuggestionsResult suggestions(String query, Type type) {
-        return suggestions(SuggestionsBaseRequest.builder().query(query).type(type).build());
+        return suggestions(SuggestionsRequest.builder().query(query).type(type).build());
     }
+
+    SuggestionsResult suggestions(SuggestionsRequest request);
 
     default SuggestionsResult reverse(ReverseRequest.Entry... request) {
         return reverse(asList(request));

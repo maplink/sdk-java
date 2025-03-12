@@ -1,34 +1,42 @@
 package global.maplink.geocode.schema.v1.suggestions;
 
 import global.maplink.env.Environment;
+import global.maplink.geocode.schema.GeocodeServiceRequest;
 import global.maplink.geocode.schema.v1.Type;
-import global.maplink.geocode.schema.v2.suggestions.SuggestionsBaseRequest;
 import global.maplink.http.request.Request;
 import global.maplink.json.JsonMapper;
-import lombok.EqualsAndHashCode;
-import lombok.experimental.SuperBuilder;
+import lombok.Builder;
+import lombok.Data;
 import lombok.val;
 
 import java.util.Optional;
 
 import static global.maplink.http.request.Request.get;
 
-@SuperBuilder
-@EqualsAndHashCode(callSuper = true)
-public class SuggestionsRequest extends SuggestionsBaseRequest {
+@Builder
+@Data
+public class SuggestionsRequest implements GeocodeServiceRequest {
 
     public static final String PATH = "/suggestions";
+    private static final String PARAM_QUERY = "q";
+    private static final String PARAM_TYPE = "type";
+
+    @Deprecated
     private static final String PARAM_LAST_MILE = "lastMile";
 
+    private final String query;
 
+    private Type type;
+
+    @Deprecated
     private boolean lastMile;
 
     @Override
     public Request asHttpRequest(Environment environment, JsonMapper mapper) {
         val httpRequest = get(environment.withService(PATH))
-                .withQuery(PARAM_QUERY, super.getQuery());
+                .withQuery(PARAM_QUERY, query);
 
-        Optional.ofNullable(super.getType())
+        Optional.ofNullable(type)
                 .map(Type::name)
                 .ifPresent(v -> httpRequest.withQuery(PARAM_TYPE, v));
 

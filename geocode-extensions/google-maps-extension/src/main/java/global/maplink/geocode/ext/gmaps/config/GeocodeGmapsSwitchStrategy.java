@@ -4,7 +4,7 @@ import global.maplink.geocode.ext.gmaps.suggestions.GMapsSuggestionsRequestActio
 import global.maplink.geocode.ext.gmaps.suggestions.GeocodeGMapsResponse;
 import global.maplink.geocode.ext.gmaps.suggestions.MlpSuggestionsRequestAction;
 import global.maplink.geocode.schema.v1.suggestions.Suggestion;
-import global.maplink.geocode.schema.v2.suggestions.SuggestionsBaseRequest;
+import global.maplink.geocode.schema.v1.suggestions.SuggestionsRequest;
 import global.maplink.geocode.schema.v1.suggestions.SuggestionsResult;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -17,7 +17,7 @@ import static java.util.concurrent.CompletableFuture.completedFuture;
 public interface GeocodeGmapsSwitchStrategy {
 
     CompletableFuture<SuggestionsResult> choose(
-            SuggestionsBaseRequest request,
+            SuggestionsRequest request,
             GMapsSuggestionsRequestAction gmapsAction,
             MlpSuggestionsRequestAction mlpAction
     );
@@ -40,7 +40,7 @@ public interface GeocodeGmapsSwitchStrategy {
 
         @Override
         public CompletableFuture<SuggestionsResult> choose(
-                SuggestionsBaseRequest request,
+                SuggestionsRequest request,
                 GMapsSuggestionsRequestAction gmapsAction,
                 MlpSuggestionsRequestAction mlpAction
         ) {
@@ -64,7 +64,7 @@ public interface GeocodeGmapsSwitchStrategy {
 
         @Override
         public CompletableFuture<SuggestionsResult> choose(
-                SuggestionsBaseRequest request,
+                SuggestionsRequest request,
                 GMapsSuggestionsRequestAction gmapsAction,
                 MlpSuggestionsRequestAction mlpAction
         ) {

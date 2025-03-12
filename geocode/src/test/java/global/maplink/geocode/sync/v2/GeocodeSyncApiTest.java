@@ -3,9 +3,9 @@ package global.maplink.geocode.sync.v2;
 import global.maplink.MapLinkSDK;
 import global.maplink.credentials.MapLinkCredentials;
 import global.maplink.geocode.async.v2.GeocodeAsyncAPI;
+import global.maplink.geocode.schema.v1.suggestions.SuggestionsRequest;
 import global.maplink.geocode.schema.v1.suggestions.SuggestionsResult;
 import global.maplink.geocode.schema.v1.reverse.ReverseRequest;
-import global.maplink.geocode.schema.v2.suggestions.SuggestionsBaseRequest;
 import lombok.val;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -50,15 +50,15 @@ public class GeocodeSyncApiTest {
         val async = mock(GeocodeAsyncAPI.class);
         when(async.suggestions(any(String.class))).thenCallRealMethod();
         when(async.suggestions(any(), any())).thenCallRealMethod();
-        when(async.suggestions(any(SuggestionsBaseRequest.class))).thenReturn(completedFuture(new SuggestionsResult()));
+        when(async.suggestions(any(SuggestionsRequest.class))).thenReturn(completedFuture(new SuggestionsResult()));
         val sync = new GeocodeSyncApiImpl(async);
         val result1 = sync.suggestions(SOMETHING);
         val result2 = sync.suggestions(SOMETHING, ZIPCODE);
-        val result3 = sync.suggestions(SuggestionsBaseRequest.builder()
+        val result3 = sync.suggestions(SuggestionsRequest.builder()
                 .query(SOMETHING)
                 .build());
         assertThat(asList(result1, result2, result3)).doesNotContainNull();
-        verify(async, times(3)).suggestions(any(SuggestionsBaseRequest.class));
+        verify(async, times(3)).suggestions(any(SuggestionsRequest.class));
     }
 
 

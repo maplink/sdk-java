@@ -4,9 +4,9 @@ import global.maplink.MapLinkSDK;
 import global.maplink.credentials.InvalidCredentialsException;
 import global.maplink.credentials.MapLinkCredentials;
 import global.maplink.geocode.schema.v1.reverse.ReverseRequest;
+import global.maplink.geocode.schema.v1.suggestions.SuggestionsRequest;
 import global.maplink.geocode.schema.v1.suggestions.SuggestionsResult;
 import global.maplink.geocode.schema.v2.structured.StructuredRequest;
-import global.maplink.geocode.schema.v2.suggestions.SuggestionsBaseRequest;
 import global.maplink.http.exceptions.MapLinkHttpException;
 import lombok.extern.slf4j.Slf4j;
 import lombok.val;
@@ -85,7 +85,7 @@ public class GeocodeAsyncApiTest {
             configureWith(credentials);
             val instance = GeocodeAsyncAPI.getInstance();
             val result = instance.suggestions(
-                    SuggestionsBaseRequest.builder()
+                    SuggestionsRequest.builder()
                     .query("Alameda Campinas, 579 - Jardim Paulista")
                     .build()).get();
             assertEquals("579", result.getResults().get(0).getAddress().getNumber());

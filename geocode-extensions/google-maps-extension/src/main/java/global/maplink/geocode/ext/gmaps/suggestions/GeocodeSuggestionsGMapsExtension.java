@@ -3,7 +3,7 @@ package global.maplink.geocode.ext.gmaps.suggestions;
 import global.maplink.MapLinkSDK;
 import global.maplink.geocode.ext.gmaps.config.GeocodeGMapsConfig;
 import global.maplink.geocode.extensions.GeocodeExtension;
-import global.maplink.geocode.schema.v2.suggestions.SuggestionsBaseRequest;
+import global.maplink.geocode.schema.v1.suggestions.SuggestionsRequest;
 import global.maplink.geocode.schema.v1.suggestions.SuggestionsResult;
 import global.maplink.http.HttpAsyncEngine;
 import global.maplink.json.JsonMapper;
@@ -22,9 +22,9 @@ import static java.lang.String.format;
 
 @RequiredArgsConstructor
 @EqualsAndHashCode
-public class GeocodeSuggestionsGMapsExtension implements GeocodeExtension<SuggestionsBaseRequest> {
+public class GeocodeSuggestionsGMapsExtension implements GeocodeExtension<SuggestionsRequest> {
 
-    private static final Class<SuggestionsBaseRequest> REQUEST_TYPE = SuggestionsBaseRequest.class;
+    private static final Class<SuggestionsRequest> REQUEST_TYPE = SuggestionsRequest.class;
 
     private static final String EXTENSION_NAME = "Geocode Suggestions - Google Maps Extension";
     private static final String NOT_INITIALIZED_ERROR_MESSAGE = "Extension: %s isn't initialized yet";
@@ -56,7 +56,7 @@ public class GeocodeSuggestionsGMapsExtension implements GeocodeExtension<Sugges
     }
 
     @Override
-    public CompletableFuture<SuggestionsResult> doRequest(SuggestionsBaseRequest request, Function<SuggestionsBaseRequest, CompletableFuture<SuggestionsResult>> action) {
+    public CompletableFuture<SuggestionsResult> doRequest(SuggestionsRequest request, Function<SuggestionsRequest, CompletableFuture<SuggestionsResult>> action) {
         if (!initialized) {
             throw new IllegalStateException(format(NOT_INITIALIZED_ERROR_MESSAGE, getName()));
         }
@@ -69,14 +69,14 @@ public class GeocodeSuggestionsGMapsExtension implements GeocodeExtension<Sugges
     }
 
     @Override
-    public Class<SuggestionsBaseRequest> getRequestType() {
+    public Class<SuggestionsRequest> getRequestType() {
         return REQUEST_TYPE;
     }
 
     class GMapsRequestActionImpl implements GMapsSuggestionsRequestAction {
 
         @Override
-        public CompletableFuture<GeocodeGMapsResponse> apply(SuggestionsBaseRequest request) {
+        public CompletableFuture<GeocodeGMapsResponse> apply(SuggestionsRequest request) {
             return http.run(get(url)
                     .withQuery(PARAM_KEY, config.getApiKey())
                     .withQuery(PARAM_LANG, PARAM_LANG_DEFAULT)

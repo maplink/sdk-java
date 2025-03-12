@@ -1,10 +1,10 @@
 package global.maplink.geocode.sync.v2;
 
 import global.maplink.geocode.async.v2.GeocodeAsyncAPI;
+import global.maplink.geocode.schema.v1.suggestions.SuggestionsRequest;
 import global.maplink.geocode.schema.v2.structured.StructuredRequest;
 import global.maplink.geocode.schema.v1.suggestions.SuggestionsResult;
 import global.maplink.geocode.schema.v1.reverse.ReverseRequest;
-import global.maplink.geocode.schema.v2.suggestions.SuggestionsBaseRequest;
 import lombok.RequiredArgsConstructor;
 
 import static global.maplink.helpers.FutureHelper.await;
@@ -15,9 +15,7 @@ public class GeocodeSyncApiImpl implements GeocodeSyncAPI {
 
     private final GeocodeAsyncAPI delegate;
 
-
-    @Override
-    public SuggestionsResult suggestions(SuggestionsBaseRequest request) {
+    public SuggestionsResult suggestions(SuggestionsRequest request) {
         return await(delegate.suggestions(request));
     }
 

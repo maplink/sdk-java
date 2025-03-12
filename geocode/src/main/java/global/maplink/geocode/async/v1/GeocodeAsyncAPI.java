@@ -22,6 +22,8 @@ import static java.util.Arrays.asList;
 
 public interface GeocodeAsyncAPI extends GeocodeAsyncAPIBase {
 
+    CompletableFuture<SuggestionsResult> suggestions(SuggestionsRequest request);
+
     default CompletableFuture<SuggestionsResult> suggestions(String query) {
         return suggestions(SuggestionsRequest.builder().query(query).build());
     }

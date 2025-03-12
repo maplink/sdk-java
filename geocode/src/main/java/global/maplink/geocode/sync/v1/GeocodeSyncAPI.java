@@ -30,6 +30,8 @@ public interface GeocodeSyncAPI extends GeocodeSyncAPIBase {
         return suggestions(SuggestionsRequest.builder().query(query).type(type).build());
     }
 
+    SuggestionsResult suggestions(SuggestionsRequest request);
+
     default SuggestionsResult reverse(ReverseRequest.Entry... request) {
         return reverse(asList(request));
     }

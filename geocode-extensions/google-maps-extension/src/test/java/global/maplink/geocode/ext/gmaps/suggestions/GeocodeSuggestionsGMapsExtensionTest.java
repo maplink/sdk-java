@@ -7,7 +7,6 @@ import global.maplink.geocode.ext.gmaps.config.GeocodeGMapsConfig;
 import global.maplink.geocode.schema.v1.suggestions.SuggestionsRequest;
 import global.maplink.geocode.schema.v1.suggestions.SuggestionsResult;
 import global.maplink.geocode.schema.v1.suggestions.Suggestion;
-import global.maplink.geocode.schema.v2.suggestions.SuggestionsBaseRequest;
 import lombok.val;
 import org.assertj.core.api.ThrowingConsumer;
 import org.junit.jupiter.api.Test;
@@ -23,7 +22,7 @@ class GeocodeSuggestionsGMapsExtensionTest {
 
     private final GeocodeGMapsConfig mockConfig = new GeocodeGMapsConfig("Teste");
 
-    private final SuggestionsBaseRequest mockRequest = SuggestionsRequest.builder().query("Test").build();
+    private final SuggestionsRequest mockRequest = SuggestionsRequest.builder().query("Test").build();
 
     @Test
     void mustFailWhenIsNotInitialized() {
