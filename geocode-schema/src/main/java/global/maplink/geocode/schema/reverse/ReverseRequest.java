@@ -1,4 +1,4 @@
-package global.maplink.geocode.schema.v1.reverse;
+package global.maplink.geocode.schema.reverse;
 
 
 import global.maplink.env.Environment;

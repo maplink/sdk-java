@@ -1,7 +1,7 @@
 package global.maplink.geocode.schema;
 
 import global.maplink.MapLinkServiceRequest;
-import global.maplink.geocode.schema.v1.suggestions.SuggestionsResult;
+import global.maplink.geocode.schema.suggestions.SuggestionsResult;
 import global.maplink.http.Response;
 import global.maplink.json.JsonMapper;
 

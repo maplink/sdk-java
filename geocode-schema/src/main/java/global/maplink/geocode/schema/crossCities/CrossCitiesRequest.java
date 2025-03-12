@@ -1,4 +1,4 @@
-package global.maplink.geocode.schema.v1.crossCities;
+package global.maplink.geocode.schema.crossCities;
 
 import global.maplink.env.Environment;
 import global.maplink.geocode.schema.GeocodeServiceRequest;

@@ -1,8 +1,8 @@
-package global.maplink.geocode.schema.v1.suggestions;
+package global.maplink.geocode.schema.suggestions;
 
-import global.maplink.geocode.schema.v1.PointOfInterest;
-import global.maplink.geocode.schema.v1.Address;
-import global.maplink.geocode.schema.v1.Type;
+import global.maplink.geocode.schema.PointOfInterest;
+import global.maplink.geocode.schema.Address;
+import global.maplink.geocode.schema.Type;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

@@ -2,19 +2,19 @@ package global.maplink.geocode.sync.v1;
 
 import global.maplink.env.Environment;
 import global.maplink.geocode.async.v1.GeocodeAsyncAPI;
-import global.maplink.geocode.schema.v1.cities.CitiesByStateRequest;
-import global.maplink.geocode.schema.v1.crossCities.CrossCitiesRequest;
-import global.maplink.geocode.schema.v1.suggestions.SuggestionsRequest;
-import global.maplink.geocode.schema.v1.suggestions.SuggestionsResult;
-import global.maplink.geocode.schema.v1.Type;
-import global.maplink.geocode.schema.v1.reverse.ReverseRequest;
-import global.maplink.geocode.sync.GeocodeSyncAPIBase;
+import global.maplink.geocode.schema.cities.CitiesByStateRequest;
+import global.maplink.geocode.schema.crossCities.CrossCitiesRequest;
+import global.maplink.geocode.schema.structured.StructuredRequest;
+import global.maplink.geocode.schema.suggestions.SuggestionsRequest;
+import global.maplink.geocode.schema.suggestions.SuggestionsResult;
+import global.maplink.geocode.schema.Type;
+import global.maplink.geocode.schema.reverse.ReverseRequest;
 
 import java.util.List;
 
 import static java.util.Arrays.asList;
 
-public interface GeocodeSyncAPI extends GeocodeSyncAPIBase {
+public interface GeocodeSyncAPI {
 
     SuggestionsResult citiesByState(CitiesByStateRequest request);
 
@@ -37,10 +37,12 @@ public interface GeocodeSyncAPI extends GeocodeSyncAPIBase {
     }
 
     default SuggestionsResult reverse(List<ReverseRequest.Entry> request) {
-        return reverse(global.maplink.geocode.schema.v1.reverse.ReverseRequest.of(request));
+        return reverse(ReverseRequest.of(request));
     }
 
-    SuggestionsResult reverse(global.maplink.geocode.schema.v1.reverse.ReverseRequest request);
+    SuggestionsResult reverse(ReverseRequest request);
+
+    SuggestionsResult structured(StructuredRequest request);
 
     default SuggestionsResult crossCities(CrossCitiesRequest.Point... points) {
         return crossCities(asList(points));

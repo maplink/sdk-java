@@ -3,10 +3,10 @@ package global.maplink.geocode.async.v1;
 import global.maplink.MapLinkSDK;
 import global.maplink.credentials.InvalidCredentialsException;
 import global.maplink.credentials.MapLinkCredentials;
-import global.maplink.geocode.schema.v1.cities.CitiesByStateRequest;
-import global.maplink.geocode.schema.v1.suggestions.SuggestionsRequest;
-import global.maplink.geocode.schema.v1.reverse.ReverseRequest;
-import global.maplink.geocode.schema.v2.structured.StructuredRequest;
+import global.maplink.geocode.schema.cities.CitiesByStateRequest;
+import global.maplink.geocode.schema.structured.StructuredRequest;
+import global.maplink.geocode.schema.suggestions.SuggestionsRequest;
+import global.maplink.geocode.schema.reverse.ReverseRequest;
 import global.maplink.http.exceptions.MapLinkHttpException;
 import lombok.extern.slf4j.Slf4j;
 import lombok.val;
@@ -19,11 +19,11 @@ import java.util.concurrent.ExecutionException;
 import static global.maplink.env.EnvironmentCatalog.HOMOLOG;
 import static global.maplink.geocode.common.Defaults.DEFAULT_CLIENT_ID;
 import static global.maplink.geocode.common.Defaults.DEFAULT_SECRET;
-import static global.maplink.geocode.schema.v1.crossCities.CrossCitiesRequest.point;
-import static global.maplink.geocode.schema.v1.Type.CITY;
-import static global.maplink.geocode.schema.v1.Type.ZIPCODE;
-import static global.maplink.geocode.schema.v1.reverse.ReverseRequest.entry;
-import static global.maplink.geocode.schema.v2.structured.StructuredRequest.multi;
+import static global.maplink.geocode.schema.crossCities.CrossCitiesRequest.point;
+import static global.maplink.geocode.schema.Type.CITY;
+import static global.maplink.geocode.schema.Type.ZIPCODE;
+import static global.maplink.geocode.schema.reverse.ReverseRequest.entry;
+import static global.maplink.geocode.schema.structured.StructuredRequest.multi;
 import static global.maplink.geocode.utils.EnvCredentialsHelper.withEnvCredentials;
 import static java.util.stream.Collectors.toList;
 import static java.util.stream.IntStream.range;
@@ -190,7 +190,7 @@ public class GeocodeAsyncApiTest {
         withEnvCredentials(credentials -> {
             configureWith(credentials);
             val instance = GeocodeAsyncAPI.getInstance();
-            val multiRequest = StructuredRequest.multi(
+            val multiRequest = multi(
                     StructuredRequest.of("sc")
                             .state("sc")
                             .city("itajai")

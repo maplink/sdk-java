@@ -1,6 +1,6 @@
 package global.maplink.tracking.schema.errors;
 
-import global.maplink.geocode.schema.v1.GeoPoint;
+import global.maplink.geocode.schema.GeoPoint;
 import global.maplink.validations.ValidationViolation;
 import lombok.NoArgsConstructor;
 

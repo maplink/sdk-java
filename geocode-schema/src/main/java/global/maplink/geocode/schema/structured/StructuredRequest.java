@@ -1,13 +1,18 @@
-package global.maplink.geocode.schema.v2.structured;
+package global.maplink.geocode.schema.structured;
 
 import global.maplink.env.Environment;
 import global.maplink.geocode.schema.GeocodeSplittableRequest;
-import global.maplink.geocode.schema.v1.Type;
+import global.maplink.geocode.schema.Type;
 import global.maplink.http.request.Request;
 import global.maplink.http.request.RequestBody;
 import global.maplink.json.JsonMapper;
-import lombok.*;
-import lombok.experimental.SuperBuilder;
+import lombok.Builder;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import lombok.ToString;
+import lombok.val;
 
 import java.util.List;
 import java.util.stream.IntStream;
@@ -24,7 +29,7 @@ public interface StructuredRequest extends GeocodeSplittableRequest {
         return Single.builder().id(id);
     }
 
-    static Single.Single ofState(String id, String state) {
+    static Single ofState(String id, String state) {
         return Single.builder()
                 .id(id)
                 .state(state)
@@ -32,7 +37,7 @@ public interface StructuredRequest extends GeocodeSplittableRequest {
                 .build();
     }
 
-    static Single.Single ofCity(String id, String city, String state) {
+    static Single ofCity(String id, String city, String state) {
         return Single.builder()
                 .id(id)
                 .state(state)
@@ -41,7 +46,7 @@ public interface StructuredRequest extends GeocodeSplittableRequest {
                 .build();
     }
 
-    static Single.Single ofDistrict(String id, String district, String city, String state) {
+    static Single ofDistrict(String id, String district, String city, String state) {
         return Single.builder()
                 .id(id)
                 .state(state)
@@ -51,20 +56,23 @@ public interface StructuredRequest extends GeocodeSplittableRequest {
                 .build();
     }
 
-    static StructuredRequest.Multi multi(SingleBase... requests) {
+    static Multi multi(Single... requests) {
         return new Multi(requests);
     }
 
-    static StructuredRequest.Multi multi(List<SingleBase> requests) {
+    static Multi multi(List<Single> requests) {
         return new Multi(requests.toArray(new Single[0]));
     }
 
-    @SuperBuilder
+    @Builder
     @Getter
     @ToString
     @EqualsAndHashCode
-    class SingleBase implements StructuredRequest {
+    class Single implements StructuredRequest {
         public static final String PATH = "/geocode";
+
+        @Deprecated
+        private static final String PARAM_LAST_MILE = "lastMile";
 
         private String id;
         private String road;
@@ -75,31 +83,14 @@ public interface StructuredRequest extends GeocodeSplittableRequest {
         private String state;
         private String acronym;
         private Type type;
+
+        @Deprecated
         private boolean lastMile;
 
         @Override
-        public List<SingleBase> split() {
+        public List<Single> split() {
             return singletonList(this);
         }
-
-        @Override
-        public Request asHttpRequest(Environment environment, JsonMapper mapper) {
-            return post(
-                    environment.withService(PATH),
-                    RequestBody.Json.of(this, mapper)
-            );
-        }
-    }
-
-    @SuperBuilder
-    @Getter
-    @ToString
-    @EqualsAndHashCode(callSuper = false)
-    class Single extends SingleBase implements StructuredRequest {
-        public static final String PATH = "/geocode";
-        private static final String PARAM_LAST_MILE = "lastMile";
-
-        private boolean lastMile;
 
         @Override
         public Request asHttpRequest(Environment environment, JsonMapper mapper) {
@@ -110,7 +101,6 @@ public interface StructuredRequest extends GeocodeSplittableRequest {
         }
     }
 
-
     @RequiredArgsConstructor
     @Getter
     @ToString
@@ -118,9 +108,13 @@ public interface StructuredRequest extends GeocodeSplittableRequest {
     class Multi implements StructuredRequest {
         public static final String PATH = "/multi-geocode";
         public static final int REQ_LIMIT = 200;
+
+        @Deprecated
         private static final String PARAM_LAST_MILE = "lastMile";
 
-        private final SingleBase[] requests;
+        private final Single[] requests;
+
+        @Deprecated
         private boolean lastMile;
 
         @Override

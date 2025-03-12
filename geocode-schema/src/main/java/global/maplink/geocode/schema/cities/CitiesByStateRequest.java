@@ -1,4 +1,4 @@
-package global.maplink.geocode.schema.v1.cities;
+package global.maplink.geocode.schema.cities;
 
 import global.maplink.env.Environment;
 import global.maplink.geocode.schema.GeocodeServiceRequest;

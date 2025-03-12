@@ -1,6 +1,6 @@
 package global.maplink.tracking.schema.schemaTest;
 
-import global.maplink.geocode.schema.v1.GeoPoint;
+import global.maplink.geocode.schema.GeoPoint;
 import global.maplink.tracking.schema.domain.Driver;
 import lombok.val;
 import org.junit.jupiter.api.Test;

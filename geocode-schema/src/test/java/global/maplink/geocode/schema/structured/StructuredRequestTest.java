@@ -1,6 +1,5 @@
-package global.maplink.geocode.schema.v1.structured;
+package global.maplink.geocode.schema.structured;
 
-import global.maplink.geocode.schema.v2.structured.StructuredRequest;
 import lombok.val;
 import org.junit.jupiter.api.Test;
 
@@ -34,14 +33,14 @@ class StructuredRequestTest {
         val request = generate(500);
         val split = request.split();
         assertThat(split).hasSize(3);
-        List<StructuredRequest.SingleBase> list = asList(request.getRequests());
+        List<StructuredRequest.Single> list = asList(request.getRequests());
         assertThat(split.get(0).getRequests()).hasSameElementsAs(list.subList(0, 200));
         assertThat(split.get(1).getRequests()).hasSameElementsAs(list.subList(200, 400));
         assertThat(split.get(2).getRequests()).hasSameElementsAs(list.subList(400, 500));
     }
 
     private StructuredRequest.Multi generate(int entriesNumber) {
-        List<StructuredRequest.SingleBase> entries = range(0, entriesNumber)
+        List<StructuredRequest.Single> entries = range(0, entriesNumber)
                 .mapToObj(i -> StructuredRequest.ofState("id-" + i, "Sao paulo " + i))
                 .collect(toList());
         return StructuredRequest.multi(entries);

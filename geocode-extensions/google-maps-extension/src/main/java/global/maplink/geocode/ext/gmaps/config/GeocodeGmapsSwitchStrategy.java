@@ -3,9 +3,9 @@ package global.maplink.geocode.ext.gmaps.config;
 import global.maplink.geocode.ext.gmaps.suggestions.GMapsSuggestionsRequestAction;
 import global.maplink.geocode.ext.gmaps.suggestions.GeocodeGMapsResponse;
 import global.maplink.geocode.ext.gmaps.suggestions.MlpSuggestionsRequestAction;
-import global.maplink.geocode.schema.v1.suggestions.Suggestion;
-import global.maplink.geocode.schema.v1.suggestions.SuggestionsRequest;
-import global.maplink.geocode.schema.v1.suggestions.SuggestionsResult;
+import global.maplink.geocode.schema.suggestions.Suggestion;
+import global.maplink.geocode.schema.suggestions.SuggestionsRequest;
+import global.maplink.geocode.schema.suggestions.SuggestionsResult;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 

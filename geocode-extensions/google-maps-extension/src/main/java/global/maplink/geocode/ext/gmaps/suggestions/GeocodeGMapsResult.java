@@ -1,10 +1,10 @@
 package global.maplink.geocode.ext.gmaps.suggestions;
 
-import global.maplink.geocode.schema.v1.GeoPoint;
-import global.maplink.geocode.schema.v1.State;
-import global.maplink.geocode.schema.v1.Address;
-import global.maplink.geocode.schema.v1.Type;
-import global.maplink.geocode.schema.v1.suggestions.Suggestion;
+import global.maplink.geocode.schema.GeoPoint;
+import global.maplink.geocode.schema.State;
+import global.maplink.geocode.schema.Address;
+import global.maplink.geocode.schema.Type;
+import global.maplink.geocode.schema.suggestions.Suggestion;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;

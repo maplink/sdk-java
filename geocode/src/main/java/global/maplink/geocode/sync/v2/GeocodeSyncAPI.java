@@ -2,17 +2,17 @@ package global.maplink.geocode.sync.v2;
 
 import global.maplink.env.Environment;
 import global.maplink.geocode.async.v2.GeocodeAsyncAPI;
-import global.maplink.geocode.schema.v1.Type;
-import global.maplink.geocode.schema.v1.reverse.ReverseRequest;
-import global.maplink.geocode.schema.v1.suggestions.SuggestionsRequest;
-import global.maplink.geocode.schema.v1.suggestions.SuggestionsResult;
-import global.maplink.geocode.sync.GeocodeSyncAPIBase;
+import global.maplink.geocode.schema.Type;
+import global.maplink.geocode.schema.reverse.ReverseRequest;
+import global.maplink.geocode.schema.structured.StructuredRequest;
+import global.maplink.geocode.schema.suggestions.SuggestionsRequest;
+import global.maplink.geocode.schema.suggestions.SuggestionsResult;
 
 import java.util.List;
 
 import static java.util.Arrays.asList;
 
-public interface GeocodeSyncAPI extends GeocodeSyncAPIBase {
+public interface GeocodeSyncAPI {
 
 
     default SuggestionsResult suggestions(String query) {
@@ -24,6 +24,8 @@ public interface GeocodeSyncAPI extends GeocodeSyncAPIBase {
     }
 
     SuggestionsResult suggestions(SuggestionsRequest request);
+
+    SuggestionsResult structured(StructuredRequest request);
 
     default SuggestionsResult reverse(ReverseRequest.Entry... request) {
         return reverse(asList(request));
