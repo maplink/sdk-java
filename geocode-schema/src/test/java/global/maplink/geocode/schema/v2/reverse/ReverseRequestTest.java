@@ -1,9 +1,10 @@
 package global.maplink.geocode.schema.v2.reverse;
 
+import global.maplink.geocode.schema.v1.reverse.ReverseRequest;
 import lombok.val;
 import org.junit.jupiter.api.Test;
 
-import static global.maplink.geocode.schema.v2.reverse.ReverseRequest.entry;
+import static global.maplink.geocode.schema.v1.reverse.ReverseRequest.entry;
 import static java.util.stream.Collectors.toList;
 import static java.util.stream.IntStream.range;
 import static org.assertj.core.api.Assertions.assertThat;

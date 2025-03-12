@@ -7,7 +7,7 @@ import global.maplink.geocode.schema.v1.crossCities.CrossCitiesRequest;
 import global.maplink.geocode.schema.v1.suggestions.SuggestionsRequest;
 import global.maplink.geocode.schema.v1.suggestions.SuggestionsResult;
 import global.maplink.geocode.schema.v1.Type;
-import global.maplink.geocode.schema.v2.reverse.ReverseRequest;
+import global.maplink.geocode.schema.v1.reverse.ReverseRequest;
 import global.maplink.geocode.sync.GeocodeSyncAPIBase;
 
 import java.util.List;

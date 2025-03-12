@@ -16,7 +16,7 @@ import static global.maplink.http.request.Request.post;
 @Data
 public class CitiesByStateRequest implements GeocodeServiceRequest {
 
-    public static final String PATH = "geocode/v1/geocode/states/%s/cities";
+    public static final String PATH = "/geocode/states/%s/cities";
     public final String state;
 
     @Override

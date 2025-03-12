@@ -64,7 +64,7 @@ public interface StructuredRequest extends GeocodeSplittableRequest {
     @ToString
     @EqualsAndHashCode
     class SingleBase implements StructuredRequest {
-        public static final String PATH = "geocode/v2/geocode";
+        public static final String PATH = "/geocode";
 
         private String id;
         private String road;
@@ -96,7 +96,7 @@ public interface StructuredRequest extends GeocodeSplittableRequest {
     @ToString
     @EqualsAndHashCode(callSuper = false)
     class Single extends SingleBase implements StructuredRequest {
-        public static final String PATH = "geocode/v1/geocode";
+        public static final String PATH = "/geocode";
         private static final String PARAM_LAST_MILE = "lastMile";
 
         private boolean lastMile;
@@ -116,7 +116,7 @@ public interface StructuredRequest extends GeocodeSplittableRequest {
     @ToString
     @Data
     class Multi implements StructuredRequest {
-        public static final String PATH = "geocode/v1/multi-geocode";
+        public static final String PATH = "/multi-geocode";
         public static final int REQ_LIMIT = 200;
         private static final String PARAM_LAST_MILE = "lastMile";
 

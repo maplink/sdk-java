@@ -2,14 +2,16 @@ package global.maplink.geocode.async.v1;
 
 import global.maplink.MapLinkSDK;
 import global.maplink.env.Environment;
+import global.maplink.geocode.GeocodeVersion;
 import global.maplink.geocode.async.GeocodeAsyncAPIBase;
 import global.maplink.geocode.extensions.GeocodeExtensionManager;
+import global.maplink.geocode.runner.GeocodeEnvironmentDecorator;
 import global.maplink.geocode.schema.v1.cities.CitiesByStateRequest;
 import global.maplink.geocode.schema.v1.crossCities.CrossCitiesRequest;
 import global.maplink.geocode.schema.v1.suggestions.SuggestionsRequest;
 import global.maplink.geocode.schema.v1.suggestions.SuggestionsResult;
 import global.maplink.geocode.schema.v1.Type;
-import global.maplink.geocode.schema.v2.reverse.ReverseRequest;
+import global.maplink.geocode.schema.v1.reverse.ReverseRequest;
 
 import java.util.List;
 import java.util.Optional;
@@ -40,10 +42,11 @@ public interface GeocodeAsyncAPI extends GeocodeAsyncAPIBase {
     }
 
     default CompletableFuture<SuggestionsResult> reverse(List<ReverseRequest.Entry> request) {
-        return reverse(global.maplink.geocode.schema.v1.reverse.ReverseRequest.of(request));
+        return reverse(ReverseRequest.of(request));
     }
 
-    CompletableFuture<SuggestionsResult> reverse(global.maplink.geocode.schema.v1.reverse.ReverseRequest request);
+
+    CompletableFuture<SuggestionsResult> reverse(ReverseRequest request);
 
     default CompletableFuture<SuggestionsResult> crossCities(CrossCitiesRequest.Point... points) {
         return crossCities(asList(points));
@@ -61,9 +64,10 @@ public interface GeocodeAsyncAPI extends GeocodeAsyncAPIBase {
 
     static GeocodeAsyncAPI getInstance(Environment environment) {
         MapLinkSDK sdk = MapLinkSDK.getInstance();
+        Environment env = Optional.ofNullable(environment).orElse(sdk.getEnvironment());
         return new GeocodeAsyncApiImpl(
                 createRunner(
-                        Optional.ofNullable(environment).orElse(sdk.getEnvironment()),
+                        new GeocodeEnvironmentDecorator(env, GeocodeVersion.V1),
                         sdk
                 ),
                 GeocodeExtensionManager.from(sdk.getExtensions())

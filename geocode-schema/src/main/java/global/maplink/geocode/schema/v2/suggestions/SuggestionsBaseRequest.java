@@ -17,7 +17,7 @@ import static global.maplink.http.request.Request.get;
 @Data
 public class SuggestionsBaseRequest implements GeocodeServiceRequest {
 
-    public static final String PATH = "geocode/v2/suggestions";
+    public static final String PATH = "/suggestions";
     protected static final String PARAM_QUERY = "q";
     protected static final String PARAM_TYPE = "type";
 

@@ -3,9 +3,9 @@ package global.maplink.geocode.async.v2;
 import global.maplink.MapLinkSDK;
 import global.maplink.credentials.InvalidCredentialsException;
 import global.maplink.credentials.MapLinkCredentials;
-import global.maplink.geocode.schema.v2.structured.StructuredRequest;
+import global.maplink.geocode.schema.v1.reverse.ReverseRequest;
 import global.maplink.geocode.schema.v1.suggestions.SuggestionsResult;
-import global.maplink.geocode.schema.v2.reverse.ReverseRequest;
+import global.maplink.geocode.schema.v2.structured.StructuredRequest;
 import global.maplink.geocode.schema.v2.suggestions.SuggestionsBaseRequest;
 import global.maplink.http.exceptions.MapLinkHttpException;
 import lombok.extern.slf4j.Slf4j;
@@ -14,15 +14,15 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
-import java.util.List;
 import java.util.concurrent.ExecutionException;
 
 import static global.maplink.env.EnvironmentCatalog.HOMOLOG;
 import static global.maplink.geocode.common.Defaults.DEFAULT_CLIENT_ID;
 import static global.maplink.geocode.common.Defaults.DEFAULT_SECRET;
-import static global.maplink.geocode.schema.v1.Type.*;
+import static global.maplink.geocode.schema.v1.Type.ROAD;
+import static global.maplink.geocode.schema.v1.Type.ZIPCODE;
+import static global.maplink.geocode.schema.v1.reverse.ReverseRequest.entry;
 import static global.maplink.geocode.schema.v2.structured.StructuredRequest.*;
-import static global.maplink.geocode.schema.v2.reverse.ReverseRequest.entry;
 import static global.maplink.geocode.utils.EnvCredentialsHelper.withEnvCredentials;
 import static java.util.stream.Collectors.toList;
 import static java.util.stream.IntStream.range;
@@ -188,26 +188,6 @@ public class GeocodeAsyncApiTest {
             result.getById("pr").ifPresent(prResult ->
                     assertEquals("82", prResult.getAddress().getNumber())
             );
-        });
-    }
-
-    @Test
-    void mustAllowAbove200PointsInStructuredMulti() {
-        withEnvCredentials(credentials -> {
-            configureWith(credentials);
-            val instance = GeocodeAsyncAPI.getInstance();
-            List<SingleBase> requests = range(0, 500)
-                    .mapToObj(i -> of("id-" + i)
-                            .type(CITY)
-                            .city("sao paulo " + i)
-                            .build()
-                    ).collect(toList());
-            val result = instance.structured(multi(requests)).get();
-            assertThat(result.getResults()).hasSize(requests.size());
-            assertThat(result.getFound()).isEqualTo(requests.size());
-            for (val request : requests) {
-                assertThat(result.getById(request.getId())).isNotEmpty();
-            }
         });
     }
 

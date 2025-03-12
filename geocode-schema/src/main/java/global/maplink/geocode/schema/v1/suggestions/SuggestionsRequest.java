@@ -17,7 +17,7 @@ import static global.maplink.http.request.Request.get;
 @EqualsAndHashCode(callSuper = true)
 public class SuggestionsRequest extends SuggestionsBaseRequest {
 
-    public static final String PATH = "geocode/v1/suggestions";
+    public static final String PATH = "/suggestions";
     private static final String PARAM_LAST_MILE = "lastMile";
 
 

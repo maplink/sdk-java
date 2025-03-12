@@ -6,9 +6,9 @@ import global.maplink.geocode.GeocodeVersion;
 import global.maplink.geocode.async.GeocodeAsyncAPIBase;
 import global.maplink.geocode.extensions.GeocodeExtensionManager;
 import global.maplink.geocode.runner.GeocodeEnvironmentDecorator;
+import global.maplink.geocode.schema.v1.reverse.ReverseRequest;
 import global.maplink.geocode.schema.v1.suggestions.SuggestionsResult;
 import global.maplink.geocode.schema.v1.Type;
-import global.maplink.geocode.schema.v2.reverse.ReverseRequest;
 import global.maplink.geocode.schema.v2.suggestions.SuggestionsBaseRequest;
 
 import java.util.List;

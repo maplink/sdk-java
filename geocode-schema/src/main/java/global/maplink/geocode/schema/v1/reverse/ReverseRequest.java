@@ -8,6 +8,7 @@ import global.maplink.http.request.RequestBody;
 import global.maplink.json.JsonMapper;
 import lombok.*;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.stream.IntStream;
 
@@ -20,18 +21,13 @@ import static java.util.stream.Collectors.toList;
 @Getter
 @ToString
 @EqualsAndHashCode
+@RequiredArgsConstructor(staticName = "of")
 public class ReverseRequest implements GeocodeSplittableRequest {
     public static final String PATH = "/reverse";
     public static final int ENTRY_LIMIT = 200;
 
     @Singular
-    private final List<global.maplink.geocode.schema.v2.reverse.ReverseRequest.Entry> entries;
-
-    public static ReverseRequest of(List<global.maplink.geocode.schema.v2.reverse.ReverseRequest.Entry> entries) {
-        return global.maplink.geocode.schema.v1.reverse.ReverseRequest.builder()
-                .entries(entries)
-                .build();
-    }
+    private final List<Entry> entries;
 
     @Override
     public List<ReverseRequest> split() {
@@ -42,8 +38,44 @@ public class ReverseRequest implements GeocodeSplittableRequest {
         return IntStream.range(0, parts)
                 .map(i -> i * ENTRY_LIMIT)
                 .mapToObj(i -> entries.subList(i, min(i + 200, entries.size())))
-                .map(global.maplink.geocode.schema.v1.reverse.ReverseRequest::new)
+                .map(ReverseRequest::new)
                 .collect(toList());
+    }
+
+    public static Entry entry(double lat, double lon) {
+        return Entry.builder()
+                .lat(BigDecimal.valueOf(lat))
+                .lon(BigDecimal.valueOf(lon))
+                .build();
+    }
+
+    public static Entry entry(String id, double lat, double lon) {
+        return Entry.builder()
+                .id(id)
+                .lat(BigDecimal.valueOf(lat))
+                .lon(BigDecimal.valueOf(lon))
+                .build();
+    }
+
+    public static Entry entry(String id, double lat, double lon, int distance) {
+        return Entry.builder()
+                .id(id)
+                .lat(BigDecimal.valueOf(lat))
+                .lon(BigDecimal.valueOf(lon))
+                .distance(distance)
+                .build();
+    }
+
+    public static Entry entry(BigDecimal lat, BigDecimal lon) {
+        return Entry.builder().lat(lat).lon(lon).build();
+    }
+
+    public static Entry entry(String id, BigDecimal lat, BigDecimal lon) {
+        return Entry.builder().id(id).lat(lat).lon(lon).build();
+    }
+
+    public static Entry entry(String id, BigDecimal lat, BigDecimal lon, int distance) {
+        return Entry.builder().id(id).lat(lat).lon(lon).distance(distance).build();
     }
 
     @Override
@@ -53,6 +85,16 @@ public class ReverseRequest implements GeocodeSplittableRequest {
                 RequestBody.Json.of(entries, mapper)
         );
     }
+
+    @Builder
+    @Getter
+    @ToString
+    @EqualsAndHashCode
+    public static class Entry {
+        private String id;
+        private final BigDecimal lat;
+        private final BigDecimal lon;
+        private Integer distance;
+    }
+
 }
-
-
