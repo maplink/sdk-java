@@ -13,7 +13,7 @@ public class SuggestionsResultTest {
     private final JsonMapper mapper = JsonMapper.loadDefault();
 
     @Test
-    public void mustBeCreatedByJson() {
+    void mustBeCreatedByJson() {
         SuggestionsResult response = mapper.fromJson(SUGGESTIONS_RESPONSE_V2.load(), SuggestionsResult.class);
         assertThat(response.getFound()).isEqualTo(10);
         assertThat(response.getResults()).hasSize(10);

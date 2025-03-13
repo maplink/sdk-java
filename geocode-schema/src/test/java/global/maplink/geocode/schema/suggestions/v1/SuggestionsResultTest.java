@@ -14,7 +14,7 @@ public class SuggestionsResultTest {
     private final JsonMapper mapper = JsonMapper.loadDefault();
 
     @Test
-    public void mustBeCreatedByJson() {
+    void mustBeCreatedByJson() {
         SuggestionsResult response = mapper.fromJson(SUGGESTIONS_RESPONSE_V1.load(), SuggestionsResult.class);
         assertThat(response.getFound()).isEqualTo(317);
         assertThat(response.getResults()).hasSize(10);
@@ -26,7 +26,7 @@ public class SuggestionsResultTest {
     }
 
     @Test
-    public void mustReturnNullOnEmptyResultsForMostRelevant() {
+    void mustReturnNullOnEmptyResultsForMostRelevant() {
         SuggestionsResult emptyResult = new SuggestionsResult(0, emptyList());
         assertThat(emptyResult.getMostRelevant()).isNull();
         assertThat(emptyResult.getResults()).isEmpty();
@@ -37,7 +37,7 @@ public class SuggestionsResultTest {
     }
 
     @Test
-    public void mustReturnNullOnNullResultsForMostRelevant() {
+    void mustReturnNullOnNullResultsForMostRelevant() {
         SuggestionsResult emptyResult = new SuggestionsResult(0, null);
         assertThat(emptyResult.getMostRelevant()).isNull();
         assertThat(emptyResult.getResults()).isNull();

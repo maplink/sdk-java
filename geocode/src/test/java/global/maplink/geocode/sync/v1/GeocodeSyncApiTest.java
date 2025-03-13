@@ -33,7 +33,7 @@ public class GeocodeSyncApiTest {
     public static final String SOMETHING = "something";
 
     @BeforeEach
-    public void initializeSDK() {
+    void initializeSDK() {
         MapLinkSDK
                 .configure()
                 .with(MapLinkCredentials.ofKey(DEFAULT_CLIENT_ID, DEFAULT_SECRET))
@@ -41,18 +41,18 @@ public class GeocodeSyncApiTest {
     }
 
     @AfterEach
-    public void cleanupSDK() {
+    void cleanupSDK() {
         MapLinkSDK.resetConfiguration();
     }
 
     @Test
-    public void mustBeInstantiableWithGetInstance() {
+    void mustBeInstantiableWithGetInstance() {
         GeocodeSyncAPI instance = GeocodeSyncAPI.getInstance(GeocodeVersion.V1);
         assertThat(instance).isNotNull();
     }
 
     @Test
-    public void mustDelegateAllGeocodeToAsync() {
+    void mustDelegateAllGeocodeToAsync() {
         val async = mock(GeocodeAsyncAPI.class);
         when(async.structured(any())).thenReturn(completedFuture(new SuggestionsResult()));
         val sync = new GeocodeSyncApiImpl(async);
@@ -63,7 +63,7 @@ public class GeocodeSyncApiTest {
     }
 
     @Test
-    public void mustDelegateAllSuggestionsToAsync() {
+    void mustDelegateAllSuggestionsToAsync() {
         val async = mock(GeocodeAsyncAPI.class);
         when(async.suggestions(any(String.class))).thenCallRealMethod();
         when(async.suggestions(any(), any())).thenCallRealMethod();
@@ -79,7 +79,7 @@ public class GeocodeSyncApiTest {
     }
 
     @Test
-    public void mustDelegateAllCitiesByStateToAsync() {
+    void mustDelegateAllCitiesByStateToAsync() {
         val async = mock(GeocodeAsyncAPI.class);
         when(async.citiesByState(any(String.class))).thenCallRealMethod();
         when(async.citiesByState(any(CitiesByStateRequest.class))).thenReturn(completedFuture(new SuggestionsResult()));
@@ -94,7 +94,7 @@ public class GeocodeSyncApiTest {
     }
 
     @Test
-    public void mustDelegateAllReverseToAsync() {
+    void mustDelegateAllReverseToAsync() {
         val async = mock(GeocodeAsyncAPI.class);
         when(async.reverse(any(ReverseRequest.Entry[].class))).thenCallRealMethod();
         when(async.reverse(anyList())).thenCallRealMethod();
@@ -111,7 +111,7 @@ public class GeocodeSyncApiTest {
     }
 
     @Test
-    public void mustDelegateAllCrossCitiesToAsync() {
+    void mustDelegateAllCrossCitiesToAsync() {
         val async = mock(GeocodeAsyncAPI.class);
         when(async.crossCities(any(CrossCitiesRequest.Point[].class))).thenCallRealMethod();
         when(async.crossCities(anyList())).thenCallRealMethod();
