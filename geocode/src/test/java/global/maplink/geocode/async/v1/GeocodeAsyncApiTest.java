@@ -34,7 +34,7 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @Slf4j
-public class GeocodeAsyncApiTest {
+class GeocodeAsyncApiTest {
 
     @AfterEach
     void cleanupSDK() {
