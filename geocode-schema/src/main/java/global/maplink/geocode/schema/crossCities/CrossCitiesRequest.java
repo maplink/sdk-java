@@ -19,7 +19,7 @@ import static global.maplink.http.request.Request.post;
 @RequiredArgsConstructor(staticName = "of")
 public class CrossCitiesRequest implements GeocodeServiceRequest {
 
-    public static final String PATH = "geocode/v1/cross-cities";
+    public static final String PATH = "/cross-cities";
 
     @Singular("point")
     private final List<Point> route;

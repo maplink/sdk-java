@@ -1,0 +1,206 @@
+{
+  "results":[
+    {
+      "id":"6684353bf0662a1541ff635d",
+      "address":{
+        "road":"ALAMEDA CAMPINAS",
+        "district":"JARDIM PAULISTA",
+        "zipCode":"01404000",
+        "city":"SÃO PAULO",
+        "numberAsInteger": 12,
+        "state":{
+          "name":"SÃO PAULO",
+          "code":"SP"
+        },
+        "mainLocation":{
+          "lat":-23.5663551335,
+          "lon":-46.65364273168
+        }
+      },
+      "type":"ROAD",
+      "label":"ALAMEDA CAMPINAS, 01404000, JARDIM PAULISTA, SÃO PAULO, SP",
+      "score":55.05186821733203
+    },
+    {
+      "id":"6684353bf0662a1541ff63a2",
+      "address":{
+        "road":"ALAMEDA CAMPINAS",
+        "district":"JARDIM PAULISTA",
+        "zipCode":"01404200",
+        "city":"SÃO PAULO",
+        "state":{
+          "name":"SÃO PAULO",
+          "code":"SP"
+        },
+        "mainLocation":{
+          "lat":-23.56714829171,
+          "lon":-46.65440337412
+        }
+      },
+      "type":"ROAD",
+      "label":"ALAMEDA CAMPINAS, 01404200, JARDIM PAULISTA, SÃO PAULO, SP",
+      "score":55.05186821733203
+    },
+    {
+      "id":"6684353bf0662a1541ff6385",
+      "address":{
+        "road":"ALAMEDA CAMPINAS",
+        "district":"JARDIM PAULISTA",
+        "zipCode":"01404100",
+        "city":"SÃO PAULO",
+        "state":{
+          "name":"SÃO PAULO",
+          "code":"SP"
+        },
+        "mainLocation":{
+          "lat":-23.56631144908,
+          "lon":-46.65360036597
+        }
+      },
+      "type":"ROAD",
+      "label":"ALAMEDA CAMPINAS, 01404100, JARDIM PAULISTA, SÃO PAULO, SP",
+      "score":55.05186821733203
+    },
+    {
+      "id":"6684353bf0662a1541ff637c",
+      "address":{
+        "road":"ALAMEDA CAMPINAS",
+        "district":"JARDIM PAULISTA",
+        "zipCode":"01404003",
+        "city":"SÃO PAULO",
+        "state":{
+          "name":"SÃO PAULO",
+          "code":"SP"
+        },
+        "mainLocation":{
+          "lat":-23.5727482959,
+          "lon":-46.65984093151
+        }
+      },
+      "type":"ROAD",
+      "label":"ALAMEDA CAMPINAS, 01404003, JARDIM PAULISTA, SÃO PAULO, SP",
+      "score":55.05186821733203
+    },
+    {
+      "id":"6684353bf0662a1541ff637b",
+      "address":{
+        "road":"ALAMEDA CAMPINAS",
+        "district":"JARDIM PAULISTA",
+        "zipCode":"01404001",
+        "city":"SÃO PAULO",
+        "state":{
+          "name":"SÃO PAULO",
+          "code":"SP"
+        },
+        "mainLocation":{
+          "lat":-23.56880844109,
+          "lon":-46.65604091167
+        }
+      },
+      "type":"ROAD",
+      "label":"ALAMEDA CAMPINAS, 01404001, JARDIM PAULISTA, SÃO PAULO, SP",
+      "score":55.05186821733203
+    },
+    {
+      "id":"6684353bf0662a1541ff63b9",
+      "address":{
+        "road":"ALAMEDA CAMPINAS",
+        "district":"JARDIM PAULISTA",
+        "zipCode":"01404002",
+        "city":"SÃO PAULO",
+        "state":{
+          "name":"SÃO PAULO",
+          "code":"SP"
+        },
+        "mainLocation":{
+          "lat":-23.57150846699,
+          "lon":-46.65863824537
+        }
+      },
+      "type":"ROAD",
+      "label":"ALAMEDA CAMPINAS, 01404002, JARDIM PAULISTA, SÃO PAULO, SP",
+      "score":55.05186821733203
+    },
+    {
+      "id":"6684306e6969121fb9012118",
+      "address":{
+        "road":"ALAMEDA CAMPINAS",
+        "district":"CONDOMÍNIO NOVA SÃO PAULO",
+        "zipCode":"06690070",
+        "city":"ITAPEVI",
+        "state":{
+          "name":"SÃO PAULO",
+          "code":"SP"
+        },
+        "mainLocation":{
+          "lat":-23.524845,
+          "lon":-46.950835
+        }
+      },
+      "type":"ROAD",
+      "label":"ALAMEDA CAMPINAS, 06690070, CONDOMÍNIO NOVA SÃO PAULO, ITAPEVI, SP",
+      "score":53.39977707181659
+    },
+    {
+      "id":"6684353bf0662a1541ff635b",
+      "address":{
+        "road":"ALAMEDA CAMPINAS, 463",
+        "district":"JARDIM PAULISTA",
+        "zipCode":"01404902",
+        "city":"SÃO PAULO",
+        "state":{
+          "name":"SÃO PAULO",
+          "code":"SP"
+        },
+        "mainLocation":{
+          "lat":-23.56559742572,
+          "lon":-46.6529043066
+        }
+      },
+      "type":"ROAD",
+      "label":"ALAMEDA CAMPINAS, 463, 01404902, JARDIM PAULISTA, SÃO PAULO, SP",
+      "score":53.12085543360028
+    },
+    {
+      "id":"66842c6e6969121fb9bfe854",
+      "address":{
+        "road":"RUA SAO PAULO",
+        "district":"Centro",
+        "zipCode":"38270000",
+        "city":"CAMPINA VERDE",
+        "state":{
+          "name":"MINAS GERAIS",
+          "code":"MG"
+        },
+        "mainLocation":{
+          "lat":-19.535665,
+          "lon":-49.49807
+        }
+      },
+      "type":"ROAD",
+      "label":"RUA SAO PAULO, 38270000, Centro, CAMPINA VERDE, MG",
+      "score":42.471711550440105
+    },
+    {
+      "id":"668432ebf0662a1541d94d06",
+      "address":{
+        "road":"ESTRADA CARAFA-SAO PAULO-BARCA",
+        "district":"Centro",
+        "zipCode":"99660000",
+        "city":"CAMPINAS DO SUL",
+        "state":{
+          "name":"RIO GRANDE DO SUL",
+          "code":"RS"
+        },
+        "mainLocation":{
+          "lat":-27.734100866,
+          "lon":-52.63118
+        }
+      },
+      "type":"ROAD",
+      "label":"ESTRADA CARAFA-SAO PAULO-BARCA, 99660000, Centro, CAMPINAS DO SUL, RS",
+      "score":40.911764076777864
+    }
+  ],
+  "found":10
+}

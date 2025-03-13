@@ -23,7 +23,7 @@ import static java.util.stream.Collectors.toList;
 @EqualsAndHashCode
 @RequiredArgsConstructor(staticName = "of")
 public class ReverseRequest implements GeocodeSplittableRequest {
-    public static final String PATH = "geocode/v1/reverse";
+    public static final String PATH = "/reverse";
     public static final int ENTRY_LIMIT = 200;
 
     @Singular

@@ -11,7 +11,8 @@ import java.nio.file.Paths;
 @RequiredArgsConstructor
 public enum SampleFiles {
 
-    SUGGESTIONS_RESPONSE("geocode/json/sampleSuggestionsResponse.json");
+    SUGGESTIONS_RESPONSE_V1("geocode/json/v1/sampleSuggestionsResponse.json"),
+    SUGGESTIONS_RESPONSE_V2("geocode/json/v2/sampleSuggestionsResponse.json");
 
     private final String filePath;
 

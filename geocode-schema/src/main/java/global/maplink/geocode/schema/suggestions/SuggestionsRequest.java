@@ -17,15 +17,24 @@ import static global.maplink.http.request.Request.get;
 @Data
 public class SuggestionsRequest implements GeocodeServiceRequest {
 
-    public static final String PATH = "geocode/v1/suggestions";
+    public static final String PATH = "/suggestions";
     private static final String PARAM_QUERY = "q";
     private static final String PARAM_TYPE = "type";
+
+    /**
+     * @deprecated The 'PARAM_LAST_MILE' field is deprecated and will be removed in versions 2.
+     */
+    @Deprecated
     private static final String PARAM_LAST_MILE = "lastMile";
 
     private final String query;
 
     private Type type;
 
+    /**
+     * @deprecated The 'PARAM_LAST_MILE' field is deprecated and will be removed in versions 2.
+     */
+    @Deprecated
     private boolean lastMile;
 
     @Override

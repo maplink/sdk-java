@@ -1,8 +1,10 @@
-package global.maplink.geocode.async;
+package global.maplink.geocode.async.v1;
 
 import global.maplink.MapLinkSDK;
 import global.maplink.credentials.InvalidCredentialsException;
 import global.maplink.credentials.MapLinkCredentials;
+import global.maplink.geocode.GeocodeVersion;
+import global.maplink.geocode.async.GeocodeAsyncAPI;
 import global.maplink.geocode.schema.cities.CitiesByStateRequest;
 import global.maplink.geocode.schema.reverse.ReverseRequest.Entry;
 import global.maplink.geocode.schema.structured.StructuredRequest;
@@ -42,14 +44,14 @@ public class GeocodeAsyncApiTest {
     @Test
     void mustBeInstantiableWithGetInstance() {
         configureWith(MapLinkCredentials.ofKey(DEFAULT_CLIENT_ID, DEFAULT_SECRET));
-        val instance = GeocodeAsyncAPI.getInstance();
+        val instance = GeocodeAsyncAPI.getInstance(GeocodeVersion.V1);
         assertThat(instance).isNotNull();
     }
 
     @Test
     void mustFailWithInvalidCredentials() {
         configureWith(MapLinkCredentials.ofKey(DEFAULT_CLIENT_ID, DEFAULT_SECRET));
-        val instance = GeocodeAsyncAPI.getInstance();
+        val instance = GeocodeAsyncAPI.getInstance(GeocodeVersion.V1);
         assertThatThrownBy(() -> instance.suggestions("Rua Afonso Celso").get())
                 .isInstanceOf(ExecutionException.class)
                 .hasCauseInstanceOf(InvalidCredentialsException.class);
@@ -59,7 +61,7 @@ public class GeocodeAsyncApiTest {
     void mustFailOnInvalidRequest() {
         withEnvCredentials(credentials -> {
             configureWith(credentials);
-            val instance = GeocodeAsyncAPI.getInstance(() -> "https://pre-api.maplink.global/fakepath/");
+            val instance = GeocodeAsyncAPI.getInstance(() -> "https://pre-api.maplink.global/fakepath/", GeocodeVersion.V1);
             assertThatThrownBy(() ->
                     instance.suggestions("São Paulo", ZIPCODE).get()
             ).isInstanceOf(ExecutionException.class)
@@ -71,7 +73,7 @@ public class GeocodeAsyncApiTest {
     void mustReturnAutocompleteWithTypeQueryCorrectly() {
         withEnvCredentials(credentials -> {
             configureWith(credentials);
-            val instance = GeocodeAsyncAPI.getInstance();
+            val instance = GeocodeAsyncAPI.getInstance(GeocodeVersion.V1);
             val result = instance.suggestions("São Paulo", ZIPCODE).get();
             assertThat(result.getResults()).isNotEmpty();
             assertThat(result.getFound()).isNotZero();
@@ -83,7 +85,7 @@ public class GeocodeAsyncApiTest {
     void mustReturnAutocompleteExactlyNumberWithLastMileQuery() {
         withEnvCredentials(credentials -> {
             configureWith(credentials);
-            val instance = GeocodeAsyncAPI.getInstance();
+            val instance = GeocodeAsyncAPI.getInstance(GeocodeVersion.V1);
             val result = instance.suggestions(SuggestionsRequest.builder()
                     .query("Alameda Campinas, 579 - Jardim Paulista")
                     .lastMile(true)
@@ -96,7 +98,7 @@ public class GeocodeAsyncApiTest {
     void mustReturnAutocompleteWithoutTypeQueryCorrectly() {
         withEnvCredentials(credentials -> {
             configureWith(credentials);
-            val instance = GeocodeAsyncAPI.getInstance();
+            val instance = GeocodeAsyncAPI.getInstance(GeocodeVersion.V1);
             val result = instance.suggestions("Rua Afonso Celso").get();
             assertThat(result.getResults()).isNotEmpty();
             assertThat(result.getFound()).isNotZero();
@@ -107,7 +109,7 @@ public class GeocodeAsyncApiTest {
     void mustReturnSuggestionsOnSingleGeocode() {
         withEnvCredentials(credentials -> {
             configureWith(credentials);
-            val instance = GeocodeAsyncAPI.getInstance();
+            val instance = GeocodeAsyncAPI.getInstance(GeocodeVersion.V1);
             val result = instance.structured(
                     StructuredRequest.ofCity("sp", "Paulo", "SP")
             ).get();
@@ -121,7 +123,7 @@ public class GeocodeAsyncApiTest {
     void mustReturnExactlyNumberWithLastMileQueryByRequestInSingleGeocode() {
         withEnvCredentials(credentials -> {
             configureWith(credentials);
-            val instance = GeocodeAsyncAPI.getInstance();
+            val instance = GeocodeAsyncAPI.getInstance(GeocodeVersion.V1);
             val result = instance.structured(StructuredRequest.of("reqId")
                     .state("sp")
                     .city("sao paulo")
@@ -137,7 +139,7 @@ public class GeocodeAsyncApiTest {
     void mustReturnSuggestionsOnCitiesByState() {
         withEnvCredentials(credentials -> {
             configureWith(credentials);
-            val instance = GeocodeAsyncAPI.getInstance();
+            val instance = GeocodeAsyncAPI.getInstance(GeocodeVersion.V1);
             val result = instance.citiesByState(
                     CitiesByStateRequest.builder().state("SC").build()
             ).get();
@@ -151,7 +153,7 @@ public class GeocodeAsyncApiTest {
     void mustReturnSuggestionsOnCitiesByStateDefault() {
         withEnvCredentials(credentials -> {
             configureWith(credentials);
-            val instance = GeocodeAsyncAPI.getInstance();
+            val instance = GeocodeAsyncAPI.getInstance(GeocodeVersion.V1);
             val result = instance.citiesByState("SC").get();
             assertThat(result.getResults()).hasSizeGreaterThan(1);
             assertThat(result.getFound()).isGreaterThanOrEqualTo(200);
@@ -163,7 +165,7 @@ public class GeocodeAsyncApiTest {
     void mustReturnOneResultByRequestInMultiGeocode() {
         withEnvCredentials(credentials -> {
             configureWith(credentials);
-            val instance = GeocodeAsyncAPI.getInstance();
+            val instance = GeocodeAsyncAPI.getInstance(GeocodeVersion.V1);
             val result = instance.structured(multi(
                     StructuredRequest.ofCity("sp", "São Paulo", "SP"),
                     StructuredRequest.ofCity("pr", "Paraná", "PR"),
@@ -188,7 +190,7 @@ public class GeocodeAsyncApiTest {
     void mustReturnExactlyNumberWithLastMileQueryByRequestInMultiGeocode() {
         withEnvCredentials(credentials -> {
             configureWith(credentials);
-            val instance = GeocodeAsyncAPI.getInstance();
+            val instance = GeocodeAsyncAPI.getInstance(GeocodeVersion.V1);
             val multiRequest = StructuredRequest.multi(
                     StructuredRequest.of("sc")
                             .state("sc")
@@ -219,7 +221,7 @@ public class GeocodeAsyncApiTest {
     void mustAllowAbove200PointsInStructuredMulti() {
         withEnvCredentials(credentials -> {
             configureWith(credentials);
-            val instance = GeocodeAsyncAPI.getInstance();
+            val instance = GeocodeAsyncAPI.getInstance(GeocodeVersion.V1);
             val requests = range(0, 500)
                     .mapToObj(i -> StructuredRequest.of("id-" + i)
                             .type(CITY)
@@ -239,7 +241,7 @@ public class GeocodeAsyncApiTest {
     void mustReturnOneResultByRequestInReverse() {
         withEnvCredentials(credentials -> {
             configureWith(credentials);
-            val instance = GeocodeAsyncAPI.getInstance();
+            val instance = GeocodeAsyncAPI.getInstance(GeocodeVersion.V1);
             val result = instance.reverse(
                     entry(-22.9141308, -43.445982),
                     entry("sp", -23.6818334, -46.8823662),
@@ -263,7 +265,7 @@ public class GeocodeAsyncApiTest {
     void mustAllowAbove200PointsInReverse() {
         withEnvCredentials(credentials -> {
             configureWith(credentials);
-            val instance = GeocodeAsyncAPI.getInstance();
+            val instance = GeocodeAsyncAPI.getInstance(GeocodeVersion.V1);
             val entries = range(0, 500)
                     .mapToObj(i -> entry(
                             "id-" + i,
@@ -283,7 +285,7 @@ public class GeocodeAsyncApiTest {
     void mustReturnCrossedCities() {
         withEnvCredentials(credentials -> {
             configureWith(credentials);
-            val instance = GeocodeAsyncAPI.getInstance();
+            val instance = GeocodeAsyncAPI.getInstance(GeocodeVersion.V1);
             val result = instance.crossCities(
                     point(-22.9141308, -43.445982),
                     point(-23.6818334, -46.8823662),

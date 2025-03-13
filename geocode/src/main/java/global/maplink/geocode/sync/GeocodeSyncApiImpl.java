@@ -10,9 +10,9 @@ import global.maplink.geocode.schema.suggestions.SuggestionsResult;
 import lombok.RequiredArgsConstructor;
 
 import static global.maplink.helpers.FutureHelper.await;
-import static lombok.AccessLevel.PACKAGE;
+import static lombok.AccessLevel.PUBLIC;
 
-@RequiredArgsConstructor(access = PACKAGE)
+@RequiredArgsConstructor(access = PUBLIC)
 public class GeocodeSyncApiImpl implements GeocodeSyncAPI {
 
     private final GeocodeAsyncAPI delegate;

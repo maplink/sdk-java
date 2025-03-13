@@ -1,4 +1,4 @@
-package global.maplink.geocode.sync;
+package global.maplink.geocode.sync.v2;
 
 import global.maplink.MapLinkSDK;
 import global.maplink.credentials.MapLinkCredentials;
@@ -9,6 +9,8 @@ import global.maplink.geocode.schema.reverse.ReverseRequest;
 import global.maplink.geocode.schema.structured.StructuredRequest;
 import global.maplink.geocode.schema.suggestions.SuggestionsRequest;
 import global.maplink.geocode.schema.suggestions.SuggestionsResult;
+import global.maplink.geocode.sync.GeocodeSyncAPI;
+import global.maplink.geocode.sync.GeocodeSyncApiImpl;
 import lombok.val;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;

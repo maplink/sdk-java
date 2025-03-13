@@ -2,7 +2,9 @@ package global.maplink.geocode.async;
 
 import global.maplink.MapLinkSDK;
 import global.maplink.env.Environment;
+import global.maplink.geocode.GeocodeVersion;
 import global.maplink.geocode.extensions.GeocodeExtensionManager;
+import global.maplink.geocode.runner.GeocodeEnvironmentDecorator;
 import global.maplink.geocode.schema.Type;
 import global.maplink.geocode.schema.cities.CitiesByStateRequest;
 import global.maplink.geocode.schema.crossCities.CrossCitiesRequest;
@@ -59,18 +61,26 @@ public interface GeocodeAsyncAPI {
     CompletableFuture<SuggestionsResult> crossCities(CrossCitiesRequest request);
 
     static GeocodeAsyncAPI getInstance() {
-        return getInstance(null);
+        return getInstance(null, GeocodeVersion.V2);
     }
 
     static GeocodeAsyncAPI getInstance(Environment environment) {
+        return getInstance(environment, GeocodeVersion.V2);
+    }
+
+    static GeocodeAsyncAPI getInstance(GeocodeVersion version) {
+        return getInstance(null, version);
+    }
+
+    static GeocodeAsyncAPI getInstance(Environment environment, GeocodeVersion version) {
         MapLinkSDK sdk = MapLinkSDK.getInstance();
+        Environment env = Optional.ofNullable(environment).orElse(sdk.getEnvironment());
         return new GeocodeAsyncApiImpl(
                 createRunner(
-                        Optional.ofNullable(environment).orElse(sdk.getEnvironment()),
+                        new GeocodeEnvironmentDecorator(env, version),
                         sdk
                 ),
                 GeocodeExtensionManager.from(sdk.getExtensions())
         );
     }
-
 }

@@ -63,7 +63,12 @@ public interface StructuredRequest extends GeocodeSplittableRequest {
     @ToString
     @EqualsAndHashCode
     class Single implements StructuredRequest {
-        public static final String PATH = "geocode/v1/geocode";
+        public static final String PATH = "/geocode";
+
+        /**
+         * @deprecated The 'PARAM_LAST_MILE' field is deprecated and will be removed in versions 2.
+         */
+        @Deprecated
         private static final String PARAM_LAST_MILE = "lastMile";
 
         private String id;
@@ -75,6 +80,11 @@ public interface StructuredRequest extends GeocodeSplittableRequest {
         private String state;
         private String acronym;
         private Type type;
+
+        /**
+         * @deprecated The 'lastMile' field is deprecated and will be removed in versions 2.
+         */
+        @Deprecated
         private boolean lastMile;
 
         @Override
@@ -96,7 +106,7 @@ public interface StructuredRequest extends GeocodeSplittableRequest {
     @ToString
     @Data
     class Multi implements StructuredRequest {
-        public static final String PATH = "geocode/v1/multi-geocode";
+        public static final String PATH = "/multi-geocode";
         public static final int REQ_LIMIT = 200;
         private static final String PARAM_LAST_MILE = "lastMile";
 
