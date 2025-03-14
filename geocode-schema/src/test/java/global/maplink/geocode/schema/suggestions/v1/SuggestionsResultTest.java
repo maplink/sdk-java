@@ -1,10 +1,11 @@
-package global.maplink.geocode.schema.suggestions;
+package global.maplink.geocode.schema.suggestions.v1;
 
+import global.maplink.geocode.schema.suggestions.SuggestionsResult;
 import global.maplink.json.JsonMapper;
 import org.junit.jupiter.api.Test;
 
 import static global.maplink.geocode.schema.Type.ROAD;
-import static global.maplink.geocode.testUtils.SampleFiles.SUGGESTIONS_RESPONSE;
+import static global.maplink.geocode.testUtils.SampleFiles.SUGGESTIONS_RESPONSE_V1;
 import static java.util.Collections.emptyList;
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -13,8 +14,8 @@ public class SuggestionsResultTest {
     private final JsonMapper mapper = JsonMapper.loadDefault();
 
     @Test
-    public void mustBeCreatedByJson() {
-        SuggestionsResult response = mapper.fromJson(SUGGESTIONS_RESPONSE.load(), SuggestionsResult.class);
+    void mustBeCreatedByJson() {
+        SuggestionsResult response = mapper.fromJson(SUGGESTIONS_RESPONSE_V1.load(), SuggestionsResult.class);
         assertThat(response.getFound()).isEqualTo(317);
         assertThat(response.getResults()).hasSize(10);
         assertThat(response.getMostRelevant().getType()).isEqualTo(ROAD);
@@ -25,7 +26,7 @@ public class SuggestionsResultTest {
     }
 
     @Test
-    public void mustReturnNullOnEmptyResultsForMostRelevant() {
+    void mustReturnNullOnEmptyResultsForMostRelevant() {
         SuggestionsResult emptyResult = new SuggestionsResult(0, emptyList());
         assertThat(emptyResult.getMostRelevant()).isNull();
         assertThat(emptyResult.getResults()).isEmpty();
@@ -36,7 +37,7 @@ public class SuggestionsResultTest {
     }
 
     @Test
-    public void mustReturnNullOnNullResultsForMostRelevant() {
+    void mustReturnNullOnNullResultsForMostRelevant() {
         SuggestionsResult emptyResult = new SuggestionsResult(0, null);
         assertThat(emptyResult.getMostRelevant()).isNull();
         assertThat(emptyResult.getResults()).isNull();

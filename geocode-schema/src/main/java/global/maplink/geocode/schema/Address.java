@@ -38,4 +38,6 @@ public class Address {
 
     private final String direction;
     private final String acronym;
+
+    private final Integer numberAsInteger;
 }

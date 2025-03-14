@@ -7,5 +7,6 @@ public enum Type {
     POI,
     DISTRICT,
     ROAD,
-    KM
+    KM,
+    POINTS
 }

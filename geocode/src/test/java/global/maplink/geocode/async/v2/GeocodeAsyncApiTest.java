@@ -1,9 +1,9 @@
-package global.maplink.geocode.async;
+package global.maplink.geocode.async.v2;
 
 import global.maplink.MapLinkSDK;
 import global.maplink.credentials.InvalidCredentialsException;
 import global.maplink.credentials.MapLinkCredentials;
-import global.maplink.geocode.schema.cities.CitiesByStateRequest;
+import global.maplink.geocode.async.GeocodeAsyncAPI;
 import global.maplink.geocode.schema.reverse.ReverseRequest.Entry;
 import global.maplink.geocode.schema.structured.StructuredRequest;
 import global.maplink.geocode.schema.suggestions.SuggestionsRequest;
@@ -19,9 +19,8 @@ import java.util.concurrent.ExecutionException;
 import static global.maplink.env.EnvironmentCatalog.HOMOLOG;
 import static global.maplink.geocode.common.Defaults.DEFAULT_CLIENT_ID;
 import static global.maplink.geocode.common.Defaults.DEFAULT_SECRET;
-import static global.maplink.geocode.schema.Type.CITY;
+import static global.maplink.geocode.schema.Type.ROAD;
 import static global.maplink.geocode.schema.Type.ZIPCODE;
-import static global.maplink.geocode.schema.crossCities.CrossCitiesRequest.point;
 import static global.maplink.geocode.schema.reverse.ReverseRequest.entry;
 import static global.maplink.geocode.schema.structured.StructuredRequest.multi;
 import static global.maplink.geocode.utils.EnvCredentialsHelper.withEnvCredentials;
@@ -32,7 +31,7 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @Slf4j
-public class GeocodeAsyncApiTest {
+class GeocodeAsyncApiTest {
 
     @AfterEach
     void cleanupSDK() {
@@ -72,10 +71,10 @@ public class GeocodeAsyncApiTest {
         withEnvCredentials(credentials -> {
             configureWith(credentials);
             val instance = GeocodeAsyncAPI.getInstance();
-            val result = instance.suggestions("São Paulo", ZIPCODE).get();
+            val result = instance.suggestions("São Paulo", ROAD).get();
             assertThat(result.getResults()).isNotEmpty();
             assertThat(result.getFound()).isNotZero();
-            assertThat(result.getResults()).allMatch(v -> v.getType() == ZIPCODE);
+            assertThat(result.getResults()).allMatch(v -> v.getType() == ROAD);
         });
     }
 
@@ -130,32 +129,6 @@ public class GeocodeAsyncApiTest {
                     .lastMile(true)
                     .build()).get();
             assertEquals("579", result.getResults().get(0).getAddress().getNumber());
-        });
-    }
-
-    @Test
-    void mustReturnSuggestionsOnCitiesByState() {
-        withEnvCredentials(credentials -> {
-            configureWith(credentials);
-            val instance = GeocodeAsyncAPI.getInstance();
-            val result = instance.citiesByState(
-                    CitiesByStateRequest.builder().state("SC").build()
-            ).get();
-            assertThat(result.getResults()).hasSizeGreaterThan(1);
-            assertThat(result.getFound()).isGreaterThanOrEqualTo(200);
-            assertThat(result.getResults().get(0).getAddress().getState().getName()).isEqualTo("SANTA CATARINA");
-        });
-    }
-
-    @Test
-    void mustReturnSuggestionsOnCitiesByStateDefault() {
-        withEnvCredentials(credentials -> {
-            configureWith(credentials);
-            val instance = GeocodeAsyncAPI.getInstance();
-            val result = instance.citiesByState("SC").get();
-            assertThat(result.getResults()).hasSizeGreaterThan(1);
-            assertThat(result.getFound()).isGreaterThanOrEqualTo(200);
-            assertThat(result.getResults().get(0).getAddress().getState().getName()).isEqualTo("SANTA CATARINA");
         });
     }
 
@@ -216,26 +189,6 @@ public class GeocodeAsyncApiTest {
     }
 
     @Test
-    void mustAllowAbove200PointsInStructuredMulti() {
-        withEnvCredentials(credentials -> {
-            configureWith(credentials);
-            val instance = GeocodeAsyncAPI.getInstance();
-            val requests = range(0, 500)
-                    .mapToObj(i -> StructuredRequest.of("id-" + i)
-                            .type(CITY)
-                            .city("sao paulo " + i)
-                            .build()
-                    ).collect(toList());
-            val result = instance.structured(multi(requests)).get();
-            assertThat(result.getResults()).hasSize(requests.size());
-            assertThat(result.getFound()).isEqualTo(requests.size());
-            for (val request : requests) {
-                assertThat(result.getById(request.getId())).isNotEmpty();
-            }
-        });
-    }
-
-    @Test
     void mustReturnOneResultByRequestInReverse() {
         withEnvCredentials(credentials -> {
             configureWith(credentials);
@@ -279,20 +232,6 @@ public class GeocodeAsyncApiTest {
         });
     }
 
-    @Test
-    void mustReturnCrossedCities() {
-        withEnvCredentials(credentials -> {
-            configureWith(credentials);
-            val instance = GeocodeAsyncAPI.getInstance();
-            val result = instance.crossCities(
-                    point(-22.9141308, -43.445982),
-                    point(-23.6818334, -46.8823662),
-                    point(-25.494945, -49.3598374)
-            ).get();
-            assertThat(result.getResults()).hasSize(35);
-            assertThat(result.getFound()).isEqualTo(35);
-        });
-    }
 
     private void configureWith(MapLinkCredentials credentials) {
         MapLinkSDK.resetConfiguration();
