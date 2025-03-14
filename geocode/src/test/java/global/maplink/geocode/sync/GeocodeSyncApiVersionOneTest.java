@@ -1,7 +1,8 @@
-package global.maplink.geocode.sync.v2;
+package global.maplink.geocode.sync;
 
 import global.maplink.MapLinkSDK;
 import global.maplink.credentials.MapLinkCredentials;
+import global.maplink.geocode.GeocodeVersion;
 import global.maplink.geocode.async.GeocodeAsyncAPI;
 import global.maplink.geocode.schema.cities.CitiesByStateRequest;
 import global.maplink.geocode.schema.crossCities.CrossCitiesRequest;
@@ -9,8 +10,6 @@ import global.maplink.geocode.schema.reverse.ReverseRequest;
 import global.maplink.geocode.schema.structured.StructuredRequest;
 import global.maplink.geocode.schema.suggestions.SuggestionsRequest;
 import global.maplink.geocode.schema.suggestions.SuggestionsResult;
-import global.maplink.geocode.sync.GeocodeSyncAPI;
-import global.maplink.geocode.sync.GeocodeSyncApiImpl;
 import lombok.val;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -27,7 +26,7 @@ import static java.util.concurrent.CompletableFuture.completedFuture;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.*;
 
-public class GeocodeSyncApiTest {
+public class GeocodeSyncApiVersionOneTest {
 
     public static final String SOMETHING = "something";
 
@@ -46,7 +45,7 @@ public class GeocodeSyncApiTest {
 
     @Test
     void mustBeInstantiableWithGetInstance() {
-        GeocodeSyncAPI instance = GeocodeSyncAPI.getInstance();
+        GeocodeSyncAPI instance = GeocodeSyncAPI.getInstance(GeocodeVersion.V1);
         assertThat(instance).isNotNull();
     }
 
