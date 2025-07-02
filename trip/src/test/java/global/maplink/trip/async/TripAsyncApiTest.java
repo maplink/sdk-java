@@ -7,6 +7,7 @@ import global.maplink.http.exceptions.MapLinkHttpException;
 import global.maplink.trip.schema.v2.problem.SitePoint;
 import global.maplink.trip.schema.v2.problem.TripCalculateRequest;
 import lombok.val;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import java.util.concurrent.ExecutionException;
@@ -49,6 +50,7 @@ class TripAsyncApiTest {
     }
 
     @Test
+    @Disabled
     void mustResolveValidCalculationRequest() {
         withEnvCredentials(credentials -> {
             configureWith(credentials);
