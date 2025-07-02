@@ -142,5 +142,8 @@ public class SolutionLegTest {
         assertTrue(tollCondition.getRoutes().containsAll(routes));
 
         assertEquals(0, new BigDecimal("149.8").compareTo(tollCondition.getValue()));
+
+        assertEquals("arrivalTest", solutionLeg.getArrivalSiteId());
+        assertEquals("departureTest", solutionLeg.getDepartureSiteId());
     }
 }

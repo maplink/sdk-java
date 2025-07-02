@@ -94,5 +94,7 @@
       }
     ],
     "legTotalCost": 209.5
-  }
+  },
+  "arrivalSiteId": "arrivalTest",
+  "departureSiteId": "departureTest"
 }
