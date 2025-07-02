@@ -26,4 +26,7 @@ public class SolutionLeg {
     private final Address firstPointAddress;
     private final global.maplink.place.schema.LegResult placeCalculation;
     private final LegResult tollCalculation;
+    private final String arrivalSiteId;
+    private final String departureSiteId;
+
 }
