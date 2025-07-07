@@ -28,4 +28,5 @@ public class SolutionLeg {
     private final LegResult tollCalculation;
     private final String arrivalSiteId;
     private final String departureSiteId;
+
 }
