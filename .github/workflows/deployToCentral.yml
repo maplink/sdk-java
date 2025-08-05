@@ -24,6 +24,8 @@ jobs:
           server-password: MAVEN_PASSWORD
           gpg-private-key: ${{ secrets.OSSRH_GPG_SECRET_KEY }}
           gpg-passphrase: MAVEN_GPG_PASSPHRASE
+      - name: print settings.xml
+        run: cat ~/.m2/settings.xml
       - name: Build artifacts
         run: mvn clean package -P release
       - name: Create release
