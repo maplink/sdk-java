@@ -4,7 +4,7 @@
     <parent>
         <artifactId>sdk</artifactId>
         <groupId>global.maplink</groupId>
-        <version>1.5.24</version>
+        <version>1.5.25-SNAPSHOT</version>
     </parent>
 
     <artifactId>place-schema</artifactId>
