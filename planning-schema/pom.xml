@@ -8,6 +8,7 @@
     </parent>
 
     <artifactId>planning-schema</artifactId>
+    <name>planning-schema</name>
 
     <properties>
         <maven.compiler.source>11</maven.compiler.source>
