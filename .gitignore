@@ -20,6 +20,8 @@ target/
 .idea/**/tasks.xml
 .idea/**/usage.statistics.xml
 .idea/**/shelf
+.idea/misc.xml
+.idea/**
 
 # AWS User-specific
 .idea/**/aws.xml

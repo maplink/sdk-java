@@ -4,10 +4,12 @@
     <parent>
         <groupId>global.maplink</groupId>
         <artifactId>sdk</artifactId>
-        <version>1.5.25-SNAPSHOT</version>
+        <version>1.5.25-BETA</version>
     </parent>
 
     <artifactId>planning-schema</artifactId>
+
+    <!-- <name>planning-schema</name> -->
 
     <properties>
         <maven.compiler.source>11</maven.compiler.source>

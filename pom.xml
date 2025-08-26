@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>global.maplink</groupId>
     <artifactId>sdk</artifactId>
-    <version>1.5.25-SNAPSHOT</version>
+    <version>1.5.25-BETA</version>
     <packaging>pom</packaging>
     <name>Maplink Java SDK</name>
     <description>Maplink SDK for API access using Java</description>
@@ -360,7 +360,7 @@
         <profile>
             <id>release</id>
             <properties>
-                <gpg.keyname>8C956070C08C25D615C459211CDB3C64FF518EAB</gpg.keyname>
+                <gpg.keyname>D55268D01C3BF0A57BF35E6986D77E2626C9155D</gpg.keyname>
             </properties>
             <build>
                 <plugins>
@@ -385,20 +385,20 @@
                         <extensions>true</extensions>
                         <configuration>
                             <serverId>ossrh</serverId>
-                            <nexusUrl>https://s01.oss.sonatype.org/</nexusUrl>
-                            <autoReleaseAfterClose>true</autoReleaseAfterClose>
+                            <nexusUrl>https://ossrh-staging-api.central.sonatype.com</nexusUrl>
+<!--                            <autoReleaseAfterClose>true</autoReleaseAfterClose>-->
                         </configuration>
                     </plugin>
                 </plugins>
             </build>
             <distributionManagement>
                 <snapshotRepository>
-                    <id>ossrh</id>
-                    <url>https://s01.oss.sonatype.org/content/repositories/snapshots</url>
+                    <id>ossrhq</id>
+                    <url>https://ossrh-staging-api.central.sonatype.com/content/repositories/snapshots/</url>
                 </snapshotRepository>
                 <repository>
                     <id>ossrh</id>
-                    <url>https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+                    <url>https://ossrh-staging-api.central.sonatype.com/service/local/staging/deploy/maven2/</url>
                 </repository>
             </distributionManagement>
         </profile>
