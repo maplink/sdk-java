@@ -360,7 +360,7 @@
         <profile>
             <id>release</id>
             <properties>
-                <gpg.keyname>D55268D01C3BF0A57BF35E6986D77E2626C9155D</gpg.keyname>
+                <gpg.keyname>8C956070C08C25D615C459211CDB3C64FF518EAB</gpg.keyname>
             </properties>
             <build>
                 <plugins>
@@ -393,7 +393,7 @@
             </build>
             <distributionManagement>
                 <snapshotRepository>
-                    <id>ossrhq</id>
+                    <id>ossrh</id>
                     <url>https://ossrh-staging-api.central.sonatype.com/content/repositories/snapshots/</url>
                 </snapshotRepository>
                 <repository>

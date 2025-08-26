@@ -5,7 +5,7 @@ name: Maven Build
 
 on:
   push:
-    branches: [ "master" ]
+    branches: [ "master", "fix/SPLT-2691" ]
   pull_request:
     branches: [ "master" ]
     
