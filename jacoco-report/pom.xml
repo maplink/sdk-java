@@ -3,7 +3,7 @@
     <parent>
         <artifactId>sdk</artifactId>
         <groupId>global.maplink</groupId>
-        <version>1.5.26-SNAPSHOT</version>
+        <version>1.5.26</version>
     </parent>
     <artifactId>jacoco-report</artifactId>
     <name>JaCoCo Coverage Aggregated Report</name>
