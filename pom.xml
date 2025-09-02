@@ -386,7 +386,7 @@
                         <configuration>
                             <serverId>ossrh</serverId>
                             <nexusUrl>https://ossrh-staging-api.central.sonatype.com</nexusUrl>
-<!--                            <autoReleaseAfterClose>true</autoReleaseAfterClose>-->
+                            <autoReleaseAfterClose>true</autoReleaseAfterClose>
                         </configuration>
                     </plugin>
                 </plugins>
