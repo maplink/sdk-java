@@ -1,9 +1,8 @@
-package global.maplink.trip.schema.v2.problem;
+package global.maplink.toll.sync;
 
-import java.util.Arrays;
-import java.util.stream.Collectors;
+import static java.util.Arrays.stream;
 
-public enum VehicleType {
+public enum TollVehicleType {
     CAR,
     MOTORCYCLE,
     CAR_WITH_THREE_SIMPLE_AXLES,
@@ -23,9 +22,9 @@ public enum VehicleType {
     TRUCK_WITH_NINE_DOUBLE_AXLES,
     TRUCK_WITH_TEN_DOUBLE_AXLES;
 
-    public static String getAllowedValues() {
-        return Arrays.stream(VehicleType.values())
+    public static String[] arrayOfNames() {
+        return stream(global.maplink.toll.schema.TollVehicleType.values())
                 .map(Enum::name)
-                .collect(Collectors.joining(", "));
+                .toArray(String[]::new);
     }
 }
