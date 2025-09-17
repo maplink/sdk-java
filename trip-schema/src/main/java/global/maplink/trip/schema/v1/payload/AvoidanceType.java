@@ -4,6 +4,7 @@ public enum AvoidanceType {
     TUNNELS,
     BRIDGES,
     FERRIES,
+    FRONTIERS,
     TOLL_ROADS,
     TOLL_GATES
 }
