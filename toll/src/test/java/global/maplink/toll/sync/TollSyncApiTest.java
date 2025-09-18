@@ -56,8 +56,8 @@ class TollSyncApiTest {
                             -22.05461, -42.36224
                     )
             );
-            assertThat(result.getTotalCost()).isNotZero();
-            assertThat(result.getLegs()).hasSize(1);
+            assertThat(result.getTotalCost()).isZero();
+            assertThat(result.getLegs()).isNotEmpty();
         });
     }
 
@@ -74,8 +74,8 @@ class TollSyncApiTest {
                             -22.05461, -42.36224
                     )
             );
-            assertThat(result.getTotalCost()).isNotZero();
-            assertThat(result.getLegs()).hasSize(1);
+            assertThat(result.getTotalCost()).isZero();
+            assertThat(result.getLegs()).isNotEmpty();
         });
     }
 

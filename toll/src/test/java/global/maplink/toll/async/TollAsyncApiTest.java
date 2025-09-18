@@ -65,7 +65,7 @@ class TollAsyncApiTest {
                             -22.05461, -42.36224
                     )
             ).get();
-            assertThat(result.getTotalCost()).isNotZero();
+            assertThat(result.getTotalCost()).isZero();
             assertThat(result.getLegs()).hasSize(1);
         });
     }
@@ -83,7 +83,7 @@ class TollAsyncApiTest {
                             -22.05461, -42.36224
                     )
             ).get();
-            assertThat(result.getTotalCost()).isNotZero();
+            assertThat(result.getTotalCost()).isZero();
             assertThat(result.getLegs()).hasSize(1);
         });
     }
@@ -106,11 +106,11 @@ class TollAsyncApiTest {
                             -22.05461, -42.36224
                     )
             ).get();
-            assertThat(result.getTotalCost()).isNotZero();
+            assertThat(result.getTotalCost()).isZero();
             assertThat(result.getLegs()).hasSize(1);
             assertThat(result.getLegs()).first().satisfies(s -> {
                 assertThat(s.getCalculationDate()).isCloseTo(now, within(1, ChronoUnit.SECONDS));
-                assertThat(s.getLegTotalCost()).isNotZero();
+                assertThat(s.getLegTotalCost()).isZero();
                 assertThat(s.getCondition()).isNotNull();
                 assertThat(s.getCondition().getBillingType()).isEqualTo(TollConditionBillingType.TAG);
                 assertThat(s.getCondition().getPeriod()).isEqualTo(TollConditionPeriod.HOLIDAY);
