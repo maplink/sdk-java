@@ -33,7 +33,7 @@
     "maxWeightForDangerousMaterials": 30,
     "loadTypes": ["BUILDING_PRODUCTS", "HEATH_WASTES", "SAND_GRAVELS"]
   },
-  "avoidanceTypes": ["TUNNELS", "BRIDGES"],
+  "avoidanceTypes": ["TUNNELS", "BRIDGES", "FRONTIERS"],
   "callback": {
     "url": "http://localhost",
     "user": "user",

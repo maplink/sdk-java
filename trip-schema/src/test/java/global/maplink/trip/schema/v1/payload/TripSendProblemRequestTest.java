@@ -2,13 +2,13 @@ package global.maplink.trip.schema.v1.payload;
 
 import global.maplink.json.JsonMapper;
 import global.maplink.trip.schema.v2.problem.SitePoint;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
 
 import static global.maplink.trip.schema.v1.exception.TripErrorType.*;
-import static global.maplink.trip.schema.v1.payload.AvoidanceType.BRIDGES;
-import static global.maplink.trip.schema.v1.payload.AvoidanceType.TUNNELS;
+import static global.maplink.trip.schema.v1.payload.AvoidanceType.*;
 import static global.maplink.trip.schema.v1.payload.LoadType.*;
 import static global.maplink.trip.schema.v2.problem.CalculationMode.THE_FASTEST;
 import static global.maplink.trip.testUtils.V1SampleFiles.INVALID_TRIP_PROBLEM;
@@ -69,7 +69,7 @@ class TripSendProblemRequestTest {
                                 .build()
                 );
 
-        assertThat(tripProblem.getAvoidanceTypes()).containsExactlyInAnyOrder(TUNNELS, BRIDGES);
+        assertThat(tripProblem.getAvoidanceTypes()).containsExactlyInAnyOrder(TUNNELS, BRIDGES, FRONTIERS);
 
         assertThat(tripProblem.getCallback())
                 .isEqualTo(
@@ -82,10 +82,10 @@ class TripSendProblemRequestTest {
     }
 
     @Test
+    @Disabled("Ajustar esse teste em relacao a regra de speedPreferences")
     void shouldValidateReturnEmptyErrorArray(){
-        // TODO: Ajustar esse teste em relacao a regra de speedPreferences
         TripSendProblemRequest tripProblem = mapper.fromJson(VALID_TRIP_PROBLEM.load(), TripSendProblemRequest.class);
-//        assertThat(tripProblem.validate()).isEmpty();
+        assertThat(tripProblem.validate()).isEmpty();
     }
 
     @Test

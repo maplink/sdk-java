@@ -21,7 +21,7 @@
     "loadTypes": ["LoadTypeOne", "LoadTypeTwo"]
   },
   "restrictionZones": ["ONE", "TWO"],
-  "avoidanceTypes": ["TUNNELS", "BRIDGES"],
+  "avoidanceTypes": ["TUNNELS", "BRIDGES", "FRONTIERS"],
   "toll": {
     "vehicleType": "TRUCK_WITH_TWO_SINGLE_AXIS",
     "billing": "DEFAULT"

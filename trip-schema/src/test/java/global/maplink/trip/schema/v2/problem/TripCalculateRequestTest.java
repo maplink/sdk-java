@@ -8,8 +8,7 @@ import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
 
-import static global.maplink.trip.schema.v1.payload.AvoidanceType.BRIDGES;
-import static global.maplink.trip.schema.v1.payload.AvoidanceType.TUNNELS;
+import static global.maplink.trip.schema.v1.payload.AvoidanceType.*;
 import static global.maplink.trip.schema.v2.features.crossedBorders.CrossedBorderLevel.CITY;
 import static global.maplink.trip.schema.v2.features.reverseGeocode.ReverseGeocodePointsMode.START_END;
 import static global.maplink.trip.schema.v2.features.turnByTurn.Languages.PT_BR;
@@ -36,8 +35,8 @@ class TripCalculateRequestTest {
         assertEquals(2, tripRequest.getRestrictionZones().size());
         assertTrue(tripRequest.getRestrictionZones().containsAll(asList("ONE", "TWO")));
 
-        assertEquals(2, tripRequest.getAvoidanceTypes().size());
-        assertThat(tripRequest.getAvoidanceTypes()).containsExactlyInAnyOrder(TUNNELS, BRIDGES);
+        assertEquals(3, tripRequest.getAvoidanceTypes().size());
+        assertThat(tripRequest.getAvoidanceTypes()).containsExactlyInAnyOrder(TUNNELS, BRIDGES, FRONTIERS);
 
         TollRequest tollRequest = tripRequest.getToll();
         assertNotNull(tollRequest);
