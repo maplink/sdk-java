@@ -82,7 +82,7 @@ public class CalculationDetailTest {
     }
 
     @Test
-    public void shouldDeserialize_withExitGantryType() {
+    void shouldDeserialize_withExitGantryType() {
         CalculationDetail result = mapper.fromJson(EXIT_GANTRY_DETAIL.load(), CalculationDetail.class);
 
         assertEquals(0, new BigDecimal("616.0").compareTo(result.getPrice()));
