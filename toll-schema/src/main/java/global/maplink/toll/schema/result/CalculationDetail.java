@@ -18,6 +18,7 @@ import static lombok.AccessLevel.PRIVATE;
 @NoArgsConstructor(force = true, access = PRIVATE)
 public class CalculationDetail {
     private final String id;
+    private final TollType type;
     private final String name;
     private final String address;
     private final String city;
