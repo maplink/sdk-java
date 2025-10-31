@@ -29,4 +29,6 @@ public class CalculationDetail {
     private final List<TollServiceType> serviceTypes;
     private final BigDecimal price;
     private final List<TollCondition> conditions;
+    private final List<SegmentCosts> segmentCosts;
+    private final boolean allowMultiplier;
 }

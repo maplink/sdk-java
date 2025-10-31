@@ -14,6 +14,7 @@ public enum SampleFiles {
     COORDINATES("toll/json/coordinates.json"),
     LEG_RESULT("toll/json/legResult.json"),
     STATE("toll/json/state.json"),
+    SEGMENT_COSTS("toll/json/segmentCosts.json"),
     TOLL_CONDITION("toll/json/tollCondition.json"),
     TOLL_SERVICE_TYPE("toll/json/tollServiceType.json"),
     CALCULATION_REQUEST("toll/json/calculationRequest.json"),
