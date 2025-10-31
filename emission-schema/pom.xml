@@ -4,7 +4,7 @@
     <parent>
         <artifactId>sdk</artifactId>
         <groupId>global.maplink</groupId>
-        <version>1.5.29</version>
+        <version>1.5.30-SNAPSHOT</version>
     </parent>
 
     <artifactId>emission-schema</artifactId>
