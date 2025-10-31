@@ -8,7 +8,7 @@ import static global.maplink.toll.testUtils.SampleFiles.SEGMENT_COSTS;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.AssertionsForClassTypes.tuple;
 
-public class SegmentCostsTest {
+class SegmentCostsTest {
 
     private final JsonMapper mapper = JsonMapper.loadDefault();
 
