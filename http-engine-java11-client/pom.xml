@@ -4,7 +4,7 @@
     <parent>
         <artifactId>sdk</artifactId>
         <groupId>global.maplink</groupId>
-        <version>1.5.30</version>
+        <version>1.5.31-SNAPSHOT</version>
     </parent>
 
     <artifactId>http-engine-java11-client</artifactId>
