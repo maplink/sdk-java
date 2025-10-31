@@ -11,7 +11,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-import static global.maplink.toll.testUtils.SampleFiles.CALCULATION_DETAIL;
+import static global.maplink.toll.testUtils.SampleFiles.*;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -79,5 +79,15 @@ public class CalculationDetailTest {
 
         assertEquals(0, new BigDecimal("149.8").compareTo(tollCondition.getValue()));
 
+    }
+
+    @Test
+    void shouldDeserialize_withExitGantryType() {
+        CalculationDetail result = mapper.fromJson(EXIT_GANTRY_DETAIL.load(), CalculationDetail.class);
+
+        assertEquals(0, new BigDecimal("616.0").compareTo(result.getPrice()));
+        assertEquals("35693564", result.getSegmentId());
+        assertEquals("3569", result.getEntryGantryId());
+        assertEquals("Pórtico - Entrada - Martín de Zamora", result.getEntryGantryName());
     }
 }
