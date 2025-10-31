@@ -1,0 +1,23 @@
+{
+  "id": "3564",
+  "type": "EXIT_GANTRY",
+  "name": "Pórtico - Salida 2A: Cerro Colorado",
+  "address": "Autopista Vespucio Oriente",
+  "city": " ",
+  "state": {
+    "name": " ",
+    "code": " "
+  },
+  "country": "Chile",
+  "concession": "Autopista Vespucio Oriente",
+  "direction": "NORTH",
+  "coordinates": {
+    "latitude": -33.40854142,
+    "longitude": -70.58719207
+  },
+  "serviceTypes": [],
+  "price": 616.00,
+  "segmentId": "35693564",
+  "entryGantryId": "3569",
+  "entryGantryName": "Pórtico - Entrada - Martín de Zamora"
+}
