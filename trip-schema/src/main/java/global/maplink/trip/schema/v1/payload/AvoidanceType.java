@@ -6,5 +6,6 @@ public enum AvoidanceType {
     FERRIES,
     FRONTIERS,
     TOLL_ROADS,
-    TOLL_GATES
+    TOLL_GATES,
+    UNPAVED
 }

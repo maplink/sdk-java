@@ -19,6 +19,46 @@
       "roadType": "HIGHWAY",
       "speed": 90,
       "speedAtToll": 50
+    },
+    {
+      "roadType": "FERRY",
+      "speed": 90,
+      "speedAtToll": 50
+    },
+    {
+      "roadType": "PENALIZED_LOCAL_ROAD",
+      "speed": 90,
+      "speedAtToll": 50
+    },
+    {
+      "roadType": "LOCAL_ROAD",
+      "speed": 90,
+      "speedAtToll": 50
+    },
+    {
+      "roadType": "PENALIZED_SECONDARY_ROAD",
+      "speed": 90,
+      "speedAtToll": 50
+    },
+    {
+      "roadType": "SECONDARY_ROAD",
+      "speed": 90,
+      "speedAtToll": 50
+    },
+    {
+      "roadType": "PENALIZED_MAIN_ROAD",
+      "speed": 90,
+      "speedAtToll": 50
+    },
+    {
+      "roadType": "MAIN_ROAD",
+      "speed": 90,
+      "speedAtToll": 50
+    },
+    {
+      "roadType": "EXPRESSWAY",
+      "speed": 90,
+      "speedAtToll": 50
     }
   ],
   "vehicleSpecification": {
@@ -33,7 +73,7 @@
     "maxWeightForDangerousMaterials": 30,
     "loadTypes": ["BUILDING_PRODUCTS", "HEATH_WASTES", "SAND_GRAVELS"]
   },
-  "avoidanceTypes": ["TUNNELS", "BRIDGES", "FRONTIERS"],
+  "avoidanceTypes": ["TUNNELS", "BRIDGES", "FERRIES", "FRONTIERS", "TOLL_ROADS", "TOLL_GATES", "UNPAVED"],
   "callback": {
     "url": "http://localhost",
     "user": "user",
