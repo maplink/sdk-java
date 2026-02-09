@@ -105,29 +105,20 @@ class TollCalculationRequestTest {
     }
 
     @Test
-    void shouldSerializeWithInactiveTrue() {
-        val request = TollCalculationRequest.builder()
-                .leg(LegRequest.builder()
-                        .vehicleType(CAR)
-                        .point(Coordinates.of(-22.0539, -42.36768))
-                        .build())
-                .inactive(true)
-                .build();
+    void shouldDeserializeWithInactiveTrue() {
+        val data = mapper.fromJson(CALCULATION_REQUEST_INACTIVE.load(), TollCalculationRequest.class);
 
-        val json = new String(mapper.toJson(request));
-        assertThat(json).contains("\"inactive\":true");
+        assertThat(data.getBilling()).isEqualTo(FREE_FLOW);
+        assertThat(data.isInactive()).isTrue();
+        assertThat(data.getLegs()).hasSize(1);
+        assertThat(data.getTransponderOperators()).isEqualTo(new HashSet<>(Collections.singletonList(SEM_PARAR)));
     }
 
     @Test
     void shouldDefaultInactiveToFalse() {
-        val request = TollCalculationRequest.builder()
-                .leg(LegRequest.builder()
-                        .vehicleType(CAR)
-                        .point(Coordinates.of(-22.0539, -42.36768))
-                        .build())
-                .build();
+        val data = mapper.fromJson(CALCULATION_REQUEST.load(), TollCalculationRequest.class);
 
-        assertThat(request.isInactive()).isFalse();
+        assertThat(data.isInactive()).isFalse();
     }
 
     private void assertPoint(Coordinates point, double lat, double lon) {
