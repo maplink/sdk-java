@@ -70,7 +70,7 @@ class TollCalculationRequestTest {
     @Test
     void shouldValidateDefaultCalculationDateAndRequestProperties() {
         val data = mapper.fromJson(CALCULATION_DATE_DEFAULT.load(), TollCalculationRequest.class);
-        
+
         LegRequest firstLeg = data.getLegs().stream().findFirst().orElseThrow(IllegalArgumentException::new);
         assertThat(firstLeg.getCalculationDate()).isNotNull();
         assertThat(firstLeg.getCondition().getBillingType()).isEqualTo(TAG);
@@ -102,6 +102,32 @@ class TollCalculationRequestTest {
         assertThat(data.getLegs())
                 .hasSize(1);
         assertThat(data.getTransponderOperators()).containsExactly(SEM_PARAR);
+    }
+
+    @Test
+    void shouldSerializeWithInactiveTrue() {
+        val request = TollCalculationRequest.builder()
+                .leg(LegRequest.builder()
+                        .vehicleType(CAR)
+                        .point(Coordinates.of(-22.0539, -42.36768))
+                        .build())
+                .inactive(true)
+                .build();
+
+        val json = new String(mapper.toJson(request));
+        assertThat(json).contains("\"inactive\":true");
+    }
+
+    @Test
+    void shouldDefaultInactiveToFalse() {
+        val request = TollCalculationRequest.builder()
+                .leg(LegRequest.builder()
+                        .vehicleType(CAR)
+                        .point(Coordinates.of(-22.0539, -42.36768))
+                        .build())
+                .build();
+
+        assertThat(request.isInactive()).isFalse();
     }
 
     private void assertPoint(Coordinates point, double lat, double lon) {
