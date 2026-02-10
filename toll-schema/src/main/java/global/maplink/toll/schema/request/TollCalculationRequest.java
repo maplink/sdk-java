@@ -32,6 +32,9 @@ public class TollCalculationRequest implements MapLinkServiceRequest<TollCalcula
     @Builder.Default
     private final Set<TransponderOperator> transponderOperators = new HashSet<>(Collections.singletonList(TransponderOperator.SEM_PARAR));
 
+    @Builder.Default
+    private final boolean inactive = false;
+
     @Override
     public Request asHttpRequest(Environment environment, JsonMapper mapper) {
         return post(

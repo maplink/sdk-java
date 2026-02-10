@@ -70,7 +70,7 @@ class TollCalculationRequestTest {
     @Test
     void shouldValidateDefaultCalculationDateAndRequestProperties() {
         val data = mapper.fromJson(CALCULATION_DATE_DEFAULT.load(), TollCalculationRequest.class);
-        
+
         LegRequest firstLeg = data.getLegs().stream().findFirst().orElseThrow(IllegalArgumentException::new);
         assertThat(firstLeg.getCalculationDate()).isNotNull();
         assertThat(firstLeg.getCondition().getBillingType()).isEqualTo(TAG);
@@ -102,6 +102,23 @@ class TollCalculationRequestTest {
         assertThat(data.getLegs())
                 .hasSize(1);
         assertThat(data.getTransponderOperators()).containsExactly(SEM_PARAR);
+    }
+
+    @Test
+    void shouldDeserializeWithInactiveTrue() {
+        val data = mapper.fromJson(CALCULATION_REQUEST_INACTIVE.load(), TollCalculationRequest.class);
+
+        assertThat(data.getBilling()).isEqualTo(FREE_FLOW);
+        assertThat(data.isInactive()).isTrue();
+        assertThat(data.getLegs()).hasSize(1);
+        assertThat(data.getTransponderOperators()).isEqualTo(new HashSet<>(Collections.singletonList(SEM_PARAR)));
+    }
+
+    @Test
+    void shouldDefaultInactiveToFalse() {
+        val data = mapper.fromJson(CALCULATION_REQUEST.load(), TollCalculationRequest.class);
+
+        assertThat(data.isInactive()).isFalse();
     }
 
     private void assertPoint(Coordinates point, double lat, double lon) {

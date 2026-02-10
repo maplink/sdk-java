@@ -1,0 +1,19 @@
+{
+  "billing": "FREE_FLOW",
+  "inactive": true,
+  "legs": [
+    {
+      "vehicleType": "CAR",
+      "points": [
+        {
+          "latitude": -22.0539,
+          "longitude": -42.36768
+        },
+        {
+          "latitude": -22.05251,
+          "longitude": -42.35759
+        }
+      ]
+    }
+  ]
+}

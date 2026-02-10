@@ -23,7 +23,8 @@ public enum SampleFiles {
     CALCULATION_REQUEST_CONDITIONS("toll/json/calculationConditions.json"),
     CALCULATION_DATE_DEFAULT("toll/json/calculationDate.json"),
     CALCULATION_CONDITIONS_DEFAULT("toll/json/calculationConditionsDefault.json"),
-    CALCULATION_DEFAULT("toll/json/calculationDefault.json");
+    CALCULATION_DEFAULT("toll/json/calculationDefault.json"),
+    CALCULATION_REQUEST_INACTIVE("toll/json/calculationRequestInactive.json");
 
     private final String filePath;
 
