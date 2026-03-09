@@ -92,4 +92,11 @@ public class CalculationDetailTest {
         assertEquals("3569", result.getEntryGantryId());
         assertEquals("Pórtico - Entrada - Martín de Zamora", result.getEntryGantryName());
     }
+
+    @Test
+    void shouldDeserializeActiveField() {
+        CalculationDetail calculationDetail = mapper.fromJson(CALCULATION_DETAIL.load(), CalculationDetail.class);
+
+        assertTrue(calculationDetail.isActive());
+    }
 }

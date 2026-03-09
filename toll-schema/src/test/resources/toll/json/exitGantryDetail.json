@@ -19,5 +19,6 @@
   "price": 616.00,
   "segmentId": "35693564",
   "entryGantryId": "3569",
-  "entryGantryName": "Pórtico - Entrada - Martín de Zamora"
+  "entryGantryName": "Pórtico - Entrada - Martín de Zamora",
+  "active": true
 }
