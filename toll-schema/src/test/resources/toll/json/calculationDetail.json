@@ -32,5 +32,6 @@
       "routes": ["ROUTE_ONE"],
       "value": 149.8
     }
-  ]
+  ],
+  "active": true
 }
