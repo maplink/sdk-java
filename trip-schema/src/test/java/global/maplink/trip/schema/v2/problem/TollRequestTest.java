@@ -47,7 +47,13 @@ public class TollRequestTest {
         TollRequest tollRequest = mapper.fromJson(TOLL_REQUEST_INACTIVE.load(), TollRequest.class);
         assertThat(tollRequest.getVehicleType()).isEqualTo(TollVehicleType.TRUCK_WITH_TWO_SINGLE_AXIS);
         assertThat(tollRequest.getBilling()).isEqualTo(Billing.FREE_FLOW);
-        assertThat(tollRequest.getInactive()).isTrue();
+        assertThat(tollRequest.isInactive()).isTrue();
+    }
+
+    @Test
+    public void shouldDefaultInactiveToFalse() {
+        TollRequest tollRequest = mapper.fromJson(TOLL_REQUEST.load(), TollRequest.class);
+        assertThat(tollRequest.isInactive()).isFalse();
     }
 
     @Test
