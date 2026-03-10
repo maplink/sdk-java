@@ -37,6 +37,7 @@ public class TollRequest implements Validable {
     private final List<LegVariableAxles> variableAxles = Collections.emptyList();
     private final Instant calculationDate;
     private final Condition condition;
+    private final Boolean inactive;
     
     @Override
     public List<ValidationViolation> validate() {
