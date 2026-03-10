@@ -15,6 +15,7 @@ import java.util.HashSet;
 import static global.maplink.commons.TransponderOperator.CONECTCAR;
 import static global.maplink.commons.TransponderOperator.SEM_PARAR;
 import static global.maplink.trip.testUtils.ProblemSampleFiles.*;
+import static global.maplink.trip.testUtils.ProblemSampleFiles.TOLL_REQUEST_INACTIVE;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -39,6 +40,14 @@ public class TollRequestTest {
         assertEquals(TollVehicleType.TRUCK_WITH_TWO_SINGLE_AXIS, tollRequest.getVehicleType());
         assertEquals(Billing.FREE_FLOW, tollRequest.getBilling());
         assertEquals(new HashSet<>(Collections.singletonList(SEM_PARAR)), tollRequest.getTransponderOperators());
+    }
+
+    @Test
+    public void shouldDeserializeWithInactive() {
+        TollRequest tollRequest = mapper.fromJson(TOLL_REQUEST_INACTIVE.load(), TollRequest.class);
+        assertThat(tollRequest.getVehicleType()).isEqualTo(TollVehicleType.TRUCK_WITH_TWO_SINGLE_AXIS);
+        assertThat(tollRequest.getBilling()).isEqualTo(Billing.FREE_FLOW);
+        assertThat(tollRequest.getInactive()).isTrue();
     }
 
     @Test
