@@ -22,6 +22,8 @@ public class LegRequest {
 
     private Condition condition;
 
+    private Integer multiplier;
+
     @Singular
     private List<Coordinates> points;
 

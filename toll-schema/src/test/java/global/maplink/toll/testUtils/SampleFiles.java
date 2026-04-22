@@ -24,7 +24,9 @@ public enum SampleFiles {
     CALCULATION_DATE_DEFAULT("toll/json/calculationDate.json"),
     CALCULATION_CONDITIONS_DEFAULT("toll/json/calculationConditionsDefault.json"),
     CALCULATION_DEFAULT("toll/json/calculationDefault.json"),
-    CALCULATION_REQUEST_INACTIVE("toll/json/calculationRequestInactive.json");
+    CALCULATION_REQUEST_INACTIVE("toll/json/calculationRequestInactive.json"),
+    CALCULATION_REQUEST_EXCLUDED_TOLL_TYPES("toll/json/calculationRequestExcludedTollTypes.json"),
+    CALCULATION_REQUEST_WITH_MULTIPLIER("toll/json/calculationRequestWithMultiplier.json");
 
     private final String filePath;
 

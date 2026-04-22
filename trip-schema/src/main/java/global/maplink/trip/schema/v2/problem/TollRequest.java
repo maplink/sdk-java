@@ -3,6 +3,7 @@ package global.maplink.trip.schema.v2.problem;
 import global.maplink.commons.TransponderOperator;
 import global.maplink.toll.schema.Billing;
 import global.maplink.toll.schema.Condition;
+import global.maplink.toll.schema.TollType;
 import global.maplink.toll.schema.TollVehicleType;
 import global.maplink.trip.schema.v1.exception.violations.VariableAxlesOverlappingViolation;
 import global.maplink.trip.schema.v1.exception.violations.VariableAxlesSiteIdNotFoundInProblem;
@@ -39,7 +40,10 @@ public class TollRequest implements Validable {
     private final Condition condition;
     @Builder.Default
     private final boolean inactive = false;
-    
+    @Builder.Default
+    private final Set<TollType> excludedTollTypes = new HashSet<>();
+    private final Integer multiplier;
+
     @Override
     public List<ValidationViolation> validate() {
         List<ValidationViolation> errors = new ArrayList<>();

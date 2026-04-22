@@ -99,4 +99,18 @@ public class CalculationDetailTest {
 
         assertTrue(calculationDetail.isActive());
     }
+
+    @Test
+    void shouldDeserializeMultiplierField() {
+        CalculationDetail calculationDetail = mapper.fromJson(CALCULATION_DETAIL.load(), CalculationDetail.class);
+
+        assertEquals(2, calculationDetail.getMultiplier());
+    }
+
+    @Test
+    void shouldDefaultMultiplierToNull() {
+        CalculationDetail calculationDetail = mapper.fromJson(EXIT_GANTRY_DETAIL.load(), CalculationDetail.class);
+
+        assertNull(calculationDetail.getMultiplier());
+    }
 }
