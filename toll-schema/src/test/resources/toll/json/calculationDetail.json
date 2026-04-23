@@ -33,5 +33,6 @@
       "value": 149.8
     }
   ],
-  "active": true
+  "active": true,
+  "multiplier": 2
 }

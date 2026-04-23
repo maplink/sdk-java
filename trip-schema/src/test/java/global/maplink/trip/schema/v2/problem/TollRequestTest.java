@@ -14,6 +14,8 @@ import java.util.HashSet;
 
 import static global.maplink.commons.TransponderOperator.CONECTCAR;
 import static global.maplink.commons.TransponderOperator.SEM_PARAR;
+import static global.maplink.toll.schema.TollType.ENTRY_GANTRY;
+import static global.maplink.toll.schema.TollType.TOLL_GANTRY;
 import static global.maplink.trip.testUtils.ProblemSampleFiles.*;
 import static global.maplink.trip.testUtils.ProblemSampleFiles.TOLL_REQUEST_INACTIVE;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -54,6 +56,30 @@ public class TollRequestTest {
     public void shouldDefaultInactiveToFalse() {
         TollRequest tollRequest = mapper.fromJson(TOLL_REQUEST.load(), TollRequest.class);
         assertThat(tollRequest.isInactive()).isFalse();
+    }
+
+    @Test
+    public void shouldDeserializeWithExcludedTollTypes() {
+        TollRequest tollRequest = mapper.fromJson(TOLL_REQUEST_EXCLUDED_TOLL_TYPES.load(), TollRequest.class);
+        assertThat(tollRequest.getExcludedTollTypes()).containsExactlyInAnyOrder(TOLL_GANTRY, ENTRY_GANTRY);
+    }
+
+    @Test
+    public void shouldDefaultExcludedTollTypesToEmpty() {
+        TollRequest tollRequest = mapper.fromJson(TOLL_REQUEST.load(), TollRequest.class);
+        assertThat(tollRequest.getExcludedTollTypes()).isEmpty();
+    }
+
+    @Test
+    public void shouldDeserializeWithMultiplier() {
+        TollRequest tollRequest = mapper.fromJson(TOLL_REQUEST_MULTIPLIER.load(), TollRequest.class);
+        assertThat(tollRequest.getMultiplier()).isEqualTo(3);
+    }
+
+    @Test
+    public void shouldDefaultMultiplierToNull() {
+        TollRequest tollRequest = mapper.fromJson(TOLL_REQUEST.load(), TollRequest.class);
+        assertThat(tollRequest.getMultiplier()).isNull();
     }
 
     @Test

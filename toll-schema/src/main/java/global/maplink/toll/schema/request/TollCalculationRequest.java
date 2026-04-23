@@ -8,6 +8,7 @@ import global.maplink.http.request.Request;
 import global.maplink.http.request.RequestBody;
 import global.maplink.json.JsonMapper;
 import global.maplink.toll.schema.Billing;
+import global.maplink.toll.schema.TollType;
 import global.maplink.toll.schema.result.TollCalculationResult;
 import lombok.*;
 
@@ -34,6 +35,9 @@ public class TollCalculationRequest implements MapLinkServiceRequest<TollCalcula
 
     @Builder.Default
     private final boolean inactive = false;
+
+    @Builder.Default
+    private final Set<TollType> excludedTollTypes = new HashSet<>();
 
     @Override
     public Request asHttpRequest(Environment environment, JsonMapper mapper) {

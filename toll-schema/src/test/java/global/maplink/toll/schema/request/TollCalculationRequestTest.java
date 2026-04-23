@@ -3,6 +3,7 @@ package global.maplink.toll.schema.request;
 import global.maplink.json.JsonMapper;
 import global.maplink.toll.schema.Coordinates;
 import global.maplink.toll.schema.TollConditionPeriod;
+import global.maplink.toll.schema.TollType;
 import lombok.val;
 import org.junit.jupiter.api.Test;
 
@@ -15,6 +16,8 @@ import static global.maplink.commons.TransponderOperator.SEM_PARAR;
 import static global.maplink.toll.schema.Billing.FREE_FLOW;
 import static global.maplink.toll.schema.TollConditionBillingType.TAG;
 import static global.maplink.toll.schema.TollConditionPeriod.HOLIDAY;
+import static global.maplink.toll.schema.TollType.ENTRY_GANTRY;
+import static global.maplink.toll.schema.TollType.TOLL_GANTRY;
 import static global.maplink.toll.schema.TollVehicleType.CAR;
 import static global.maplink.toll.testUtils.SampleFiles.*;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -119,6 +122,35 @@ class TollCalculationRequestTest {
         val data = mapper.fromJson(CALCULATION_REQUEST.load(), TollCalculationRequest.class);
 
         assertThat(data.isInactive()).isFalse();
+    }
+
+    @Test
+    void shouldDeserializeWithExcludedTollTypes() {
+        val data = mapper.fromJson(CALCULATION_REQUEST_EXCLUDED_TOLL_TYPES.load(), TollCalculationRequest.class);
+
+        assertThat(data.getExcludedTollTypes()).containsExactlyInAnyOrder(TOLL_GANTRY, ENTRY_GANTRY);
+    }
+
+    @Test
+    void shouldDefaultExcludedTollTypesToEmpty() {
+        val data = mapper.fromJson(CALCULATION_REQUEST.load(), TollCalculationRequest.class);
+
+        assertThat(data.getExcludedTollTypes()).isEmpty();
+    }
+
+    @Test
+    void shouldDeserializeLegWithMultiplier() {
+        val data = mapper.fromJson(CALCULATION_REQUEST_WITH_MULTIPLIER.load(), TollCalculationRequest.class);
+
+        assertThat(data.getLegs()).hasSize(1);
+        assertThat(data.getLegs().get(0).getMultiplier()).isEqualTo(2);
+    }
+
+    @Test
+    void shouldDeserializeLegWithNullMultiplierByDefault() {
+        val data = mapper.fromJson(CALCULATION_REQUEST.load(), TollCalculationRequest.class);
+
+        assertThat(data.getLegs().get(0).getMultiplier()).isNull();
     }
 
     private void assertPoint(Coordinates point, double lat, double lon) {

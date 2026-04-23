@@ -34,4 +34,5 @@ public class CalculationDetail {
     private final String entryGantryId;
     private final String entryGantryName;
     private final boolean active;
+    private final Integer multiplier;
 }
