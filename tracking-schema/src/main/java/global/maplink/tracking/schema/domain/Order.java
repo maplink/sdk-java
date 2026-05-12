@@ -1,6 +1,7 @@
 package global.maplink.tracking.schema.domain;
 
 import global.maplink.geocode.schema.Address;
+import global.maplink.tracking.schema.errors.TrackingViolation;
 import global.maplink.validations.Validable;
 import global.maplink.validations.ValidationViolation;
 import lombok.AllArgsConstructor;
@@ -43,7 +44,7 @@ public class Order implements Validable {
         List<ValidationViolation> errors = new ArrayList<>();
 
         if (isInvalidDescription(description)) {
-            errors.add(TRACKING_DESCRIPTION_NOTNULL);
+            errors.add(TrackingViolation.of(TRACKING_DESCRIPTION_NOTNULL));
         }
 
         if (nonNull(origin)) {
@@ -51,8 +52,8 @@ public class Order implements Validable {
         }
 
         if (isNull(destination)) {
-            errors.add(TRACKING_DESTINATION_NOTNULL);
-        }else{
+            errors.add(TrackingViolation.of(TRACKING_DESTINATION_NOTNULL));
+        } else {
             errors.addAll(validate(destination));
         }
 
@@ -74,7 +75,7 @@ public class Order implements Validable {
         }
 
         if (isNull(address.getMainLocation())) {
-            violations.add(TRACKING_ADDRESS_MAINLOCATION_NOTNULL);
+            violations.add(TrackingViolation.of(TRACKING_ADDRESS_MAINLOCATION_NOTNULL));
         } else {
             violations.addAll(validateGeoPoint(
                     address.getMainLocation(),

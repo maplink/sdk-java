@@ -28,6 +28,7 @@ public enum ProblemSampleFiles {
     TRIP_REQUEST_WITH_TURN_BY_TURN("trip/v2/problem/json/tripRequestCalculationWithTurnByTurn.json"),
     PROBLEM_WITH_VEHICLE_TYPE("trip/v2/problem/json/problem_with_vehicle_type.json"),
     PROBLEM_WITH_TOLL_AND_VEHICLE_TYPE("trip/v2/problem/json/problem_with_toll_and_vehicle_type.json"),
+    PROBLEM_WITH_TOLL_WITHOUT_VEHICLE_TYPE("trip/v2/problem/json/problem_with_toll_without_vehicle_type.json"),
     PROBLEM_WITH_SINGLE_POINT("trip/v2/problem/json/problem_with_single_point.json");
 
 

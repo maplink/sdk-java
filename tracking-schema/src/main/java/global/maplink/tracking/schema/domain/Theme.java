@@ -1,5 +1,6 @@
 package global.maplink.tracking.schema.domain;
 
+import global.maplink.tracking.schema.errors.TrackingViolation;
 import global.maplink.validations.Validable;
 import global.maplink.validations.ValidationViolation;
 import lombok.Builder;
@@ -34,18 +35,18 @@ public class Theme implements Validable {
     public List<ValidationViolation> validate() {
         List<ValidationViolation> violations = new ArrayList<>();
         if (isInvalid(id)) {
-            violations.add(THEME_ID_NOTNULL);
+            violations.add(TrackingViolation.of(THEME_ID_NOTNULL));
         }
         if (isNull(language)) {
-            violations.add(THEME_LANGUAGE_NOTNULL);
+            violations.add(TrackingViolation.of(THEME_LANGUAGE_NOTNULL));
         }
         if (isInvalid(color)) {
-            violations.add(THEME_COLOR_NOTNULL);
+            violations.add(TrackingViolation.of(THEME_COLOR_NOTNULL));
         } else {
             Pattern p = Pattern.compile(COLOR_HEX_PATTERN);
             Matcher m = p.matcher(color);
 
-            if (!m.matches()) violations.add(THEME_COLOR_INCORRECT);
+            if (!m.matches()) violations.add(TrackingViolation.of(THEME_COLOR_INCORRECT));
         }
         return violations;
     }

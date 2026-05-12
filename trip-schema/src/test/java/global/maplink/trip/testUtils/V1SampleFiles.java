@@ -17,7 +17,12 @@ public enum V1SampleFiles {
     VALID_VEHICLE_SPECIFICATION("trip/v1/validVehicleSpecification.json"),
     INVALID_VEHICLE_SPECIFICATION("trip/v1/invalidVehicleSpecification.json"),
     VALID_TRIP_PROBLEM("trip/v1/validTripProblem.json"),
-    INVALID_TRIP_PROBLEM("trip/v1/invalidTripProblem.json"),
+    TRIP_SEND_PROBLEM_WITH_NULL_PROFILE_NAME("trip/v1/tripSendProblemWithNullProfileName.json"),
+    TRIP_SEND_PROBLEM_WITH_CALLBACK_WITHOUT_URL("trip/v1/tripSendProblemWithCallbackWithoutUrl.json"),
+    TRIP_SEND_PROBLEM_WITH_TOLL_WITHOUT_VEHICLE_TYPE("trip/v1/tripSendProblemWithTollWithoutVehicleType.json"),
+    TRIP_SEND_PROBLEM_WITH_CROSSED_BORDERS_WITHOUT_LEVEL("trip/v1/tripSendProblemWithCrossedBordersWithoutLevel.json"),
+    TRIP_SEND_PROBLEM_WITH_INCOMPLETE_SPEED_PREFERENCES("trip/v1/tripSendProblemWithIncompleteSpeedPreferences.json"),
+    TRIP_SEND_PROBLEM_WITH_NULL_TURN_BY_TURN_LANGUAGE("trip/v1/tripSendProblemWithNullTurnByTurnLanguage.json"),
     TRIP_RESPONSE("trip/v1/tripResponse.json");
 
     private final String filePath;

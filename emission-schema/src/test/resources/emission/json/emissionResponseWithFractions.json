@@ -1,0 +1,21 @@
+{
+  "source": "LASTROP_ESALQ",
+  "fuelType": "BIODIESEL",
+  "fuelConsumed": 7.08,
+  "totalFuelPrice": 34.69,
+  "totalEmission": 15.146,
+  "fractionedEmissionResponses": [
+    {
+      "name": "Cliente",
+      "fuelConsumed": 1.42,
+      "totalFuelPrice": 6.94,
+      "totalEmission": 3.029
+    },
+    {
+      "name": "Transportadora",
+      "fuelConsumed": 5.66,
+      "totalFuelPrice": 27.75,
+      "totalEmission": 12.117
+    }
+  ]
+}

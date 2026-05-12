@@ -1,6 +1,7 @@
 package global.maplink.tracking.schema.domain;
 
 
+import global.maplink.tracking.schema.errors.TrackingViolation;
 import global.maplink.validations.Validable;
 import global.maplink.validations.ValidationViolation;
 import lombok.AllArgsConstructor;
@@ -29,10 +30,10 @@ public class OrderStatus implements Validable {
     public List<ValidationViolation> validate() {
         List<ValidationViolation> errors = new ArrayList<>();
         if (isNull(value)) {
-            errors.add(TRACKING_STATUS_VALUE_NOTNULL);
+            errors.add(TrackingViolation.of(TRACKING_STATUS_VALUE_NOTNULL));
         }
         if (isInvalid(label)) {
-            errors.add(TRACKING_STATUS_LABEL_NOTNULL);
+            errors.add(TrackingViolation.of(TRACKING_STATUS_LABEL_NOTNULL));
         }
         return errors;
     }

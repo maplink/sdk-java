@@ -1,45 +1,82 @@
 package global.maplink.tracking.schema.schemaTest;
 
 import global.maplink.tracking.schema.domain.OrderStatus;
-import lombok.var;
+import global.maplink.tracking.schema.domain.Value;
+import global.maplink.tracking.schema.errors.TrackingViolation;
+import global.maplink.validations.ValidationException;
+import global.maplink.validations.ValidationViolation;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
+
+import java.util.List;
+import java.util.stream.Stream;
 
 import static global.maplink.tracking.schema.domain.Value.ON_THE_WAY;
-import static global.maplink.tracking.schema.errors.ValidationErrorType.TRACKING_STATUS_LABEL_NOTNULL;
-import static global.maplink.tracking.schema.errors.ValidationErrorType.TRACKING_STATUS_VALUE_NOTNULL;
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
+import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;
 
 class OrderStatusTest {
 
     @Test
-    public void isValidateOrderStatusLabelNull() {
+    void shouldValidate() {
         OrderStatus status = OrderStatus.builder()
                 .value(ON_THE_WAY)
-                .build();
-
-        var errors = status.validate();
-        assertEquals(TRACKING_STATUS_LABEL_NOTNULL, errors.get(0));
-    }
-
-    @Test
-    public void isValidateOrderStatusValueNull() {
-        OrderStatus status = OrderStatus.builder()
                 .label("pedido saiu para entrega")
                 .build();
 
-        var errors = status.validate();
-        assertEquals(TRACKING_STATUS_VALUE_NOTNULL, errors.get(0));
+        assertThat(status.validate()).isEmpty();
+    }
+
+    @ParameterizedTest
+    @MethodSource("invalidStatusProvider")
+    void shouldRejectInvalidStatus(OrderStatus status, String expectedMessage) {
+        List<ValidationViolation> violations = status.validate();
+
+        assertThatThrownBy(status::throwIfInvalid).isInstanceOf(ValidationException.class);
+        assertThat(violations).hasSize(1);
+        assertThat(violations.get(0)).isInstanceOf(TrackingViolation.class);
+        assertThat(violations.get(0).getMessage()).isEqualTo(expectedMessage);
     }
 
     @Test
-    public void isValidateOrderStatusNull() {
-        OrderStatus status = OrderStatus.builder()
-                .build();
+    void shouldReportAllViolationsWhenAllFieldsAreNull() {
+        OrderStatus status = OrderStatus.builder().build();
 
-        var errors = status.validate();
-        assertEquals(2, errors.size());
-        assertEquals(TRACKING_STATUS_VALUE_NOTNULL, errors.get(0));
-        assertEquals(TRACKING_STATUS_LABEL_NOTNULL, errors.get(1));
+        assertThat(status.validate())
+                .hasSize(2)
+                .extracting(ValidationViolation::getMessage)
+                .containsExactlyInAnyOrder(
+                        "status.value cannot be null",
+                        "status.label cannot be null"
+                );
     }
 
+    @Test
+    void shouldRejectStatusWithBlankLabel() {
+        OrderStatus status = OrderStatus.builder()
+                .value(ON_THE_WAY)
+                .label("   ")
+                .build();
+
+        assertThat(status.validate())
+                .hasSize(1)
+                .extracting(ValidationViolation::getMessage)
+                .containsExactly("status.label cannot be null");
+    }
+
+    static Stream<Arguments> invalidStatusProvider() {
+        return Stream.of(
+                Arguments.of(statusWith(ON_THE_WAY, null), "status.label cannot be null"),
+                Arguments.of(statusWith(null, "pedido saiu para entrega"), "status.value cannot be null")
+        );
+    }
+
+    private static OrderStatus statusWith(Value value, String label) {
+        return OrderStatus.builder()
+                .value(value)
+                .label(label)
+                .build();
+    }
 }

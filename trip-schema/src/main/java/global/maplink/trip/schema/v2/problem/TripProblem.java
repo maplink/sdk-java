@@ -4,6 +4,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
+import global.maplink.trip.schema.v1.exception.TripViolation;
+
 import static global.maplink.trip.schema.v1.exception.TripErrorType.ROUTE_POINTS_LESS_THAN_TWO;
 import static global.maplink.trip.schema.v2.features.avoidance.AvoidanceBehavior.FAIL;
 import static global.maplink.trip.schema.v2.problem.CalculationMode.THE_FASTEST;
@@ -96,7 +98,7 @@ public class TripProblem implements Validable {
         List<ValidationViolation> errors = new LinkedList<>();
 
         if (points != null && points.size() < 2) {
-            errors.add(ROUTE_POINTS_LESS_THAN_TWO);
+            errors.add(TripViolation.of(ROUTE_POINTS_LESS_THAN_TWO));
         }
 
         if (toll != null) {

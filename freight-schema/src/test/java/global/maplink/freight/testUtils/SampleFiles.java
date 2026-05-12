@@ -12,6 +12,10 @@ import java.nio.file.Paths;
 public enum SampleFiles {
     ADDITIONAL_COSTS("freight/json/additionalCosts.json"),
     FREIGHT_CALCULATION_REQUEST("freight/json/freightCalculationRequest.json"),
+    FREIGHT_CALCULATION_REQUEST_WITH_NULL_DATE("freight/json/freightCalculationRequestWithNullDate.json"),
+    FREIGHT_CALCULATION_REQUEST_WITH_NULL_OPERATION_TYPE("freight/json/freightCalculationRequestWithNullOperationType.json"),
+    FREIGHT_CALCULATION_REQUEST_WITH_NULL_GOODS_TYPE("freight/json/freightCalculationRequestWithNullGoodsType.json"),
+    FREIGHT_CALCULATION_REQUEST_WITH_NULL_AXIS("freight/json/freightCalculationRequestWithNullAxis.json"),
     FREIGHT_CALCULATION_RESPONSE("freight/json/freightCalculationResponse.json"),
     FREIGHT_CALCULATION_RESULT("freight/json/freightCalculationResult.json");
 

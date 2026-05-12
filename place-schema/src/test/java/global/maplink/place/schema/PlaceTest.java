@@ -1,15 +1,22 @@
 package global.maplink.place.schema;
 
+import global.maplink.domain.MaplinkPoint;
 import global.maplink.json.JsonMapper;
+import global.maplink.place.schema.exception.PlaceUpdateViolation;
 import global.maplink.validations.ValidationException;
+import global.maplink.validations.ValidationViolation;
 import lombok.val;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 import org.junit.platform.commons.util.StringUtils;
 
 import java.time.DayOfWeek;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import static global.maplink.place.schema.PaymentMethod.*;
 import static global.maplink.place.testUtils.Defaults.POINT_OFFSET;
@@ -83,5 +90,63 @@ public class PlaceTest {
         assertThat(place.validate()).isNotEmpty().hasSize(5);
 
         assertThatThrownBy(place::throwIfInvalid).isInstanceOf(ValidationException.class);
+    }
+
+    @ParameterizedTest
+    @MethodSource("invalidPlaceProvider")
+    void shouldRejectPlaceWithMissingField(Place place, String expectedMessage) {
+        List<ValidationViolation> violations = place.validate();
+
+        assertThatThrownBy(place::throwIfInvalid).isInstanceOf(ValidationException.class);
+        assertThat(violations).hasSize(1);
+        assertThat(violations.get(0)).isInstanceOf(PlaceUpdateViolation.class);
+        assertThat(violations.get(0).getMessage()).isEqualTo(expectedMessage);
+    }
+
+    @Test
+    void shouldCascadeViolationsFromInvalidAddress() {
+        Place place = validPlace()
+                .address(Address.builder().build())
+                .build();
+
+        assertThat(place.validate())
+                .hasSize(6)
+                .extracting(ValidationViolation::getMessage)
+                .containsExactlyInAnyOrder(
+                        "Required valid field: address.street",
+                        "Required valid field: address.city",
+                        "Required valid field: address.state",
+                        "Required valid field: address.number",
+                        "Required valid field: address.zipcode",
+                        "Required valid field: address.point"
+                );
+    }
+
+    static Stream<Arguments> invalidPlaceProvider() {
+        return Stream.of(
+                Arguments.of(validPlace().id(null).build(),          "Required valid field: id"),
+                Arguments.of(validPlace().id("   ").build(),         "Required valid field: id"),
+                Arguments.of(validPlace().name(null).build(),        "Required valid field: name"),
+                Arguments.of(validPlace().name("").build(),          "Required valid field: name"),
+                Arguments.of(validPlace().category(null).build(),    "Required valid field: category"),
+                Arguments.of(validPlace().subCategory(null).build(), "Required valid field: subCategory"),
+                Arguments.of(validPlace().address(null).build(),     "Required valid field: address")
+        );
+    }
+
+    private static Place.PlaceBuilder validPlace() {
+        return Place.builder()
+                .id("a98553bc-78e5-4035-a048-74e361625ce1")
+                .name("MAPLINK")
+                .category(Category.TECNOLOGIA)
+                .subCategory(SubCategory.DESENVOLVIMENTO_DE_SOFTWARE)
+                .address(Address.builder()
+                        .street("Alameda Campinas")
+                        .number("579")
+                        .city("São Paulo")
+                        .state("SP")
+                        .zipcode("01404-100")
+                        .point(new MaplinkPoint(-23.5666499, -46.6557755))
+                        .build());
     }
 }

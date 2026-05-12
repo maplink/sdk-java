@@ -1,0 +1,6 @@
+{
+  "operationType": ["A", "B"],
+  "goodsType": ["GRANEL_SOLIDO"],
+  "axis": [4],
+  "distance": 30.3
+}

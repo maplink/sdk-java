@@ -3,9 +3,15 @@ package global.maplink.place.schema;
 import global.maplink.json.JsonMapper;
 import global.maplink.place.schema.exception.PlaceCalculationRequestException;
 import global.maplink.validations.ValidationException;
+import global.maplink.validations.ValidationViolation;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 
 import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Stream;
 
 import static global.maplink.place.schema.SubCategory.*;
 import static global.maplink.place.testUtils.Defaults.POINT_OFFSET;
@@ -16,6 +22,8 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThatCode;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class PlaceRouteRequestTest {
+
+    private static final long ABOVE_MAX_BUFFER = PlaceRouteRequest.MAX_BUFFER + 1L;
 
     private final JsonMapper mapper = JsonMapper.loadDefault();
 
@@ -82,5 +90,73 @@ public class PlaceRouteRequestTest {
                 .build();
         assertThat(emptyLegsRequest.validate()).isEmpty();
         assertThatThrownBy(emptyLegsRequest::validateWithLegs).isInstanceOf(PlaceCalculationRequestException.class);
+    }
+
+    @ParameterizedTest
+    @MethodSource("invalidRequestProvider")
+    void shouldRejectInvalidRequest(PlaceRouteRequest request, String expectedMessage) {
+        List<ValidationViolation> violations = request.validate();
+
+        assertThatThrownBy(request::throwIfInvalid).isInstanceOf(ValidationException.class);
+        assertThat(violations).hasSize(1);
+        assertThat(violations.get(0).getMessage()).isEqualTo(expectedMessage);
+    }
+
+    @ParameterizedTest
+    @MethodSource("validRequestProvider")
+    void shouldAcceptValidRequest(PlaceRouteRequest request) {
+        assertThat(request.validate()).isEmpty();
+    }
+
+    static Stream<Arguments> invalidRequestProvider() {
+        return Stream.of(
+                Arguments.of(validRequest().bufferRouteInMeters(null).build(),                 "The route buffer should be bigger than zero"),
+                Arguments.of(validRequest().bufferRouteInMeters(0L).build(),                   "The route buffer should be bigger than zero"),
+                Arguments.of(validRequest().bufferRouteInMeters(-1L).build(),                  "The route buffer should be bigger than zero"),
+                Arguments.of(validRequest().bufferRouteInMeters(ABOVE_MAX_BUFFER).build(),     "The route buffer should be less than 500"),
+                Arguments.of(validRequest().bufferStoppingPointsInMeters(null).build(),        "The stopping points buffer should be bigger than zero"),
+                Arguments.of(validRequest().bufferStoppingPointsInMeters(0L).build(),          "The stopping points buffer should be bigger than zero"),
+                Arguments.of(validRequest().bufferStoppingPointsInMeters(-1L).build(),         "The stopping points buffer should be bigger than zero"),
+                Arguments.of(validRequest().bufferStoppingPointsInMeters(ABOVE_MAX_BUFFER).build(), "The stopping points buffer should be less than 500"),
+                Arguments.of(noCategoriesRequest().build(),                                    "Category or subcategory info is necessary")
+        );
+    }
+
+    static Stream<Arguments> validRequestProvider() {
+        return Stream.of(
+                Arguments.of(validRequest().build()),
+                Arguments.of(onlyCategoryRequest().build()),
+                Arguments.of(onlySubCategoryRequest().build()),
+                Arguments.of(validRequest().bufferRouteInMeters((long) PlaceRouteRequest.MAX_BUFFER).build()),
+                Arguments.of(validRequest().bufferStoppingPointsInMeters((long) PlaceRouteRequest.MAX_BUFFER).build())
+        );
+    }
+
+    private static PlaceRouteRequest.PlaceRouteRequestBuilder validRequest() {
+        return PlaceRouteRequest.builder()
+                .bufferRouteInMeters(10L)
+                .bufferStoppingPointsInMeters(10L)
+                .category(Category.POSTOS_DE_COMBUSTIVEL)
+                .subCategory(POSTOS_DE_COMBUSTIVEL);
+    }
+
+    private static PlaceRouteRequest.PlaceRouteRequestBuilder onlyCategoryRequest() {
+        return PlaceRouteRequest.builder()
+                .bufferRouteInMeters(10L)
+                .bufferStoppingPointsInMeters(10L)
+                .category(Category.POSTOS_DE_COMBUSTIVEL);
+    }
+
+    private static PlaceRouteRequest.PlaceRouteRequestBuilder onlySubCategoryRequest() {
+        return PlaceRouteRequest.builder()
+                .bufferRouteInMeters(10L)
+                .bufferStoppingPointsInMeters(10L)
+                .subCategory(POSTOS_DE_COMBUSTIVEL);
+    }
+
+    private static PlaceRouteRequest.PlaceRouteRequestBuilder noCategoriesRequest() {
+        return PlaceRouteRequest.builder()
+                .bufferRouteInMeters(10L)
+                .bufferStoppingPointsInMeters(10L);
     }
 }

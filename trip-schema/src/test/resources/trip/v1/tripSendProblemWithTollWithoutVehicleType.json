@@ -1,0 +1,9 @@
+{
+  "profileName": "MAPLINKBR",
+  "points": [
+    {"siteId": "Start", "latitude": -13.8169976, "longitude": -56.0884274},
+    {"siteId": "End",   "latitude": -12.5407237, "longitude": -55.7226752}
+  ],
+  "calculationMode": "THE_FASTEST",
+  "toll": {}
+}

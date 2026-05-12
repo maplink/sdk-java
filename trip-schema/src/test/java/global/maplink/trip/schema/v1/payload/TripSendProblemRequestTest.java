@@ -1,31 +1,33 @@
 package global.maplink.trip.schema.v1.payload;
 
 import global.maplink.json.JsonMapper;
+import global.maplink.trip.schema.v1.exception.TripViolation;
 import global.maplink.trip.schema.v2.problem.SitePoint;
+import global.maplink.trip.testUtils.V1SampleFiles;
+import global.maplink.validations.ValidationException;
+import global.maplink.validations.ValidationViolation;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 
 import java.math.BigDecimal;
+import java.util.List;
+import java.util.stream.Stream;
 
-import static global.maplink.trip.schema.v1.exception.TripErrorType.*;
 import static global.maplink.trip.schema.v1.payload.AvoidanceType.*;
 import static global.maplink.trip.schema.v1.payload.LoadType.*;
 import static global.maplink.trip.schema.v1.payload.RoadType.*;
-import static global.maplink.trip.schema.v1.payload.RoadType.FERRY;
-import static global.maplink.trip.schema.v1.payload.RoadType.HIGHWAY;
-import static global.maplink.trip.schema.v1.payload.RoadType.LOCAL_ROAD;
-import static global.maplink.trip.schema.v1.payload.RoadType.PENALIZED_LOCAL_ROAD;
-import static global.maplink.trip.schema.v1.payload.RoadType.PENALIZED_SECONDARY_ROAD;
-import static global.maplink.trip.schema.v1.payload.RoadType.SECONDARY_ROAD;
 import static global.maplink.trip.schema.v2.problem.CalculationMode.THE_FASTEST;
-import static global.maplink.trip.testUtils.V1SampleFiles.INVALID_TRIP_PROBLEM;
-import static global.maplink.trip.testUtils.V1SampleFiles.VALID_TRIP_PROBLEM;
+import static global.maplink.trip.testUtils.V1SampleFiles.*;
+import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 import static org.assertj.core.api.Assertions.assertThat;
 
 class TripSendProblemRequestTest {
     private final JsonMapper mapper = JsonMapper.loadDefault();
 
     @Test
-    void shouldDeserialize(){
+    void shouldDeserialize() {
         TripSendProblemRequest tripProblem = mapper.fromJson(VALID_TRIP_PROBLEM.load(), TripSendProblemRequest.class);
 
         assertThat(tripProblem).isNotNull();
@@ -126,12 +128,34 @@ class TripSendProblemRequestTest {
         assertThat(tripProblem.validate()).isEmpty();
     }
 
-    @Test
-    void shouldValidateReturnNotEmptyErrorArray(){
-        TripSendProblemRequest tripProblem = mapper.fromJson(INVALID_TRIP_PROBLEM.load(), TripSendProblemRequest.class);
-        assertThat(tripProblem.validate()).isNotEmpty();
-        assertThat(tripProblem.validate()).containsExactlyInAnyOrder(
-                PROFILE_NAME_EMPTY, CALLBACK_DOES_NOT_HAVE_URL, ROAD_TYPE_ELEMENTS_EMPTY, TURN_BY_TURN_LANGUAGE_NOT_FOUND
+    @ParameterizedTest
+    @MethodSource("invalidRequestProvider")
+    void shouldRejectInvalidRequest(V1SampleFiles sampleFile, String expectedMessage) {
+        TripSendProblemRequest request = mapper.fromJson(sampleFile.load(), TripSendProblemRequest.class);
+        List<ValidationViolation> violations = request.validate();
+
+        assertThatThrownBy(request::throwIfInvalid).isInstanceOf(ValidationException.class);
+        assertThat(violations).hasSize(1);
+        assertThat(violations.get(0)).isInstanceOf(TripViolation.class);
+        assertThat(violations.get(0).getMessage()).isEqualTo(expectedMessage);
+    }
+
+    @ParameterizedTest
+    @MethodSource("invalidRequestProvider")
+    void shouldSerializeViolationMessageCorrectly(V1SampleFiles sampleFile, String expectedMessage) {
+        TripSendProblemRequest request = mapper.fromJson(sampleFile.load(), TripSendProblemRequest.class);
+        String serialized = mapper.toJsonString(request.validate());
+        assertThat(serialized).contains("\"message\":\"" + expectedMessage + "\"");
+    }
+
+    static Stream<Arguments> invalidRequestProvider() {
+        return Stream.of(
+                Arguments.of(TRIP_SEND_PROBLEM_WITH_NULL_PROFILE_NAME, "Field profileName should not be empty"),
+                Arguments.of(TRIP_SEND_PROBLEM_WITH_CALLBACK_WITHOUT_URL, "Callback parameters must have an url"),
+                Arguments.of(TRIP_SEND_PROBLEM_WITH_TOLL_WITHOUT_VEHICLE_TYPE, "Toll parameters must have a vehicleType"),
+                Arguments.of(TRIP_SEND_PROBLEM_WITH_CROSSED_BORDERS_WITHOUT_LEVEL, "CrossedBorders parameters must have a level"),
+                Arguments.of(TRIP_SEND_PROBLEM_WITH_INCOMPLETE_SPEED_PREFERENCES, "SpeedPreferences should contain one element for each roadType"),
+                Arguments.of(TRIP_SEND_PROBLEM_WITH_NULL_TURN_BY_TURN_LANGUAGE, "TurnByTurn language cannot be null")
         );
     }
 }

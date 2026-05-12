@@ -1,0 +1,28 @@
+{
+  "id": "INTERNAL_ID",
+  "number": "1232132132143438",
+  "description": "Product Test",
+  "estimatedArrival": "2022-11-22T10:00:00",
+  "companyName": "Maplink",
+  "status": {
+    "value": "ON_THE_WAY",
+    "label": "Pedido em trânsito"
+  },
+  "destination": {
+    "road": "R. Menina Rosana",
+    "number": "70",
+    "city": "Itajaí",
+    "zipCode": "88304250",
+    "state": {
+      "code": "SC",
+      "name": "Santa Catarina"
+    }
+  },
+  "driver": {
+    "name": "Maplink BR",
+    "currentLocation": {
+      "lat": -23.564515,
+      "lon": -46.652681
+    }
+  }
+}

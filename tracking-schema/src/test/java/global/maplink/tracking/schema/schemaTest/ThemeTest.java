@@ -1,19 +1,32 @@
 package global.maplink.tracking.schema.schemaTest;
 
 import global.maplink.json.JsonMapper;
-import global.maplink.tracking.schema.domain.Audit;
 import global.maplink.tracking.schema.domain.Theme;
+import global.maplink.tracking.schema.errors.TrackingViolation;
+import global.maplink.tracking.schema.testUtils.SampleFiles;
+import global.maplink.validations.ValidationException;
+import global.maplink.validations.ValidationViolation;
 import lombok.var;
+
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 
 import java.time.Instant;
+import java.util.List;
 import java.util.Locale;
-
-import static global.maplink.tracking.schema.errors.ValidationErrorType.*;
+import java.util.stream.Stream;
 import static global.maplink.tracking.schema.testUtils.SampleFiles.TRACKING_THEME;
-import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static global.maplink.tracking.schema.testUtils.SampleFiles.TRACKING_THEME_WITH_BLANK_ID;
+import static global.maplink.tracking.schema.testUtils.SampleFiles.TRACKING_THEME_WITH_INVALID_COLOR;
+import static global.maplink.tracking.schema.testUtils.SampleFiles.TRACKING_THEME_WITH_NULL_COLOR;
+import static global.maplink.tracking.schema.testUtils.SampleFiles.TRACKING_THEME_WITH_NULL_ID;
+import static global.maplink.tracking.schema.testUtils.SampleFiles.TRACKING_THEME_WITH_NULL_LANGUAGE;
+import static global.maplink.tracking.schema.testUtils.SampleFiles.TRACKING_THEME_WITH_SHORT_HEX_COLOR;
+import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
+import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-
 
 public class ThemeTest {
 
@@ -34,86 +47,44 @@ public class ThemeTest {
     }
 
     @Test
-    public void isValidHexadecimalCorrect() {
-        Theme theme = Theme.builder()
-                .id("default")
-                .logo("cutomize Theme")
-                .color("#1AFFa1")
-                .language(new Locale("pt", "BR"))
-                .audit(Audit.builder()
-                        .createdAt(Instant.parse("2022-11-28T16:00:00.120Z"))
-                        .updatedAt(Instant.parse("2022-11-28T16:30:00.120Z"))
-                        .build())
-                .build();
-
-        assertDoesNotThrow(theme::validate);
+    void shouldValidate() {
+        Theme theme = mapper.fromJson(TRACKING_THEME.load(), Theme.class);
+        assertThat(theme.validate()).isEmpty();
     }
 
     @Test
-    public void isValidHexadecimalIncorrect() {
-        Theme theme = Theme.builder()
-                .id("default")
-                .logo("cutomize Theme")
-                .color("1AFFa1####")
-                .language(new Locale("pt", "BR"))
-                .audit(Audit.builder()
-                        .createdAt(Instant.parse("2022-11-28T16:00:00.120Z"))
-                        .updatedAt(Instant.parse("2022-11-28T16:30:00.120Z"))
-                        .build())
-                .build();
-
-        var errors = theme.validate();
-        assertEquals(THEME_COLOR_INCORRECT, errors.get(0));
+    void shouldAcceptShortHexadecimalColor() {
+        Theme theme = mapper.fromJson(TRACKING_THEME_WITH_SHORT_HEX_COLOR.load(), Theme.class);
+        assertThat(theme.validate()).isEmpty();
     }
 
-    @Test
-    public void isValidateColorNull() {
-        Theme theme = Theme.builder()
-                .id("default")
-                .logo("cutomize Theme")
-                .color(null)
-                .language(new Locale("pt", "BR"))
-                .audit(Audit.builder()
-                        .createdAt(Instant.parse("2022-11-28T16:00:00.120Z"))
-                        .updatedAt(Instant.parse("2022-11-28T16:30:00.120Z"))
-                        .build())
-                .build();
+    @ParameterizedTest
+    @MethodSource("invalidThemeProvider")
+    void shouldRejectInvalidTheme(SampleFiles sampleFile, String expectedMessage) {
+        Theme theme = mapper.fromJson(sampleFile.load(), Theme.class);
+        List<ValidationViolation> violations = theme.validate();
 
-        var errors = theme.validate();
-        assertEquals(THEME_COLOR_NOTNULL, errors.get(0));
+        assertThatThrownBy(theme::throwIfInvalid).isInstanceOf(ValidationException.class);
+        assertThat(violations).hasSize(1);
+        assertThat(violations.get(0)).isInstanceOf(TrackingViolation.class);
+        assertThat(violations.get(0).getMessage()).isEqualTo(expectedMessage);
     }
 
-    @Test
-    public void isValidateIdNull() {
-        Theme theme = Theme.builder()
-                .id(null)
-                .logo("cutomize Theme")
-                .color("#1AFFa1")
-                .language(new Locale("pt", "BR"))
-                .audit(Audit.builder()
-                        .createdAt(Instant.parse("2022-11-28T16:00:00.120Z"))
-                        .updatedAt(Instant.parse("2022-11-28T16:30:00.120Z"))
-                        .build())
-                .build();
-
-        var errors = theme.validate();
-        assertEquals(THEME_ID_NOTNULL, errors.get(0));
+    @ParameterizedTest
+    @MethodSource("invalidThemeProvider")
+    void shouldSerializeViolationMessageCorrectly(SampleFiles sampleFile, String expectedMessage) {
+        Theme theme = mapper.fromJson(sampleFile.load(), Theme.class);
+        String serialized = mapper.toJsonString(theme.validate());
+        assertThat(serialized).contains("\"message\":\"" + expectedMessage + "\"");
     }
 
-    @Test
-    public void isValidateLanguageNull() {
-        Theme theme = Theme.builder()
-                .id("default")
-                .logo("cutomize Theme")
-                .color("#1AFFa1")
-                .language(null)
-                .audit(Audit.builder()
-                        .createdAt(Instant.parse("2022-11-28T16:00:00.120Z"))
-                        .updatedAt(Instant.parse("2022-11-28T16:30:00.120Z"))
-                        .build())
-                .build();
-
-        var errors = theme.validate();
-        assertEquals(THEME_LANGUAGE_NOTNULL, errors.get(0));
+    static Stream<Arguments> invalidThemeProvider() {
+        return Stream.of(
+                Arguments.of(TRACKING_THEME_WITH_NULL_ID,         "id cannot be null"),
+                Arguments.of(TRACKING_THEME_WITH_BLANK_ID,        "id cannot be null"),
+                Arguments.of(TRACKING_THEME_WITH_NULL_LANGUAGE,   "language cannot be null"),
+                Arguments.of(TRACKING_THEME_WITH_NULL_COLOR,      "color cannot be null"),
+                Arguments.of(TRACKING_THEME_WITH_INVALID_COLOR,   "color must be a valid hexadecimal value, like #000000")
+        );
     }
 }
