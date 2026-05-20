@@ -34,6 +34,7 @@ public class CalculationDetailTest {
         assertEquals("SP", calculationDetail.getState().getCode());
 
         assertEquals("Brasil", calculationDetail.getCountry());
+        assertEquals("REAL", calculationDetail.getCurrency());
         assertEquals("IDK", calculationDetail.getConcession());
         assertEquals(TollDirection.NORTH, calculationDetail.getDirection());
 
@@ -88,9 +89,18 @@ public class CalculationDetailTest {
 
         assertEquals(0, new BigDecimal("616.0").compareTo(result.getPrice()));
         assertEquals(EXIT_GANTRY, result.getType());
+        assertEquals("PESO", result.getCurrency());
         assertEquals("35693564", result.getSegmentId());
         assertEquals("3569", result.getEntryGantryId());
         assertEquals("Pórtico - Entrada - Martín de Zamora", result.getEntryGantryName());
+    }
+
+    @Test
+    void shouldDefaultCurrencyToNullWhenAbsent() {
+        byte[] json = "{\"id\":\"1\",\"name\":\"NO_CURRENCY\"}".getBytes();
+        CalculationDetail result = mapper.fromJson(json, CalculationDetail.class);
+
+        assertNull(result.getCurrency());
     }
 
     @Test

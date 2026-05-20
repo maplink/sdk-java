@@ -12,6 +12,7 @@
             "code": "RJ"
           },
           "country": "Brasil",
+          "currency": "REAL",
           "concession": "teste",
           "direction": "NORTHEAST",
           "coordinates": {

@@ -24,6 +24,7 @@ public class CalculationDetail {
     private final String city;
     private final State state;
     private final String country;
+    private final String currency;
     private final String concession;
     private final TollDirection direction;
     private final MaplinkPoint coordinates;

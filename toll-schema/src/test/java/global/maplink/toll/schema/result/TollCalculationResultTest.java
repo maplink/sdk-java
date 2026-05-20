@@ -25,6 +25,7 @@ class TollCalculationResultTest {
         val firstLeg = data.getLegs().get(0);
         assertThat(firstLeg.getLegTotalCost()).isCloseTo(TEN, offset(OFFSET));
         assertThat(firstLeg.getTolls()).hasSize(1).first().extracting(CalculationDetail::getId).isEqualTo("123");
+        assertThat(firstLeg.getTolls()).first().extracting(CalculationDetail::getCurrency).isEqualTo("REAL");
 
     }
 }
