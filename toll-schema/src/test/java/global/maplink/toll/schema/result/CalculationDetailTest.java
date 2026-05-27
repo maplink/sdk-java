@@ -34,6 +34,7 @@ public class CalculationDetailTest {
         assertEquals("SP", calculationDetail.getState().getCode());
 
         assertEquals("Brasil", calculationDetail.getCountry());
+        assertEquals("REAL", calculationDetail.getCurrency());
         assertEquals("IDK", calculationDetail.getConcession());
         assertEquals(TollDirection.NORTH, calculationDetail.getDirection());
 
@@ -88,9 +89,66 @@ public class CalculationDetailTest {
 
         assertEquals(0, new BigDecimal("616.0").compareTo(result.getPrice()));
         assertEquals(EXIT_GANTRY, result.getType());
+        assertEquals("PESO", result.getCurrency());
         assertEquals("35693564", result.getSegmentId());
         assertEquals("3569", result.getEntryGantryId());
         assertEquals("Pórtico - Entrada - Martín de Zamora", result.getEntryGantryName());
+    }
+
+    @Test
+    void shouldDefaultOptionalFieldsWhenNotSet() {
+        CalculationDetail detail = CalculationDetail.builder().build();
+
+        assertNull(detail.getCurrency());
+        assertNull(detail.getMultiplier());
+        assertFalse(detail.isActive());
+    }
+
+    @Test
+    void shouldBuildWithProvidedValues() {
+        MaplinkPoint coordinates = new MaplinkPoint(-23.5666499, -46.6557755);
+        State state = State.builder().name("Sao Paulo").code("SP").build();
+        TollServiceType serviceType = TollServiceType.builder().serviceId("301").name("Via Facil").build();
+
+        CalculationDetail detail = CalculationDetail.builder()
+                .id("123")
+                .type(EXIT_GANTRY)
+                .name("MAIN")
+                .address("calculationDetailAddress")
+                .city("Sao Paulo")
+                .state(state)
+                .country("Brasil")
+                .currency("REAL")
+                .concession("IDK")
+                .direction(TollDirection.NORTH)
+                .coordinates(coordinates)
+                .serviceTypes(Collections.singletonList(serviceType))
+                .price(new BigDecimal("59.7"))
+                .segmentId("35693564")
+                .entryGantryId("3569")
+                .entryGantryName("Pórtico - Entrada")
+                .active(true)
+                .multiplier(2)
+                .build();
+
+        assertEquals("123", detail.getId());
+        assertEquals(EXIT_GANTRY, detail.getType());
+        assertEquals("MAIN", detail.getName());
+        assertEquals("calculationDetailAddress", detail.getAddress());
+        assertEquals("Sao Paulo", detail.getCity());
+        assertEquals(state, detail.getState());
+        assertEquals("Brasil", detail.getCountry());
+        assertEquals("REAL", detail.getCurrency());
+        assertEquals("IDK", detail.getConcession());
+        assertEquals(TollDirection.NORTH, detail.getDirection());
+        assertEquals(coordinates, detail.getCoordinates());
+        assertEquals(Collections.singletonList(serviceType), detail.getServiceTypes());
+        assertEquals(0, new BigDecimal("59.7").compareTo(detail.getPrice()));
+        assertEquals("35693564", detail.getSegmentId());
+        assertEquals("3569", detail.getEntryGantryId());
+        assertEquals("Pórtico - Entrada", detail.getEntryGantryName());
+        assertTrue(detail.isActive());
+        assertEquals(2, detail.getMultiplier());
     }
 
     @Test
