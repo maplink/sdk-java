@@ -96,11 +96,12 @@ public class CalculationDetailTest {
     }
 
     @Test
-    void shouldDefaultCurrencyToNullWhenAbsent() {
-        byte[] json = "{\"id\":\"1\",\"name\":\"NO_CURRENCY\"}".getBytes();
-        CalculationDetail result = mapper.fromJson(json, CalculationDetail.class);
+    void shouldDefaultOptionalFieldsWhenNotSet() {
+        CalculationDetail detail = CalculationDetail.builder().build();
 
-        assertNull(result.getCurrency());
+        assertNull(detail.getCurrency());
+        assertNull(detail.getMultiplier());
+        assertFalse(detail.isActive());
     }
 
     @Test
