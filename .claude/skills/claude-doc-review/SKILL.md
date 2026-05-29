@@ -1,5 +1,13 @@
 ---
 name: claude-doc-review
-description: Revisa doc no SDK Java.
+description: Revisa docs do sdk-java conforme mudancas de schema ou cliente.
 ---
-PASS
+
+# Doc Review — sdk-java
+
+BLOCK quando:
+- novo módulo de schema adicionado sem atualizar README
+- mudança de API de cliente sem atualizar docs/flows
+
+PASS quando:
+- mudança interna sem impacto de contrato público

@@ -1,20 +1,49 @@
 service:
   name: sdk-java
-  description: SDK Java central (schemas, dtos e clientes) da plataforma.
+  description: Biblioteca Java multi-modulo de schemas, POJOs e clientes HTTP da plataforma Maplink.
   language: java
   framework: plain-java
   build_tool: maven
+  type: library
 
 docs:
   readme: README.md
-  relevant_docs:
-    - docs/contexts/sdk-java-context.md
+  context: docs/contexts/sdk-java-context.md
+  architecture: docs/contexts/00-architecture-overview.md
+  flows:
+    - docs/flows/01-schema-usage-flow.md
+    - docs/flows/02-http-client-usage-flow.md
+
+modules:
+  - core
+  - core-defaults
+  - geocode
+  - geocode-schema
+  - geocode-extensions
+  - freight
+  - freight-schema
+  - toll
+  - toll-schema
+  - trip
+  - trip-schema
+  - place
+  - place-schema
+  - emission
+  - emission-schema
+  - restriction-zone-schema
+  - tracking-schema
+  - planning-schema
+  - json-mapper-jackson
+  - http-engine-java11-client
 
 doc_sensitive_paths:
+  - "**/schema/**/*.java"
   - "**/*.java"
   - README.md
 
 ai_review:
   focus:
-    - Alterações de Schema (não quebrar compatibilidade retroativa)
-    - Padrões de Builder e Jackson Mappers
+    - Alteracoes de Schema nao devem quebrar compatibilidade retroativa
+    - Novos campos devem ser Optional ou ter valor default
+    - Mudancas em json-mapper-jackson afetam todos os servicos consumidores
+    - Builder patterns devem ser mantidos para todos os schemas
