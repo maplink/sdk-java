@@ -43,7 +43,8 @@ class TripProblemTest {
 
         assertThat(errors)
                 .hasSize(1)
-                .contains(ROUTE_POINTS_LESS_THAN_TWO);
+                .extracting(ValidationViolation::getMessage)
+                .contains(ROUTE_POINTS_LESS_THAN_TWO.getMessage());
     }
 
     @Test

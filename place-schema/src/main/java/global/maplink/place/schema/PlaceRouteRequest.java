@@ -7,6 +7,7 @@ import global.maplink.http.request.Request;
 import global.maplink.http.request.RequestBody;
 import global.maplink.json.JsonMapper;
 import global.maplink.place.schema.exception.PlaceCalculationRequestException;
+import global.maplink.place.schema.exception.PlaceViolation;
 import global.maplink.validations.ValidationViolation;
 import lombok.*;
 
@@ -44,19 +45,19 @@ public class PlaceRouteRequest implements MapLinkServiceRequest<PlaceRouteRespon
         List<ValidationViolation> errors = new ArrayList<>();
 
         if (isNull(bufferRouteInMeters) || bufferRouteInMeters <= 0) {
-            errors.add(ROUTE_BUFFER_LESS_THAN_ZERO);
+            errors.add(PlaceViolation.of(ROUTE_BUFFER_LESS_THAN_ZERO));
         } else if (bufferRouteInMeters > MAX_BUFFER) {
-            errors.add(ROUTE_BUFFER_BIGGER_THAN_MAX_BUFFER);
+            errors.add(PlaceViolation.of(ROUTE_BUFFER_BIGGER_THAN_MAX_BUFFER));
         }
 
         if (isNull(bufferStoppingPointsInMeters) || bufferStoppingPointsInMeters <= 0) {
-            errors.add(STOPPING_POINTS_LESS_THAN_ZERO);
+            errors.add(PlaceViolation.of(STOPPING_POINTS_LESS_THAN_ZERO));
         } else if (bufferStoppingPointsInMeters > MAX_BUFFER) {
-            errors.add(STOPPING_POINTS_BIGGER_THAN_MAX_BUFFER);
+            errors.add(PlaceViolation.of(STOPPING_POINTS_BIGGER_THAN_MAX_BUFFER));
         }
 
         if (!containsCategory() && !containsSubCategory()) {
-            errors.add(CATEGORY_SUBCATEGORY_NECESSARY);
+            errors.add(PlaceViolation.of(CATEGORY_SUBCATEGORY_NECESSARY));
         }
 
         return errors;

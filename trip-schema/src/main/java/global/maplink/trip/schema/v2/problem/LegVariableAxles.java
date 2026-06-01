@@ -1,6 +1,7 @@
 package global.maplink.trip.schema.v2.problem;
 
 import global.maplink.toll.schema.TollVehicleType;
+import global.maplink.trip.schema.v1.exception.TripViolation;
 import global.maplink.trip.schema.v1.exception.violations.CoincidentFromSiteIdAndToSiteIdViolation;
 import global.maplink.validations.Validable;
 import global.maplink.validations.ValidationViolation;
@@ -30,12 +31,12 @@ public class LegVariableAxles implements Validable {
         List<ValidationViolation> errors = new ArrayList<>();
 
         if (isNull(fromSiteId)){
-            errors.add(VARIABLE_AXLES_FROMSITEID_EMPTY);
+            errors.add(TripViolation.of(VARIABLE_AXLES_FROMSITEID_EMPTY));
             return errors;
         }
 
         if (isNull(toSiteId)){
-            errors.add(VARIABLE_AXLES_TOSITEID_EMPTY);
+            errors.add(TripViolation.of(VARIABLE_AXLES_TOSITEID_EMPTY));
             return errors;
         }
 

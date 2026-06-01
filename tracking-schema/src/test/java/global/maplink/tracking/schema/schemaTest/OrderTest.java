@@ -7,6 +7,7 @@ import global.maplink.json.JsonMapper;
 import global.maplink.tracking.schema.domain.Driver;
 import global.maplink.tracking.schema.domain.Order;
 import global.maplink.tracking.schema.domain.OrderStatus;
+import global.maplink.validations.ValidationViolation;
 import lombok.val;
 import lombok.var;
 import org.junit.jupiter.api.Test;
@@ -86,7 +87,7 @@ class OrderTest {
                 .build();
 
         var errors = order.validate();
-        assertEquals(TRACKING_DESCRIPTION_NOTNULL, errors.get(0));
+        assertEquals(TRACKING_DESCRIPTION_NOTNULL.getMessage(), errors.get(0).getMessage());
     }
 
     @Test
@@ -113,7 +114,7 @@ class OrderTest {
                 .build();
 
         var errors = order.validate();
-        assertEquals(TRACKING_ADDRESS_MAINLOCATION_NOTNULL, errors.get(0));
+        assertEquals(TRACKING_ADDRESS_MAINLOCATION_NOTNULL.getMessage(), errors.get(0).getMessage());
     }
 
     @Test
@@ -140,7 +141,7 @@ class OrderTest {
                 .build();
 
         var errors = order.validate();
-        assertEquals(TRACKING_DRIVER_CURRENTLOCATION_NOTNULL, errors.get(0));
+        assertEquals(TRACKING_DRIVER_CURRENTLOCATION_NOTNULL.getMessage(), errors.get(0).getMessage());
     }
 
     @Test
@@ -169,7 +170,7 @@ class OrderTest {
                 .build();
 
         var errors = order.validate();
-        assertEquals(TRACKING_STATUS_LABEL_NOTNULL, errors.get(0));
+        assertEquals(TRACKING_STATUS_LABEL_NOTNULL.getMessage(), errors.get(0).getMessage());
     }
 
     @Test
@@ -187,10 +188,12 @@ class OrderTest {
                         .build())
                 .build();
 
-        assertThat(order.validate()).containsExactlyInAnyOrder(
-                TRACKING_STATUS_VALUE_NOTNULL,
-                TRACKING_DESTINATION_NOTNULL
-        );
+        assertThat(order.validate())
+                .extracting(ValidationViolation::getMessage)
+                .containsExactlyInAnyOrder(
+                        TRACKING_STATUS_VALUE_NOTNULL.getMessage(),
+                        TRACKING_DESTINATION_NOTNULL.getMessage()
+                );
     }
 
     @Test
@@ -213,11 +216,12 @@ class OrderTest {
 
         assertThat(order.validate())
                 .hasSize(4)
+                .extracting(ValidationViolation::getMessage)
                 .containsExactlyInAnyOrder(
-                        TRACKING_DESCRIPTION_NOTNULL,
-                        TRACKING_ADDRESS_MAINLOCATION_NOTNULL,
-                        TRACKING_DRIVER_CURRENTLOCATION_NOTNULL,
-                        TRACKING_STATUS_VALUE_NOTNULL
+                        TRACKING_DESCRIPTION_NOTNULL.getMessage(),
+                        TRACKING_ADDRESS_MAINLOCATION_NOTNULL.getMessage(),
+                        TRACKING_DRIVER_CURRENTLOCATION_NOTNULL.getMessage(),
+                        TRACKING_STATUS_VALUE_NOTNULL.getMessage()
                 );
     }
 

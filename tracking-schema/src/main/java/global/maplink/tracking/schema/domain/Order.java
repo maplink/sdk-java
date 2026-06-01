@@ -13,6 +13,8 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+import global.maplink.tracking.schema.errors.TrackingViolation;
+
 import static global.maplink.tracking.schema.errors.GeoPointValidator.validateGeoPoint;
 import static global.maplink.tracking.schema.errors.ValidationErrorType.*;
 import static java.util.Objects.isNull;
@@ -43,7 +45,7 @@ public class Order implements Validable {
         List<ValidationViolation> errors = new ArrayList<>();
 
         if (isInvalidDescription(description)) {
-            errors.add(TRACKING_DESCRIPTION_NOTNULL);
+            errors.add(TrackingViolation.of(TRACKING_DESCRIPTION_NOTNULL));
         }
 
         if (nonNull(origin)) {
@@ -51,7 +53,7 @@ public class Order implements Validable {
         }
 
         if (isNull(destination)) {
-            errors.add(TRACKING_DESTINATION_NOTNULL);
+            errors.add(TrackingViolation.of(TRACKING_DESTINATION_NOTNULL));
         }else{
             errors.addAll(validate(destination));
         }
@@ -74,7 +76,7 @@ public class Order implements Validable {
         }
 
         if (isNull(address.getMainLocation())) {
-            violations.add(TRACKING_ADDRESS_MAINLOCATION_NOTNULL);
+            violations.add(TrackingViolation.of(TRACKING_ADDRESS_MAINLOCATION_NOTNULL));
         } else {
             violations.addAll(validateGeoPoint(
                     address.getMainLocation(),

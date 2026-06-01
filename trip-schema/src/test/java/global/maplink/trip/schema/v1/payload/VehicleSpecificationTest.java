@@ -2,6 +2,7 @@ package global.maplink.trip.schema.v1.payload;
 
 import global.maplink.json.JsonMapper;
 import global.maplink.trip.schema.v1.exception.TripErrorType;
+import global.maplink.validations.ValidationViolation;
 import org.junit.jupiter.api.Test;
 
 import static global.maplink.trip.schema.v1.payload.LoadType.*;
@@ -38,6 +39,8 @@ public class VehicleSpecificationTest {
     void shouldValidateReturnNotEmptyErrorArray(){
         VehicleSpecification vehicleSpecification = mapper.fromJson(INVALID_VEHICLE_SPECIFICATION.load(), VehicleSpecification.class);
         assertThat(vehicleSpecification.validate()).isNotEmpty();
-        assertThat(vehicleSpecification.validate()).containsExactly(TripErrorType.VEHICLE_SPECIFICATION_CONTAINS_NEGATIVE_VALUE);
+        assertThat(vehicleSpecification.validate())
+                .extracting(ValidationViolation::getMessage)
+                .containsExactly(TripErrorType.VEHICLE_SPECIFICATION_CONTAINS_NEGATIVE_VALUE.getMessage());
     }
 }

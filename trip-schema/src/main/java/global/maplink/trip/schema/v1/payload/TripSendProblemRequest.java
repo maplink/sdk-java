@@ -10,6 +10,7 @@ import global.maplink.http.request.RequestBody;
 import global.maplink.json.JsonMapper;
 import global.maplink.place.schema.PlaceRouteRequest;
 import global.maplink.trip.schema.v1.exception.TripCalculationRequestException;
+import global.maplink.trip.schema.v1.exception.TripViolation;
 import global.maplink.trip.schema.v2.features.avoidance.AvoidanceBehavior;
 import global.maplink.trip.schema.v2.features.crossedBorders.CrossedBordersRequest;
 import global.maplink.trip.schema.v2.features.turnByTurn.TurnByTurnRequest;
@@ -83,19 +84,19 @@ public class TripSendProblemRequest extends TripProblem implements MapLinkServic
         List<ValidationViolation> errors = new ArrayList<>();
 
         if (profileName == null || profileName.isEmpty()) {
-            errors.add(PROFILE_NAME_EMPTY);
+            errors.add(TripViolation.of(PROFILE_NAME_EMPTY));
         }
 
         if (callback != null && callback.getUrl() == null) {
-            errors.add(CALLBACK_DOES_NOT_HAVE_URL);
+            errors.add(TripViolation.of(CALLBACK_DOES_NOT_HAVE_URL));
         }
 
         if (toll != null && toll.getVehicleType() == null) {
-            errors.add(TOLL_PARAMETERS_DOES_NOT_HAVE_VEHICLE_TYPE);
+            errors.add(TripViolation.of(TOLL_PARAMETERS_DOES_NOT_HAVE_VEHICLE_TYPE));
         }
 
         if (crossedBorders != null && crossedBorders.getLevel() == null) {
-            errors.add(CROSSED_BORDERS_DOES_NOT_HAVE_LEVEL);
+            errors.add(TripViolation.of(CROSSED_BORDERS_DOES_NOT_HAVE_LEVEL));
         }
 
         if (speedPreferences != null && !speedPreferences.isEmpty()) {
@@ -136,7 +137,7 @@ public class TripSendProblemRequest extends TripProblem implements MapLinkServic
                 .count();
 
         if (roadTypesCount != RoadType.values().length) {
-            errors.add(ROAD_TYPE_ELEMENTS_EMPTY);
+            errors.add(TripViolation.of(ROAD_TYPE_ELEMENTS_EMPTY));
         }
     }
 

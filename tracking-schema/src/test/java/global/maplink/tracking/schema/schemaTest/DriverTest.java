@@ -2,6 +2,7 @@ package global.maplink.tracking.schema.schemaTest;
 
 import global.maplink.geocode.schema.GeoPoint;
 import global.maplink.tracking.schema.domain.Driver;
+import global.maplink.validations.ValidationViolation;
 import lombok.val;
 import org.junit.jupiter.api.Test;
 
@@ -18,8 +19,8 @@ public class DriverTest {
 
         assertThat(driver.validate())
                 .hasSize(1)
-                .first()
-                .isEqualTo(TRACKING_DRIVER_CURRENTLOCATION_NOTNULL);
+                .extracting(ValidationViolation::getMessage)
+                .containsExactly(TRACKING_DRIVER_CURRENTLOCATION_NOTNULL.getMessage());
     }
 
     @Test
@@ -28,8 +29,8 @@ public class DriverTest {
 
         assertThat(driver.validate())
                 .hasSize(1)
-                .first()
-                .isEqualTo(TRACKING_DRIVER_CURRENTLOCATION_LATLON_NOTNULL);
+                .extracting(ValidationViolation::getMessage)
+                .containsExactly(TRACKING_DRIVER_CURRENTLOCATION_LATLON_NOTNULL.getMessage());
     }
 
     @Test
@@ -38,8 +39,8 @@ public class DriverTest {
 
         assertThat(driver.validate())
                 .hasSize(1)
-                .first()
-                .isEqualTo(TRACKING_DRIVER_CURRENTLOCATION_LATLON_NOTNULL);
+                .extracting(ValidationViolation::getMessage)
+                .containsExactly(TRACKING_DRIVER_CURRENTLOCATION_LATLON_NOTNULL.getMessage());
     }
 
     private Driver driverWith(GeoPoint point) {

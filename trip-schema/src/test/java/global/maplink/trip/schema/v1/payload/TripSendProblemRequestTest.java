@@ -2,6 +2,7 @@ package global.maplink.trip.schema.v1.payload;
 
 import global.maplink.json.JsonMapper;
 import global.maplink.trip.schema.v2.problem.SitePoint;
+import global.maplink.validations.ValidationViolation;
 import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
@@ -130,8 +131,13 @@ class TripSendProblemRequestTest {
     void shouldValidateReturnNotEmptyErrorArray(){
         TripSendProblemRequest tripProblem = mapper.fromJson(INVALID_TRIP_PROBLEM.load(), TripSendProblemRequest.class);
         assertThat(tripProblem.validate()).isNotEmpty();
-        assertThat(tripProblem.validate()).containsExactlyInAnyOrder(
-                PROFILE_NAME_EMPTY, CALLBACK_DOES_NOT_HAVE_URL, ROAD_TYPE_ELEMENTS_EMPTY, TURN_BY_TURN_LANGUAGE_NOT_FOUND
-        );
+        assertThat(tripProblem.validate())
+                .extracting(ValidationViolation::getMessage)
+                .containsExactlyInAnyOrder(
+                        PROFILE_NAME_EMPTY.getMessage(),
+                        CALLBACK_DOES_NOT_HAVE_URL.getMessage(),
+                        ROAD_TYPE_ELEMENTS_EMPTY.getMessage(),
+                        TURN_BY_TURN_LANGUAGE_NOT_FOUND.getMessage()
+                );
     }
 }

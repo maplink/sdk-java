@@ -15,6 +15,7 @@ import static java.util.Optional.ofNullable;
 import global.maplink.emission.schema.EmissionRequest;
 import global.maplink.freight.schema.FreightCalculationRequest;
 import global.maplink.place.schema.PlaceRouteRequest;
+import global.maplink.trip.schema.v1.exception.TripViolation;
 import global.maplink.trip.schema.v1.payload.AvoidanceType;
 import global.maplink.trip.schema.v1.payload.SpeedPreference;
 import global.maplink.trip.schema.v2.features.avoidance.AvoidanceBehavior;
@@ -96,7 +97,7 @@ public class TripProblem implements Validable {
         List<ValidationViolation> errors = new LinkedList<>();
 
         if (points != null && points.size() < 2) {
-            errors.add(ROUTE_POINTS_LESS_THAN_TWO);
+            errors.add(TripViolation.of(ROUTE_POINTS_LESS_THAN_TWO));
         }
 
         if (toll != null) {

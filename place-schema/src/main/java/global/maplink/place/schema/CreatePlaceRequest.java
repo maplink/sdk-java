@@ -6,6 +6,7 @@ import global.maplink.http.Response;
 import global.maplink.http.request.Request;
 import global.maplink.http.request.RequestBody;
 import global.maplink.json.JsonMapper;
+import global.maplink.place.schema.exception.PlaceViolation;
 import global.maplink.validations.Validable;
 import global.maplink.validations.ValidationViolation;
 import lombok.EqualsAndHashCode;
@@ -46,7 +47,7 @@ public class CreatePlaceRequest implements MapLinkServiceRequest<Void>, Validabl
     public List<ValidationViolation> validate() {
         List<ValidationViolation> violations = new LinkedList<>();
         if (isNull(place)) {
-            violations.add(REQUIRED_FIELDS_INVALID);
+            violations.add(PlaceViolation.of(REQUIRED_FIELDS_INVALID));
         } else {
             violations.addAll(place.validate());
         }
