@@ -20,10 +20,10 @@ public class GeoPointValidator {
             ValidationErrorType nullLatLonError
     ) {
         if (isNull(geoPoint)) {
-            return singletonList(nullLocationError);
+            return singletonList(TrackingViolation.of(nullLocationError));
         }
         if (isNull(geoPoint.getLat()) || isNull(geoPoint.getLon())) {
-            return singletonList(nullLatLonError);
+            return singletonList(TrackingViolation.of(nullLatLonError));
         }
         return emptyList();
     }

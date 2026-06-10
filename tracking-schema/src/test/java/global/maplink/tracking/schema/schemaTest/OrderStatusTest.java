@@ -18,7 +18,7 @@ class OrderStatusTest {
                 .build();
 
         var errors = status.validate();
-        assertEquals(TRACKING_STATUS_LABEL_NOTNULL, errors.get(0));
+        assertEquals(TRACKING_STATUS_LABEL_NOTNULL.getMessage(), errors.get(0).getMessage());
     }
 
     @Test
@@ -28,7 +28,7 @@ class OrderStatusTest {
                 .build();
 
         var errors = status.validate();
-        assertEquals(TRACKING_STATUS_VALUE_NOTNULL, errors.get(0));
+        assertEquals(TRACKING_STATUS_VALUE_NOTNULL.getMessage(), errors.get(0).getMessage());
     }
 
     @Test
@@ -38,8 +38,8 @@ class OrderStatusTest {
 
         var errors = status.validate();
         assertEquals(2, errors.size());
-        assertEquals(TRACKING_STATUS_VALUE_NOTNULL, errors.get(0));
-        assertEquals(TRACKING_STATUS_LABEL_NOTNULL, errors.get(1));
+        assertEquals(TRACKING_STATUS_VALUE_NOTNULL.getMessage(), errors.get(0).getMessage());
+        assertEquals(TRACKING_STATUS_LABEL_NOTNULL.getMessage(), errors.get(1).getMessage());
     }
 
 }

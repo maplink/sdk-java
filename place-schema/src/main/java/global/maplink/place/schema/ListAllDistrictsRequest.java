@@ -5,6 +5,7 @@ import global.maplink.env.Environment;
 import global.maplink.http.Response;
 import global.maplink.http.request.Request;
 import global.maplink.json.JsonMapper;
+import global.maplink.place.schema.exception.PlaceViolation;
 import global.maplink.validations.ValidationViolation;
 import lombok.*;
 
@@ -44,10 +45,10 @@ public class ListAllDistrictsRequest implements MapLinkServiceRequest<List<Strin
     public List<ValidationViolation> validate() {
         List<ValidationViolation> violations = new LinkedList<>();
         if (isNull(state)) {
-            violations.add(REQUIRED_FIELD_STATE_INVALID);
+            violations.add(PlaceViolation.of(REQUIRED_FIELD_STATE_INVALID));
         }
         if (isNull(city)) {
-            violations.add(REQUIRED_FIELD_CITY_INVALID);
+            violations.add(PlaceViolation.of(REQUIRED_FIELD_CITY_INVALID));
         }
         return violations;
     }

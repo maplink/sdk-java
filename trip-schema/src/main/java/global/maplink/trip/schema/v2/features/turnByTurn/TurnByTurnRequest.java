@@ -1,6 +1,7 @@
 package global.maplink.trip.schema.v2.features.turnByTurn;
 
 
+import global.maplink.trip.schema.v1.exception.TripViolation;
 import global.maplink.validations.ValidationViolation;
 import lombok.Builder;
 import lombok.Data;
@@ -28,7 +29,7 @@ public class TurnByTurnRequest {
     public List<ValidationViolation> validate() {
         List<ValidationViolation> errors = new ArrayList<>();
         if (language == null) {
-            errors.add(TURN_BY_TURN_LANGUAGE_NOT_FOUND);
+            errors.add(TripViolation.of(TURN_BY_TURN_LANGUAGE_NOT_FOUND));
         }
         return errors;
     }

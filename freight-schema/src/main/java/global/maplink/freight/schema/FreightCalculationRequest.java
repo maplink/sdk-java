@@ -3,6 +3,7 @@ package global.maplink.freight.schema;
 import global.maplink.MapLinkServiceRequest;
 import global.maplink.env.Environment;
 import global.maplink.freight.schema.exception.FreightErrorType;
+import global.maplink.freight.schema.exception.FreightViolation;
 import global.maplink.http.Response;
 import global.maplink.http.request.Request;
 import global.maplink.http.request.RequestBody;
@@ -57,19 +58,19 @@ public class FreightCalculationRequest implements MapLinkServiceRequest<FreightC
         List<ValidationViolation> errors = new ArrayList<>();
 
         if (date == null) {
-            errors.add(FreightErrorType.DATE_FIELD_EMPTY);
+            errors.add(FreightViolation.of(FreightErrorType.DATE_FIELD_EMPTY));
         }
 
         if (operationType == null || operationType.isEmpty()) {
-            errors.add(FreightErrorType.OPERATION_TYPE_FIELD_EMPTY);
+            errors.add(FreightViolation.of(FreightErrorType.OPERATION_TYPE_FIELD_EMPTY));
         }
 
         if (goodsType == null || goodsType.isEmpty()) {
-            errors.add(FreightErrorType.GOODS_TYPE_FIELD_EMPTY);
+            errors.add(FreightViolation.of(FreightErrorType.GOODS_TYPE_FIELD_EMPTY));
         }
 
         if (axis == null || axis.isEmpty()) {
-            errors.add(FreightErrorType.AXIS_FIELD_EMPTY);
+            errors.add(FreightViolation.of(FreightErrorType.AXIS_FIELD_EMPTY));
         }
 
         return errors;

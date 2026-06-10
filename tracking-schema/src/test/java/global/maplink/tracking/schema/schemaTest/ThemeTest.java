@@ -63,7 +63,7 @@ public class ThemeTest {
                 .build();
 
         var errors = theme.validate();
-        assertEquals(THEME_COLOR_INCORRECT, errors.get(0));
+        assertEquals(THEME_COLOR_INCORRECT.getMessage(), errors.get(0).getMessage());
     }
 
     @Test
@@ -80,7 +80,7 @@ public class ThemeTest {
                 .build();
 
         var errors = theme.validate();
-        assertEquals(THEME_COLOR_NOTNULL, errors.get(0));
+        assertEquals(THEME_COLOR_NOTNULL.getMessage(), errors.get(0).getMessage());
     }
 
     @Test
@@ -97,7 +97,7 @@ public class ThemeTest {
                 .build();
 
         var errors = theme.validate();
-        assertEquals(THEME_ID_NOTNULL, errors.get(0));
+        assertEquals(THEME_ID_NOTNULL.getMessage(), errors.get(0).getMessage());
     }
 
     @Test
@@ -114,6 +114,6 @@ public class ThemeTest {
                 .build();
 
         var errors = theme.validate();
-        assertEquals(THEME_LANGUAGE_NOTNULL, errors.get(0));
+        assertEquals(THEME_LANGUAGE_NOTNULL.getMessage(), errors.get(0).getMessage());
     }
 }

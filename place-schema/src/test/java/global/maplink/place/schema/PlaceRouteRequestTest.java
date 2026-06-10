@@ -2,7 +2,9 @@ package global.maplink.place.schema;
 
 import global.maplink.json.JsonMapper;
 import global.maplink.place.schema.exception.PlaceCalculationRequestException;
+import global.maplink.place.schema.exception.PlaceErrorType;
 import global.maplink.validations.ValidationException;
+import global.maplink.validations.ValidationViolation;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
@@ -55,6 +57,13 @@ public class PlaceRouteRequestTest {
     void shouldValidateEmptyRequest() {
         PlaceRouteRequest emptyRequest = PlaceRouteRequest.builder().build();
         assertThat(emptyRequest.validate()).isNotEmpty().hasSize(3);
+        assertThat(emptyRequest.validate())
+                .extracting(ValidationViolation::getMessage)
+                .containsExactlyInAnyOrder(
+                        PlaceErrorType.ROUTE_BUFFER_LESS_THAN_ZERO.getMessage(),
+                        PlaceErrorType.STOPPING_POINTS_LESS_THAN_ZERO.getMessage(),
+                        PlaceErrorType.CATEGORY_SUBCATEGORY_NECESSARY.getMessage()
+                );
         assertThatThrownBy(emptyRequest::throwIfInvalid).isInstanceOf(ValidationException.class);
         assertThatThrownBy(emptyRequest::validateWithLegs).isInstanceOf(ValidationException.class);
     }
@@ -68,6 +77,12 @@ public class PlaceRouteRequestTest {
                 .subCategory(POSTOS_DE_COMBUSTIVEL)
                 .build();
         assertThat(tooBiRequest.validate()).isNotEmpty().hasSize(2);
+        assertThat(tooBiRequest.validate())
+                .extracting(ValidationViolation::getMessage)
+                .containsExactlyInAnyOrder(
+                        PlaceErrorType.ROUTE_BUFFER_BIGGER_THAN_MAX_BUFFER.getMessage(),
+                        PlaceErrorType.STOPPING_POINTS_BIGGER_THAN_MAX_BUFFER.getMessage()
+                );
         assertThatThrownBy(tooBiRequest::throwIfInvalid).isInstanceOf(ValidationException.class);
         assertThatThrownBy(tooBiRequest::validateWithLegs).isInstanceOf(ValidationException.class);
     }

@@ -1,6 +1,7 @@
 package global.maplink.trip.schema.v1.payload;
 
 import global.maplink.trip.schema.v1.exception.TripErrorType;
+import global.maplink.trip.schema.v1.exception.TripViolation;
 import global.maplink.validations.Validable;
 import global.maplink.validations.ValidationViolation;
 import lombok.*;
@@ -47,7 +48,7 @@ public class VehicleSpecification implements Validable {
 
         for (Double field : fields){
             if (field < 0) {
-                errors.add(TripErrorType.VEHICLE_SPECIFICATION_CONTAINS_NEGATIVE_VALUE);
+                errors.add(TripViolation.of(TripErrorType.VEHICLE_SPECIFICATION_CONTAINS_NEGATIVE_VALUE));
                 break;
             }
         }
