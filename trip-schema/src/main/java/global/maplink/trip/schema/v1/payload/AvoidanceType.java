@@ -7,5 +7,8 @@ public enum AvoidanceType {
     FRONTIERS,
     TOLL_ROADS,
     TOLL_GATES,
-    UNPAVED
+    UNPAVED,
+    RURAL,
+    RESIDENTIAL,
+    CITY
 }
