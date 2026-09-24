@@ -109,7 +109,7 @@ class TripSendProblemRequestTest {
                 );
 
         assertThat(tripProblem.getAvoidanceTypes()).containsExactlyInAnyOrder(TUNNELS, BRIDGES, FERRIES, FRONTIERS,
-                TOLL_ROADS, TOLL_GATES, UNPAVED);
+                TOLL_ROADS, TOLL_GATES, UNPAVED, RURAL, RESIDENTIAL, CITY);
 
         assertThat(tripProblem.getCallback())
                 .isEqualTo(
