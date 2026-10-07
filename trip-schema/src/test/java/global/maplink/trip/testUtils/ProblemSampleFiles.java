@@ -14,6 +14,7 @@ public enum ProblemSampleFiles {
     SITE_POINT("trip/v2/problem/json/sitePoint.json"),
     TOLL_REQUEST("trip/v2/problem/json/tollRequest.json"),
     TOLL_REQUEST_CONECTCAR("trip/v2/problem/json/tollRequest_Conectcar.json"),
+    TOLL_REQUEST_MOVE_MAIS_VELOE("trip/v2/problem/json/tollRequest_MoveMaisVeloe.json"),
     TOLL_REQUEST_INACTIVE("trip/v2/problem/json/tollRequest_Inactive.json"),
     TOLL_REQUEST_EXCLUDED_TOLL_TYPES("trip/v2/problem/json/tollRequest_ExcludedTollTypes.json"),
     TOLL_REQUEST_MULTIPLIER("trip/v2/problem/json/tollRequest_Multiplier.json"),
