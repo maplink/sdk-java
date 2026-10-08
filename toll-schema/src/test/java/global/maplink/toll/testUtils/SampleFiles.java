@@ -19,6 +19,7 @@ public enum SampleFiles {
     EXIT_GANTRY_DETAIL("toll/json/exitGantryDetail.json"),
     CALCULATION_REQUEST("toll/json/calculationRequest.json"),
     CALCULATION_REQUEST_CONECTCAR("toll/json/calculationRequest_Conectcar.json"),
+    CALCULATION_REQUEST_MOVE_MAIS_VELOE("toll/json/calculationRequest_MoveMaisVeloe.json"),
     CALCULATION_RESULT("toll/json/calculationResult.json"),
     CALCULATION_REQUEST_CONDITIONS("toll/json/calculationConditions.json"),
     CALCULATION_DATE_DEFAULT("toll/json/calculationDate.json"),

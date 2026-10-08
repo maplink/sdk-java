@@ -12,7 +12,9 @@ import java.util.Collections;
 import java.util.HashSet;
 
 import static global.maplink.commons.TransponderOperator.CONECTCAR;
+import static global.maplink.commons.TransponderOperator.MOVE_MAIS;
 import static global.maplink.commons.TransponderOperator.SEM_PARAR;
+import static global.maplink.commons.TransponderOperator.VELOE;
 import static global.maplink.toll.schema.Billing.FREE_FLOW;
 import static global.maplink.toll.schema.TollConditionBillingType.TAG;
 import static global.maplink.toll.schema.TollConditionPeriod.HOLIDAY;
@@ -34,6 +36,13 @@ class TollCalculationRequestTest {
         assertThat(data.getLegs())
                 .hasSize(1);
         assertThat(data.getTransponderOperators()).isEqualTo(new HashSet<>(Collections.singletonList(SEM_PARAR)));
+    }
+
+    @Test
+    void shouldDeserializeWithMoveMaisAndVeloeTransponderOperators() {
+        val data = mapper.fromJson(CALCULATION_REQUEST_MOVE_MAIS_VELOE.load(), TollCalculationRequest.class);
+
+        assertThat(data.getTransponderOperators()).containsExactlyInAnyOrder(CONECTCAR, SEM_PARAR, MOVE_MAIS, VELOE);
     }
 
     @Test

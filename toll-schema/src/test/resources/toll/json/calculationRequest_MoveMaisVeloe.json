@@ -1,0 +1,22 @@
+{
+  "transponderOperators": ["CONECTCAR", "SEM_PARAR", "MOVE_MAIS", "VELOE"],
+  "legs": [
+    {
+      "vehicleType": "TRUCK_WITH_TWO_DOUBLE_AXLES",
+      "points": [
+        {
+          "latitude": -23.465395,
+          "longitude": -46.375007
+        },
+        {
+          "latitude": -23.465957,
+          "longitude": -46.371015
+        },
+        {
+          "latitude": -23.467154,
+          "longitude": -46.36559
+        }
+      ]
+    }
+  ]
+}

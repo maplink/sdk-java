@@ -1,0 +1,4 @@
+{
+  "vehicleType": "TRUCK_WITH_FOUR_DOUBLE_AXLES",
+  "transponderOperators": ["SEM_PARAR", "CONECTCAR", "MOVE_MAIS", "VELOE"]
+}

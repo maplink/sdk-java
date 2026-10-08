@@ -13,7 +13,9 @@ import java.util.Collections;
 import java.util.HashSet;
 
 import static global.maplink.commons.TransponderOperator.CONECTCAR;
+import static global.maplink.commons.TransponderOperator.MOVE_MAIS;
 import static global.maplink.commons.TransponderOperator.SEM_PARAR;
+import static global.maplink.commons.TransponderOperator.VELOE;
 import static global.maplink.toll.schema.TollType.ENTRY_GANTRY;
 import static global.maplink.toll.schema.TollType.TOLL_GANTRY;
 import static global.maplink.trip.testUtils.ProblemSampleFiles.*;
@@ -42,6 +44,12 @@ public class TollRequestTest {
         assertEquals(TollVehicleType.TRUCK_WITH_TWO_SINGLE_AXIS, tollRequest.getVehicleType());
         assertEquals(Billing.FREE_FLOW, tollRequest.getBilling());
         assertEquals(new HashSet<>(Collections.singletonList(SEM_PARAR)), tollRequest.getTransponderOperators());
+    }
+
+    @Test
+    public void shouldDeserializeWithMoveMaisAndVeloeTransponderOperators() {
+        TollRequest tollRequest = mapper.fromJson(TOLL_REQUEST_MOVE_MAIS_VELOE.load(), TollRequest.class);
+        assertThat(tollRequest.getTransponderOperators()).containsExactlyInAnyOrder(SEM_PARAR, CONECTCAR, MOVE_MAIS, VELOE);
     }
 
     @Test

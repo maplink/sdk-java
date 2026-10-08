@@ -12,5 +12,7 @@ import java.util.List;
 @Getter
 public enum TransponderOperator {
     SEM_PARAR,
-    CONECTCAR;
+    CONECTCAR,
+    MOVE_MAIS,
+    VELOE;
 }
