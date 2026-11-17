@@ -5,8 +5,11 @@ public enum AvoidanceType {
     BRIDGES,
     FERRIES,
     FRONTIERS,
+    /**
+     * @deprecated Will be removed in a future major version. Currently equivalent to avoiding toll roads.
+     */
+    @Deprecated
     TOLL_ROADS,
-    TOLL_GATES,
     UNPAVED,
     RURAL,
     RESIDENTIAL,
